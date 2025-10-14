@@ -4,7 +4,7 @@ import re
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
-from .graph import GraphData
+from core import GraphData
 
 
 class KnowledgeGraphParser:

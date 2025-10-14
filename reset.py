@@ -7,10 +7,10 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-from src.graph import GraphData
-from src.loader import Neo4jLoader
-from src.pipeline_llm import run_llm_pipeline
-from src.pipeline_rule_based import run_rule_based_pipeline
+from core import GraphData
+from data import resolve_readme_path
+from loading import Neo4jLoader
+from pipelines import run_llm_pipeline, run_rule_based_pipeline
 
 
 def main() -> None:
@@ -27,6 +27,11 @@ def main() -> None:
         choices=["rule", "llm"],
         default="rule",
         help="Pipeline to use for rebuild (default: rule).",
+    )
+    parser.add_argument(
+        "--readme",
+        type=Path,
+        help="Path to the README/markdown file to parse (default: ctc-data-translated/readme-en.md).",
     )
     args = parser.parse_args()
 
@@ -50,9 +55,9 @@ def main() -> None:
     logger.info("Knowledge graph wiped.")
 
     if args.rebuild:
-        readme_path = Path(
-            os.getenv("CTC_README_PATH", "ctc-data-translated/readme-en.md")
-        )
+        readme_path, readme_source = resolve_readme_path(args.readme)
+        logger.info("Using README file (%s): %s", readme_source, readme_path)
+
         if not readme_path.exists():
             raise FileNotFoundError(f"README file not found at {readme_path}")
         if args.method == "rule":

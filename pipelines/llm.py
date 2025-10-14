@@ -2,38 +2,30 @@ from __future__ import annotations
 
 import logging
 from pathlib import Path
-from textwrap import dedent
-from typing import Optional
+from typing import Optional, Tuple
 
-from llm import generate_response
-from .loader import Neo4jLoader
-from .parser import KnowledgeGraphParser
-from .progress import ProgressBar
+from clients import generate_response
+from data import resolve_readme_path
+from loading import Neo4jLoader
+from parsing import KnowledgeGraphParser
+from prompts import (
+    build_mermaid_to_cypher_prompt,
+    build_summary_prompt,
+)
+from utils import ProgressBar
 
 logger = logging.getLogger(__name__)
 
 
-def _build_prompt(readme_contents: str) -> str:
-    return dedent(
-        f"""
-        You are a knowledge graph architect. Read the provided markdown documentation and
-        produce a concise summary that highlights:
-        - Key entities or modules mentioned.
-        - Important relationships or workflows.
-        - Any data structures, validation rules, or integration points.
-
-        Respond in markdown with clear headings and bullet points.
-
-        Documentation:
-        ---
-        {readme_contents}
-        ---
-        """
-    ).strip()
+def _build_prompt(readme_contents: str) -> Tuple[str, str]:
+    prompt = build_mermaid_to_cypher_prompt(readme_contents)
+    if prompt:
+        return prompt, "mermaid_to_cypher"
+    return build_summary_prompt(readme_contents), "summary"
 
 
 def run_llm_pipeline(
-    readme_path: Path,
+    readme_path: Optional[Path] = None,
     *,
     wipe: bool = False,
     neo4j_url: Optional[str] = None,
@@ -41,10 +33,11 @@ def run_llm_pipeline(
     neo4j_password: Optional[str] = None,
 ) -> str:
     """
-    Use the LLM-based pipeline to analyze the README, return a summary, and optionally load the graph.
+    Use the LLM-based pipeline to analyze the README and return generated content.
 
-    When Neo4j connection details are provided, the README is also parsed via the rule-based parser and
-    the resulting graph is loaded into Neo4j before returning the summary.
+    When Mermaid diagrams are present, the LLM receives a prompt template that asks for Cypher statements.
+    Otherwise, the LLM produces a structured summary. When Neo4j connection details are provided, the
+    README is also parsed via the rule-based parser and the resulting graph is loaded before returning.
     """
     should_load = bool(neo4j_url and neo4j_username and neo4j_password)
     steps = [
@@ -55,22 +48,25 @@ def run_llm_pipeline(
         "Load graph into Neo4j" if should_load else "Skip Neo4j load",
     ]
     progress = ProgressBar(len(steps), prefix="LLM pipeline")
-    logger.info("LLM pipeline starting for %s", readme_path)
+    resolved_readme, readme_source = resolve_readme_path(readme_path)
+    if not resolved_readme.exists():
+        raise FileNotFoundError(f"README file not found at {resolved_readme}")
+    logger.info("LLM pipeline using README (%s): %s", readme_source, resolved_readme)
 
     progress.advance("Reading README")
-    readme_contents = readme_path.read_text(encoding="utf-8")
+    readme_contents = resolved_readme.read_text(encoding="utf-8")
     logger.info("Loaded README (%d characters)", len(readme_contents))
 
     progress.advance("Building prompt")
-    prompt = _build_prompt(readme_contents)
-    logger.info("Prompt prepared (%d characters)", len(prompt))
+    prompt, prompt_mode = _build_prompt(readme_contents)
+    logger.info("Prompt prepared using '%s' template (%d characters)", prompt_mode, len(prompt))
 
     progress.advance("Requesting completion")
     response = generate_response(prompt)
     logger.info("LLM response received (%d characters)", len(response))
 
     progress.advance("Parsing README")
-    parser = KnowledgeGraphParser(readme_path)
+    parser = KnowledgeGraphParser(resolved_readme)
     graph = parser.parse()
     logger.info("Parsed %d nodes and %d relationships", len(graph.nodes), len(graph.relationships))
 

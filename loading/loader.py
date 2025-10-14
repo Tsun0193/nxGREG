@@ -7,7 +7,7 @@ try:
 except ImportError:  # pragma: no cover - driver may be absent during static analysis
     GraphDatabase = None  # type: ignore[assignment]
 
-from .graph import GraphData
+from core import GraphData
 
 
 class Neo4jLoader:

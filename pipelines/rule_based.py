@@ -4,16 +4,17 @@ import logging
 from pathlib import Path
 from typing import Optional
 
-from .graph import GraphData
-from .loader import Neo4jLoader
-from .parser import KnowledgeGraphParser
-from .progress import ProgressBar
+from core import GraphData
+from data import resolve_readme_path
+from loading import Neo4jLoader
+from parsing import KnowledgeGraphParser
+from utils import ProgressBar
 
 logger = logging.getLogger(__name__)
 
 
 def run_rule_based_pipeline(
-    readme_path: Path,
+    readme_path: Optional[Path] = None,
     *,
     wipe: bool = False,
     neo4j_url: Optional[str] = None,
@@ -32,10 +33,13 @@ def run_rule_based_pipeline(
         steps.append("Skip Neo4j load")
 
     progress = ProgressBar(len(steps), prefix="Rule pipeline")
-    logger.info("Rule-based pipeline starting for %s", readme_path)
+    resolved_readme, readme_source = resolve_readme_path(readme_path)
+    if not resolved_readme.exists():
+        raise FileNotFoundError(f"README file not found at {resolved_readme}")
+    logger.info("Rule-based pipeline using README (%s): %s", readme_source, resolved_readme)
 
     progress.advance("Initializing parser")
-    parser = KnowledgeGraphParser(readme_path)
+    parser = KnowledgeGraphParser(resolved_readme)
 
     progress.advance("Parsing README")
     graph = parser.parse()
