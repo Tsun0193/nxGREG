@@ -5,45 +5,57 @@ from textwrap import dedent
 from typing import List, Optional, Tuple
 
 
-def _extract_heading_for_index(markdown: str, index: int) -> str:
+def _extract_heading_path(markdown: str, index: int) -> List[str]:
     """
-    Return the closest Markdown heading that appears before the given index.
+    Return the stacked Markdown heading titles that appear before the given index.
 
-    Falls back to a generic label when no heading is present.
+    Produces a hierarchy such as ["Error Handling", "Validation Failures"].
     """
     heading_pattern = re.compile(r"^(#{1,6})\s+(.+)$", flags=re.MULTILINE)
-    heading_matches = list(heading_pattern.finditer(markdown[:index]))
-    if not heading_matches:
-        return "Global Context"
-    return heading_matches[-1].group(2).strip()
+    stack: List[Tuple[int, str]] = []
+    last_path: Optional[List[str]] = None
+    for match in heading_pattern.finditer(markdown):
+        level = len(match.group(1))
+        title = match.group(2).strip()
+        while stack and stack[-1][0] >= level:
+            stack.pop()
+        stack.append((level, title))
+        if match.start() < index:
+            last_path = [item[1] for item in stack]
+        else:
+            break
+    if last_path:
+        return last_path
+    return ["Global Context"]
 
 
-def extract_mermaid_sections(markdown: str) -> List[Tuple[str, str]]:
+def extract_mermaid_sections(markdown: str) -> List[Tuple[List[str], str]]:
     """
     Extract Mermaid diagrams and their contextual headings from markdown text.
 
     Returns:
-        A list of (context_heading, mermaid_diagram) tuples in the order they appear.
+        A list of (heading_path, mermaid_diagram) tuples in the order they appear.
     """
-    sections: List[Tuple[str, str]] = []
+    sections: List[Tuple[List[str], str]] = []
     mermaid_pattern = re.compile(r"```mermaid\s*(.*?)```", flags=re.DOTALL)
     for match in mermaid_pattern.finditer(markdown):
-        context = _extract_heading_for_index(markdown, match.start())
+        context_path = _extract_heading_path(markdown, match.start())
         diagram = match.group(1).strip()
         if diagram:
-            sections.append((context, diagram))
+            sections.append((context_path, diagram))
     return sections
 
 
 MERMAID_TO_CYPHER_PROMPT_TEMPLATE = dedent(
     """
     You are a senior Neo4j and Cypher specialist. Analyze each Mermaid diagram using its
-    provided context and produce Cypher statements that create the nodes and relationships.
+    provided context hierarchy and produce Cypher statements that create the nodes and relationships.
 
     Requirements:
     - Preserve the intent of the diagram and use meaningful labels/properties.
+    - Avoid generic relationship names such as FLOW_TO; choose descriptive relation types drawn from the context.
     - Avoid duplicating nodes; reuse identifiers where appropriate.
-    - Group related Cypher statements using comments that reference the context.
+    - Group related Cypher statements using comments that reference the context path.
     - Wrap each Cypher block in ```cypher fences.
 
     Use the following context/diagram pairs:
@@ -64,11 +76,12 @@ def build_mermaid_to_cypher_prompt(markdown: str) -> Optional[str]:
         return None
 
     blocks: List[str] = []
-    for context, diagram in sections:
+    for context_path, diagram in sections:
+        context_heading = " > ".join(context_path)
         block = dedent(
             f"""
-            # context
-            {context}
+            # section hierarchy
+            {context_heading}
             # mermaid graph
             ```mermaid
             {diagram}

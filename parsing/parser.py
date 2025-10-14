@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import re
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple, Set
 
 from core import GraphData
 
@@ -14,6 +14,7 @@ class KnowledgeGraphParser:
         self.readme_path = readme_path
         self.text = readme_path.read_text(encoding="utf-8")
         self.graph = GraphData()
+        self._source_nodes: Dict[Tuple[str, str, str], str] = {}
 
     def parse(self) -> GraphData:
         self._parse_entity_relationships()
@@ -38,6 +39,29 @@ class KnowledgeGraphParser:
     @staticmethod
     def _extract_mermaid_blocks(section_text: str) -> List[str]:
         return re.findall(r"```mermaid\s*(.*?)```", section_text, flags=re.DOTALL)
+
+    @staticmethod
+    def _slugify(value: str) -> str:
+        slug = re.sub(r"[^0-9A-Za-z]+", "_", value).strip("_")
+        return slug or "item"
+
+    def _get_source_node(self, section: str, source_type: str, name: str) -> str:
+        key = (section, source_type, name)
+        cached = self._source_nodes.get(key)
+        if cached:
+            return cached
+        base_slug = self._slugify(f"{section}_{name}")
+        node_key = f"source:{source_type}:{base_slug}"
+        labels = ["Source", f"{source_type.capitalize()}Source"]
+        self.graph.add_node(
+            node_key,
+            labels=labels,
+            name=name,
+            data_type=source_type,
+            section=section,
+        )
+        self._source_nodes[key] = node_key
+        return node_key
 
     @staticmethod
     def _parse_markdown_tables(section_text: str) -> List[List[Dict[str, str]]]:
@@ -127,9 +151,11 @@ class KnowledgeGraphParser:
         section_name: str,
         node_label: str,
         relationship_label: str,
+        source_name: Optional[str] = None,
     ) -> None:
         nodes: Dict[str, Dict[str, str]] = {}
         edges: List[Tuple[List[str], str, Optional[str], Optional[str]]] = []
+        all_node_keys: Set[str] = set()
 
         for line in block.splitlines():
             stripped = line.strip()
@@ -208,6 +234,7 @@ class KnowledgeGraphParser:
                 name=props.get("name", node_id),
                 section=section_name,
             )
+            all_node_keys.add(node_key)
 
         for sources, target, label, note in edges:
             target_key = f"{node_label}:{section_name}:{target}"
@@ -219,6 +246,7 @@ class KnowledgeGraphParser:
                     name=target,
                     section=section_name,
                 )
+                all_node_keys.add(target_key)
             for source in sources:
                 source_key = f"{node_label}:{section_name}:{source}"
                 if source_key not in self.graph.nodes:
@@ -229,6 +257,7 @@ class KnowledgeGraphParser:
                         name=source,
                         section=section_name,
                     )
+                    all_node_keys.add(source_key)
                 rel_type = self._normalize_relationship_type(label, relationship_label)
                 self.graph.add_relationship(
                     source_key,
@@ -238,6 +267,17 @@ class KnowledgeGraphParser:
                     note=note,
                     section=section_name,
                     category=relationship_label,
+                )
+
+        if all_node_keys:
+            display_name = source_name or f"{section_name} Diagram"
+            source_node_key = self._get_source_node(section_name, "graph", display_name)
+            for node_key in all_node_keys:
+                self.graph.add_relationship(
+                    source_node_key,
+                    node_key,
+                    "FROM_GRAPH",
+                    section=section_name,
                 )
 
     # ------------------------------------------------------------- section parsers
@@ -251,6 +291,7 @@ class KnowledgeGraphParser:
             return
         block = block_match.group(1)
         current_entity: Optional[str] = None
+        entity_keys: Set[str] = set()
         for raw_line in block.splitlines():
             line = raw_line.strip()
             if not line or line.startswith("%%"):
@@ -265,6 +306,7 @@ class KnowledgeGraphParser:
                 right_key = f"entity:{right}"
                 self.graph.add_node(left_key, labels=["Entity"], name=left, section="Data Entity Relationships")
                 self.graph.add_node(right_key, labels=["Entity"], name=right, section="Data Entity Relationships")
+                entity_keys.update([left_key, right_key])
                 self.graph.add_relationship(
                     left_key,
                     right_key,
@@ -284,6 +326,7 @@ class KnowledgeGraphParser:
                     name=current_entity,
                     section="Data Entity Relationships",
                 )
+                entity_keys.add(entity_key)
                 continue
 
             if line == "}" or line.endswith("}"):
@@ -313,6 +356,21 @@ class KnowledgeGraphParser:
                         "HAS_ATTRIBUTE",
                         section="Data Entity Relationships",
                     )
+                    entity_keys.add(attribute_key)
+
+        if entity_keys:
+            source_key = self._get_source_node(
+                "Data Entity Relationships",
+                "graph",
+                "Entity Relationship Diagram",
+            )
+            for key in entity_keys:
+                self.graph.add_relationship(
+                    source_key,
+                    key,
+                    "FROM_GRAPH",
+                    section="Data Entity Relationships",
+                )
 
     def _parse_data_flow(self) -> None:
         section = self._extract_section("## Data Flow Architecture")
@@ -373,44 +431,59 @@ class KnowledgeGraphParser:
             tables = self._parse_markdown_tables(body)
             if not tables:
                 continue
-            for row in tables[0]:
-                form_field = row.get("Form Field")
-                vo_property = row.get("VO Property")
-                data_type = row.get("Data Type")
-                purpose = row.get("Purpose")
-                if not form_field or form_field == "...":
-                    continue
-                field_key = f"formfield:{form_group}:{form_field}"
-                self.graph.add_node(
-                    field_key,
-                    labels=["FormField"],
-                    name=form_field,
-                    data_type=data_type,
-                    purpose=purpose,
-                    section="Form to VO Mapping",
-                    form_group=form_group,
-                )
-                for form_name in form_names:
-                    self.graph.add_relationship(
-                        f"form:{form_name}",
-                        field_key,
-                        "HAS_FIELD",
-                        section="Form to VO Mapping",
-                    )
-                if vo_property and vo_property != "...":
-                    vo_key = f"vo_property:{vo_property}"
+            for table_idx, rows in enumerate(tables, start=1):
+                table_name = f"{form_group} Table {table_idx}" if len(tables) > 1 else f"{form_group} Table"
+                source_key = self._get_source_node("Form to VO Mapping", "table", table_name)
+                for row in rows:
+                    form_field = row.get("Form Field")
+                    vo_property = row.get("VO Property")
+                    data_type = row.get("Data Type")
+                    purpose = row.get("Purpose")
+                    if not form_field or form_field == "...":
+                        continue
+                    field_key = f"formfield:{form_group}:{form_field}"
                     self.graph.add_node(
-                        vo_key,
-                        labels=["VOProperty"],
-                        name=vo_property,
+                        field_key,
+                        labels=["FormField"],
+                        name=form_field,
+                        data_type=data_type,
+                        purpose=purpose,
                         section="Form to VO Mapping",
+                        form_group=form_group,
                     )
                     self.graph.add_relationship(
+                        source_key,
                         field_key,
-                        vo_key,
-                        "BINDS_TO",
+                        "FROM_TABLE",
                         section="Form to VO Mapping",
                     )
+                    for form_name in form_names:
+                        self.graph.add_relationship(
+                            f"form:{form_name}",
+                            field_key,
+                            "HAS_FIELD",
+                            section="Form to VO Mapping",
+                        )
+                    if vo_property and vo_property != "...":
+                        vo_key = f"vo_property:{vo_property}"
+                        self.graph.add_node(
+                            vo_key,
+                            labels=["VOProperty"],
+                            name=vo_property,
+                            section="Form to VO Mapping",
+                        )
+                        self.graph.add_relationship(
+                            field_key,
+                            vo_key,
+                            "BINDS_TO",
+                            section="Form to VO Mapping",
+                        )
+                        self.graph.add_relationship(
+                            source_key,
+                            vo_key,
+                            "FROM_TABLE",
+                            section="Form to VO Mapping",
+                        )
 
     def _parse_validation_flows(self) -> None:
         section = self._extract_section("## Data Validation Rules")
@@ -430,6 +503,7 @@ class KnowledgeGraphParser:
             )
         tables = self._parse_markdown_tables(section)
         for rows in tables:
+            source_key = self._get_source_node("Data Validation Rules", "table", "Validation Rules Table")
             for row in rows:
                 rule = row.get("Rule") or row.get("Error Type")
                 if not rule or rule == "...":
@@ -448,13 +522,21 @@ class KnowledgeGraphParser:
                     section="Data Validation Rules",
                     **properties,
                 )
+                self.graph.add_relationship(
+                    source_key,
+                    node_key,
+                    "FROM_TABLE",
+                    section="Data Validation Rules",
+                )
 
     def _parse_session_management(self) -> None:
         section = self._extract_section("## Session Data Management")
         if not section:
             return
         tables = self._parse_markdown_tables(section)
-        for rows in tables:
+        for idx, rows in enumerate(tables, start=1):
+            table_name = "Session Data Table" if len(tables) == 1 else f"Session Data Table {idx}"
+            source_key = self._get_source_node("Session Data Management", "table", table_name)
             for row in rows:
                 key_name = row.get("Session Key")
                 if not key_name or key_name == "...":
@@ -466,6 +548,12 @@ class KnowledgeGraphParser:
                     name=key_name,
                     data_type=row.get("Data Type"),
                     purpose=row.get("Purpose"),
+                    section="Session Data Management",
+                )
+                self.graph.add_relationship(
+                    source_key,
+                    node_key,
+                    "FROM_TABLE",
                     section="Session Data Management",
                 )
                 data_type = row.get("Data Type")
@@ -481,6 +569,12 @@ class KnowledgeGraphParser:
                         node_key,
                         vo_key,
                         "STORES",
+                        section="Session Data Management",
+                    )
+                    self.graph.add_relationship(
+                        source_key,
+                        vo_key,
+                        "FROM_TABLE",
                         section="Session Data Management",
                     )
         blocks = self._extract_mermaid_blocks(section)
@@ -510,6 +604,7 @@ class KnowledgeGraphParser:
             )
         tables = self._parse_markdown_tables(section)
         for rows in tables:
+            source_key = self._get_source_node("Error Data Structure", "table", "Error Pattern Table")
             for row in rows:
                 error_type = row.get("Error Type")
                 if not error_type:
@@ -523,11 +618,18 @@ class KnowledgeGraphParser:
                     display_location=row.get("Display Location"),
                     section="Error Data Structure",
                 )
+                self.graph.add_relationship(
+                    source_key,
+                    node_key,
+                    "FROM_TABLE",
+                    section="Error Data Structure",
+                )
 
     def _parse_consistency_rules(self) -> None:
         section = self._extract_section("## Data Consistency Rules")
         if not section:
             return
+        source_key = self._get_source_node("Data Consistency Rules", "chunk", "Consistency Rules Text")
         for idx, line in enumerate(section.splitlines(), start=1):
             stripped = line.strip()
             if not stripped or stripped.startswith("##"):
@@ -542,4 +644,10 @@ class KnowledgeGraphParser:
                 name=stripped,
                 section="Data Consistency Rules",
                 order=str(idx),
+            )
+            self.graph.add_relationship(
+                source_key,
+                node_key,
+                "FROM_CHUNK",
+                section="Data Consistency Rules",
             )
