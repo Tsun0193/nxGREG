@@ -3,7 +3,8 @@
 from .graph import GraphData, GraphNode, GraphRelationship
 from .parser import KnowledgeGraphParser
 from .loader import Neo4jLoader
-from .cli import format_summary, run_pipeline
+from .pipeline_llm import run_llm_pipeline
+from .pipeline_rule_based import run_rule_based_pipeline
 
 __all__ = [
     "GraphData",
@@ -11,6 +12,6 @@ __all__ = [
     "GraphRelationship",
     "KnowledgeGraphParser",
     "Neo4jLoader",
-    "format_summary",
-    "run_pipeline",
+    "run_rule_based_pipeline",
+    "run_llm_pipeline",
 ]

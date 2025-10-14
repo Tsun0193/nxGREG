@@ -108,6 +108,19 @@ class KnowledgeGraphParser:
             text = text[1:-1].strip()
         return text or None
 
+    @staticmethod
+    def _normalize_relationship_type(raw_label: Optional[str], default: str) -> str:
+        candidate = (raw_label or "").strip()
+        if not candidate:
+            candidate = default
+        cleaned = re.sub(r"[^0-9A-Za-z]+", "_", candidate)
+        cleaned = cleaned.strip("_")
+        if not cleaned:
+            cleaned = re.sub(r"[^0-9A-Za-z]+", "_", default).strip("_") or "rel"
+        if not cleaned[0].isalpha():
+            cleaned = f"rel_{cleaned}"
+        return cleaned.lower()
+
     def _add_flow_nodes(
         self,
         block: str,
@@ -216,13 +229,15 @@ class KnowledgeGraphParser:
                         name=source,
                         section=section_name,
                     )
+                rel_type = self._normalize_relationship_type(label, relationship_label)
                 self.graph.add_relationship(
                     source_key,
                     target_key,
-                    relationship_label,
+                    rel_type,
                     label=label,
                     note=note,
                     section=section_name,
+                    category=relationship_label,
                 )
 
     # ------------------------------------------------------------- section parsers

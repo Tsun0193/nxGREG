@@ -30,7 +30,7 @@ class Neo4jLoader:
                 "FOR (n:GraphNode) REQUIRE n.uid IS UNIQUE"
             )
             if wipe:
-                session.run("MATCH (n:GraphNode) DETACH DELETE n")
+                session.run("MATCH (n) DETACH DELETE n")
             for node in graph.nodes.values():
                 label_expr = ":" + ":".join(sorted(set(node.labels)))
                 properties = dict(node.properties)
