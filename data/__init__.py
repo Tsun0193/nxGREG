@@ -1,5 +1,5 @@
 from __future__ import annotations
 
-from .readme import resolve_readme_path
+from .input import resolve_input_path
 
-__all__ = ["resolve_readme_path"]
+__all__ = ["resolve_input_path"]

@@ -5,14 +5,14 @@ from pathlib import Path
 from typing import Optional, Tuple
 
 from clients import generate_response
-from data import resolve_readme_path
+from data import resolve_input_path
 from loading import Neo4jLoader
 from parsing import KnowledgeGraphParser
 from prompts import (
     build_mermaid_to_cypher_prompt,
     build_summary_prompt,
 )
-from utils import ProgressBar
+from tqdm import tqdm
 
 logger = logging.getLogger(__name__)
 
@@ -47,44 +47,48 @@ def run_llm_pipeline(
         "Parse README",
         "Load graph into Neo4j" if should_load else "Skip Neo4j load",
     ]
-    progress = ProgressBar(len(steps), prefix="LLM pipeline")
-    resolved_readme, readme_source = resolve_readme_path(readme_path)
-    if not resolved_readme.exists():
-        raise FileNotFoundError(f"README file not found at {resolved_readme}")
-    logger.info("LLM pipeline using README (%s): %s", readme_source, resolved_readme)
+    with tqdm(total=len(steps), desc="LLM pipeline", unit="step") as progress:
+        def advance(step_description: str) -> None:
+            progress.set_postfix_str(step_description)
+            progress.update()
 
-    progress.advance("Reading README")
-    readme_contents = resolved_readme.read_text(encoding="utf-8")
-    logger.info("Loaded README (%d characters)", len(readme_contents))
+        resolved_input, input_source = resolve_input_path(readme_path)
+        if not resolved_input.exists():
+            raise FileNotFoundError(f"Input file not found at {resolved_input}")
+        logger.info("LLM pipeline using input (%s): %s", input_source, resolved_input)
 
-    progress.advance("Building prompt")
-    prompt, prompt_mode = _build_prompt(readme_contents)
-    logger.info("Prompt prepared using '%s' template (%d characters)", prompt_mode, len(prompt))
+        advance("Reading input")
+        readme_contents = resolved_input.read_text(encoding="utf-8")
+        logger.info("Loaded input (%d characters)", len(readme_contents))
 
-    progress.advance("Requesting completion")
-    response = generate_response(prompt)
-    logger.info("LLM response received (%d characters)", len(response))
+        advance("Building prompt")
+        prompt, prompt_mode = _build_prompt(readme_contents)
+        logger.info("Prompt prepared using '%s' template (%d characters)", prompt_mode, len(prompt))
 
-    progress.advance("Parsing README")
-    parser = KnowledgeGraphParser(resolved_readme)
-    graph = parser.parse()
-    logger.info("Parsed %d nodes and %d relationships", len(graph.nodes), len(graph.relationships))
+        advance("Requesting completion")
+        response = generate_response(prompt)
+        logger.info("LLM response received (%d characters)", len(response))
 
-    if should_load:
-        assert neo4j_url is not None
-        assert neo4j_username is not None
-        assert neo4j_password is not None
-        progress.advance("Loading graph into Neo4j")
-        logger.info("Loading graph into Neo4j at %s", neo4j_url)
-        loader = Neo4jLoader(neo4j_url, neo4j_username, neo4j_password)
-        try:
-            loader.load(graph, wipe=wipe)
-        finally:
-            loader.close()
-        logger.info("Neo4j load complete")
-    else:
-        progress.advance("Neo4j load skipped")
-        logger.info("Neo4j connection details missing; skipping load")
+        advance("Parsing input")
+        parser = KnowledgeGraphParser(resolved_input)
+        graph = parser.parse()
+        logger.info("Parsed %d nodes and %d relationships", len(graph.nodes), len(graph.relationships))
+
+        if should_load:
+            assert neo4j_url is not None
+            assert neo4j_username is not None
+            assert neo4j_password is not None
+            advance("Loading graph into Neo4j")
+            logger.info("Loading graph into Neo4j at %s", neo4j_url)
+            loader = Neo4jLoader(neo4j_url, neo4j_username, neo4j_password)
+            try:
+                loader.load(graph, wipe=wipe)
+            finally:
+                loader.close()
+            logger.info("Neo4j load complete")
+        else:
+            advance("Neo4j load skipped")
+            logger.info("Neo4j connection details missing; skipping load")
 
     logger.info("LLM pipeline finished")
     return response

@@ -8,7 +8,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 from core import GraphData
-from data import resolve_readme_path
+from data import resolve_input_path
 from loading import Neo4jLoader
 from pipelines import run_llm_pipeline, run_rule_based_pipeline
 
@@ -20,7 +20,7 @@ def main() -> None:
     parser.add_argument(
         "--rebuild",
         action="store_true",
-        help="Rebuild the graph from the README after wiping.",
+        help="Rebuild the graph from the input after wiping.",
     )
     parser.add_argument(
         "--method",
@@ -29,9 +29,9 @@ def main() -> None:
         help="Pipeline to use for rebuild (default: rule).",
     )
     parser.add_argument(
-        "--readme",
+        "--input",
         type=Path,
-        help="Path to the README/markdown file to parse (default: ctc-data-translated/readme-en.md).",
+        help="Path to the input/markdown file to parse (default: ctc-data-translated/input-en.md).",
     )
     args = parser.parse_args()
 
@@ -55,14 +55,14 @@ def main() -> None:
     logger.info("Knowledge graph wiped.")
 
     if args.rebuild:
-        readme_path, readme_source = resolve_readme_path(args.readme)
-        logger.info("Using README file (%s): %s", readme_source, readme_path)
+        input_path, input_source = resolve_input_path(args.input)
+        logger.info("Using input file (%s): %s", input_source, input_path)
 
-        if not readme_path.exists():
-            raise FileNotFoundError(f"README file not found at {readme_path}")
+        if not input_path.exists():
+            raise FileNotFoundError(f"input file not found at {input_path}")
         if args.method == "rule":
             run_rule_based_pipeline(
-                readme_path,
+                input_path,
                 wipe=False,
                 neo4j_url=neo4j_url,
                 neo4j_username=neo4j_username,
@@ -71,7 +71,7 @@ def main() -> None:
             logger.info("Knowledge graph rebuilt with rule-based pipeline.")
         else:
             summary = run_llm_pipeline(
-                readme_path,
+                input_path,
                 wipe=False,
                 neo4j_url=neo4j_url,
                 neo4j_username=neo4j_username,

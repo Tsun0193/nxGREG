@@ -1,10 +1,13 @@
 from __future__ import annotations
 
+import logging
 import re
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple, Set
 
 from core import GraphData
+
+logger = logging.getLogger(__name__)
 
 
 class KnowledgeGraphParser:
@@ -12,7 +15,7 @@ class KnowledgeGraphParser:
 
     def __init__(self, readme_path: Path) -> None:
         self.readme_path = readme_path
-        self.text = readme_path.read_text(encoding="utf-8")
+        self.text = self._read_text_with_fallback(readme_path)
         self.graph = GraphData()
         self._source_nodes: Dict[Tuple[str, str, str], str] = {}
 
@@ -35,6 +38,40 @@ class KnowledgeGraphParser:
         )
         match = pattern.search(self.text)
         return match.group(1).strip() if match else ""
+
+    @staticmethod
+    def _read_text_with_fallback(path: Path) -> str:
+        try:
+            return path.read_text(encoding="utf-8")
+        except UnicodeDecodeError:
+            raw_bytes = path.read_bytes()
+            fallback_encodings = [
+                "utf-8-sig",
+                "utf-16",
+                "utf-16-le",
+                "utf-16-be",
+                "cp932",  # common Windows Japanese encoding
+                "shift_jis",
+                "euc_jp",
+                "cp1252",
+                "latin-1",
+            ]
+            for encoding in fallback_encodings:
+                try:
+                    text = raw_bytes.decode(encoding)
+                    logger.warning(
+                        "Decoded %s using fallback encoding %s due to UTF-8 decode error.",
+                        path,
+                        encoding,
+                    )
+                    return text
+                except UnicodeDecodeError:
+                    continue
+            logger.warning(
+                "Failed to decode %s with common fallbacks; using replacement characters.",
+                path,
+            )
+            return raw_bytes.decode("utf-8", errors="replace")
 
     @staticmethod
     def _extract_mermaid_blocks(section_text: str) -> List[str]:

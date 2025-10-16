@@ -5,10 +5,10 @@ from pathlib import Path
 from typing import Optional
 
 from core import GraphData
-from data import resolve_readme_path
+from data import resolve_input_path
 from loading import Neo4jLoader
 from parsing import KnowledgeGraphParser
-from utils import ProgressBar
+from tqdm import tqdm
 
 logger = logging.getLogger(__name__)
 
@@ -24,7 +24,7 @@ def run_rule_based_pipeline(
     """Parse markdown via the regex/rule-based parser and optionally load to Neo4j."""
     steps = [
         "Initialize parser",
-        "Parse README",
+        "Parse input",
     ]
     should_load = bool(neo4j_url and neo4j_username and neo4j_password)
     if should_load:
@@ -32,31 +32,35 @@ def run_rule_based_pipeline(
     else:
         steps.append("Skip Neo4j load")
 
-    progress = ProgressBar(len(steps), prefix="Rule pipeline")
-    resolved_readme, readme_source = resolve_readme_path(readme_path)
-    if not resolved_readme.exists():
-        raise FileNotFoundError(f"README file not found at {resolved_readme}")
-    logger.info("Rule-based pipeline using README (%s): %s", readme_source, resolved_readme)
+    with tqdm(total=len(steps), desc="Rule pipeline", unit="step") as progress:
+        def advance(step_description: str) -> None:
+            progress.set_postfix_str(step_description)
+            progress.update()
 
-    progress.advance("Initializing parser")
-    parser = KnowledgeGraphParser(resolved_readme)
+        resolved_input, input_source = resolve_input_path(readme_path)
+        if not resolved_input.exists():
+            raise FileNotFoundError(f"Input file not found at {resolved_input}")
+        logger.info("Rule-based pipeline using input (%s): %s", input_source, resolved_input)
 
-    progress.advance("Parsing README")
-    graph = parser.parse()
-    logger.info("Parsed %d nodes and %d relationships", len(graph.nodes), len(graph.relationships))
+        advance("Initializing parser")
+        parser = KnowledgeGraphParser(resolved_input)
 
-    if should_load:
-        progress.advance("Loading graph into Neo4j")
-        logger.info("Loading graph into Neo4j at %s", neo4j_url)
-        loader = Neo4jLoader(neo4j_url, neo4j_username, neo4j_password)
-        try:
-            loader.load(graph, wipe=wipe)
-        finally:
-            loader.close()
-        logger.info("Neo4j load complete")
-    else:
-        progress.advance("Neo4j load skipped")
-        logger.info("Neo4j connection details missing; skipping load")
+        advance("Parsing input")
+        graph = parser.parse()
+        logger.info("Parsed %d nodes and %d relationships", len(graph.nodes), len(graph.relationships))
+
+        if should_load:
+            advance("Loading graph into Neo4j")
+            logger.info("Loading graph into Neo4j at %s", neo4j_url)
+            loader = Neo4jLoader(neo4j_url, neo4j_username, neo4j_password)
+            try:
+                loader.load(graph, wipe=wipe)
+            finally:
+                loader.close()
+            logger.info("Neo4j load complete")
+        else:
+            advance("Neo4j load skipped")
+            logger.info("Neo4j connection details missing; skipping load")
 
     logger.info("Rule-based pipeline finished")
     return graph

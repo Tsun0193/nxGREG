@@ -53,6 +53,7 @@ Transform Markdown documentation into a navigable Neo4j knowledge graph enriched
 | `parsing/parser.py` | Main Markdown parser with provenance (`FROM_*`) edges. |
 | `pipelines/rule_based.py` | Rule-driven pipeline for deterministic parsing and optional loading. |
 | `pipelines/llm.py` | Hybrid pipeline (rule-based + LLM prompt orchestration). |
+| `pipelines/rag.py` | Retrieval-augmented pipeline that builds KG context before querying the LLM. |
 | `prompts/templates.py` | Mermaid → Cypher and summary prompt builders. |
 | `loading/loader.py` | Neo4j driver wrapper for applying graph updates. |
 | `reset.py` | CLI that wipes the graph and optionally rebuilds via selected pipeline. |
@@ -94,13 +95,22 @@ python -m pip install -r requirements.txt  # or use pyproject/uv.lock
 ```bash
 python reset.py --rebuild \
   --method rule \
-  --readme path/to/document.md
+  --input path/to/document.md
 ```
 
 Options:
 - `--rebuild` – After wiping, run the selected pipeline to repopulate the graph.
 - `--method {rule,llm}` – Choose between the deterministic parser and the hybrid LLM pipeline (default: `rule`).
-- `--readme` – Explicit path to the Markdown source (falls back to `CTC_README_PATH` or the default).
+- `--input` – Explicit path to the Markdown source (falls back to `CTC_README_PATH` or the default).
+
+### Incremental Ingestion
+Use `ingest.py` to append additional markdown files to the existing knowledge graph without wiping it.
+
+```bash
+python ingest.py --input docs/new_docs
+```
+
+Pass a single file to process just that document, or a directory to recursively ingest every matching file (default glob `*.md`, override with `--pattern`). Choose the pipeline with `--method {rule,llm}`.
 
 ### Understanding the Outputs
 - **Nodes** carry canonical labels (`Entity`, `FormField`, `ErrorNode`, etc.) and a generated `uid`.
@@ -110,6 +120,33 @@ Options:
   - Provenance edges (`FROM_TABLE`, `FROM_GRAPH`, `FROM_CHUNK`) pointing from each source to derived nodes.
 
 Use these edges to retrieve original documentation fragments or regenerate context for downstream LLM calls.
+
+### Asking Questions with the RAG Pipeline
+Use `run_knowledge_graph_rag_pipeline` when you need an answer grounded in the parsed graph. The helper extracts the most relevant nodes/relationships for your question and feeds that context to the LLM.
+
+```python
+from pipelines import run_knowledge_graph_rag_pipeline
+
+result = run_knowledge_graph_rag_pipeline(
+    "How are validation failures surfaced to the user?",
+    top_k_nodes=5,           # optional tuning knobs
+    max_neighbor_nodes=10,   # optional
+)
+print(result.answer)
+print(result.context)  # inspect which nodes/relationships were used
+```
+
+Provide Neo4j credentials when you also want the graph loaded:
+
+```python
+result = run_knowledge_graph_rag_pipeline(
+    "Where do form fields map to VOs?",
+    neo4j_url="bolt://localhost:7687",
+    neo4j_username="neo4j",
+    neo4j_password="secret",
+    wipe=False,
+)
+```
 
 ## Prompting Strategy
 When Mermaid diagrams are present, `pipelines/llm.py` builds prompts like:

@@ -9,7 +9,7 @@ DEFAULT_README_PATH = Path("ctc-data-translated/readme-en.md")
 ENV_README_PATH = "CTC_README_PATH"
 
 
-def resolve_readme_path(explicit_path: Optional[Path] = None) -> Tuple[Path, str]:
+def resolve_input_path(explicit_path: Optional[Path] = None) -> Tuple[Path, str]:
     """
     Determine which README/markdown file should be used.
 

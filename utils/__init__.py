@@ -1,5 +1,3 @@
 from __future__ import annotations
 
-from .progress import ProgressBar
-
-__all__ = ["ProgressBar"]
+__all__: list[str] = []
