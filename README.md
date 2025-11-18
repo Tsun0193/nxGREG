@@ -50,7 +50,8 @@ Transform Markdown documentation into a navigable Neo4j knowledge graph enriched
 | Path | Description |
 | --- | --- |
 | `core/graph.py` | `GraphData`, `GraphNode`, and `GraphRelationship` containers. |
-| `parsing/parser.py` | Main Markdown parser with provenance (`FROM_*`) edges. |
+| `parsing/parser.py` | Orchestrates section-level Markdown parsers via shared provenance-aware context. |
+| `parsing/context.py`, `parsing/sections/` | Shared parsing utilities plus modular implementations for each documentation section. |
 | `pipelines/rule_based.py` | Rule-driven pipeline for deterministic parsing and optional loading. |
 | `pipelines/llm.py` | Hybrid pipeline (rule-based + LLM prompt orchestration). |
 | `pipelines/rag.py` | Retrieval-augmented pipeline that builds KG context before querying the LLM. |
