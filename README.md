@@ -54,7 +54,7 @@ Transform Markdown documentation into a navigable Neo4j knowledge graph enriched
 | `parsing/context.py`, `parsing/sections/` | Shared parsing utilities plus modular implementations for each documentation section. |
 | `pipelines/rule_based.py` | Rule-driven pipeline for deterministic parsing and optional loading. |
 | `pipelines/llm.py` | Hybrid pipeline (rule-based + LLM prompt orchestration). |
-| `pipelines/rag.py` | Retrieval-augmented pipeline that builds KG context before querying the LLM. |
+| `pipelines/rag.py` | Orchestrates the retrieval-augmented pipeline. Shared helpers live in `pipelines/rag_components/`. |
 | `prompts/templates.py` | Mermaid → Cypher and summary prompt builders. |
 | `loading/loader.py` | Neo4j driver wrapper for applying graph updates. |
 | `reset.py` | CLI that wipes the graph and optionally rebuilds via selected pipeline. |
