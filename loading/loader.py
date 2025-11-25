@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from typing import Optional
+import os
 
 try:
     from neo4j import GraphDatabase
@@ -58,3 +59,11 @@ class Neo4jLoader:
                     ),
                     params,
                 )
+
+
+if __name__ == "__main__":
+    neo4j_url = os.getenv("NEO4J_URL")
+    neo4j_username = os.getenv("NEO4J_USERNAME")
+    neo4j_password = os.getenv("NEO4J_PASSWORD")
+    graph = Neo4jLoader(uri=neo4j_url, user=neo4j_username, password=neo4j_password)
+    

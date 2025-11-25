@@ -1,0 +1,1220 @@
+[
+    {
+        "id": "module:contract_list",
+        "type": "module",
+        "name": "Contract List Module",
+        "parent_module": "module:contract_list",
+        "description": "The Contract-List module manages the contract list screen in the DSmart system. It provides display, management, and navigation to various operation screens for contracts related to each project (anken), comprehensively supporting the contract lifecycle including new creation, modification, deletion, and after-sales processing.",
+        "properties": {
+            "module_name": "contract-list",
+            "purpose": "Contract list management and navigation",
+            "dependencies": [
+                "housing",
+                "simple"
+            ],
+            "child_modules": [
+                "housing",
+                "simple"
+            ]
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/overview-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "screen:contract_list_main",
+        "type": "screen",
+        "name": "Contract List Main Screen",
+        "parent_module": "module:contract_list",
+        "description": "Main screen displaying the list of all contracts for a specific project with filtering, search capabilities, and action buttons for contract operations. Supports various contract types including normal contracts, external contracts, and special contracts with device-specific responsive behavior.",
+        "properties": {
+            "screen_id": "GCNT90001",
+            "title": "Contract List",
+            "url_pattern": "/dsmart/contract/keiyakuList/keiyakuListInit.do",
+            "access_level": "authenticated_user",
+            "layout_type": "data_table",
+            "has_search": true,
+            "has_filter": true,
+            "pagination": false,
+            "main_jsp": "keiyakuList.jsp",
+            "body_jsp": "body.jsp",
+            "supports_ipad": true
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/screen-specification/display-conditions-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "action:keiyaku_list_init",
+        "type": "action",
+        "name": "Contract List Initialization Action",
+        "parent_module": "module:contract_list",
+        "description": "Initializes and displays a list of contracts for a specific project. Retrieves project information, user permissions, and related contracts, then renders the results. This is the main entry point for viewing the contract list.",
+        "properties": {
+            "action_name": "KeiyakuListInitAction",
+            "http_method": "GET",
+            "endpoint": "/dsmart/contract/keiyakuList/keiyakuListInit.do",
+            "trigger_event": "page_load",
+            "action_class": "jp.co.daiwahouse.dsmart.application.contract.keiyakuList.keiyakuListInit.KeiyakuListInitAction",
+            "form_bean": "anken_cardForm",
+            "validation": false,
+            "forward_success": "keiyakuList.jsp",
+            "forward_error": "/contract/error.jsp"
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "action:keiyaku_list_dispatch",
+        "type": "action",
+        "name": "Contract List Dispatch Action",
+        "parent_module": "module:contract_list",
+        "description": "Main dispatcher action that routes user operations to appropriate handlers based on actionType parameter. Supports operations like new contract creation, contract update, deletion, additional contract creation, and various specialized contract operations.",
+        "properties": {
+            "action_name": "KeiyakuListDispatchAction",
+            "http_method": "POST",
+            "endpoint": "/dsmart/contract/keiyakuList/keiyakuListDispatch.do",
+            "trigger_event": "button_click",
+            "action_class": "jp.co.daiwahouse.dsmart.application.contract.keiyakuList.KeiyakuListDispatchAction",
+            "form_bean": "keiyaku_cardForm",
+            "validation": false,
+            "supported_action_types": [
+                "new_contract",
+                "update_contract",
+                "add_contract",
+                "delete_contract",
+                "new_yuusyou_contract",
+                "new_yuusyou_after_contract",
+                "keiyaku_card_anchor",
+                "returnAnken",
+                "compliance_mikan"
+            ]
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/screen-flow-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "action:keiyaku_delete",
+        "type": "action",
+        "name": "Contract Delete Action",
+        "parent_module": "module:contract_list",
+        "description": "Deletes the contract selected from the contract list through logical deletion. Updates contract status in database, removes related linkages (directive and rental relationships), and reloads the contract list screen after successful deletion.",
+        "properties": {
+            "action_name": "KeiyakuDeleteAction",
+            "http_method": "POST",
+            "endpoint": "/dsmart/contract/keiyakuList/keiyakuDelete.do",
+            "trigger_event": "delete_button_click",
+            "action_class": "jp.co.daiwahouse.dsmart.application.contract.keiyakuList.KeiyakuDeleteAction",
+            "form_bean": "keiyaku_cardForm",
+            "validation": false,
+            "forward_success": "/keiyakuListInit.do",
+            "forward_error": "/keiyakuListInit.do",
+            "deletion_type": "logical"
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/functions/delete-contract/function-overview-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "component:contract_list_table",
+        "type": "component",
+        "name": "Contract List Table Component",
+        "parent_module": "module:contract_list",
+        "description": "Data table component displaying the list of contracts for a project. Renders contract information including contract number, type, project name, contractor name, approval status, and contract amount. Supports radio button selection and clickable contract links with device-specific rendering.",
+        "properties": {
+            "component_name": "contract_list_table",
+            "component_type": "data_table",
+            "reusable": true,
+            "dependencies": [
+                "CONTRACT_OPTION_KEIYAKU_ICHIRAN_VO_LIST"
+            ],
+            "jsp_location": "body.jsp",
+            "struts_tag": "logic:iterate",
+            "columns": [
+                "radio_selection",
+                "contract_type",
+                "contract_number",
+                "project_name",
+                "contractor_name",
+                "approval_status",
+                "contract_amount",
+                "scheduled_date"
+            ]
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/components/description-ui-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "component:action_button_group",
+        "type": "component",
+        "name": "Action Button Group Component",
+        "parent_module": "module:contract_list",
+        "description": "Group of action buttons for contract operations including new contract creation, additional contract creation, contract update, contract deletion, after-sales contract creation, and multiple order creation. Buttons are dynamically shown/hidden based on user permissions and device type.",
+        "properties": {
+            "component_name": "action_button_group",
+            "component_type": "button_group",
+            "reusable": true,
+            "dependencies": [
+                "shinkiKeiyakuSakuseiKahiFlg",
+                "tsuikaKeiyakuSakuseiKahiFlg",
+                "keiyakuDataHenkoKahiFlg",
+                "kaniKeiyakuSakuseiKahiFlg",
+                "hukusuJyutyuSakuseiHyoujiFlg"
+            ],
+            "buttons": [
+                "new_contract",
+                "add_contract",
+                "update_contract",
+                "delete_contract",
+                "after_contract",
+                "multiple_order"
+            ],
+            "hidden_on_ipad": true
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/screen-specification/display-conditions-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "component:error_display_block",
+        "type": "component",
+        "name": "Error Display Block",
+        "parent_module": "module:contract_list",
+        "description": "Component for displaying error messages at field level and screen level. Included via common error template file and supports multiple error types including validation errors, business rule errors, and system errors.",
+        "properties": {
+            "component_name": "error_display_block",
+            "component_type": "error_display",
+            "reusable": true,
+            "dependencies": [],
+            "include_file": "/common/error.txt",
+            "error_types": [
+                "field_validation",
+                "business_rule",
+                "data_not_found",
+                "system_error"
+            ]
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/components/description-ui-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "database:t_keiyaku",
+        "type": "database",
+        "name": "Contract Main Table",
+        "parent_module": "module:contract_list",
+        "description": "Main contract table storing core contract information including contract number, project association, status, contract date, and other essential contract attributes. Used for contract CRUD operations and is the central entity in the contract management system.",
+        "properties": {
+            "table_name": "t_keiyaku",
+            "entity_type": "table",
+            "columns": [
+                "keiyaku_key",
+                "keiyaku_no",
+                "anken_no",
+                "keiyaku_status_cd",
+                "keiyaku_card_syubetsu_cd",
+                "keiyaku_ukagai_kbn",
+                "keiyaku_teiketsu_date",
+                "zeikomi_keiyaku_kingaku",
+                "status"
+            ],
+            "primary_key": "keiyaku_key",
+            "foreign_keys": [
+                "anken_no"
+            ],
+            "operations": [
+                "CREATE",
+                "READ",
+                "UPDATE",
+                "DELETE"
+            ]
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/data-architecture-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "database:t_anken",
+        "type": "database",
+        "name": "Project Main Table",
+        "parent_module": "module:contract_list",
+        "description": "Main project (anken) table storing project information including project number, classification, name, and other project attributes. Each project can have multiple contracts associated with it.",
+        "properties": {
+            "table_name": "t_anken",
+            "entity_type": "table",
+            "columns": [
+                "anken_no",
+                "anken_bunrui_cd",
+                "anken_name"
+            ],
+            "primary_key": "anken_no",
+            "foreign_keys": [],
+            "operations": [
+                "READ"
+            ]
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/data-architecture-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "database:t_syounin_user",
+        "type": "database",
+        "name": "User Permission Table",
+        "parent_module": "module:contract_list",
+        "description": "Table storing user permission and authority information for contract operations. Determines what actions users can perform on contracts such as creation, modification, and deletion based on their authority level.",
+        "properties": {
+            "table_name": "t_syounin_user",
+            "entity_type": "table",
+            "columns": [
+                "user_id",
+                "authority_level",
+                "permissions"
+            ],
+            "primary_key": "user_id",
+            "foreign_keys": [],
+            "operations": [
+                "READ"
+            ]
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "database:t_kouji",
+        "type": "database",
+        "name": "Construction Work Table",
+        "parent_module": "module:contract_list",
+        "description": "Table storing construction work information related to contracts. Each contract can have associated construction work records. Updated during contract deletion operations.",
+        "properties": {
+            "table_name": "t_kouji",
+            "entity_type": "table",
+            "columns": [
+                "kouji_key",
+                "keiyaku_key",
+                "kouji_name"
+            ],
+            "primary_key": "kouji_key",
+            "foreign_keys": [
+                "keiyaku_key"
+            ],
+            "operations": [
+                "READ",
+                "UPDATE"
+            ]
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/functions/delete-contract/function-overview-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "database:t_keiyaku_shijisyo_kankei",
+        "type": "database",
+        "name": "Contract Directive Linkage Table",
+        "parent_module": "module:contract_list",
+        "description": "Association table linking contracts to directive sheets (shijisyo). This relationship is physically deleted when a contract is removed from the system.",
+        "properties": {
+            "table_name": "t_keiyaku_shijisyo_kankei",
+            "entity_type": "table",
+            "columns": [
+                "keiyaku_key",
+                "shijisyo_no"
+            ],
+            "primary_key": "keiyaku_key,shijisyo_no",
+            "foreign_keys": [
+                "keiyaku_key"
+            ],
+            "operations": [
+                "READ",
+                "DELETE"
+            ]
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/functions/delete-contract/function-overview-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "database:t_chintaisyaku_keiyaku_kankei",
+        "type": "database",
+        "name": "Rental Contract Linkage Table",
+        "parent_module": "module:contract_list",
+        "description": "Association table linking contracts to rental agreements (chintaisyaku). This relationship is physically deleted when a contract is removed from the system.",
+        "properties": {
+            "table_name": "t_chintaisyaku_keiyaku_kankei",
+            "entity_type": "table",
+            "columns": [
+                "keiyaku_key",
+                "rental_no"
+            ],
+            "primary_key": "keiyaku_key,rental_no",
+            "foreign_keys": [
+                "keiyaku_key"
+            ],
+            "operations": [
+                "READ",
+                "DELETE"
+            ]
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/functions/delete-contract/function-overview-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "database:t_keiyaku_kokyaku_kankei",
+        "type": "database",
+        "name": "Contract Customer Relationship Table",
+        "parent_module": "module:contract_list",
+        "description": "Association table linking contracts to customers (kokyaku). Stores the relationship between contracts and the customers involved in those contracts.",
+        "properties": {
+            "table_name": "t_keiyaku_kokyaku_kankei",
+            "entity_type": "table",
+            "columns": [
+                "keiyaku_key",
+                "kokyaku_key"
+            ],
+            "primary_key": "keiyaku_key,kokyaku_key",
+            "foreign_keys": [
+                "keiyaku_key"
+            ],
+            "operations": [
+                "READ"
+            ]
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "database:t_kokyaku_kojin",
+        "type": "database",
+        "name": "Individual Customer Table",
+        "parent_module": "module:contract_list",
+        "description": "Table storing individual customer personal information including names, contact details, and other personal attributes. Updated during contract operations.",
+        "properties": {
+            "table_name": "t_kokyaku_kojin",
+            "entity_type": "table",
+            "columns": [
+                "kokyaku_key",
+                "kokyaku_name"
+            ],
+            "primary_key": "kokyaku_key",
+            "foreign_keys": [],
+            "operations": [
+                "READ",
+                "UPDATE"
+            ]
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/functions/delete-contract/function-overview-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "database:t_keiyaku_koutei",
+        "type": "database",
+        "name": "Contract Process Table",
+        "parent_module": "module:contract_list",
+        "description": "Table storing contract process workflow information. Records are deleted when contracts are removed from the system.",
+        "properties": {
+            "table_name": "t_keiyaku_koutei",
+            "entity_type": "table",
+            "columns": [
+                "keiyaku_key",
+                "koutei_status"
+            ],
+            "primary_key": "keiyaku_key",
+            "foreign_keys": [
+                "keiyaku_key"
+            ],
+            "operations": [
+                "READ",
+                "DELETE"
+            ]
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/functions/delete-contract/function-overview-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "form:anken_card_form",
+        "type": "form",
+        "name": "Project Card Form",
+        "parent_module": "module:contract_list",
+        "description": "Form bean used for contract list initialization containing project-related parameters. Holds project number and optional context from after-sales screens including order number, instruction sheet number, and overall classification.",
+        "properties": {
+            "form_id": "anken_cardForm",
+            "fields": [
+                "ankenNo",
+                "jyutyuNo",
+                "shijisyoNo",
+                "zentaiKbn"
+            ],
+            "validation_rules": [],
+            "submission_action": "/keiyakuListInit.do",
+            "scope": "request"
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/components/form-fields-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "form:keiyaku_card_form",
+        "type": "form",
+        "name": "Contract Card Form",
+        "parent_module": "module:contract_list",
+        "description": "Main form bean for contract operations containing contract key, action type, and various contract-related parameters. Used for all contract list dispatch operations including creation, update, and deletion.",
+        "properties": {
+            "form_id": "keiyaku_cardForm",
+            "fields": [
+                "ankenNo",
+                "actionType",
+                "keiyakuKey",
+                "spExecuteKbn",
+                "hanbaiBukkenNo",
+                "keiyakuCardSyubetsuCd",
+                "koujiKey",
+                "tabCd",
+                "jyutyuNo",
+                "select",
+                "shijisyoNo",
+                "afterJyutyuNo",
+                "ankenCheckKbn",
+                "honninKakuninChk",
+                "preScreenKbn"
+            ],
+            "validation_rules": [],
+            "submission_action": "/keiyakuListDispatch.do",
+            "scope": "request"
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/components/form-fields-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "form:keiyaku_list_kensaku_form",
+        "type": "form",
+        "name": "Contract List Search Form",
+        "parent_module": "module:contract_list",
+        "description": "Form bean for contract list search functionality containing search criteria fields including contract number, construction name, contractor name, status codes, date ranges, and office information.",
+        "properties": {
+            "form_id": "keiyakuListKensakuForm",
+            "fields": [
+                "actionType",
+                "jyutyuJigyousyoCd",
+                "jyutyuJigyousyoName",
+                "keiyakuNo",
+                "koujiName",
+                "keiyakuStatusCd",
+                "keiyakuCardSyubetsuCd",
+                "keiyakusyaName",
+                "eigyoTantousyaUserId",
+                "keiyakuTeiketsuDateFrom",
+                "keiyakuTeiketsuDateTo",
+                "keiyakuKeijyouDateFrom",
+                "keiyakuKeijyouDateTo"
+            ],
+            "validation_rules": [
+                "keiyakuNo_integer",
+                "koujiName_zenkaku",
+                "keiyakusyaName_zenkaku",
+                "date_range_consistency"
+            ],
+            "submission_action": "/keiyakuListInit.do",
+            "scope": "request"
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/components/form-fields-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "function:init_screen",
+        "type": "function",
+        "name": "Initialize Screen Function",
+        "parent_module": "module:contract_list",
+        "description": "Function to initialize and display the contract list screen. Retrieves user permissions, project information, and contract list data from database. Sets up session attributes and business flags for UI display control. Implements multi-layered architecture with Action, Delegate, Facade, Product, and DAO components.",
+        "properties": {
+            "function_name": "keiyakuListInit",
+            "parameters": [
+                "ankenNo"
+            ],
+            "return_type": "ActionForward",
+            "business_logic": "Retrieve permissions, project data, and contract list; set session attributes and display flags; forward to JSP view",
+            "delegates": [
+                "SyouninUserFindDelegate",
+                "AnkenFindDelegate",
+                "KeiyakuListFindDelegate"
+            ],
+            "products": [
+                "SyouninUserFindProduct",
+                "AnkenFindProduct",
+                "KeiyakuListFindProduct"
+            ],
+            "daos": [
+                "SyouninUserFindDAO",
+                "AnkenFindDAO",
+                "KeiyakuIchiranFindDAO"
+            ]
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "function:delete_contract",
+        "type": "function",
+        "name": "Delete Contract Function",
+        "parent_module": "module:contract_list",
+        "description": "Function to delete a selected contract from the contract list. Performs logical deletion of the main contract by updating status flag. Physically deletes related linkages including directive relationships and rental relationships. Updates related construction work records and customer classifications. Reloads contract list after successful deletion.",
+        "properties": {
+            "function_name": "keiyakuDelete",
+            "parameters": [
+                "keiyakuKey"
+            ],
+            "return_type": "ActionForward",
+            "business_logic": "Validate contract existence; execute logical deletion of contract; physically delete linkages; update related records; reload list",
+            "delegates": [
+                "KeiyakuDeleteDelegate"
+            ],
+            "products": [
+                "KeiyakuDeleteProduct"
+            ],
+            "daos": [
+                "KeiyakuDAO",
+                "KoujiDAO",
+                "KeiyakuShijisyoKankeiDAO",
+                "ChintaisyakuKeiyakuKankeiDAO",
+                "KojinTasyaKeiyakuKbnDAO"
+            ],
+            "deletion_type": "logical_and_physical"
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/functions/delete-contract/function-overview-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "sql_query:syounin_user_sql_01",
+        "type": "sql_query",
+        "name": "Get User Permission Query",
+        "parent_module": "module:contract_list",
+        "description": "SQL query to retrieve user permission and authority information by user ID. Used during contract list initialization to determine user access rights and display appropriate action buttons.",
+        "properties": {
+            "query_id": "SYOUNIN_USER_SQL_01",
+            "query_type": "SELECT",
+            "tables_involved": [
+                "t_syounin_user"
+            ],
+            "purpose": "Retrieve user permissions for contract operations",
+            "dao_class": "SyouninUserFindDAO",
+            "param_bean": "SyouninUserSql01ParamBean",
+            "parameters": [
+                "userId"
+            ]
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/functions/init-screen/sql-queries-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "sql_query:anken_sql_01",
+        "type": "sql_query",
+        "name": "Get Project Information Query",
+        "parent_module": "module:contract_list",
+        "description": "SQL query to retrieve project information by project number (ankenNo). Returns project details including classification, name, and other attributes used for display and business logic.",
+        "properties": {
+            "query_id": "ANKEN_SQL_01",
+            "query_type": "SELECT",
+            "tables_involved": [
+                "t_anken",
+                "t_anken_syousai",
+                "t_anken_mansion"
+            ],
+            "purpose": "Retrieve project information for contract list display",
+            "dao_class": "AnkenFindDAO",
+            "param_bean": "AnkenSql01ParamBean",
+            "parameters": [
+                "ankenNo"
+            ]
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/functions/init-screen/sql-queries-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "sql_query:keiyaku_ichiran_sql_01",
+        "type": "sql_query",
+        "name": "Get Contract List Query",
+        "parent_module": "module:contract_list",
+        "description": "SQL query to retrieve the list of contracts associated with a project. Returns contract summary information including contract number, type, customer details, status, and amounts for display in the contract list table.",
+        "properties": {
+            "query_id": "KEIYAKU_ICHIRAN_SQL_01",
+            "query_type": "SELECT",
+            "tables_involved": [
+                "t_keiyaku",
+                "t_c_keiyaku",
+                "t_keiyaku_kokyaku_kankei",
+                "t_kokyaku_kojin",
+                "t_kokyaku_soshiki"
+            ],
+            "purpose": "Retrieve contract list for display",
+            "dao_class": "KeiyakuIchiranFindDAO",
+            "param_bean": "KeiyakuIchiranSql01ParamBean",
+            "parameters": [
+                "ankenNo"
+            ]
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/functions/init-screen/sql-queries-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "sql_query:keiyaku_update_logical_delete",
+        "type": "sql_query",
+        "name": "Contract Logical Deletion Update",
+        "parent_module": "module:contract_list",
+        "description": "SQL update query to perform logical deletion of a contract by updating the status flag in the t_keiyaku table. Does not physically remove the record but marks it as deleted.",
+        "properties": {
+            "query_id": "KEIYAKU_UPDATE_DELETE",
+            "query_type": "UPDATE",
+            "tables_involved": [
+                "t_keiyaku"
+            ],
+            "purpose": "Logical deletion of contract record",
+            "dao_class": "KeiyakuDAO",
+            "param_bean": "KeiyakuVO",
+            "parameters": [
+                "keiyakuKey"
+            ]
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-queries-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "sql_query:keiyaku_shijisyo_delete",
+        "type": "sql_query",
+        "name": "Contract Directive Linkage Deletion",
+        "parent_module": "module:contract_list",
+        "description": "SQL delete query to physically remove contract-directive sheet relationship records from t_keiyaku_shijisyo_kankei table during contract deletion.",
+        "properties": {
+            "query_id": "KEIYAKU_SHIJISYO_KANKEI_DELETE",
+            "query_type": "DELETE",
+            "tables_involved": [
+                "t_keiyaku_shijisyo_kankei"
+            ],
+            "purpose": "Physical deletion of contract-directive linkage",
+            "dao_class": "KeiyakuShijisyoKankeiDAO",
+            "param_bean": "KeiyakuShijisyoKankeiVO",
+            "parameters": [
+                "keiyakuKey"
+            ]
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-queries-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "sql_query:chintaisyaku_delete",
+        "type": "sql_query",
+        "name": "Rental Contract Linkage Deletion",
+        "parent_module": "module:contract_list",
+        "description": "SQL delete query to physically remove rental contract relationship records from t_chintaisyaku_keiyaku_kankei table during contract deletion.",
+        "properties": {
+            "query_id": "CHINTAISYAKU_KEIYAKU_KANKEI_DELETE",
+            "query_type": "DELETE",
+            "tables_involved": [
+                "t_chintaisyaku_keiyaku_kankei"
+            ],
+            "purpose": "Physical deletion of rental contract linkage",
+            "dao_class": "ChintaisyakuKeiyakuKankeiDAO",
+            "param_bean": "ChintaisyakuKeiyakuKankeiVO",
+            "parameters": [
+                "keiyakuKey"
+            ]
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-queries-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "business_rule:contract_selection_required",
+        "type": "business_rule",
+        "name": "Contract Selection Required Rule",
+        "parent_module": "module:contract_list",
+        "description": "Business rule requiring that a contract must be selected via radio button before performing update, additional contract creation, or deletion operations. Displays alert message if no contract is selected.",
+        "properties": {
+            "rule_id": "BR_001",
+            "condition": "actionType in ['update_contract', 'add_contract', 'delete_contract'] AND no radio selection",
+            "action": "Display alert: 'Please select a contract card.'",
+            "priority": "high",
+            "validation_type": "client_side"
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/screen-specification/event_handling_rules-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "business_rule:delete_button_disabled_special_project",
+        "type": "business_rule",
+        "name": "Delete Button Disabled for Special Projects",
+        "parent_module": "module:contract_list",
+        "description": "Business rule that disables the contract delete button for special project types (ankenBunruiCd = 30 or 40). These project types represent expected orders that cannot have contracts deleted.",
+        "properties": {
+            "rule_id": "BR_002",
+            "condition": "ankenBunruiCd = 30 OR ankenBunruiCd = 40",
+            "action": "Disable delete button",
+            "priority": "high",
+            "validation_type": "server_side"
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/screen-specification/display-conditions-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "business_rule:radio_disabled_external_contract",
+        "type": "business_rule",
+        "name": "Radio Button Disabled for External Contracts",
+        "parent_module": "module:contract_list",
+        "description": "Business rule that disables radio button selection for external contracts (keiyakuUkagaiKbn = 1). External contracts cannot be selected for modification or deletion operations.",
+        "properties": {
+            "rule_id": "BR_003",
+            "condition": "keiyakuUkagaiKbn = 1",
+            "action": "Disable radio button selection",
+            "priority": "high",
+            "validation_type": "client_side"
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/screen-specification/display-conditions-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "business_rule:special_contract_no_selection",
+        "type": "business_rule",
+        "name": "Special Contracts Cannot Be Selected",
+        "parent_module": "module:contract_list",
+        "description": "Business rule that hides radio button selection for special contract types (keiyakuCardSyubetsuCd >= 90). These high-priority or special contracts cannot be selected for standard operations.",
+        "properties": {
+            "rule_id": "BR_004",
+            "condition": "keiyakuCardSyubetsuCd >= 90",
+            "action": "Hide radio button",
+            "priority": "high",
+            "validation_type": "client_side"
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/screen-specification/display-conditions-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "business_rule:ipad_hide_all_buttons",
+        "type": "business_rule",
+        "name": "iPad Device Hides All Action Buttons",
+        "parent_module": "module:contract_list",
+        "description": "Business rule that hides all action buttons when the user is accessing from an iPad device. iPad users can only view contract information but cannot perform operations.",
+        "properties": {
+            "rule_id": "BR_005",
+            "condition": "User-Agent = iPad",
+            "action": "Hide all function buttons; display contracts as text only",
+            "priority": "high",
+            "validation_type": "client_side"
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/screen-specification/display-conditions-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "business_rule:delete_confirmation_required",
+        "type": "business_rule",
+        "name": "Delete Confirmation Required",
+        "parent_module": "module:contract_list",
+        "description": "Business rule requiring user confirmation before executing contract deletion. Displays a confirmation dialog asking user to confirm the deletion action before proceeding.",
+        "properties": {
+            "rule_id": "BR_006",
+            "condition": "actionType = delete_contract",
+            "action": "Display confirmation dialog: comDeleteConfirm()",
+            "priority": "high",
+            "validation_type": "client_side"
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/screen-specification/event_handling_rules-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "business_rule:button_display_permission",
+        "type": "business_rule",
+        "name": "Button Display Based on Permission Flags",
+        "parent_module": "module:contract_list",
+        "description": "Business rule controlling the visibility of action buttons based on user permission flags. Each operation (new, update, delete, etc.) has a corresponding flag that determines if the user has permission to perform that action.",
+        "properties": {
+            "rule_id": "BR_007",
+            "condition": "Permission flags: shinkiKeiyakuSakuseiKahiFlg, tsuikaKeiyakuSakuseiKahiFlg, keiyakuDataHenkoKahiFlg, kaniKeiyakuSakuseiKahiFlg, hukusuJyutyuSakuseiHyoujiFlg",
+            "action": "Show/hide corresponding buttons based on flag = 'true'/'false'",
+            "priority": "high",
+            "validation_type": "server_side"
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/screen-specification/display-conditions-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "business_rule:date_range_validation",
+        "type": "business_rule",
+        "name": "Date Range Consistency Validation",
+        "parent_module": "module:contract_list",
+        "description": "Business rule validating that date range fields have consistent from-to values. Used in search form to ensure start date is not after end date for contract conclusion date and recording date ranges.",
+        "properties": {
+            "rule_id": "BR_008",
+            "condition": "keiyakuTeiketsuDateFrom > keiyakuTeiketsuDateTo OR keiyakuKeijyouDateFrom > keiyakuKeijyouDateTo",
+            "action": "Display validation error",
+            "priority": "medium",
+            "validation_type": "server_side"
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/components/validation-rules-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "session:contract_keiyaku_vo",
+        "type": "session",
+        "name": "Contract Main VO Session",
+        "parent_module": "module:contract_list",
+        "description": "Session attribute storing the main contract value object (VO) containing complete contract information. Used to maintain contract state across screen transitions and operations.",
+        "properties": {
+            "session_key": "CONTRACT_KEIYAKU_VO",
+            "scope": "session",
+            "lifecycle": "user_session",
+            "stored_data": "KeiyakuVO object with all contract fields",
+            "data_type": "KeiyakuVO"
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "session:contract_authority_vo",
+        "type": "session",
+        "name": "User Authority VO Session",
+        "parent_module": "module:contract_list",
+        "description": "Session attribute storing user authority and permission information. Used to control access to contract operations and determine which action buttons are displayed.",
+        "properties": {
+            "session_key": "CONTRACT_AUTHORITY_VO",
+            "scope": "session",
+            "lifecycle": "user_session",
+            "stored_data": "AuthorityVO object with user permissions",
+            "data_type": "AuthorityVO"
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "session:contract_option_keiyaku_ichiran_vo_list",
+        "type": "session",
+        "name": "Contract Summary List Session",
+        "parent_module": "module:contract_list",
+        "description": "Session attribute storing the list of contract summary VOs for display in the contract list table. Contains abbreviated contract information for efficient list rendering.",
+        "properties": {
+            "session_key": "CONTRACT_OPTION_KEIYAKU_ICHIRAN_VO_LIST",
+            "scope": "session",
+            "lifecycle": "user_session",
+            "stored_data": "List of KeiyakuIchiranVO objects",
+            "data_type": "List<KeiyakuIchiranVO>"
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "session:contract_anken_vo",
+        "type": "session",
+        "name": "Project VO Session",
+        "parent_module": "module:contract_list",
+        "description": "Session attribute storing project (anken) information including project number, classification, and name. Used throughout contract operations to maintain project context.",
+        "properties": {
+            "session_key": "CONTRACT_ANKEN_VO",
+            "scope": "session",
+            "lifecycle": "user_session",
+            "stored_data": "AnkenVO object with project information",
+            "data_type": "AnkenVO"
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "session:shinki_keiyaku_sakusei_kahi_flg",
+        "type": "session",
+        "name": "New Contract Creation Permission Flag",
+        "parent_module": "module:contract_list",
+        "description": "Session flag indicating whether the current user has permission to create new contracts. Controls the visibility of the new contract creation button.",
+        "properties": {
+            "session_key": "CONTRACT_SHINKI_KEIYAKU_SAKUSEI_KAHI_FLG",
+            "scope": "session",
+            "lifecycle": "user_session",
+            "stored_data": "Boolean flag ('true' or 'false')",
+            "data_type": "String"
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "session:tsuika_keiyaku_sakusei_kahi_flg",
+        "type": "session",
+        "name": "Additional Contract Creation Permission Flag",
+        "parent_module": "module:contract_list",
+        "description": "Session flag indicating whether the current user has permission to create additional contracts. Controls the visibility of the additional contract creation button.",
+        "properties": {
+            "session_key": "CONTRACT_TSUIKA_KEIYAKU_SAKUSEI_KAHI_FLG",
+            "scope": "session",
+            "lifecycle": "user_session",
+            "stored_data": "Boolean flag ('true' or 'false')",
+            "data_type": "String"
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "session:keiyaku_data_henko_kahi_flg",
+        "type": "session",
+        "name": "Contract Data Modification Permission Flag",
+        "parent_module": "module:contract_list",
+        "description": "Session flag indicating whether the current user has permission to modify existing contract data. Controls the visibility of the contract update button.",
+        "properties": {
+            "session_key": "CONTRACT_KEIYAKU_DATA_HENKO_KAHI_FLG",
+            "scope": "session",
+            "lifecycle": "user_session",
+            "stored_data": "Boolean flag ('true' or 'false')",
+            "data_type": "String"
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "session:kani_keiyaku_sakusei_kahi_flg",
+        "type": "session",
+        "name": "After-Sales Contract Creation Permission Flag",
+        "parent_module": "module:contract_list",
+        "description": "Session flag indicating whether the current user has permission to create after-sales (yuusyou) contracts. Controls the visibility of the after-sales contract creation button.",
+        "properties": {
+            "session_key": "CONTRACT_KANI_KEIYAKU_SAKUSEI_KAHI_FLG",
+            "scope": "session",
+            "lifecycle": "user_session",
+            "stored_data": "Boolean flag ('true' or 'false')",
+            "data_type": "String"
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "session:hukusu_jyutyu_sakusei_hyouji_flg",
+        "type": "session",
+        "name": "Multiple Order Creation Display Flag",
+        "parent_module": "module:contract_list",
+        "description": "Session flag indicating whether the multiple order creation button should be displayed. Controls the visibility of the multiple order creation button based on business rules.",
+        "properties": {
+            "session_key": "CONTRACT_HUKUSU_JYUTYU_SAKUSEI_HYOUJI_FLG",
+            "scope": "session",
+            "lifecycle": "user_session",
+            "stored_data": "Boolean flag ('true' or 'false')",
+            "data_type": "String"
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "view:keiyaku_list_jsp",
+        "type": "view",
+        "name": "Contract List JSP View",
+        "parent_module": "module:contract_list",
+        "description": "Main JSP view for displaying the contract list screen. Uses Apache Tiles framework to include header, body, and footer components. The body section contains the contract list table and action buttons.",
+        "properties": {
+            "view_name": "keiyakuList.jsp",
+            "template": "tiles_layout",
+            "display_conditions": [
+                "user_authenticated",
+                "valid_project"
+            ],
+            "bound_data": [
+                "CONTRACT_OPTION_KEIYAKU_ICHIRAN_VO_LIST",
+                "CONTRACT_ANKEN_VO",
+                "permission_flags"
+            ],
+            "included_files": [
+                "body.jsp",
+                "/common/error.txt"
+            ]
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/components/description-ui-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "view:keiyaku_list_body_jsp",
+        "type": "view",
+        "name": "Contract List Body JSP View",
+        "parent_module": "module:contract_list",
+        "description": "Body JSP view containing the actual contract list table UI components. Includes error display block, contract data table with radio buttons and links, action button group, and hidden form fields for form submission.",
+        "properties": {
+            "view_name": "body.jsp",
+            "template": "fragment",
+            "display_conditions": [
+                "session_data_available"
+            ],
+            "bound_data": [
+                "CONTRACT_OPTION_KEIYAKU_ICHIRAN_VO_LIST"
+            ],
+            "ui_components": [
+                "error_display_block",
+                "contract_list_table",
+                "action_button_group",
+                "hidden_form_fields"
+            ]
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/components/description-ui-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "value_object:keiyaku_vo",
+        "type": "value_object",
+        "name": "Contract Value Object",
+        "parent_module": "module:contract_list",
+        "description": "Value object representing a complete contract entity with all contract attributes including key, number, status, type, dates, amounts, and related associations. Used for data transfer between layers.",
+        "properties": {
+            "object_name": "KeiyakuVO",
+            "fields": [
+                "keiyakuKey",
+                "keiyakuNo",
+                "keiyakuStatusCd",
+                "keiyakuCardSyubetsuCd",
+                "keiyakuUkagaiKbn",
+                "keiyakuTeiketsuDate",
+                "zeikomiKeiyakuKingaku",
+                "ankenNo"
+            ],
+            "validation_rules": []
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/overview-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "value_object:anken_vo",
+        "type": "value_object",
+        "name": "Project Value Object",
+        "parent_module": "module:contract_list",
+        "description": "Value object representing a project (anken) entity with project number, classification code, and name. Used for data transfer and display of project information.",
+        "properties": {
+            "object_name": "AnkenVO",
+            "fields": [
+                "ankenNo",
+                "ankenBunruiCd",
+                "ankenName"
+            ],
+            "validation_rules": []
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/overview-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "value_object:authority_vo",
+        "type": "value_object",
+        "name": "Authority Value Object",
+        "parent_module": "module:contract_list",
+        "description": "Value object representing user authority and permission information. Contains user ID, authority level, and specific permissions for contract operations.",
+        "properties": {
+            "object_name": "AuthorityVO",
+            "fields": [
+                "userId",
+                "authorityLevel",
+                "permissions"
+            ],
+            "validation_rules": []
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/overview-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    },
+    {
+        "id": "value_object:keiyaku_ichiran_vo",
+        "type": "value_object",
+        "name": "Contract Summary Value Object",
+        "parent_module": "module:contract_list",
+        "description": "Value object representing abbreviated contract information for display in list views. Contains essential contract fields optimized for table rendering without full contract details.",
+        "properties": {
+            "object_name": "KeiyakuIchiranVO",
+            "fields": [
+                "keiyakuKey",
+                "keiyakuNo",
+                "keiyakuCardSyubetsuCd",
+                "tuikaKbn",
+                "koujiBukkenName",
+                "keiyakusyaName",
+                "syouninZyoukyou",
+                "zeikomiKeiyakuKingaku"
+            ],
+            "validation_rules": []
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/data-architecture-en.md",
+            "extracted_date": "2025-11-24T00:00:00Z"
+        }
+    }
+]
