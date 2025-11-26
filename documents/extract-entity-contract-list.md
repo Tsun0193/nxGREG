@@ -71,7 +71,7 @@ Each entity must follow this structure:
 ### Required Fields
 - **id**: Unique identifier in format `<type>:<name>` (e.g., `screen:contract_list_main`)
 - **type**: Entity type from the taxonomy below
-- **name**: Clear, descriptive name
+- **name**: The extracted name
 - **parent_module**: Always `"module:contract-list"` for this extraction
 - **properties**: Type-specific properties (see entity taxonomy)
 - **metadata**: Source tracking information
@@ -121,6 +121,16 @@ Extract the following entity types (included but not limited to):
 - **Notes:**: The function is mention in the "ctc-data-en/contract-list/overview-en.md" and listed in "ctc-data-en/contract-list/functions" as 
   + **1. List Initialization Feature**
   + **2. Contract Deletion Feature**
+
+### 8. Action Type Entities
+- **Type ID:** `action_type`
+- **Properties:** action type name, Description, spExecuteKbn, Requirements
+- **Notes:** The function is mailly mention in the "ctc-data-en/contract-list/screen-specification/display-conditions-en.md" at Action Types and Screen Transitions
+
+### 9. Business/Control Flag
+- **Type ID:** `flag`
+- **Properties:**  Name, Purpose, Value, Impact
+- **Notes:** The function is mailly mention in the "ctc-data-en/contract-list/screen-specification"
 
 ---
 
@@ -217,17 +227,40 @@ These architectural component entities have been moved to a separate instruction
 
 ### Example Function Entity with Database References
 ```json
-{
-  "id": "function:delete_contract",
-  "type": "function",
-  "name": "Delete Contract Function",
-  "parent_module": "module:contract-list",
-  "properties": {
-  },
-  "metadata": {
-    "source_file": "ctc-data-en/contract-list/functions/delete-contract/function-overview-en.md",
-  }
-}
+    {
+        "id": "function:contract_deletion",
+        "type": "function",
+        "name": "Contract Deletion Feature",
+        "parent_module": "module:contract_list",
+        "properties": {
+            "function_name": "Contract Deletion",
+            "url": "/dsmart/contract/keiyakuList/keiyakuListDispatch.do?actionType=delete_contract",
+            "parameters": [
+                {
+                    "name": "actionType",
+                    "type": "String",
+                    "value": "delete_contract",
+                    "required": true
+                },
+                {
+                    "name": "keiyakuKey",
+                    "type": "Long",
+                    "description": "Selected contract key to delete",
+                    "required": true
+                }
+            ],
+            "return_type": "Forward",
+            "output_success": "/keiyakuListInit.do",
+            "output_failure": "/keiyakuListInit.do and error message",
+            "description": "Performs logical deletion of selected contract and updates related data",
+            "validation_rules": [
+                "Contract must exist",
+                "Only non-main/non-linked contracts can be deleted"
+            ]
+        },
+        "metadata": {
+            "source_file": "ctc-data-en/contract-list/functions/delete-contract/function-overview-en.md"
+        }
 ```
 
 ### Example Value Object Entity
@@ -247,7 +280,6 @@ These architectural component entities have been moved to a separate instruction
   }
 }
 ```
-
 ---
 
 ## Task Execution

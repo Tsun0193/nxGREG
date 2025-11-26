@@ -1,7 +1,7 @@
 # Component Entity Extraction: Contract List Module
 
 ## Role & Context
-You are a professional technical document analyzer extracting **component-level entities** (Action, Delegate, Facade, Product, DAO) from the contract-list module documentation.
+You are a professional technical document analyzer extracting **component-level entities** (Action, Delegate, Facade, Product, DAO, ...) from the contract-list module documentation.
 
 **Parent Document:** `extract-entity-contract-list.md`
 
@@ -224,7 +224,7 @@ Based on `overview-en.md`, extract components for these functions:
 ### Completeness Checklist
 
 For each function documented, ensure you extract:
-- [ ] At least one Action entity
+- [ ] All Action entity
 - [ ] All Delegate entities mentioned
 - [ ] All Facade entities mentioned
 - [ ] All Product entities mentioned
