@@ -59,12 +59,8 @@ Each entity must follow this structure:
   "type": "<entity_type>",
   "name": "<human_readable_name>",
   "parent_module": "module:contract-list",
-  "properties": {
-    "<property_name>": "<property_value>"
-  },
-  "metadata": {
-    "source_file": "<relative_path_to_source_file>",
-  }
+  "<property_name>": "<property_value>",
+  "source_file": "<relative_path_to_source_file>"
 }
 ```
 
@@ -73,8 +69,8 @@ Each entity must follow this structure:
 - **type**: Entity type from the taxonomy below
 - **name**: The extracted name
 - **parent_module**: Always `"module:contract-list"` for this extraction
-- **properties**: Type-specific properties (see entity taxonomy)
-- **metadata**: Source tracking information
+- **source_file**: Source file path for traceability
+- **Additional fields**: Type-specific properties (see entity taxonomy) as direct fields
 
 ---
 
@@ -84,58 +80,46 @@ Extract the following entity types (included but not limited to):
 
 ### 1. Module Entities
 - **Type ID:** `module`
-- **Properties:** module_name, dependencies, child_modules
+- **Fields:** module_name, dependencies, child_modules
 - **Notes:** Extract the main module and any sub-modules defined in the documentation
 
 ### 2. Screen Entities
 - **Type ID:** `screen`
-- **Properties:** screen_id, title, url_pattern, access_level, layout_type
+- **Fields:** screen_id, title, url_pattern, access_level, layout_type
 - **Notes:** All screens navigable from this module are documented in `ctc-data-en/contract-list/screen-flow-en.md`. Extract each screen as a separate entity even if it transitions to different modules.
 
 ### 3. Value Object Entities
 - **Type ID:** `value_object`
-- **Properties:** object_name, fields, validation_rules
-- **Notes:** VOs used for data transfer between layers (e.g., KeiyakuVO, AnkenVO, AuthorityVO)
+- **Fields:** object_name, fields (semicolon-separated string), validation_rules
+- **Notes:** VOs used for data transfer between layers (e.g., KeiyakuVO, AnkenVO, AuthorityVO). Fields should be concatenated with semicolon separator.
 
 ### 4. Form Entities
 - **Type ID:** `form`
-- **Properties:** form_id, fields, validation_rules, submission_action
-- **Notes:** Struts form beans used for request/response handling. All forms can be found in `ctc-data-en/contract-list/components/form-fields-en.md`. There are three total form:
-  + 1. `anken_cardForm`
-  + 2. `keiyaku_cardForm`
-  + 3. `keiyakuListKensakuForm`
+- **Fields:** form_id, form_bean_class, scope, submission_action
+- **Notes:** Struts form beans used for request/response handling. Form fields should be extracted as separate `form_field` entities.
 
-### 5. Session Entities
+### 5. Form Field Entities
+- **Type ID:** `form_field`
+- **Fields:** field_name, field_type, required, validation_rules, form_id
+- **Notes:** Individual form fields extracted separately from form entities for better relationship modeling.
+
+### 6. Session Entities
 - **Type ID:** `session`
-- **Properties:** session_key, scope, lifecycle, stored_data
+- **Fields:** session_key, scope, lifecycle, stored_data
 - **Notes:** Session attributes used to maintain state across requests
-
-### 6. View/UI Entities
-- **Type ID:** `view`
-- **Properties:** view_name, template, display_conditions, bound_data
-- **Notes:** JSP files and view templates
 
 ### 7. Function Entities
 - **Type ID:** `function`
-- **Properties:** function_name, parameters, return_type, business_logic, used_database_tables
-- **Notes:**: The function is mention in the "ctc-data-en/contract-list/overview-en.md" and listed in "ctc-data-en/contract-list/functions" as 
+- **Fields:** function_name, parameters (stringified JSON), return_type, business_logic, used_database_tables
+- **Notes:** The function is mentioned in the "ctc-data-en/contract-list/overview-en.md" and listed in "ctc-data-en/contract-list/functions" as:
   + **1. List Initialization Feature**
   + **2. Contract Deletion Feature**
 
-### 8. Action Type Entities
-- **Type ID:** `action_type`
-- **Properties:** action type name, Description, spExecuteKbn, Requirements
-- **Notes:** The function is mailly mention in the "ctc-data-en/contract-list/screen-specification/display-conditions-en.md" at Action Types and Screen Transitions
-
-### 9. Business/Control Flag
-- **Type ID:** `flag`
-- **Properties:**  Name, Purpose, Value, Impact
-- **Notes:** The function is mailly mention in the "ctc-data-en/contract-list/screen-specification"
-
 ---
 
-## Component Entities (Extracted to Separate File)
+## Entities Extracted to Separate Files
 
+### Component Entities
 **For Action, Delegate, Facade, Product, and DAO entities**, refer to:
 **📄 [Component Entity Extraction Guide](extract-component-entity-contract-list.md)**
 
@@ -146,7 +130,21 @@ These architectural component entities have been moved to a separate instruction
 - Product Entities (business logic products)
 - DAO Entities (data access objects)
 
-**Note**: Do not create the component-entity in this task
+**Note**: Do not create the component entities in this task
+
+### UI & Interaction Entities
+**For View, Button, Route, Action Type, Event, and Flag entities**, refer to:
+**📄 [UI & Interaction Entity Extraction Guide](extract-ui-interaction-entity-contract-list.md)**
+
+These UI and interaction entities have been moved to a separate instruction file. They include:
+- View/UI Entities (JSP files and view templates)
+- Button Entities (UI action buttons)
+- Route/URL Entities (HTTP endpoints)
+- Action Type Entities (dispatch action types)
+- Event Entities (user interaction events)
+- Business/Control Flag Entities (permission and display flags)
+
+**Note**: Do not create the UI/interaction entities in this task
 
 ---
 
@@ -172,7 +170,7 @@ These architectural component entities have been moved to a separate instruction
 - Mark uncertain information with `"confidence": "low"` in metadata
 
 ### 5. Traceability
-- Always include `source_file` in metadata
+- Always include `source_file` as a direct field
 - Maintain original terminology and avoid paraphrasing technical terms
 
 ### 6. Database Table References
@@ -207,60 +205,37 @@ These architectural component entities have been moved to a separate instruction
   "type": "screen",
   "name": "Contract List Main Screen",
   "parent_module": "module:contract-list",
-  "properties": {
-    "screen_id": "GCNT90001",
-    "title": "Contract List",
-    "url_pattern": "/dsmart/contract/keiyakuList/keiyakuListInit.do",
-    "access_level": "authenticated_user",
-    "layout_type": "data_table",
-    "has_search": true,
-    "has_filter": true,
-    "pagination": false,
-    "main_jsp": "keiyakuList.jsp",
-    "action_class": "KeiyakuListInitAction"
-  },
-  "metadata": {
-    "source_file": "ctc-data-en/contract-list/overview-en.md",
-  }
+  "screen_id": "GCNT90001",
+  "title": "Contract List",
+  "url_pattern": "/dsmart/contract/keiyakuList/keiyakuListInit.do",
+  "access_level": "authenticated_user",
+  "layout_type": "data_table",
+  "has_search": true,
+  "has_filter": true,
+  "pagination": false,
+  "main_jsp": "keiyakuList.jsp",
+  "action_class": "KeiyakuListInitAction",
+  "source_file": "ctc-data-en/contract-list/overview-en.md"
 }
 ```
 
-### Example Function Entity with Database References
+### Example Function Entity
 ```json
-    {
-        "id": "function:contract_deletion",
-        "type": "function",
-        "name": "Contract Deletion Feature",
-        "parent_module": "module:contract_list",
-        "properties": {
-            "function_name": "Contract Deletion",
-            "url": "/dsmart/contract/keiyakuList/keiyakuListDispatch.do?actionType=delete_contract",
-            "parameters": [
-                {
-                    "name": "actionType",
-                    "type": "String",
-                    "value": "delete_contract",
-                    "required": true
-                },
-                {
-                    "name": "keiyakuKey",
-                    "type": "Long",
-                    "description": "Selected contract key to delete",
-                    "required": true
-                }
-            ],
-            "return_type": "Forward",
-            "output_success": "/keiyakuListInit.do",
-            "output_failure": "/keiyakuListInit.do and error message",
-            "description": "Performs logical deletion of selected contract and updates related data",
-            "validation_rules": [
-                "Contract must exist",
-                "Only non-main/non-linked contracts can be deleted"
-            ]
-        },
-        "metadata": {
-            "source_file": "ctc-data-en/contract-list/functions/delete-contract/function-overview-en.md"
-        }
+{
+    "id": "function:contract_deletion",
+    "type": "function",
+    "name": "Contract Deletion Feature",
+    "parent_module": "module:contract_list",
+    "function_name": "Contract Deletion",
+    "url": "/dsmart/contract/keiyakuList/keiyakuListDispatch.do?actionType=delete_contract",
+    "parameters": "{\"actionType\":{\"name\":\"actionType\",\"type\":\"String\",\"value\":\"delete_contract\",\"required\":true},\"keiyakuKey\":{\"name\":\"keiyakuKey\",\"type\":\"Long\",\"description\":\"Selected contract key to delete\",\"required\":true}}",
+    "return_type": "Forward",
+    "output_success": "/keiyakuListInit.do",
+    "output_failure": "/keiyakuListInit.do and error message",
+    "description": "Performs logical deletion of selected contract and updates related data",
+    "validation_rules": "Contract must exist; Only non-main/non-linked contracts can be deleted",
+    "source_file": "ctc-data-en/contract-list/functions/delete-contract/function-overview-en.md"
+}
 ```
 
 ### Example Value Object Entity
@@ -270,14 +245,42 @@ These architectural component entities have been moved to a separate instruction
   "type": "value_object",
   "name": "Contract Value Object",
   "parent_module": "module:contract-list",
-  "properties": {
-    "object_name": "KeiyakuVO",
-    "fields": ["keiyakuKey", "keiyakuNo", "keiyakuStatusCd", "keiyakuCardSyubetsuCd", "keiyakuUkagaiKbn"],
-    "purpose": "Transfer contract data between layers"
-  },
-  "metadata": {
-    "source_file": "ctc-data-en/contract-list/overview-en.md"
-  }
+  "object_name": "KeiyakuVO",
+  "fields": "keiyakuKey;keiyakuNo;keiyakuStatusCd;keiyakuCardSyubetsuCd;keiyakuUkagaiKbn",
+  "purpose": "Transfer contract data between layers",
+  "source_file": "ctc-data-en/contract-list/overview-en.md"
+}
+```
+
+### Example Form Entity
+```json
+{
+  "id": "form:anken_card_form",
+  "type": "form",
+  "name": "Project Card Form",
+  "parent_module": "module:contract-list",
+  "form_id": "anken_cardForm",
+  "form_bean_class": "AnkenCardForm",
+  "scope": "request",
+  "submission_action": "/keiyakuListInit.do",
+  "description": "Form for project context data used in screen initialization",
+  "source_file": "ctc-data-en/contract-list/components/form-fields-en.md"
+}
+```
+
+### Example Form Field Entity
+```json
+{
+  "id": "form_field:anken_no",
+  "type": "form_field",
+  "name": "Project Number Field",
+  "parent_module": "module:contract-list",
+  "field_name": "ankenNo",
+  "field_type": "String",
+  "required": true,
+  "form_id": "anken_cardForm",
+  "validation_rules": "ankenNo is required for screen initialization",
+  "source_file": "ctc-data-en/contract-list/components/form-fields-en.md"
 }
 ```
 ---
@@ -288,11 +291,20 @@ These architectural component entities have been moved to a separate instruction
 2. **Identify** all entities according to the taxonomy (excluding database table entities and component entities)
 3. **Extract** entity information according to the schema
    - For screens: Use `ctc-data-en/contract-list/screen-flow-en.md` as the primary source
-   - For function: Use `ctc-data-en/contract-list/functions` as the primary source
-   - For form: Use `ctc-data-en/contract-list/components/form-fields-en.md` as the primary source
+   - For functions: Use `ctc-data-en/contract-list/functions` as the primary source
+   - For forms and form fields: Use `ctc-data-en/contract-list/components/form-fields-en.md` as the primary source
+   - **Create separate entities for form fields** with relationships to parent forms
+   - **Convert array fields to semicolon-separated strings** (e.g., fields, validation_rules)
+   - **Convert complex parameters to stringified JSON** for function entities
 
 4. **Validate** JSON structure and required fields
 5. **Output** entities to appropriate JSON files:
    - Main entities: `json/contract-list-entities.json`
+
+**Format Guidelines:**
+- No nested properties - all fields at root level
+- Arrays converted to semicolon-separated strings
+- Complex objects (like function parameters) as stringified JSON
+- Forms and form fields as separate entities for better relationship modeling
 
 Focus on precision, completeness, and maintaining the semantic meaning from the source documentation. 

@@ -36,29 +36,74 @@ class Neo4jLoader:
                 label_expr = ":" + ":".join(sorted(set(node.labels)))
                 properties = dict(node.properties)
                 uid = properties.pop("uid")
-                parameters = {"uid": uid}
-                set_clause = ""
+                
+                # Helper function to escape string values for Cypher
+                def escape_cypher_value(value):
+                    if value is None:
+                        return "null"
+                    elif isinstance(value, bool):
+                        return "true" if value else "false"
+                    elif isinstance(value, (int, float)):
+                        return str(value)
+                    elif isinstance(value, str):
+                        # Escape quotes and backslashes
+                        escaped = value.replace('\\', '\\\\').replace('"', '\\"')
+                        return f'"{escaped}"'
+                    else:
+                        # Convert other types to string
+                        escaped = str(value).replace('\\', '\\\\').replace('"', '\\"')
+                        return f'"{escaped}"'
+                
+                # Build query with literal values instead of parameters
+                query_parts = [f"MERGE (n{label_expr} {{uid: $uid}})"]
+                
                 if properties:
-                    parameters["props"] = properties
-                    set_clause = " SET n += $props"
-                session.run(
-                    f"MERGE (n{label_expr} {{uid: $uid}}){set_clause}",
-                    parameters,
-                )
+                    set_clauses = []
+                    for key, value in properties.items():
+                        escaped_value = escape_cypher_value(value)
+                        set_clauses.append(f"n.`{key}` = {escaped_value}")
+                    query_parts.append("SET " + ", ".join(set_clauses))
+                
+                full_query = " ".join(query_parts)
+                
+                session.run(full_query, {"uid": uid})
             for rel in graph.relationships:
+                # Helper function to escape string values for Cypher
+                def escape_cypher_value(value):
+                    if value is None:
+                        return "null"
+                    elif isinstance(value, bool):
+                        return "true" if value else "false"
+                    elif isinstance(value, (int, float)):
+                        return str(value)
+                    elif isinstance(value, str):
+                        # Escape quotes and backslashes
+                        escaped = value.replace('\\', '\\\\').replace('"', '\\"')
+                        return f'"{escaped}"'
+                    else:
+                        # Convert other types to string
+                        escaped = str(value).replace('\\', '\\\\').replace('"', '\\"')
+                        return f'"{escaped}"'
+                
+                # Build query with literal values
+                query_parts = [
+                    "MATCH (a:GraphNode {uid: $start_uid}), (b:GraphNode {uid: $end_uid})",
+                    f"MERGE (a)-[r:{rel.rel_type}]->(b)"
+                ]
+                
+                if rel.properties:
+                    set_clauses = []
+                    for key, value in rel.properties.items():
+                        escaped_value = escape_cypher_value(value)
+                        set_clauses.append(f"r.`{key}` = {escaped_value}")
+                    query_parts.append("SET " + ", ".join(set_clauses))
+                
+                full_query = " ".join(query_parts)
                 params = {
                     "start_uid": rel.start_key,
                     "end_uid": rel.end_key,
-                    "props": rel.properties,
                 }
-                set_clause = " SET r += $props" if rel.properties else ""
-                session.run(
-                    (
-                        "MATCH (a:GraphNode {uid: $start_uid}), (b:GraphNode {uid: $end_uid}) "
-                        f"MERGE (a)-[r:{rel.rel_type}]->(b){set_clause}"
-                    ),
-                    params,
-                )
+                session.run(full_query, params)
 
 
 if __name__ == "__main__":

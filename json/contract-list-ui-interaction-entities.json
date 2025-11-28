@@ -1,0 +1,1446 @@
+[
+  {
+    "id": "view:keiyaku_list_jsp",
+    "type": "view",
+    "name": "Contract List View",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "view_name": "keiyakuList.jsp",
+      "template_path": "docroot/contract/keiyakuList/keiyakuList.jsp",
+      "display_conditions": [
+        "User must be authenticated",
+        "Project (ankenNo) must exist"
+      ],
+      "bound_data": [
+        "CONTRACT_OPTION_KEIYAKU_ICHIRAN_VO_LIST",
+        "CONTRACT_ANKEN_VO",
+        "CONTRACT_AUTHORITY_VO"
+      ],
+      "included_components": [
+        "body.jsp",
+        "/common/error.txt"
+      ],
+      "description": "Main JSP view for displaying contract list with action buttons and contract table"
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/components/description-ui-en.md"
+    }
+  },
+  {
+    "id": "view:keiyaku_list_body_jsp",
+    "type": "view",
+    "name": "Contract List Body View",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "view_name": "body.jsp",
+      "template_path": "docroot/contract/keiyakuList/keiyakuList/body.jsp",
+      "display_conditions": [
+        "Included by keiyakuList.jsp via Tiles"
+      ],
+      "bound_data": [
+        "CONTRACT_OPTION_KEIYAKU_ICHIRAN_VO_LIST"
+      ],
+      "included_components": [
+        "/common/error.txt",
+        "Contract list table with radio buttons",
+        "Action buttons panel",
+        "Hidden form fields"
+      ],
+      "description": "Body fragment of contract list view containing the main data table, radio buttons, and action buttons"
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/components/description-ui-en.md"
+    }
+  },
+  {
+    "id": "button:new_contract",
+    "type": "button",
+    "name": "New Contract Button",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "button_id": "btnNewContract",
+      "label": "New Contract",
+      "button_type": "action",
+      "javascript_function": "keiyakuList_submit(1)",
+      "trigger_event": "new_contract_button_click",
+      "trigger_action_type": "new_contract",
+      "sp_execute_kbn": "1",
+      "enabled_condition": "ankenNo exists and project is active",
+      "visibility_flag": "shinkiKeiyakuSakuseiKahiFlg",
+      "visibility_condition": "shinkiKeiyakuSakuseiKahiFlg = 'true'",
+      "position": "top_action_bar",
+      "device_support": "Hidden on iPad",
+      "selection_required": false,
+      "description": "Button to initiate new contract creation workflow"
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-specification/event_handling_rules-en.md"
+    }
+  },
+  {
+    "id": "button:additional_contract",
+    "type": "button",
+    "name": "Additional Contract Button",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "button_id": "btnAdditionalContract",
+      "label": "Add Contract",
+      "button_type": "action",
+      "javascript_function": "keiyakuList_submit(3)",
+      "trigger_event": "add_contract_button_click",
+      "trigger_action_type": "add_contract",
+      "sp_execute_kbn": "3",
+      "enabled_condition": "Contract selection required",
+      "visibility_flag": "tsuikaKeiyakuSakuseiKahiFlg",
+      "visibility_condition": "tsuikaKeiyakuSakuseiKahiFlg = 'true'",
+      "position": "top_action_bar",
+      "device_support": "Hidden on iPad",
+      "selection_required": true,
+      "description": "Button to create an additional contract for an existing project"
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-specification/event_handling_rules-en.md"
+    }
+  },
+  {
+    "id": "button:update_contract",
+    "type": "button",
+    "name": "Update Contract Button",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "button_id": "btnUpdateContract",
+      "label": "Update Contract",
+      "button_type": "action",
+      "javascript_function": "keiyakuList_submit(2)",
+      "trigger_event": "update_contract_button_click",
+      "trigger_action_type": "update_contract",
+      "sp_execute_kbn": "2",
+      "enabled_condition": "Contract selection required",
+      "visibility_flag": "keiyakuDataHenkoKahiFlg",
+      "visibility_condition": "keiyakuDataHenkoKahiFlg = 'true'",
+      "position": "top_action_bar",
+      "device_support": "Hidden on iPad",
+      "selection_required": true,
+      "description": "Button to update existing contract information"
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-specification/event_handling_rules-en.md"
+    }
+  },
+  {
+    "id": "button:delete_contract",
+    "type": "button",
+    "name": "Delete Contract Button",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "button_id": "btnDeleteContract",
+      "label": "Delete Contract",
+      "button_type": "action",
+      "javascript_function": "keiyakuList_submit(4)",
+      "trigger_event": "delete_contract_button_click",
+      "trigger_action_type": "delete_contract",
+      "enabled_condition": "Contract selection required and ankenBunruiCd ≠ 30,40",
+      "visibility_condition": "Always visible",
+      "disabled_condition": "ankenBunruiCd = 30 or 40",
+      "position": "top_action_bar",
+      "device_support": "Hidden on iPad",
+      "selection_required": true,
+      "confirmation_required": true,
+      "confirmation_function": "comDeleteConfirm()",
+      "description": "Button to remove a contract from a project with confirmation dialog"
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-specification/event_handling_rules-en.md"
+    }
+  },
+  {
+    "id": "button:after_sales_contract",
+    "type": "button",
+    "name": "After-Sales Contract Button",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "button_id": "btnAfterSalesContract",
+      "label": "Simple Construction Contract Card Creation",
+      "button_type": "action",
+      "javascript_function": "keiyakuList_submit(5)",
+      "trigger_event": "simple_contract_button_click",
+      "trigger_action_type": "new_yuusyou_contract",
+      "sp_execute_kbn": "5",
+      "enabled_condition": "No contract selection needed",
+      "visibility_flag": "kaniKeiyakuSakuseiKahiFlg",
+      "visibility_condition": "kaniKeiyakuSakuseiKahiFlg = 'true'",
+      "position": "top_action_bar",
+      "device_support": "Hidden on iPad",
+      "selection_required": false,
+      "description": "Button to create a simple construction contract card for after-sales"
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-specification/event_handling_rules-en.md"
+    }
+  },
+  {
+    "id": "button:multiple_orders",
+    "type": "button",
+    "name": "Multiple Orders Button",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "button_id": "btnMultipleOrders",
+      "label": "Multiple Order Creation",
+      "button_type": "action",
+      "javascript_function": "doFukusujyutyuSakusei()",
+      "trigger_event": "multiple_order_button_click",
+      "trigger_action_type": "new_yuusyou_after_contract",
+      "sp_execute_kbn": "6",
+      "enabled_condition": "No contract selection needed",
+      "visibility_flag": "hukusuJyutyuSakuseiHyoujiFlg",
+      "visibility_condition": "hukusuJyutyuSakuseiHyoujiFlg = 'true'",
+      "position": "top_action_bar",
+      "device_support": "Hidden on iPad",
+      "selection_required": false,
+      "description": "Button to create multiple orders for a project"
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-specification/event_handling_rules-en.md"
+    }
+  },
+  {
+    "id": "button:return_button",
+    "type": "button",
+    "name": "Return Button",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "button_id": "btnReturn",
+      "label": "Return",
+      "button_type": "navigation",
+      "javascript_function": "window.close()",
+      "trigger_event": "return_button_click",
+      "trigger_action_type": "closeWindow",
+      "enabled_condition": "Always enabled",
+      "visibility_condition": "Always visible",
+      "position": "bottom_action_bar",
+      "device_support": "Available on all devices",
+      "selection_required": false,
+      "description": "Button to close the current window and return to the previous screen"
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-specification/event_handling_rules-en.md"
+    }
+  },
+  {
+    "id": "button:contract_number_link",
+    "type": "button",
+    "name": "Contract Number Link",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "button_id": "contractNumberLink",
+      "label": "Contract Number (Dynamic)",
+      "button_type": "hyperlink",
+      "javascript_function": "keiyakuAnchor_submit()",
+      "trigger_event": "contract_link_click",
+      "trigger_action_type": "keiyaku_card_anchor",
+      "enabled_condition": "keiyakuCardSyubetsuCd < 90 AND keiyakuUkagaiKbn ≠ 1 AND Device ≠ iPad",
+      "visibility_condition": "Always visible",
+      "disabled_condition": "keiyakuCardSyubetsuCd >= 90 OR keiyakuUkagaiKbn = 1 OR Device = iPad (displayed as text only)",
+      "position": "contract_list_table",
+      "device_support": "Text only on iPad",
+      "selection_required": false,
+      "description": "Hyperlink on contract number to open the selected contract for display/editing"
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-specification/event_handling_rules-en.md"
+    }
+  },
+  {
+    "id": "route:keiyaku_list_init",
+    "type": "route",
+    "name": "Contract List Initialization Route",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "route_path": "/dsmart/contract/keiyakuList/keiyakuListInit.do",
+      "action_path": "/keiyakuListInit",
+      "http_method": [
+        "GET",
+        "POST"
+      ],
+      "mapped_action": "KeiyakuListInitAction",
+      "requires_authentication": true,
+      "parameters": [
+        {
+          "name": "ankenNo",
+          "type": "Long",
+          "required": true,
+          "description": "Project number to load contract list"
+        }
+      ],
+      "form_bean": "anken_cardForm",
+      "validation": false,
+      "forward_destinations": [
+        {
+          "name": "success",
+          "target": "/contract/keiyakuList/keiyakuList.jsp"
+        },
+        {
+          "name": "error",
+          "target": "/contract/error.jsp"
+        }
+      ],
+      "description": "Entry point for displaying contract list screen for a specific project"
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-flow-en.md"
+    }
+  },
+  {
+    "id": "route:keiyaku_list_from_after_screen_init",
+    "type": "route",
+    "name": "Contract List From After Screen Initialization Route",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "route_path": "/dsmart/contract/keiyakuList/keiyakuListFromAfterScreanInit.do",
+      "action_path": "/keiyakuListFromAfterScreanInit",
+      "http_method": [
+        "GET",
+        "POST"
+      ],
+      "mapped_action": "KeiyakuListFromAfterScreanInitAction",
+      "requires_authentication": true,
+      "parameters": [
+        {
+          "name": "ankenNo",
+          "type": "Long",
+          "required": true,
+          "description": "Project number"
+        },
+        {
+          "name": "jyutyuNo",
+          "type": "String",
+          "required": false,
+          "description": "Order number from after-sales screen"
+        }
+      ],
+      "form_bean": "anken_cardForm",
+      "validation": false,
+      "forward_destinations": [
+        {
+          "name": "success",
+          "target": "/contract/keiyakuList/keiyakuList.jsp"
+        }
+      ],
+      "description": "Special flow for returning to contract list from after-sales screen"
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-flow-en.md"
+    }
+  },
+  {
+    "id": "route:keiyaku_list_dispatch",
+    "type": "route",
+    "name": "Contract List Dispatch Route",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "route_path": "/dsmart/contract/keiyakuList/keiyakuListDispatch.do",
+      "action_path": "/keiyakuListDispatch",
+      "http_method": [
+        "POST"
+      ],
+      "mapped_action": "KeiyakuListDispatchAction",
+      "requires_authentication": true,
+      "parameters": [
+        {
+          "name": "actionType",
+          "type": "String",
+          "required": true,
+          "description": "Action type to determine routing"
+        },
+        {
+          "name": "keiyakuKey",
+          "type": "Long",
+          "required": false,
+          "description": "Selected contract key (required for some actions)"
+        },
+        {
+          "name": "spExecuteKbn",
+          "type": "String",
+          "required": false,
+          "description": "Execution type code"
+        }
+      ],
+      "form_bean": "keiyaku_cardForm",
+      "validation": true,
+      "forward_destinations": [
+        {
+          "name": "new_contract",
+          "target": "/keiyakuListAssign.do",
+          "condition": "actionType=new_contract"
+        },
+        {
+          "name": "add_contract",
+          "target": "/tsuikaKeiyakuDispatch.do",
+          "condition": "actionType=add_contract"
+        },
+        {
+          "name": "update_contract",
+          "target": "/henkoKeiyakuDispatch.do",
+          "condition": "actionType=update_contract"
+        },
+        {
+          "name": "delete_contract",
+          "target": "/keiyakuDelete.do",
+          "condition": "actionType=delete_contract"
+        },
+        {
+          "name": "new_yuusyou_contract",
+          "target": "/yuusyouKeiyakuListAssign.do",
+          "condition": "actionType=new_yuusyou_contract"
+        },
+        {
+          "name": "new_yuusyou_after_contract",
+          "target": "/moushideSelectInit.do",
+          "condition": "actionType=new_yuusyou_after_contract"
+        },
+        {
+          "name": "keiyaku_card_anchor",
+          "target": "/anchorKeiyakuDispatch.do",
+          "condition": "actionType=keiyaku_card_anchor"
+        },
+        {
+          "name": "returnAnken",
+          "target": "/keiyakuListInit.do",
+          "condition": "actionType=returnAnken"
+        },
+        {
+          "name": "compliance_mikan",
+          "target": "/complianceCheckKekka.jsp",
+          "condition": "actionType=compliance_mikan"
+        }
+      ],
+      "description": "Main dispatcher route that routes requests to appropriate actions based on actionType"
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-flow-en.md"
+    }
+  },
+  {
+    "id": "route:keiyaku_delete",
+    "type": "route",
+    "name": "Contract Deletion Route",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "route_path": "/dsmart/contract/keiyakuList/keiyakuDelete.do",
+      "action_path": "/keiyakuDelete",
+      "http_method": [
+        "POST"
+      ],
+      "mapped_action": "KeiyakuDeleteAction",
+      "requires_authentication": true,
+      "parameters": [
+        {
+          "name": "keiyakuKey",
+          "type": "Long",
+          "required": true,
+          "description": "Contract key to delete"
+        }
+      ],
+      "form_bean": "keiyaku_cardForm",
+      "validation": false,
+      "forward_destinations": [
+        {
+          "name": "success",
+          "target": "/keiyakuListInit.do"
+        },
+        {
+          "name": "error",
+          "target": "/keiyakuListInit.do"
+        }
+      ],
+      "description": "Route for executing contract deletion and returning to contract list"
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-flow-en.md"
+    }
+  },
+  {
+    "id": "route:keiyaku_list_assign",
+    "type": "route",
+    "name": "Contract Type Selection Route",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "route_path": "/dsmart/contract/keiyakuList/keiyakuListAssign.do",
+      "action_path": "/keiyakuListAssign",
+      "http_method": [
+        "POST"
+      ],
+      "mapped_action": "KeiyakuListAssignAction",
+      "requires_authentication": true,
+      "parameters": [
+        {
+          "name": "ankenNo",
+          "type": "Long",
+          "required": true,
+          "description": "Project number"
+        }
+      ],
+      "form_bean": "keiyaku_cardForm",
+      "validation": false,
+      "forward_destinations": [
+        {
+          "name": "success",
+          "target": "Contract type selection screen"
+        }
+      ],
+      "description": "Route to contract type selection screen for new contract creation"
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-flow-en.md"
+    }
+  },
+  {
+    "id": "route:tsuika_keiyaku_dispatch",
+    "type": "route",
+    "name": "Additional Contract Dispatch Route",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "route_path": "/dsmart/contract/keiyakuList/tsuikaKeiyakuDispatch.do",
+      "action_path": "/tsuikaKeiyakuDispatch",
+      "http_method": [
+        "POST"
+      ],
+      "mapped_action": "TsuikaKeiyakuDispatchAction",
+      "requires_authentication": true,
+      "parameters": [
+        {
+          "name": "keiyakuKey",
+          "type": "Long",
+          "required": true,
+          "description": "Selected contract key"
+        }
+      ],
+      "form_bean": "keiyaku_cardForm",
+      "validation": false,
+      "forward_destinations": [
+        {
+          "name": "success",
+          "target": "Additional contract creation screen"
+        }
+      ],
+      "description": "Route to additional contract creation screen"
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-flow-en.md"
+    }
+  },
+  {
+    "id": "route:henko_keiyaku_dispatch",
+    "type": "route",
+    "name": "Contract Modification Dispatch Route",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "route_path": "/dsmart/contract/keiyakuList/henkoKeiyakuDispatch.do",
+      "action_path": "/henkoKeiyakuDispatch",
+      "http_method": [
+        "POST"
+      ],
+      "mapped_action": "HenkoKeiyakuDispatchAction",
+      "requires_authentication": true,
+      "parameters": [
+        {
+          "name": "keiyakuKey",
+          "type": "Long",
+          "required": true,
+          "description": "Selected contract key"
+        }
+      ],
+      "form_bean": "keiyaku_cardForm",
+      "validation": false,
+      "forward_destinations": [
+        {
+          "name": "success",
+          "target": "Contract modification screen based on contract type"
+        }
+      ],
+      "description": "Route to contract modification screen"
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-flow-en.md"
+    }
+  },
+  {
+    "id": "route:yuusyou_keiyaku_list_assign",
+    "type": "route",
+    "name": "After-Sales Contract Assignment Route",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "route_path": "/dsmart/contract/keiyakuList/yuusyouKeiyakuListAssign.do",
+      "action_path": "/yuusyouKeiyakuListAssign",
+      "http_method": [
+        "POST"
+      ],
+      "mapped_action": "YuusyouKeiyakuListAssignAction",
+      "requires_authentication": true,
+      "parameters": [
+        {
+          "name": "ankenNo",
+          "type": "Long",
+          "required": true,
+          "description": "Project number"
+        }
+      ],
+      "form_bean": "keiyaku_cardForm",
+      "validation": false,
+      "forward_destinations": [
+        {
+          "name": "success",
+          "target": "After-sales contract creation screen"
+        }
+      ],
+      "description": "Route to after-sales contract creation screen"
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-flow-en.md"
+    }
+  },
+  {
+    "id": "route:moushide_select_init",
+    "type": "route",
+    "name": "Multiple Orders Selection Route",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "route_path": "/dsmart/contract/keiyakuList/moushideSelectInit.do",
+      "action_path": "/moushideSelectInit",
+      "http_method": [
+        "POST"
+      ],
+      "mapped_action": "MoushideSelectInitAction",
+      "requires_authentication": true,
+      "parameters": [
+        {
+          "name": "ankenNo",
+          "type": "Long",
+          "required": true,
+          "description": "Project number"
+        }
+      ],
+      "form_bean": "keiyaku_cardForm",
+      "validation": false,
+      "forward_destinations": [
+        {
+          "name": "success",
+          "target": "Multiple orders selection screen"
+        }
+      ],
+      "description": "Route to multiple orders selection screen"
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-flow-en.md"
+    }
+  },
+  {
+    "id": "route:anchor_keiyaku_dispatch",
+    "type": "route",
+    "name": "Contract Details Dispatch Route",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "route_path": "/dsmart/contract/keiyakuList/anchorKeiyakuDispatch.do",
+      "action_path": "/anchorKeiyakuDispatch",
+      "http_method": [
+        "POST"
+      ],
+      "mapped_action": "AnchorKeiyakuDispatchAction",
+      "requires_authentication": true,
+      "parameters": [
+        {
+          "name": "keiyakuKey",
+          "type": "Long",
+          "required": true,
+          "description": "Selected contract key"
+        }
+      ],
+      "form_bean": "keiyaku_cardForm",
+      "validation": false,
+      "forward_destinations": [
+        {
+          "name": "success",
+          "target": "Contract details screen based on contract type"
+        }
+      ],
+      "description": "Route to contract details display screen"
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-flow-en.md"
+    }
+  },
+  {
+    "id": "action_type:new_contract",
+    "type": "action_type",
+    "name": "New Contract Action Type",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "action_type_name": "new_contract",
+      "description": "Action type for creating a new contract",
+      "sp_execute_kbn": "1",
+      "requirements": [
+        "User must have new contract creation permission",
+        "Project must be in valid status",
+        "shinkiKeiyakuSakuseiKahiFlg = 'true'"
+      ],
+      "triggered_by": "button:new_contract",
+      "forwards_to": "/keiyakuListAssign.do",
+      "validation_rules": [
+        "ankenNo must exist"
+      ],
+      "selection_required": false
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-specification/display-conditions-en.md"
+    }
+  },
+  {
+    "id": "action_type:update_contract",
+    "type": "action_type",
+    "name": "Update Contract Action Type",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "action_type_name": "update_contract",
+      "description": "Action type for updating existing contract data",
+      "sp_execute_kbn": "2",
+      "requirements": [
+        "User must have contract update permission",
+        "Contract must be selected",
+        "keiyakuDataHenkoKahiFlg = 'true'"
+      ],
+      "triggered_by": "button:update_contract",
+      "forwards_to": "/henkoKeiyakuDispatch.do",
+      "validation_rules": [
+        "keiyakuKey must be selected",
+        "Contract must exist"
+      ],
+      "selection_required": true
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-specification/display-conditions-en.md"
+    }
+  },
+  {
+    "id": "action_type:add_contract",
+    "type": "action_type",
+    "name": "Add Contract Action Type",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "action_type_name": "add_contract",
+      "description": "Action type for creating an additional contract",
+      "sp_execute_kbn": "3",
+      "requirements": [
+        "User must have additional contract creation permission",
+        "Main contract must be selected",
+        "tsuikaKeiyakuSakuseiKahiFlg = 'true'"
+      ],
+      "triggered_by": "button:additional_contract",
+      "forwards_to": "/tsuikaKeiyakuDispatch.do",
+      "validation_rules": [
+        "keiyakuKey must be selected",
+        "Main contract must exist"
+      ],
+      "selection_required": true
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-specification/display-conditions-en.md"
+    }
+  },
+  {
+    "id": "action_type:delete_contract",
+    "type": "action_type",
+    "name": "Delete Contract Action Type",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "action_type_name": "delete_contract",
+      "description": "Action type for deleting a contract",
+      "sp_execute_kbn": null,
+      "requirements": [
+        "Contract must be selected",
+        "User confirmation required",
+        "ankenBunruiCd ≠ 30, 40",
+        "Contract must not be main contract or have dependencies"
+      ],
+      "triggered_by": "button:delete_contract",
+      "forwards_to": "/keiyakuDelete.do",
+      "validation_rules": [
+        "keiyakuKey must be selected",
+        "Contract must exist",
+        "Contract must be eligible for deletion"
+      ],
+      "selection_required": true,
+      "confirmation_required": true
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-specification/display-conditions-en.md"
+    }
+  },
+  {
+    "id": "action_type:new_yuusyou_contract",
+    "type": "action_type",
+    "name": "New After-Sales Contract Action Type",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "action_type_name": "new_yuusyou_contract",
+      "description": "Action type for creating a paid after-sales contract card",
+      "sp_execute_kbn": "5",
+      "requirements": [
+        "User must have after-sales contract creation permission",
+        "kaniKeiyakuSakuseiKahiFlg = 'true'"
+      ],
+      "triggered_by": "button:after_sales_contract",
+      "forwards_to": "/yuusyouKeiyakuListAssign.do",
+      "validation_rules": [
+        "ankenNo must exist"
+      ],
+      "selection_required": false
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-specification/display-conditions-en.md"
+    }
+  },
+  {
+    "id": "action_type:new_yuusyou_after_contract",
+    "type": "action_type",
+    "name": "New After Contract from After Screen Action Type",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "action_type_name": "new_yuusyou_after_contract",
+      "description": "Action type for creating multiple orders from after-sales screen",
+      "sp_execute_kbn": "6",
+      "requirements": [
+        "User must have multiple order creation permission",
+        "hukusuJyutyuSakuseiHyoujiFlg = 'true'"
+      ],
+      "triggered_by": "button:multiple_orders",
+      "forwards_to": "/moushideSelectInit.do",
+      "validation_rules": [
+        "ankenNo must exist"
+      ],
+      "selection_required": false
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-specification/display-conditions-en.md"
+    }
+  },
+  {
+    "id": "action_type:keiyaku_card_anchor",
+    "type": "action_type",
+    "name": "Contract Card Anchor Action Type",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "action_type_name": "keiyaku_card_anchor",
+      "description": "Action type for displaying contract details via contract number link",
+      "sp_execute_kbn": null,
+      "requirements": [
+        "keiyakuCardSyubetsuCd < 90",
+        "keiyakuUkagaiKbn ≠ 1",
+        "Device ≠ iPad"
+      ],
+      "triggered_by": "button:contract_number_link",
+      "forwards_to": "/anchorKeiyakuDispatch.do",
+      "validation_rules": [
+        "keiyakuKey must exist"
+      ],
+      "selection_required": false
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-specification/display-conditions-en.md"
+    }
+  },
+  {
+    "id": "action_type:return_anken",
+    "type": "action_type",
+    "name": "Return to Project Action Type",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "action_type_name": "returnAnken",
+      "description": "Action type for returning to contract list from other screens",
+      "sp_execute_kbn": null,
+      "requirements": [],
+      "triggered_by": "Various screens",
+      "forwards_to": "/keiyakuListInit.do",
+      "validation_rules": [],
+      "selection_required": false
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-specification/display-conditions-en.md"
+    }
+  },
+  {
+    "id": "action_type:compliance_mikan",
+    "type": "action_type",
+    "name": "Compliance Check Incomplete Action Type",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "action_type_name": "compliance_mikan",
+      "description": "Action type for displaying compliance check incomplete status",
+      "sp_execute_kbn": null,
+      "requirements": [],
+      "triggered_by": "System check",
+      "forwards_to": "/complianceCheckKekka.jsp",
+      "validation_rules": [],
+      "selection_required": false
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-specification/display-conditions-en.md"
+    }
+  },
+  {
+    "id": "event:new_contract_button_click",
+    "type": "event",
+    "name": "New Contract Button Click Event",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "event_name": "new_contract_button_click",
+      "event_type": "button_click",
+      "triggered_by": "button:new_contract",
+      "triggers_action": "action_type:new_contract",
+      "event_handler": "keiyakuList_submit(1)",
+      "form_action": "/keiyakuListDispatch.do",
+      "parameters": [
+        {
+          "name": "actionType",
+          "value": "new_contract"
+        },
+        {
+          "name": "spExecuteKbn",
+          "value": "1"
+        }
+      ],
+      "description": "User clicks the New Contract button to create a new contract"
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-specification/event_handling_rules-en.md"
+    }
+  },
+  {
+    "id": "event:add_contract_button_click",
+    "type": "event",
+    "name": "Add Contract Button Click Event",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "event_name": "add_contract_button_click",
+      "event_type": "button_click",
+      "triggered_by": "button:additional_contract",
+      "triggers_action": "action_type:add_contract",
+      "event_handler": "keiyakuList_submit(3)",
+      "form_action": "/keiyakuListDispatch.do",
+      "parameters": [
+        {
+          "name": "actionType",
+          "value": "add_contract"
+        },
+        {
+          "name": "spExecuteKbn",
+          "value": "3"
+        },
+        {
+          "name": "keiyakuKey",
+          "value": "Selected from radio button"
+        }
+      ],
+      "validation": [
+        "Contract selection required"
+      ],
+      "description": "User clicks the Add Contract button to create an additional contract for an existing project"
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-specification/event_handling_rules-en.md"
+    }
+  },
+  {
+    "id": "event:update_contract_button_click",
+    "type": "event",
+    "name": "Update Contract Button Click Event",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "event_name": "update_contract_button_click",
+      "event_type": "button_click",
+      "triggered_by": "button:update_contract",
+      "triggers_action": "action_type:update_contract",
+      "event_handler": "keiyakuList_submit(2)",
+      "form_action": "/keiyakuListDispatch.do",
+      "parameters": [
+        {
+          "name": "actionType",
+          "value": "update_contract"
+        },
+        {
+          "name": "spExecuteKbn",
+          "value": "2"
+        },
+        {
+          "name": "keiyakuKey",
+          "value": "Selected from radio button"
+        }
+      ],
+      "validation": [
+        "Contract selection required"
+      ],
+      "description": "User clicks the Update Contract button to update existing contract information"
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-specification/event_handling_rules-en.md"
+    }
+  },
+  {
+    "id": "event:delete_contract_button_click",
+    "type": "event",
+    "name": "Delete Contract Button Click Event",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "event_name": "delete_contract_button_click",
+      "event_type": "button_click",
+      "triggered_by": "button:delete_contract",
+      "triggers_action": "action_type:delete_contract",
+      "event_handler": "keiyakuList_submit(4)",
+      "form_action": "/keiyakuListDispatch.do",
+      "parameters": [
+        {
+          "name": "actionType",
+          "value": "delete_contract"
+        },
+        {
+          "name": "keiyakuKey",
+          "value": "Selected from radio button"
+        }
+      ],
+      "validation": [
+        "Contract selection required",
+        "User confirmation required via comDeleteConfirm()"
+      ],
+      "confirmation_dialog": "comDeleteConfirm()",
+      "description": "User clicks the Delete Contract button to remove a contract from a project"
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-specification/event_handling_rules-en.md"
+    }
+  },
+  {
+    "id": "event:simple_contract_button_click",
+    "type": "event",
+    "name": "Simple Construction Contract Card Creation Button Click Event",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "event_name": "simple_contract_button_click",
+      "event_type": "button_click",
+      "triggered_by": "button:after_sales_contract",
+      "triggers_action": "action_type:new_yuusyou_contract",
+      "event_handler": "keiyakuList_submit(5)",
+      "form_action": "/keiyakuListDispatch.do",
+      "parameters": [
+        {
+          "name": "actionType",
+          "value": "new_yuusyou_contract"
+        },
+        {
+          "name": "spExecuteKbn",
+          "value": "5"
+        }
+      ],
+      "description": "User clicks the Simple Construction Contract Card Creation button to create a simple construction contract card"
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-specification/event_handling_rules-en.md"
+    }
+  },
+  {
+    "id": "event:multiple_order_button_click",
+    "type": "event",
+    "name": "Multiple Order Creation Button Click Event",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "event_name": "multiple_order_button_click",
+      "event_type": "button_click",
+      "triggered_by": "button:multiple_orders",
+      "triggers_action": "action_type:new_yuusyou_after_contract",
+      "event_handler": "doFukusujyutyuSakusei()",
+      "form_action": "/keiyakuListDispatch.do",
+      "parameters": [
+        {
+          "name": "actionType",
+          "value": "new_yuusyou_after_contract"
+        },
+        {
+          "name": "spExecuteKbn",
+          "value": "6"
+        }
+      ],
+      "description": "User clicks the Multiple Order Creation button to create multiple orders for a project"
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-specification/event_handling_rules-en.md"
+    }
+  },
+  {
+    "id": "event:contract_link_click",
+    "type": "event",
+    "name": "Contract Number Link Click Event",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "event_name": "contract_link_click",
+      "event_type": "link_click",
+      "triggered_by": "button:contract_number_link",
+      "triggers_action": "action_type:keiyaku_card_anchor",
+      "event_handler": "keiyakuAnchor_submit()",
+      "form_action": "/keiyakuListDispatch.do",
+      "parameters": [
+        {
+          "name": "actionType",
+          "value": "keiyaku_card_anchor"
+        },
+        {
+          "name": "keiyakuKey",
+          "value": "Contract key from clicked row"
+        }
+      ],
+      "enabled_condition": "keiyakuCardSyubetsuCd < 90 AND keiyakuUkagaiKbn ≠ 1 AND Device ≠ iPad",
+      "description": "User clicks on a contract number link to open the selected contract for display/editing"
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-specification/event_handling_rules-en.md"
+    }
+  },
+  {
+    "id": "event:return_button_click",
+    "type": "event",
+    "name": "Return Button Click Event",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "event_name": "return_button_click",
+      "event_type": "button_click",
+      "triggered_by": "button:return_button",
+      "triggers_action": null,
+      "event_handler": "window.close()",
+      "form_action": null,
+      "parameters": [],
+      "description": "User clicks the Return button to close the current window and return to the previous screen"
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-specification/event_handling_rules-en.md"
+    }
+  },
+  {
+    "id": "flag:shinki_keiyaku_sakusei_kahi",
+    "type": "flag",
+    "name": "New Contract Creation Permission Flag",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "flag_name": "shinkiKeiyakuSakuseiKahiFlg",
+      "purpose": "Controls whether user has permission to create new contracts",
+      "data_type": "Boolean",
+      "possible_values": [
+        "true",
+        "false"
+      ],
+      "default_value": "false",
+      "controls": [
+        "button:new_contract visibility"
+      ],
+      "source_table": "t_syounin_user",
+      "storage_location": "session:CONTRACT_SHINKI_KEIYAKU_SAKUSEI_KAHI_FLG",
+      "impact": "When true, displays New Contract button; when false, hides it",
+      "device_restriction": "Hidden on iPad regardless of value"
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-specification/display-conditions-en.md"
+    }
+  },
+  {
+    "id": "flag:tsuika_keiyaku_sakusei_kahi",
+    "type": "flag",
+    "name": "Additional Contract Creation Permission Flag",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "flag_name": "tsuikaKeiyakuSakuseiKahiFlg",
+      "purpose": "Controls whether user has permission to create additional contracts",
+      "data_type": "Boolean",
+      "possible_values": [
+        "true",
+        "false"
+      ],
+      "default_value": "false",
+      "controls": [
+        "button:additional_contract visibility"
+      ],
+      "source_table": "Authority check",
+      "storage_location": "session:CONTRACT_TSUIKA_KEIYAKU_SAKUSEI_KAHI_FLG",
+      "impact": "When true, displays Additional Contract button; when false, hides it",
+      "device_restriction": "Hidden on iPad regardless of value"
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-specification/display-conditions-en.md"
+    }
+  },
+  {
+    "id": "flag:keiyaku_data_henko_kahi",
+    "type": "flag",
+    "name": "Contract Data Modification Permission Flag",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "flag_name": "keiyakuDataHenkoKahiFlg",
+      "purpose": "Controls whether user has permission to modify contract data",
+      "data_type": "Boolean",
+      "possible_values": [
+        "true",
+        "false"
+      ],
+      "default_value": "false",
+      "controls": [
+        "button:update_contract visibility"
+      ],
+      "source_table": "Authority check",
+      "storage_location": "session:CONTRACT_KEIYAKU_DATA_HENKO_KAHI_FLG",
+      "impact": "When true, displays Update Contract button; when false, hides it",
+      "device_restriction": "Hidden on iPad regardless of value"
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-specification/display-conditions-en.md"
+    }
+  },
+  {
+    "id": "flag:kani_keiyaku_sakusei_kahi",
+    "type": "flag",
+    "name": "After Contract Creation Permission Flag",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "flag_name": "kaniKeiyakuSakuseiKahiFlg",
+      "purpose": "Controls whether user has permission to create after-sales contracts",
+      "data_type": "Boolean",
+      "possible_values": [
+        "true",
+        "false"
+      ],
+      "default_value": "false",
+      "controls": [
+        "button:after_sales_contract visibility"
+      ],
+      "source_table": "Authority check",
+      "storage_location": "session:CONTRACT_KANI_KEIYAKU_SAKUSEI_KAHI_FLG",
+      "impact": "When true, displays After-Sales Contract button; when false, hides it",
+      "device_restriction": "Hidden on iPad regardless of value"
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-specification/display-conditions-en.md"
+    }
+  },
+  {
+    "id": "flag:hukusu_jyutyu_sakusei_hyouji",
+    "type": "flag",
+    "name": "Multiple Order Creation Display Flag",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "flag_name": "hukusuJyutyuSakuseiHyoujiFlg",
+      "purpose": "Controls whether to display multiple order creation option",
+      "data_type": "Boolean",
+      "possible_values": [
+        "true",
+        "false"
+      ],
+      "default_value": "false",
+      "controls": [
+        "button:multiple_orders visibility"
+      ],
+      "source_table": "Authority check",
+      "storage_location": "session:CONTRACT_HUKUSU_JYUTYU_SAKUSEI_HYOUJI_FLG",
+      "impact": "When true, displays Multiple Orders button; when false, hides it",
+      "device_restriction": "Hidden on iPad regardless of value"
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-specification/display-conditions-en.md"
+    }
+  },
+  {
+    "id": "flag:anken_bunrui_cd",
+    "type": "flag",
+    "name": "Project Type Classification Flag",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "flag_name": "ankenBunruiCd",
+      "purpose": "Indicates project type classification",
+      "data_type": "Integer",
+      "possible_values": [
+        "10",
+        "20",
+        "30",
+        "40",
+        "etc."
+      ],
+      "default_value": null,
+      "controls": [
+        "button:delete_contract enabled/disabled state",
+        "Screen title display (Contract List vs Expected Order List)",
+        "Business logic variations"
+      ],
+      "source_table": "t_anken",
+      "storage_location": "AnkenVO in session",
+      "impact": "When value = 30 or 40, Delete button is disabled and screen title changes to 'Expected Order List'",
+      "special_values": [
+        {
+          "value": "30",
+          "meaning": "Expected Order Type 1",
+          "effects": "Delete disabled, title changed"
+        },
+        {
+          "value": "40",
+          "meaning": "Expected Order Type 2",
+          "effects": "Delete disabled, title changed"
+        }
+      ]
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-specification/display-conditions-en.md"
+    }
+  },
+  {
+    "id": "flag:keiyaku_card_syubetsu_cd",
+    "type": "flag",
+    "name": "Contract Card Type Classification Flag",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "flag_name": "keiyakuCardSyubetsuCd",
+      "purpose": "Indicates contract card sub-type classification",
+      "data_type": "Integer",
+      "possible_values": [
+        "< 90",
+        ">= 90"
+      ],
+      "default_value": null,
+      "controls": [
+        "Radio button visibility and enabled state",
+        "Contract number link clickability"
+      ],
+      "source_table": "t_keiyaku",
+      "storage_location": "KeiyakuVO in contract list",
+      "impact": "When < 90, radio and link are enabled (if other conditions met); when >= 90, radio is hidden and link becomes text",
+      "special_values": [
+        {
+          "value": "< 90",
+          "meaning": "Normal contract types",
+          "effects": "Radio and link enabled"
+        },
+        {
+          "value": ">= 90",
+          "meaning": "Special contract types",
+          "effects": "Radio hidden, link disabled"
+        }
+      ]
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-specification/display-conditions-en.md"
+    }
+  },
+  {
+    "id": "flag:keiyaku_ukagai_kbn",
+    "type": "flag",
+    "name": "External Contract Flag",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "flag_name": "keiyakuUkagaiKbn",
+      "purpose": "Indicates whether contract is external (ukagai) type",
+      "data_type": "Integer",
+      "possible_values": [
+        "1",
+        "≠ 1"
+      ],
+      "default_value": null,
+      "controls": [
+        "Radio button enabled/disabled state",
+        "Contract number link clickability"
+      ],
+      "source_table": "t_keiyaku",
+      "storage_location": "KeiyakuVO in contract list",
+      "impact": "When = 1, radio is disabled and link becomes text only; when ≠ 1, radio and link are enabled (if other conditions met)",
+      "special_values": [
+        {
+          "value": "1",
+          "meaning": "External contract",
+          "effects": "Radio disabled, link disabled"
+        },
+        {
+          "value": "≠ 1",
+          "meaning": "Internal contract",
+          "effects": "Radio enabled, link enabled"
+        }
+      ]
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-specification/display-conditions-en.md"
+    }
+  },
+  {
+    "id": "flag:tuika_kbn",
+    "type": "flag",
+    "name": "Contract Classification Flag",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "flag_name": "tuikaKbn",
+      "purpose": "Indicates whether contract is main or additional contract",
+      "data_type": "Integer",
+      "possible_values": [
+        "0",
+        "1"
+      ],
+      "default_value": null,
+      "controls": [
+        "Contract type display in list"
+      ],
+      "source_table": "t_keiyaku",
+      "storage_location": "KeiyakuVO in contract list",
+      "impact": "Determines whether contract is displayed as Main or Additional in the contract type column",
+      "special_values": [
+        {
+          "value": "0",
+          "meaning": "Main contract",
+          "effects": "Displayed as 'Main' in contract type"
+        },
+        {
+          "value": "1",
+          "meaning": "Additional contract",
+          "effects": "Displayed as 'Additional' in contract type"
+        }
+      ]
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-specification/display-conditions-en.md"
+    }
+  },
+  {
+    "id": "flag:pre_screan",
+    "type": "flag",
+    "name": "Previous Screen Indicator Flag",
+    "parent_module": "module:contract-list",
+    "properties": {
+      "flag_name": "pre_screan",
+      "purpose": "Indicates which screen the user came from to determine body content to display",
+      "data_type": "String",
+      "possible_values": [
+        "CONTRACT_KEIYAKU_CARD_PRE_SCREAN_AFTER",
+        "Other"
+      ],
+      "default_value": null,
+      "controls": [
+        "Body JSP selection (keiyakuListAfter/body.jsp vs keiyakuList/body.jsp)"
+      ],
+      "source_table": "Session or request parameter",
+      "storage_location": "Session or form parameter",
+      "impact": "When = CONTRACT_KEIYAKU_CARD_PRE_SCREAN_AFTER, uses after-sales body template; otherwise uses normal body template",
+      "special_values": [
+        {
+          "value": "CONTRACT_KEIYAKU_CARD_PRE_SCREAN_AFTER",
+          "meaning": "Coming from after-sales screen",
+          "effects": "Uses keiyakuListAfter/body.jsp"
+        },
+        {
+          "value": "Other",
+          "meaning": "Normal flow",
+          "effects": "Uses keiyakuList/body.jsp"
+        }
+      ]
+    },
+    "metadata": {
+      "source_file": "ctc-data-en/contract-list/screen-specification/display-conditions-en.md"
+    }
+  }
+]

@@ -17,5 +17,7 @@
 | **Product** | Product layer containing core business logic | `ctc-data-en/contract-list/functions/*/function-overview-en.md` | KeiyakuListFindProduct, KeiyakuDeleteProduct |
 | **DAO** | Data Access Objects for database operations | `ctc-data-en/contract-list/data-architecture-en.md` | KeiyakuDAO, AnkenFindDAO, KeiyakuIchiranFindDAO |
 | **Database** | Database tables used by the module | `ctc-data-en/contract-list/functions/*/sql-queries-en.md` | t_keiyaku, t_anken, t_keiyaku_kokyaku_kankei, m_user, m_jigyousyo |
-| **Button** | UI buttons triggering actions on screens | `ctc-data-en/contract-list/screen-specification/event_handling_rules-en.md` | New Contract, Additional Contract, Modify Contract, Delete Contract, Multiple Orders |
+<!-- | **Button** | UI buttons triggering actions on screens | `ctc-data-en/contract-list/screen-specification/event_handling_rules-en.md` | New Contract, Additional Contract, Modify Contract, Delete Contract, Multiple Orders | -->
 | **Flag** | Boolean flags controlling feature visibility and permissions | `ctc-data-en/contract-list/data-architecture-en.md` | shinkiKeiyakuSakuseiKahiFlg, tsuikaKeiyakuSakuseiKahiFlg, keiyakuDataHenkoKahiFlg |
+| **Action type** |  |  | |
+| **Event Type** | | | | 
