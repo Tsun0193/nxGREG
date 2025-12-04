@@ -23,12 +23,51 @@ This document specifies the extraction of UI and interaction-related entities fr
 
 ---
 
+## Neo4j Compatibility Requirements
+
+**CRITICAL:** All extracted entities must be flattened to a single level for Neo4j database compatibility.
+
+### Flattening Rules:
+
+1. **NO Nested Objects:** All properties must be at the top level of the entity object
+   - ❌ `"properties": { "prop_name": "value" }`
+   - ✅ `"prop_name": "value"`
+
+2. **NO Metadata Nesting:** Source file information goes directly on the entity
+   - ❌ `"metadata": { "source_file": "path" }`
+   - ✅ `"source_file_0": "path"`
+
+3. **Array Conversion:**
+   - Simple lists → semicolon-separated strings
+     - Example: `["value1", "value2"]` → `"value1; value2"`
+   - Complex objects → stringified JSON
+     - Example: `[{"name": "x"}]` → `"[{\"name\":\"x\"}]"`
+
+4. **Remove Relationship Arrays:** 
+   - Properties like `bound_data`, `included_components`, `controls` that represent relationships should either:
+     - Be converted to semicolon-separated string references, OR
+     - Be removed and expressed as separate relationship objects in a future relationship file
+
+5. **Source File Naming:**
+   - Use `source_file_0`, `source_file_1`, etc. for multiple sources
+   - Never nest under `metadata` object
+
+---
+
 ## Entity Taxonomy
 
 ### 1. View/UI Entities
 - **Type ID:** `view`
-- **Properties:** view_name, template_path, display_conditions, bound_data, included_components, description
-- **Notes:** JSP files and view templates that render the user interface
+- **Properties (flattened):** 
+  - `view_name`: Name of the JSP file
+  - `template_path`: Full path to the JSP template
+  - `display_conditions`: String describing conditions (convert array to semicolon-separated string)
+  - `description`: Description of the view purpose
+  - `source_file_0`: Primary source file path (flattened from metadata)
+- **Removed Properties:** 
+  - ❌ `bound_data`: Use BINDS_DATA relationships instead to connect view to data entities
+  - ❌ `included_components`: Use INCLUDES relationships instead to connect to fragment views
+- **Notes:** JSP files and view templates that render the user interface. All properties are flattened to single level for Neo4j compatibility. Data bindings and component inclusions are now expressed as relationships.
 - **Source:** `ctc-data-en/contract-list/components/description-ui-en.md`
 
 **Example:**
@@ -38,17 +77,11 @@ This document specifies the extraction of UI and interaction-related entities fr
   "type": "view",
   "name": "Contract List View",
   "parent_module": "module:contract-list",
-  "properties": {
-    "view_name": "keiyakuList.jsp",
-    "template_path": "docroot/contract/keiyakuList/keiyakuList.jsp",
-    "display_conditions": ["User must be authenticated", "Project must exist"],
-    "bound_data": ["CONTRACT_OPTION_KEIYAKU_ICHIRAN_VO_LIST", "CONTRACT_ANKEN_VO"],
-    "included_components": ["body.jsp", "header.jsp"],
-    "description": "Main JSP view for displaying contract list with action buttons"
-  },
-  "metadata": {
-    "source_file": "ctc-data-en/contract-list/components/description-ui-en.md"
-  }
+  "view_name": "keiyakuList.jsp",
+  "template_path": "docroot/contract/keiyakuList/keiyakuList.jsp",
+  "display_conditions": "User must be authenticated; Project must exist",
+  "description": "Main JSP view for displaying contract list with action buttons",
+  "source_file_0": "ctc-data-en/contract-list/components/description-ui-en.md"
 }
 ```
 
@@ -56,8 +89,18 @@ This document specifies the extraction of UI and interaction-related entities fr
 
 ### 2. Button Entities
 - **Type ID:** `button`
-- **Properties:** button_id, label, button_type, trigger_event, trigger_action_type, enabled_condition, visibility_flag, position, description
-- **Notes:** UI buttons that trigger actions on screens
+- **Properties (flattened):** 
+  - `button_id`: HTML/DOM identifier for the button
+  - `label`: Display text on the button
+  - `button_type`: Type of button (action, submit, link)
+  - `trigger_event`: Event entity ID this button triggers (use TRIGGERS relationship)
+  - `trigger_action_type`: Action type entity ID (use TRIGGERS relationship)
+  - `enabled_condition`: String describing when button is enabled
+  - `visibility_flag`: Flag entity ID controlling visibility (use CONTROLLED_BY relationship)
+  - `position`: Position on screen (top_action_bar, row_action, etc.)
+  - `description`: Description of button purpose
+  - `source_file_0`: Primary source file path (flattened from metadata)
+- **Notes:** UI buttons that trigger actions on screens. All properties are flattened to single level for Neo4j compatibility.
 - **Source:** `ctc-data-en/contract-list/screen-specification/event_handling_rules-en.md`
 
 **Example:**
@@ -67,20 +110,16 @@ This document specifies the extraction of UI and interaction-related entities fr
   "type": "button",
   "name": "New Contract Button",
   "parent_module": "module:contract-list",
-  "properties": {
-    "button_id": "btnNewContract",
-    "label": "New Contract",
-    "button_type": "action",
-    "trigger_event": "new_contract_button_click",
-    "trigger_action_type": "new_contract",
-    "enabled_condition": "ankenNo exists and project is active",
-    "visibility_flag": "CONTRACT_SHINKI_KEIYAKU_SAKUSEI_KAHI_FLG",
-    "position": "top_action_bar",
-    "description": "Button to initiate new contract creation workflow"
-  },
-  "metadata": {
-    "source_file": "ctc-data-en/contract-list/screen-specification/event_handling_rules-en.md"
-  }
+  "button_id": "btnNewContract",
+  "label": "New Contract",
+  "button_type": "action",
+  "trigger_event": "new_contract_button_click",
+  "trigger_action_type": "new_contract",
+  "enabled_condition": "ankenNo exists and project is active",
+  "visibility_flag": "CONTRACT_SHINKI_KEIYAKU_SAKUSEI_KAHI_FLG",
+  "position": "top_action_bar",
+  "description": "Button to initiate new contract creation workflow",
+  "source_file_0": "ctc-data-en/contract-list/screen-specification/event_handling_rules-en.md"
 }
 ```
 
@@ -88,8 +127,16 @@ This document specifies the extraction of UI and interaction-related entities fr
 
 ### 3. Route/URL Entities
 - **Type ID:** `route`
-- **Properties:** route_path, http_method, mapped_action, requires_authentication, parameters, forward_destinations, description
-- **Notes:** HTTP endpoints that map requests to Actions
+- **Properties (flattened):** 
+  - `route_path`: URL path for the route
+  - `http_method`: Comma-separated HTTP methods (e.g., "GET, POST")
+  - `mapped_action`: Action entity ID this route maps to (use MAPS_TO relationship)
+  - `requires_authentication`: Boolean for authentication requirement
+  - `parameters`: Stringified JSON array of parameter objects
+  - `forward_destinations`: Stringified JSON array of forward destination objects
+  - `description`: Description of route purpose
+  - `source_file_0`: Primary source file path (flattened from metadata)
+- **Notes:** HTTP endpoints that map requests to Actions. All properties are flattened to single level for Neo4j compatibility. Complex arrays are stringified JSON.
 - **Source:** `ctc-data-en/contract-list/screen-flow-en.md`
 
 **Example:**
@@ -99,34 +146,14 @@ This document specifies the extraction of UI and interaction-related entities fr
   "type": "route",
   "name": "Contract List Initialization Route",
   "parent_module": "module:contract-list",
-  "properties": {
-    "route_path": "/dsmart/contract/keiyakuList/keiyakuListInit.do",
-    "http_method": ["GET", "POST"],
-    "mapped_action": "KeiyakuListInitAction",
-    "requires_authentication": true,
-    "parameters": [
-      {
-        "name": "ankenNo",
-        "type": "Long",
-        "required": true,
-        "description": "Project number to load contract list"
-      }
-    ],
-    "forward_destinations": [
-      {
-        "name": "success",
-        "target": "/contract/keiyakuList/keiyakuList.jsp"
-      },
-      {
-        "name": "error",
-        "target": "/contract/error.jsp"
-      }
-    ],
-    "description": "Entry point for displaying contract list screen"
-  },
-  "metadata": {
-    "source_file": "ctc-data-en/contract-list/screen-flow-en.md"
-  }
+  "route_path": "/dsmart/contract/keiyakuList/keiyakuListInit.do",
+  "http_method": "GET, POST",
+  "mapped_action": "KeiyakuListInitAction",
+  "requires_authentication": true,
+  "parameters": "[{\"name\":\"ankenNo\",\"type\":\"Long\",\"required\":true,\"description\":\"Project number to load contract list\"}]",
+  "forward_destinations": "[{\"name\":\"success\",\"target\":\"/contract/keiyakuList/keiyakuList.jsp\"},{\"name\":\"error\",\"target\":\"/contract/error.jsp\"}]",
+  "description": "Entry point for displaying contract list screen",
+  "source_file_0": "ctc-data-en/contract-list/screen-flow-en.md"
 }
 ```
 
@@ -134,8 +161,16 @@ This document specifies the extraction of UI and interaction-related entities fr
 
 ### 4. Action Type Entities
 - **Type ID:** `action_type`
-- **Properties:** action_type_name, description, sp_execute_kbn, requirements, triggered_by, forwards_to, validation_rules
-- **Notes:** Dispatch action types that determine routing behavior in KeiyakuListDispatchAction
+- **Properties (flattened):** 
+  - `action_type_name`: Name of the action type
+  - `description`: Description of the action type purpose
+  - `sp_execute_kbn`: Special execution classification code
+  - `requirements`: Semicolon-separated string of requirements
+  - `triggered_by`: Button entity ID that triggers this action type (use TRIGGERED_BY relationship)
+  - `forwards_to`: Target route/action path
+  - `validation_rules`: Semicolon-separated string of validation rules
+  - `source_file_0`: Primary source file path (flattened from metadata)
+- **Notes:** Dispatch action types that determine routing behavior in KeiyakuListDispatchAction. All properties are flattened to single level for Neo4j compatibility.
 - **Source:** `ctc-data-en/contract-list/screen-specification/display-conditions-en.md` at "Action Types and Screen Transitions"
 
 **Example:**
@@ -145,21 +180,14 @@ This document specifies the extraction of UI and interaction-related entities fr
   "type": "action_type",
   "name": "New Contract Action Type",
   "parent_module": "module:contract-list",
-  "properties": {
-    "action_type_name": "new_contract",
-    "description": "Action type for creating a new contract",
-    "sp_execute_kbn": "1",
-    "requirements": [
-      "User must have new contract creation permission",
-      "Project must be in valid status"
-    ],
-    "triggered_by": "button:new_contract",
-    "forwards_to": "/keiyakuListAssign.do",
-    "validation_rules": ["ankenNo must exist", "shinkiKeiyakuSakuseiKahiFlg must be true"]
-  },
-  "metadata": {
-    "source_file": "ctc-data-en/contract-list/screen-specification/display-conditions-en.md"
-  }
+  "action_type_name": "new_contract",
+  "description": "Action type for creating a new contract",
+  "sp_execute_kbn": "1",
+  "requirements": "User must have new contract creation permission; Project must be in valid status",
+  "triggered_by": "button:new_contract",
+  "forwards_to": "/keiyakuListAssign.do",
+  "validation_rules": "ankenNo must exist; shinkiKeiyakuSakuseiKahiFlg must be true",
+  "source_file_0": "ctc-data-en/contract-list/screen-specification/display-conditions-en.md"
 }
 ```
 
@@ -167,8 +195,16 @@ This document specifies the extraction of UI and interaction-related entities fr
 
 ### 5. Event Entities
 - **Type ID:** `event`
-- **Properties:** event_name, event_type, triggered_by, triggers_action, event_handler, parameters, description
-- **Notes:** User interaction events (clicks, submits) that trigger business actions
+- **Properties (flattened):** 
+  - `event_name`: Name of the event
+  - `event_type`: Type of event (button_click, form_submit, link_click)
+  - `triggered_by`: Button/UI element entity ID that triggers this event (use TRIGGERED_BY relationship)
+  - `triggers_action`: Action type entity ID triggered by this event (use TRIGGERS relationship)
+  - `event_handler`: Route/handler that processes the event
+  - `parameters`: Stringified JSON array of parameter objects
+  - `description`: Description of event purpose
+  - `source_file_0`: Primary source file path (flattened from metadata)
+- **Notes:** User interaction events (clicks, submits) that trigger business actions. All properties are flattened to single level for Neo4j compatibility.
 - **Source:** `ctc-data-en/contract-list/screen-specification/event_handling_rules-en.md`
 
 **Example:**
@@ -178,23 +214,14 @@ This document specifies the extraction of UI and interaction-related entities fr
   "type": "event",
   "name": "New Contract Button Click Event",
   "parent_module": "module:contract-list",
-  "properties": {
-    "event_name": "new_contract_button_click",
-    "event_type": "button_click",
-    "triggered_by": "button:new_contract",
-    "triggers_action": "action_type:new_contract",
-    "event_handler": "keiyakuListDispatch.do",
-    "parameters": [
-      {
-        "name": "actionType",
-        "value": "new_contract"
-      }
-    ],
-    "description": "User clicks the New Contract button to create a new contract"
-  },
-  "metadata": {
-    "source_file": "ctc-data-en/contract-list/screen-specification/event_handling_rules-en.md"
-  }
+  "event_name": "new_contract_button_click",
+  "event_type": "button_click",
+  "triggered_by": "button:new_contract",
+  "triggers_action": "action_type:new_contract",
+  "event_handler": "keiyakuListDispatch.do",
+  "parameters": "[{\"name\":\"actionType\",\"value\":\"new_contract\"}]",
+  "description": "User clicks the New Contract button to create a new contract",
+  "source_file_0": "ctc-data-en/contract-list/screen-specification/event_handling_rules-en.md"
 }
 ```
 
@@ -202,8 +229,20 @@ This document specifies the extraction of UI and interaction-related entities fr
 
 ### 6. Business/Control Flag Entities
 - **Type ID:** `flag`
-- **Properties:** flag_name, purpose, data_type, possible_values, default_value, controls, source_table, storage_location, impact
-- **Notes:** Boolean flags or status codes that control feature visibility, permissions, and business logic
+- **Properties (flattened):** 
+  - `flag_name`: Name of the flag variable
+  - `purpose`: Purpose of the flag
+  - `data_type`: Data type (Boolean, String, Integer)
+  - `possible_values`: Semicolon-separated string of possible values
+  - `default_value`: Default value of the flag
+  - `controls`: Semicolon-separated string of UI elements controlled (use CONTROLS relationships for graph connections)
+  - `source_table`: Database table where flag value originates
+  - `storage_location`: Where flag is stored (session, request, database)
+  - `impact`: Description of flag's impact on behavior
+  - `source_file_0`: Primary source file path (flattened from metadata)
+- **Removed Properties:** 
+  - ❌ Nested `controls` array: Use CONTROLS relationships instead to connect flag to controlled UI elements
+- **Notes:** Boolean flags or status codes that control feature visibility, permissions, and business logic. All properties are flattened to single level for Neo4j compatibility.
 - **Source:** `ctc-data-en/contract-list/screen-specification/display-conditions-en.md`
 
 **Example:**
@@ -213,22 +252,16 @@ This document specifies the extraction of UI and interaction-related entities fr
   "type": "flag",
   "name": "New Contract Creation Permission Flag",
   "parent_module": "module:contract-list",
-  "properties": {
-    "flag_name": "shinkiKeiyakuSakuseiKahiFlg",
-    "purpose": "Controls whether user has permission to create new contracts",
-    "data_type": "Boolean",
-    "possible_values": ["true", "false"],
-    "default_value": "false",
-    "controls": [
-      "button:new_contract visibility"
-    ],
-    "source_table": "t_syounin_user",
-    "storage_location": "session:CONTRACT_SHINKI_KEIYAKU_SAKUSEI_KAHI_FLG",
-    "impact": "When true, displays New Contract button; when false, hides it"
-  },
-  "metadata": {
-    "source_file": "ctc-data-en/contract-list/screen-specification/display-conditions-en.md"
-  }
+  "flag_name": "shinkiKeiyakuSakuseiKahiFlg",
+  "purpose": "Controls whether user has permission to create new contracts",
+  "data_type": "Boolean",
+  "possible_values": "true; false",
+  "default_value": "false",
+  "controls": "button:new_contract visibility",
+  "source_table": "t_syounin_user",
+  "storage_location": "session:CONTRACT_SHINKI_KEIYAKU_SAKUSEI_KAHI_FLG",
+  "impact": "When true, displays New Contract button; when false, hides it",
+  "source_file_0": "ctc-data-en/contract-list/screen-specification/display-conditions-en.md"
 }
 ```
 
@@ -341,8 +374,80 @@ Extract all permission and control flags:
 ### Output File
 - **Path:** `json/contract-list-ui-interaction-entities.json`
 
-### JSON Structure
-Same as main entities file - array of entity objects following the standard entity schema.
+### JSON Structure (Neo4j Compatible - Flattened)
+
+**CRITICAL: All properties must be at the top level of each entity object. No nested `properties` or `metadata` objects.**
+
+```json
+[
+  {
+    "id": "view:keiyaku_list_jsp",
+    "type": "view",
+    "name": "Contract List View",
+    "parent_module": "module:contract-list",
+    "view_name": "keiyakuList.jsp",
+    "template_path": "docroot/contract/keiyakuList/keiyakuList.jsp",
+    "display_conditions": "User must be authenticated; Project must exist",
+    "description": "Main JSP view for displaying contract list with action buttons",
+    "source_file_0": "ctc-data-en/contract-list/components/description-ui-en.md"
+  },
+  {
+    "id": "button:new_contract",
+    "type": "button",
+    "name": "New Contract Button",
+    "parent_module": "module:contract-list",
+    "button_id": "btnNewContract",
+    "label": "New Contract",
+    "button_type": "action",
+    "trigger_event": "new_contract_button_click",
+    "trigger_action_type": "new_contract",
+    "enabled_condition": "ankenNo exists and project is active",
+    "visibility_flag": "CONTRACT_SHINKI_KEIYAKU_SAKUSEI_KAHI_FLG",
+    "position": "top_action_bar",
+    "description": "Button to initiate new contract creation workflow",
+    "source_file_0": "ctc-data-en/contract-list/screen-specification/event_handling_rules-en.md"
+  }
+]
+```
+
+**Key Points:**
+- ✅ All properties are at the top level (no nested `properties` or `metadata` objects)
+- ✅ Source files use `source_file_0`, `source_file_1`, etc. naming
+- ✅ Arrays converted to strings: semicolon-separated for simple lists, stringified JSON for complex objects
+- ✅ No dependency arrays (use relationships in separate file if needed)
+
+### Validation Requirements
+
+#### For All Entities:
+- Each entity must have required fields: `id`, `type`, `name`, `parent_module`
+- All properties must be at top level (no nested `properties` or `metadata` objects)
+- Entity IDs must be unique and follow the pattern: `type:lowercase_name`
+- Source files should use `source_file_0`, `source_file_1`, etc.
+
+#### For Specific Entity Types:
+
+**View Entities:**
+- `display_conditions` must be semicolon-separated string (not array)
+- Do NOT include `bound_data` or `included_components` arrays
+
+**Button Entities:**
+- All string properties, no nested objects
+
+**Route Entities:**
+- `http_method` must be comma-separated string (e.g., "GET, POST")
+- `parameters` must be stringified JSON array
+- `forward_destinations` must be stringified JSON array
+
+**Action Type Entities:**
+- `requirements` must be semicolon-separated string
+- `validation_rules` must be semicolon-separated string
+
+**Event Entities:**
+- `parameters` must be stringified JSON array
+
+**Flag Entities:**
+- `possible_values` must be semicolon-separated string
+- `controls` must be semicolon-separated string
 
 ---
 
@@ -361,8 +466,11 @@ Both files will be used to build comprehensive relationships in Phase 2.
 
 1. **Read** screen specification files in `ctc-data-en/contract-list/screen-specification/`
 2. **Identify** all UI and interaction entities according to this taxonomy
-3. **Extract** entity information according to the standard entity schema
-4. **Validate** JSON structure and required fields
-5. **Output** to `json/contract-list-ui-interaction-entities.json`
+3. **Extract** entity information with ALL properties at top level (flattened)
+4. **Convert** arrays to appropriate string formats:
+   - Simple lists → semicolon-separated strings
+   - Complex objects → stringified JSON
+5. **Validate** JSON structure and required fields (no nested properties/metadata)
+6. **Output** to `json/contract-list-ui-interaction-entities.json`
 
 Focus on capturing the complete user interaction flow from UI elements through routing to business actions.

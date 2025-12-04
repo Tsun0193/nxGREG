@@ -39,11 +39,18 @@ def main():
         
         # # Option 3: Load specific files manually
         # # Mixed file (contains both entities and relationships)
-        # # pipeline.load_from_mixed_file(json_dir / "my-data.json")
+        # pipeline.load_from_mixed_file(json_dir / "contract-list-component-entities_v3.json")
         
         # Separate files
         print(json_dir)
-        pipeline.load_entities_from_file(json_dir / "contract-list-entities_v5.json")
+        # Use load_from_mixed_file for v3 format (has both entities and relationships keys)
+        pipeline.load_from_mixed_file(json_dir / "contract-list-entities.json")
+        pipeline.load_from_mixed_file(json_dir / "contract-list-ui-interaction-entities.json")
+        pipeline.load_from_mixed_file(json_dir / "contract-list-component-entities.json")     
+        pipeline.load_from_mixed_file(json_dir / "contract-list-database-entities.json")
+        pipeline.load_from_mixed_file(json_dir / "contract-list-database-relationships.json")
+        pipeline.load_from_mixed_file(json_dir / "contract-list-cross-layer-relationships.json")
+
         # pipeline.load_relationships_from_file(json_dir / "contract-list-cross-layer-relationships.json")
         
         # Then load to Neo4j

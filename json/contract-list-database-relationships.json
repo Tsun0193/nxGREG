@@ -1,768 +1,1010 @@
 {
-    "relationships": [
-        {
-            "source": "function:list_initialization",
-            "target": "sql_query:syounin_user_sql_01",
-            "relationship_type": "uses_query"
-        },
-        {
-            "source": "function:list_initialization",
-            "target": "sql_query:anken_sql_01",
-            "relationship_type": "uses_query"
-        },
-        {
-            "source": "function:list_initialization",
-            "target": "sql_query:keiyaku_ichiran_sql_01",
-            "relationship_type": "uses_query"
-        },
-        {
-            "source": "function:contract_deletion",
-            "target": "sql_query:anken_sql_03",
-            "relationship_type": "uses_query"
-        },
-        {
-            "source": "function:contract_deletion",
-            "target": "sql_query:keiyaku_sql_04",
-            "relationship_type": "uses_query"
-        },
-        {
-            "source": "function:contract_deletion",
-            "target": "sql_query:kouji_sql_04",
-            "relationship_type": "uses_query"
-        },
-        {
-            "source": "function:contract_deletion",
-            "target": "sql_query:keiyaku_shijisyo_kankei_sql_01",
-            "relationship_type": "uses_query"
-        },
-        {
-            "source": "function:contract_deletion",
-            "target": "sql_query:chintaisyaku_keiyaku_kankei_sql_01",
-            "relationship_type": "uses_query"
-        },
-        {
-            "source": "function:contract_deletion",
-            "target": "sql_query:gijyutsu_anken_kihon_sql_01",
-            "relationship_type": "uses_query"
-        },
-        {
-            "source": "function:contract_deletion",
-            "target": "sql_query:keiyaku_kokyaku_kankei_sql_01",
-            "relationship_type": "uses_query"
-        },
-        {
-            "source": "function:contract_deletion",
-            "target": "sql_query:kojin_tasya_keiyaku_kbn_01",
-            "relationship_type": "uses_query"
-        },
-        {
-            "source": "function:contract_deletion",
-            "target": "sql_query:kojin_tasya_keiyaku_kbn_05",
-            "relationship_type": "uses_query"
-        },
-        {
-            "source": "function:contract_deletion",
-            "target": "sql_query:keiyaku_dao_update",
-            "relationship_type": "uses_query"
-        },
-        {
-            "source": "function:contract_deletion",
-            "target": "sql_query:kouji_dao_update",
-            "relationship_type": "uses_query"
-        },
-        {
-            "source": "function:contract_deletion",
-            "target": "sql_query:keiyaku_shijisyo_kankei_dao_delete",
-            "relationship_type": "uses_query"
-        },
-        {
-            "source": "function:contract_deletion",
-            "target": "sql_query:chintaisyaku_keiyaku_kankei_dao_delete",
-            "relationship_type": "uses_query"
-        },
-        {
-            "source": "function:contract_deletion",
-            "target": "sql_query:kojin_tasya_keiyaku_kbn_dao_update",
-            "relationship_type": "uses_query"
-        },
-        {
-            "source": "sql_query:syounin_user_sql_01",
-            "target": "dao:syounin_user_find_dao",
-            "relationship_type": "executed_by",
-            "properties": {
-                "method_name": "doSelect"
-            }
-        },
-        {
-            "source": "sql_query:anken_sql_01",
-            "target": "dao:anken_find_dao",
-            "relationship_type": "executed_by",
-            "properties": {
-                "method_name": "doSelect"
-            }
-        },
-        {
-            "source": "sql_query:keiyaku_ichiran_sql_01",
-            "target": "dao:keiyaku_ichiran_find_dao",
-            "relationship_type": "executed_by",
-            "properties": {
-                "method_name": "doSelectList"
-            }
-        },
-        {
-            "source": "sql_query:anken_sql_03",
-            "target": "dao:anken_find_dao",
-            "relationship_type": "executed_by",
-            "properties": {
-                "method_name": "doSelect"
-            }
-        },
-        {
-            "source": "sql_query:keiyaku_sql_04",
-            "target": "dao:keiyaku_find_dao",
-            "relationship_type": "executed_by",
-            "properties": {
-                "method_name": "doSelect"
-            }
-        },
-        {
-            "source": "sql_query:kouji_sql_04",
-            "target": "dao:kouji_find_dao",
-            "relationship_type": "executed_by",
-            "properties": {
-                "method_name": "doSelect"
-            }
-        },
-        {
-            "source": "sql_query:keiyaku_shijisyo_kankei_sql_01",
-            "target": "dao:keiyaku_shijisyo_kankei_find_dao",
-            "relationship_type": "executed_by",
-            "properties": {
-                "method_name": "doSelect"
-            }
-        },
-        {
-            "source": "sql_query:chintaisyaku_keiyaku_kankei_sql_01",
-            "target": "dao:chintaisyaku_keiyaku_kankei_find_dao",
-            "relationship_type": "executed_by",
-            "properties": {
-                "method_name": "doSelect"
-            }
-        },
-        {
-            "source": "sql_query:gijyutsu_anken_kihon_sql_01",
-            "target": "dao:gijyutsu_anken_kihon_find_dao",
-            "relationship_type": "executed_by",
-            "properties": {
-                "method_name": "doSelect"
-            }
-        },
-        {
-            "source": "sql_query:keiyaku_dao_update",
-            "target": "dao:keiyaku_dao",
-            "relationship_type": "executed_by",
-            "properties": {
-                "method_name": "doUpdate"
-            }
-        },
-        {
-            "source": "sql_query:kouji_dao_update",
-            "target": "dao:kouji_dao",
-            "relationship_type": "executed_by",
-            "properties": {
-                "method_name": "doUpdate"
-            }
-        },
-        {
-            "source": "sql_query:keiyaku_shijisyo_kankei_dao_delete",
-            "target": "dao:keiyaku_shijisyo_kankei_dao",
-            "relationship_type": "executed_by",
-            "properties": {
-                "method_name": "doDelete"
-            }
-        },
-        {
-            "source": "sql_query:chintaisyaku_keiyaku_kankei_dao_delete",
-            "target": "dao:chintaisyaku_keiyaku_kankei_dao",
-            "relationship_type": "executed_by",
-            "properties": {
-                "method_name": "doDelete"
-            }
-        },
-        {
-            "source": "sql_query:kojin_tasya_keiyaku_kbn_dao_update",
-            "target": "dao:kojin_tasya_keiyaku_kbn_dao",
-            "relationship_type": "executed_by",
-            "properties": {
-                "method_name": "doUpdate"
-            }
-        },
-        {
-            "source": "sql_query:anken_sql_03",
-            "target": "database_table:t_anken",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:anken_sql_03",
-            "target": "database_table:t_anken_syousai",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:anken_sql_03",
-            "target": "database_table:t_anken_mansion",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:anken_sql_03",
-            "target": "database_table:t_anken_kokyaku_kankei",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:anken_sql_03",
-            "target": "database_table:m_syutoku_kbn",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:anken_sql_03",
-            "target": "database_table:v_m_syutoku_keitai",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:anken_sql_03",
-            "target": "database_table:v_m_anken_bunrui",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:anken_sql_03",
-            "target": "database_table:m_user",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:anken_sql_03",
-            "target": "database_table:m_jigyousyo",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": "tantou_jigyousyo"
-            }
-        },
-        {
-            "source": "sql_query:anken_sql_03",
-            "target": "database_table:m_eigyousyo",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": "tantou_eigyousyo"
-            }
-        },
-        {
-            "source": "sql_query:anken_sql_03",
-            "target": "database_table:m_kyoten",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": "tantou_kyoten"
-            }
-        },
-        {
-            "source": "sql_query:anken_sql_03",
-            "target": "database_table:v_m_kyoutsu_rank",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:anken_sql_03",
-            "target": "database_table:m_anken_bunruibetsu_rank",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:anken_sql_03",
-            "target": "database_table:m_jigyousyo",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": "tourokuji_jigyousyo"
-            }
-        },
-        {
-            "source": "sql_query:anken_sql_03",
-            "target": "database_table:m_eigyousyo",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": "tourokuji_eigyousyo"
-            }
-        },
-        {
-            "source": "sql_query:anken_sql_03",
-            "target": "database_table:m_kyoten",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": "tourokuji_kyoten"
-            }
-        },
-        {
-            "source": "sql_query:anken_sql_03",
-            "target": "database_table:v_m_shittyu_bunrui",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:anken_sql_03",
-            "target": "database_table:m_botsuriyu",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": "botsuriyu1"
-            }
-        },
-        {
-            "source": "sql_query:anken_sql_03",
-            "target": "database_table:m_botsuriyu",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": "botsuriyu2"
-            }
-        },
-        {
-            "source": "sql_query:anken_sql_03",
-            "target": "database_table:m_botsuriyu",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": "botsuriyu3"
-            }
-        },
-        {
-            "source": "sql_query:anken_sql_03",
-            "target": "database_table:v_m_genzai_madori",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:chintaisyaku_keiyaku_kankei_sql_01",
-            "target": "database_table:t_chintaisyaku_keiyaku_kankei",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:gijyutsu_anken_kihon_sql_01",
-            "target": "database_table:t_gijyutsu_anken_kihon",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:gijyutsu_anken_kihon_sql_01",
-            "target": "database_table:t_kouji",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:keiyaku_kokyaku_kankei_sql_01",
-            "target": "database_table:t_keiyaku_kokyaku_kankei",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:keiyaku_kokyaku_kankei_sql_01",
-            "target": "database_table:t_keiyaku",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:keiyaku_kokyaku_kankei_sql_01",
-            "target": "database_table:v_m_kokyaku_kbn",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:keiyaku_kokyaku_kankei_sql_01",
-            "target": "database_table:m_kazoku_kousei",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:keiyaku_kokyaku_kankei_sql_01",
-            "target": "database_table:v_m_tsudukigara",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:keiyaku_kokyaku_kankei_sql_01",
-            "target": "database_table:t_kokyaku_soshiki",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:keiyaku_kokyaku_kankei_sql_01",
-            "target": "database_table:m_tkn_menkyo_gyouseicho",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:keiyaku_shijisyo_kankei_sql_01",
-            "target": "database_table:t_keiyaku_shijisyo_kankei",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:keiyaku_sql_04",
-            "target": "database_table:t_keiyaku",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:keiyaku_sql_04",
-            "target": "database_table:v_m_keiyaku_status",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:keiyaku_sql_04",
-            "target": "database_table:v_m_keiyaku_sakusei_kbn",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:keiyaku_sql_04",
-            "target": "database_table:m_keiyaku_kbn",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:keiyaku_sql_04",
-            "target": "database_table:m_toriatsukai_kbn",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:keiyaku_sql_04",
-            "target": "database_table:m_kouji_keitai",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:keiyaku_sql_04",
-            "target": "database_table:m_kouji_kbn",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:keiyaku_sql_04",
-            "target": "database_table:m_eigyousyo",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": "m_eigyousyo_jyutyu"
-            }
-        },
-        {
-            "source": "sql_query:keiyaku_sql_04",
-            "target": "database_table:m_eigyousyo",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": "m_eigyousyo_uriage"
-            }
-        },
-        {
-            "source": "sql_query:keiyaku_sql_04",
-            "target": "database_table:v_m_keiyaku_bunrui_s",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:keiyaku_sql_04",
-            "target": "database_table:v_m_kainushi_moushide_kbn_s",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:keiyaku_sql_04",
-            "target": "database_table:m_tousya_hanbai_keitai",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:keiyaku_sql_04",
-            "target": "database_table:m_tochi_riyou_kbn",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:keiyaku_sql_04",
-            "target": "database_table:m_tochi_youto_kbn",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:keiyaku_sql_04",
-            "target": "database_table:v_m_keiyakusyo_syurui",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:keiyaku_sql_04",
-            "target": "database_table:m_user",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": "jti_tantou_user"
-            }
-        },
-        {
-            "source": "sql_query:kojin_tasya_keiyaku_kbn_01",
-            "target": "database_table:t_keiyaku",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:kojin_tasya_keiyaku_kbn_01",
-            "target": "database_table:t_kokyaku_kojin",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:kojin_tasya_keiyaku_kbn_01",
-            "target": "database_table:t_keiyaku_kokyaku_kankei",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:kojin_tasya_keiyaku_kbn_05",
-            "target": "database_table:t_kokyaku_kojin",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:kouji_sql_04",
-            "target": "database_table:t_kouji",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:kouji_sql_04",
-            "target": "database_table:m_k_tatemono_youto_bunrui_1",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:kouji_sql_04",
-            "target": "database_table:m_k_tatemono_youto_bunrui_2",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:kouji_sql_04",
-            "target": "database_table:m_k_tatemono_youto_bunrui_3",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:kouji_sql_04",
-            "target": "database_table:m_syouhin",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:kouji_sql_04",
-            "target": "database_table:v_m_seihin_bunrui",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "read",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:keiyaku_dao_update",
-            "target": "database_table:t_keiyaku",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "write",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:kouji_dao_update",
-            "target": "database_table:t_kouji",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "write",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:kojin_tasya_keiyaku_kbn_dao_update",
-            "target": "database_table:t_kokyaku_kojin",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "write",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:keiyaku_shijisyo_kankei_dao_delete",
-            "target": "database_table:t_keiyaku_shijisyo_kankei",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "delete",
-                "table_alias": null
-            }
-        },
-        {
-            "source": "sql_query:chintaisyaku_keiyaku_kankei_dao_delete",
-            "target": "database_table:t_chintaisyaku_keiyaku_kankei",
-            "relationship_type": "accesses_table",
-            "properties": {
-                "access_type": "delete",
-                "table_alias": null
-            }
-        }
-    ]
+  "relationships": [
+    {
+      "source": "function:list_initialization",
+      "target": "sql_query:syounin_user_sql_01",
+      "relationship_type": "uses_query"
+    },
+    {
+      "source": "function:list_initialization",
+      "target": "sql_query:anken_sql_01",
+      "relationship_type": "uses_query"
+    },
+    {
+      "source": "function:list_initialization",
+      "target": "sql_query:keiyaku_ichiran_sql_01",
+      "relationship_type": "uses_query"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "sql_query:anken_sql_03",
+      "relationship_type": "uses_query"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "sql_query:keiyaku_sql_04",
+      "relationship_type": "uses_query"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "sql_query:kouji_sql_04",
+      "relationship_type": "uses_query"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "sql_query:keiyaku_shijisyo_kankei_sql_01",
+      "relationship_type": "uses_query"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "sql_query:chintaisyaku_keiyaku_kankei_sql_01",
+      "relationship_type": "uses_query"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "sql_query:gijyutsu_anken_kihon_sql_01",
+      "relationship_type": "uses_query"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "sql_query:keiyaku_kokyaku_kankei_sql_01",
+      "relationship_type": "uses_query"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "sql_query:kojin_tasya_keiyaku_kbn_01",
+      "relationship_type": "uses_query"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "sql_query:kojin_tasya_keiyaku_kbn_05",
+      "relationship_type": "uses_query"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "sql_query:keiyaku_dao_update",
+      "relationship_type": "uses_query"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "sql_query:kouji_dao_update",
+      "relationship_type": "uses_query"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "sql_query:keiyaku_shijisyo_kankei_dao_delete",
+      "relationship_type": "uses_query"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "sql_query:chintaisyaku_keiyaku_kankei_dao_delete",
+      "relationship_type": "uses_query"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "sql_query:kojin_tasya_keiyaku_kbn_dao_update",
+      "relationship_type": "uses_query"
+    },
+    {
+      "source": "sql_query:syounin_user_sql_01",
+      "target": "dao:syounin_user_find_dao",
+      "relationship_type": "executed_by",
+      "method_name": "doSelect"
+    },
+    {
+      "source": "sql_query:anken_sql_01",
+      "target": "dao:anken_find_dao",
+      "relationship_type": "executed_by",
+      "method_name": "doSelect"
+    },
+    {
+      "source": "sql_query:keiyaku_ichiran_sql_01",
+      "target": "dao:keiyaku_ichiran_find_dao",
+      "relationship_type": "executed_by",
+      "method_name": "doSelectList"
+    },
+    {
+      "source": "sql_query:anken_sql_03",
+      "target": "dao:anken_find_dao",
+      "relationship_type": "executed_by",
+      "method_name": "doSelect"
+    },
+    {
+      "source": "sql_query:keiyaku_sql_04",
+      "target": "dao:keiyaku_find_dao",
+      "relationship_type": "executed_by",
+      "method_name": "doSelect"
+    },
+    {
+      "source": "sql_query:kouji_sql_04",
+      "target": "dao:kouji_find_dao",
+      "relationship_type": "executed_by",
+      "method_name": "doSelect"
+    },
+    {
+      "source": "sql_query:keiyaku_shijisyo_kankei_sql_01",
+      "target": "dao:keiyaku_shijisyo_kankei_find_dao",
+      "relationship_type": "executed_by",
+      "method_name": "doSelect"
+    },
+    {
+      "source": "sql_query:chintaisyaku_keiyaku_kankei_sql_01",
+      "target": "dao:chintaisyaku_keiyaku_kankei_find_dao",
+      "relationship_type": "executed_by",
+      "method_name": "doSelect"
+    },
+    {
+      "source": "sql_query:gijyutsu_anken_kihon_sql_01",
+      "target": "dao:gijyutsu_anken_kihon_find_dao",
+      "relationship_type": "executed_by",
+      "method_name": "doSelect"
+    },
+    {
+      "source": "sql_query:keiyaku_kokyaku_kankei_sql_01",
+      "target": "dao:keiyaku_kokyaku_kankei_find_dao",
+      "relationship_type": "executed_by",
+      "method_name": "doSelect"
+    },
+    {
+      "source": "sql_query:kojin_tasya_keiyaku_kbn_01",
+      "target": "dao:kojin_tasya_keiyaku_kbn_find_dao",
+      "relationship_type": "executed_by",
+      "method_name": "doSelect"
+    },
+    {
+      "source": "sql_query:kojin_tasya_keiyaku_kbn_05",
+      "target": "dao:kojin_tasya_keiyaku_kbn_find_dao",
+      "relationship_type": "executed_by",
+      "method_name": "doSelect"
+    },
+    {
+      "source": "sql_query:keiyaku_dao_update",
+      "target": "dao:keiyaku_dao",
+      "relationship_type": "executed_by",
+      "method_name": "doUpdate"
+    },
+    {
+      "source": "sql_query:kouji_dao_update",
+      "target": "dao:kouji_dao",
+      "relationship_type": "executed_by",
+      "method_name": "doUpdate"
+    },
+    {
+      "source": "sql_query:keiyaku_shijisyo_kankei_dao_delete",
+      "target": "dao:keiyaku_shijisyo_kankei_dao",
+      "relationship_type": "executed_by",
+      "method_name": "doDelete"
+    },
+    {
+      "source": "sql_query:chintaisyaku_keiyaku_kankei_dao_delete",
+      "target": "dao:chintaisyaku_keiyaku_kankei_dao",
+      "relationship_type": "executed_by",
+      "method_name": "doDelete"
+    },
+    {
+      "source": "sql_query:kojin_tasya_keiyaku_kbn_dao_update",
+      "target": "dao:kojin_tasya_keiyaku_kbn_dao",
+      "relationship_type": "executed_by",
+      "method_name": "doUpdate"
+    },
+    {
+      "source": "sql_query:anken_sql_03",
+      "target": "database_table:t_anken",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:anken_sql_03",
+      "target": "database_table:t_anken_syousai",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:anken_sql_03",
+      "target": "database_table:t_anken_mansion",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:anken_sql_03",
+      "target": "database_table:t_anken_kokyaku_kankei",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:anken_sql_03",
+      "target": "database_table:m_syutoku_kbn",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:anken_sql_03",
+      "target": "database_table:v_m_syutoku_keitai",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:anken_sql_03",
+      "target": "database_table:v_m_anken_bunrui",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:anken_sql_03",
+      "target": "database_table:m_user",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:anken_sql_03",
+      "target": "database_table:m_jigyousyo",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": "tantou_jigyousyo"
+    },
+    {
+      "source": "sql_query:anken_sql_03",
+      "target": "database_table:m_eigyousyo",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": "tantou_eigyousyo"
+    },
+    {
+      "source": "sql_query:anken_sql_03",
+      "target": "database_table:m_kyoten",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": "tantou_kyoten"
+    },
+    {
+      "source": "sql_query:anken_sql_03",
+      "target": "database_table:v_m_kyoutsu_rank",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:anken_sql_03",
+      "target": "database_table:m_anken_bunruibetsu_rank",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:anken_sql_03",
+      "target": "database_table:m_jigyousyo",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": "tourokuji_jigyousyo"
+    },
+    {
+      "source": "sql_query:anken_sql_03",
+      "target": "database_table:m_eigyousyo",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": "tourokuji_eigyousyo"
+    },
+    {
+      "source": "sql_query:anken_sql_03",
+      "target": "database_table:m_kyoten",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": "tourokuji_kyoten"
+    },
+    {
+      "source": "sql_query:anken_sql_03",
+      "target": "database_table:v_m_shittyu_bunrui",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:anken_sql_03",
+      "target": "database_table:m_botsuriyu",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": "botsuriyu1"
+    },
+    {
+      "source": "sql_query:anken_sql_03",
+      "target": "database_table:m_botsuriyu",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": "botsuriyu2"
+    },
+    {
+      "source": "sql_query:anken_sql_03",
+      "target": "database_table:m_botsuriyu",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": "botsuriyu3"
+    },
+    {
+      "source": "sql_query:anken_sql_03",
+      "target": "database_table:v_m_genzai_madori",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:chintaisyaku_keiyaku_kankei_sql_01",
+      "target": "database_table:t_chintaisyaku_keiyaku_kankei",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:gijyutsu_anken_kihon_sql_01",
+      "target": "database_table:t_gijyutsu_anken_kihon",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:gijyutsu_anken_kihon_sql_01",
+      "target": "database_table:t_kouji",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:keiyaku_kokyaku_kankei_sql_01",
+      "target": "database_table:t_keiyaku_kokyaku_kankei",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:keiyaku_kokyaku_kankei_sql_01",
+      "target": "database_table:t_keiyaku",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:keiyaku_kokyaku_kankei_sql_01",
+      "target": "database_table:t_kokyaku_soshiki",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:keiyaku_kokyaku_kankei_sql_01",
+      "target": "database_table:v_m_kokyaku_kbn",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:keiyaku_kokyaku_kankei_sql_01",
+      "target": "database_table:m_kazoku_kousei",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:keiyaku_kokyaku_kankei_sql_01",
+      "target": "database_table:v_m_tsudukigara",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:keiyaku_kokyaku_kankei_sql_01",
+      "target": "database_table:m_tkn_menkyo_gyouseicho",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:keiyaku_shijisyo_kankei_sql_01",
+      "target": "database_table:t_keiyaku_shijisyo_kankei",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:keiyaku_sql_04",
+      "target": "database_table:t_keiyaku",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:keiyaku_sql_04",
+      "target": "database_table:v_m_keiyaku_status",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:keiyaku_sql_04",
+      "target": "database_table:v_m_keiyaku_sakusei_kbn",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:keiyaku_sql_04",
+      "target": "database_table:m_keiyaku_kbn",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:keiyaku_sql_04",
+      "target": "database_table:m_toriatsukai_kbn",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:keiyaku_sql_04",
+      "target": "database_table:m_kouji_keitai",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:keiyaku_sql_04",
+      "target": "database_table:m_kouji_kbn",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:keiyaku_sql_04",
+      "target": "database_table:m_eigyousyo",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": "m_eigyousyo_jyutyu"
+    },
+    {
+      "source": "sql_query:keiyaku_sql_04",
+      "target": "database_table:m_eigyousyo",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": "m_eigyousyo_uriage"
+    },
+    {
+      "source": "sql_query:keiyaku_sql_04",
+      "target": "database_table:v_m_keiyaku_bunrui_s",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:keiyaku_sql_04",
+      "target": "database_table:v_m_kainushi_moushide_kbn_s",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:keiyaku_sql_04",
+      "target": "database_table:m_tousya_hanbai_keitai",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:keiyaku_sql_04",
+      "target": "database_table:m_tochi_riyou_kbn",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:keiyaku_sql_04",
+      "target": "database_table:m_tochi_youto_kbn",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:keiyaku_sql_04",
+      "target": "database_table:v_m_keiyakusyo_syurui",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:keiyaku_sql_04",
+      "target": "database_table:m_user",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": "jti_tantou_user"
+    },
+    {
+      "source": "sql_query:kojin_tasya_keiyaku_kbn_01",
+      "target": "database_table:t_keiyaku",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:kojin_tasya_keiyaku_kbn_01",
+      "target": "database_table:t_kokyaku_kojin",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:kojin_tasya_keiyaku_kbn_01",
+      "target": "database_table:t_keiyaku_kokyaku_kankei",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:kojin_tasya_keiyaku_kbn_05",
+      "target": "database_table:t_kokyaku_kojin",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:kouji_sql_04",
+      "target": "database_table:t_kouji",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:kouji_sql_04",
+      "target": "database_table:m_syouhin",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:kouji_sql_04",
+      "target": "database_table:m_k_tatemono_youto_bunrui_1",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:kouji_sql_04",
+      "target": "database_table:m_k_tatemono_youto_bunrui_2",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:kouji_sql_04",
+      "target": "database_table:m_k_tatemono_youto_bunrui_3",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:kouji_sql_04",
+      "target": "database_table:v_m_seihin_bunrui",
+      "relationship_type": "accesses_table",
+      "access_type": "read",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:keiyaku_dao_update",
+      "target": "database_table:t_keiyaku",
+      "relationship_type": "accesses_table",
+      "access_type": "write",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:kouji_dao_update",
+      "target": "database_table:t_kouji",
+      "relationship_type": "accesses_table",
+      "access_type": "write",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:keiyaku_shijisyo_kankei_dao_delete",
+      "target": "database_table:t_keiyaku_shijisyo_kankei",
+      "relationship_type": "accesses_table",
+      "access_type": "delete",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:chintaisyaku_keiyaku_kankei_dao_delete",
+      "target": "database_table:t_chintaisyaku_keiyaku_kankei",
+      "relationship_type": "accesses_table",
+      "access_type": "delete",
+      "table_alias": null
+    },
+    {
+      "source": "sql_query:kojin_tasya_keiyaku_kbn_dao_update",
+      "target": "database_table:t_kokyaku_kojin",
+      "relationship_type": "accesses_table",
+      "access_type": "write",
+      "table_alias": null
+    },
+    {
+      "source": "function:list_initialization",
+      "target": "database_table:t_syounin_user",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:list_initialization",
+      "target": "database_table:t_anken",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:list_initialization",
+      "target": "database_table:t_anken_syousai",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:list_initialization",
+      "target": "database_table:t_anken_mansion",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:list_initialization",
+      "target": "database_table:t_anken_kokyaku_kankei",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:list_initialization",
+      "target": "database_table:t_keiyaku",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:list_initialization",
+      "target": "database_table:t_keiyaku_kokyaku_kankei",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:list_initialization",
+      "target": "database_table:t_kokyaku_kojin",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:list_initialization",
+      "target": "database_table:t_kokyaku_soshiki",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:list_initialization",
+      "target": "database_table:m_user",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:list_initialization",
+      "target": "database_table:m_jigyousyo",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:list_initialization",
+      "target": "database_table:m_eigyousyo",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:list_initialization",
+      "target": "database_table:m_kyoten",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:list_initialization",
+      "target": "database_table:m_keiyaku_kbn",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:list_initialization",
+      "target": "database_table:m_anken_bunruibetsu_rank",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:list_initialization",
+      "target": "database_table:m_syutoku_kbn",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:list_initialization",
+      "target": "database_table:m_botsuriyu",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:list_initialization",
+      "target": "database_table:v_m_anken_bunrui",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:list_initialization",
+      "target": "database_table:v_m_kyoutsu_rank",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:list_initialization",
+      "target": "database_table:v_m_syutoku_keitai",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:list_initialization",
+      "target": "database_table:v_m_shittyu_bunrui",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:list_initialization",
+      "target": "database_table:v_m_keiyaku_status",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:t_anken",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:t_anken_syousai",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:t_anken_mansion",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:t_anken_kokyaku_kankei",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:t_keiyaku",
+      "relationship_type": "uses_table",
+      "operation_type": "read,write"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:t_kouji",
+      "relationship_type": "uses_table",
+      "operation_type": "read,write"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:t_keiyaku_shijisyo_kankei",
+      "relationship_type": "uses_table",
+      "operation_type": "read,delete"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:t_chintaisyaku_keiyaku_kankei",
+      "relationship_type": "uses_table",
+      "operation_type": "read,delete"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:t_gijyutsu_anken_kihon",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:t_keiyaku_kokyaku_kankei",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:t_kokyaku_kojin",
+      "relationship_type": "uses_table",
+      "operation_type": "read,write"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:t_keiyaku_koutei",
+      "relationship_type": "uses_table",
+      "operation_type": "delete"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:t_jyutyu_koutei",
+      "relationship_type": "uses_table",
+      "operation_type": "delete"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:t_ukagaisyo_teikeigai_koutei",
+      "relationship_type": "uses_table",
+      "operation_type": "delete"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:m_user",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:m_jigyousyo",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:m_eigyousyo",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:m_kyoten",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:m_keiyaku_kbn",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:m_anken_bunruibetsu_rank",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:m_syutoku_kbn",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:m_botsuriyu",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:m_kazoku_kousei",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:m_tkn_menkyo_gyouseicho",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:m_syouhin",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:m_k_tatemono_youto_bunrui_1",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:m_k_tatemono_youto_bunrui_2",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:m_k_tatemono_youto_bunrui_3",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:v_m_anken_bunrui",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:v_m_kyoutsu_rank",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:v_m_syutoku_keitai",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:v_m_shittyu_bunrui",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:v_m_genzai_madori",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:v_m_keiyaku_status",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:v_m_keiyaku_sakusei_kbn",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:v_m_keiyaku_bunrui_s",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:v_m_kainushi_moushide_kbn_s",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:v_m_keiyakusyo_syurui",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:v_m_kokyaku_kbn",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:v_m_tsudukigara",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:v_m_seihin_bunrui",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    }
+  ]
 }

@@ -1,0 +1,780 @@
+{
+  "entities": [
+    {
+      "id": "action:keiyaku_list_init_action",
+      "type": "action",
+      "name": "Contract List Init Action",
+      "parent_module": "module:contract-list",
+      "action_name": "KeiyakuListInitAction",
+      "action_path": "/keiyakuListInit",
+      "http_method": "GET/POST",
+      "form_bean": "anken_cardForm",
+      "validation_enabled": false,
+      "package": "jp.co.daiwahouse.dsmart.application.contract.keiyakuList.keiyakuListInit",
+      "source_file_0": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "action:keiyaku_list_dispatch_action",
+      "type": "action",
+      "name": "Contract List Dispatch Action",
+      "parent_module": "module:contract-list",
+      "action_name": "KeiyakuListDispatchAction",
+      "action_path": "/keiyakuListDispatch",
+      "http_method": "POST",
+      "form_bean": "anken_cardForm",
+      "validation_enabled": false,
+      "package": "jp.co.daiwahouse.dsmart.application.contract.keiyakuList",
+      "source_file_0": "ctc-data-en/contract-list/overview-en.md"
+    },
+    {
+      "id": "action:keiyaku_delete_action",
+      "type": "action",
+      "name": "Contract Delete Action",
+      "parent_module": "module:contract-list",
+      "action_name": "KeiyakuDeleteAction",
+      "action_path": "/keiyakuDelete",
+      "http_method": "POST",
+      "form_bean": "anken_cardForm",
+      "validation_enabled": false,
+      "package": "jp.co.daiwahouse.dsmart.application.contract.keiyakuList",
+      "source_file_0": "ctc-data-en/contract-list/functions/delete-contract/function-overview-en.md"
+    },
+    {
+      "id": "delegate:syounin_user_find_delegate",
+      "type": "delegate",
+      "name": "User Permission Find Delegate",
+      "parent_module": "module:contract-list",
+      "delegate_name": "SyouninUserFindDelegate",
+      "purpose": "Retrieve user permissions",
+      "package": "jp.co.daiwahouse.dsmart.delegate.contract.keiyakuList",
+      "source_file_0": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "delegate:anken_find_delegate",
+      "type": "delegate",
+      "name": "Project Find Delegate",
+      "parent_module": "module:contract-list",
+      "delegate_name": "AnkenFindDelegate",
+      "purpose": "Retrieve project information",
+      "package": "jp.co.daiwahouse.dsmart.delegate.contract.keiyakuList",
+      "source_file_0": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "delegate:keiyaku_list_find_delegate",
+      "type": "delegate",
+      "name": "Contract List Find Delegate",
+      "parent_module": "module:contract-list",
+      "delegate_name": "KeiyakuListFindDelegate",
+      "purpose": "Retrieve contract list from business layer",
+      "package": "jp.co.daiwahouse.dsmart.delegate.contract.keiyakuList",
+      "source_file_0": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "delegate:keiyaku_delete_delegate",
+      "type": "delegate",
+      "name": "Contract Delete Delegate",
+      "parent_module": "module:contract-list",
+      "delegate_name": "KeiyakuDeleteDelegate",
+      "purpose": "Bridge to Facade for contract deletion",
+      "package": "jp.co.daiwahouse.dsmart.delegate.contract.keiyakuList",
+      "source_file_0": "ctc-data-en/contract-list/functions/delete-contract/function-overview-en.md"
+    },
+    {
+      "id": "facade:syounin_user_find_facade_bean",
+      "type": "facade",
+      "name": "User Permission Find Facade Bean",
+      "parent_module": "module:contract-list",
+      "facade_name": "SyouninUserFindFacadeBean",
+      "purpose": "Facade for permission retrieval",
+      "package": "jp.co.daiwahouse.dsmart.service.contract.keiyakuList",
+      "source_file_0": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "facade:anken_find_facade_bean",
+      "type": "facade",
+      "name": "Project Find Facade Bean",
+      "parent_module": "module:contract-list",
+      "facade_name": "AnkenFindFacadeBean",
+      "purpose": "Facade for project retrieval",
+      "package": "jp.co.daiwahouse.dsmart.service.contract.keiyakuList",
+      "source_file_0": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "facade:keiyaku_list_find_facade_bean",
+      "type": "facade",
+      "name": "Contract List Find Facade Bean",
+      "parent_module": "module:contract-list",
+      "facade_name": "KeiyakuListFindFacadeBean",
+      "purpose": "Facade for contract list retrieval",
+      "package": "jp.co.daiwahouse.dsmart.service.contract.keiyakuList",
+      "source_file_0": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "facade:keiyaku_delete_facade_bean",
+      "type": "facade",
+      "name": "Contract Delete Facade Bean",
+      "parent_module": "module:contract-list",
+      "facade_name": "KeiyakuDeleteFacadeBean",
+      "purpose": "Business logic orchestration for contract deletion",
+      "package": "jp.co.daiwahouse.dsmart.service.contract.keiyakuList",
+      "source_file_0": "ctc-data-en/contract-list/functions/delete-contract/function-overview-en.md"
+    },
+    {
+      "id": "product:syounin_user_find_product",
+      "type": "product",
+      "name": "User Permission Find Product",
+      "parent_module": "module:contract-list",
+      "product_name": "SyouninUserFindProduct",
+      "purpose": "Business logic for permission retrieval",
+      "package": "jp.co.daiwahouse.dsmart.service.contract.product.keiyakuList",
+      "source_file_0": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "product:anken_find_product",
+      "type": "product",
+      "name": "Project Find Product",
+      "parent_module": "module:contract-list",
+      "product_name": "AnkenFindProduct",
+      "purpose": "Business logic for project retrieval",
+      "package": "jp.co.daiwahouse.dsmart.service.contract.product.keiyakuList",
+      "source_file_0": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "product:keiyaku_list_find_product",
+      "type": "product",
+      "name": "Contract List Find Product",
+      "parent_module": "module:contract-list",
+      "product_name": "KeiyakuListFindProduct",
+      "purpose": "Business logic for contract list retrieval",
+      "package": "jp.co.daiwahouse.dsmart.service.contract.product.keiyakuList",
+      "source_file_0": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "product:keiyaku_delete_product",
+      "type": "product",
+      "name": "Contract Delete Product",
+      "parent_module": "module:contract-list",
+      "product_name": "KeiyakuDeleteProduct",
+      "purpose": "Main business logic for contract deletion",
+      "package": "jp.co.daiwahouse.dsmart.service.contract.product.keiyakuList",
+      "source_file_0": "ctc-data-en/contract-list/functions/delete-contract/function-overview-en.md"
+    },
+    {
+      "id": "dao:syounin_user_find_dao",
+      "type": "dao",
+      "name": "User Permission Find DAO",
+      "parent_module": "module:contract-list",
+      "dao_name": "SyouninUserFindDAO",
+      "purpose": "Query for user permissions by userId",
+      "package": "jp.co.daiwahouse.dsmart.domain.contract.find",
+      "source_file_0": "ctc-data-en/contract-list/functions/init-screen/sql-queries-en.md"
+    },
+    {
+      "id": "dao:anken_find_dao",
+      "type": "dao",
+      "name": "Project Find DAO",
+      "parent_module": "module:contract-list",
+      "dao_name": "AnkenFindDAO",
+      "purpose": "Query for project information by ankenNo",
+      "package": "jp.co.daiwahouse.dsmart.domain.contract.find",
+      "source_file_0": "ctc-data-en/contract-list/functions/init-screen/sql-queries-en.md"
+    },
+    {
+      "id": "dao:keiyaku_ichiran_find_dao",
+      "type": "dao",
+      "name": "Contract List Find DAO",
+      "parent_module": "module:contract-list",
+      "dao_name": "KeiyakuIchiranFindDAO",
+      "purpose": "Query for contract list by ankenNo",
+      "package": "jp.co.daiwahouse.dsmart.domain.contract.find",
+      "source_file_0": "ctc-data-en/contract-list/functions/init-screen/sql-queries-en.md"
+    },
+    {
+      "id": "dao:keiyaku_find_dao",
+      "type": "dao",
+      "name": "Contract Find DAO",
+      "parent_module": "module:contract-list",
+      "dao_name": "KeiyakuFindDAO",
+      "purpose": "Retrieve contract information by ankenNo/keiyakuKey",
+      "package": "jp.co.daiwahouse.dsmart.domain.contract.find",
+      "source_file_0": "ctc-data-en/contract-list/functions/delete-contract/sql-queries-en.md"
+    },
+    {
+      "id": "dao:kouji_find_dao",
+      "type": "dao",
+      "name": "Construction Find DAO",
+      "parent_module": "module:contract-list",
+      "dao_name": "KoujiFindDAO",
+      "purpose": "Retrieve related construction work by keiyakuKey",
+      "package": "jp.co.daiwahouse.dsmart.domain.contract.find",
+      "source_file_0": "ctc-data-en/contract-list/functions/delete-contract/sql-queries-en.md"
+    },
+    {
+      "id": "dao:keiyaku_shijisyo_kankei_find_dao",
+      "type": "dao",
+      "name": "Contract Instruction Sheet Find DAO",
+      "parent_module": "module:contract-list",
+      "dao_name": "KeiyakuShijisyoKankeiFindDAO",
+      "purpose": "Retrieve contract-instruction sheet relationships",
+      "package": "jp.co.daiwahouse.dsmart.domain.contract.find",
+      "source_file_0": "ctc-data-en/contract-list/functions/delete-contract/sql-queries-en.md"
+    },
+    {
+      "id": "dao:chintaisyaku_keiyaku_kankei_find_dao",
+      "type": "dao",
+      "name": "Rental Contract Find DAO",
+      "parent_module": "module:contract-list",
+      "dao_name": "ChintaisyakuKeiyakuKankeiFindDAO",
+      "purpose": "Retrieve rental contract relationships",
+      "package": "jp.co.daiwahouse.dsmart.domain.contract.find",
+      "source_file_0": "ctc-data-en/contract-list/functions/delete-contract/sql-queries-en.md"
+    },
+    {
+      "id": "dao:gijyutsu_anken_kihon_find_dao",
+      "type": "dao",
+      "name": "Technical Project Find DAO",
+      "parent_module": "module:contract-list",
+      "dao_name": "GijyutsuAnkenKihonFindDAO",
+      "purpose": "Retrieve technical case basics by keiyakuKey",
+      "package": "jp.co.daiwahouse.dsmart.domain.contract.find",
+      "source_file_0": "ctc-data-en/contract-list/functions/delete-contract/sql-queries-en.md"
+    },
+    {
+      "id": "dao:keiyaku_kokyaku_kankei_find_dao",
+      "type": "dao",
+      "name": "Contract Customer Find DAO",
+      "parent_module": "module:contract-list",
+      "dao_name": "KeiyakuKokyakuKankeiFindDAO",
+      "purpose": "Retrieve contract-customer relationships",
+      "package": "jp.co.daiwahouse.dsmart.domain.contract.find",
+      "source_file_0": "ctc-data-en/contract-list/functions/delete-contract/sql-queries-en.md"
+    },
+    {
+      "id": "dao:kojin_tasya_keiyaku_kbn_find_dao",
+      "type": "dao",
+      "name": "Individual Contract Classification Find DAO",
+      "parent_module": "module:contract-list",
+      "dao_name": "KojinTasyaKeiyakuKbnFindDAO",
+      "purpose": "Retrieve customer contract classification",
+      "package": "jp.co.daiwahouse.dsmart.domain.contract.find",
+      "source_file_0": "ctc-data-en/contract-list/functions/delete-contract/sql-queries-en.md"
+    },
+    {
+      "id": "dao:keiyaku_dao",
+      "type": "dao",
+      "name": "Contract DAO",
+      "parent_module": "module:contract-list",
+      "dao_name": "KeiyakuDAO",
+      "purpose": "Soft deletion of contract (t_keiyaku)",
+      "package": "jp.co.daiwahouse.dsmart.domain.contract.persistence",
+      "source_file_0": "ctc-data-en/contract-list/functions/delete-contract/function-overview-en.md"
+    },
+    {
+      "id": "dao:kouji_dao",
+      "type": "dao",
+      "name": "Construction DAO",
+      "parent_module": "module:contract-list",
+      "dao_name": "KoujiDAO",
+      "purpose": "Soft deletion of related construction (t_kouji)",
+      "package": "jp.co.daiwahouse.dsmart.domain.contract.persistence",
+      "source_file_0": "ctc-data-en/contract-list/functions/delete-contract/function-overview-en.md"
+    },
+    {
+      "id": "dao:keiyaku_shijisyo_kankei_dao",
+      "type": "dao",
+      "name": "Contract Instruction Sheet DAO",
+      "parent_module": "module:contract-list",
+      "dao_name": "KeiyakuShijisyoKankeiDAO",
+      "purpose": "Hard deletion of contract-instruction sheet relationship",
+      "package": "jp.co.daiwahouse.dsmart.domain.contract.persistence",
+      "source_file_0": "ctc-data-en/contract-list/functions/delete-contract/function-overview-en.md"
+    },
+    {
+      "id": "dao:chintaisyaku_keiyaku_kankei_dao",
+      "type": "dao",
+      "name": "Rental Contract DAO",
+      "parent_module": "module:contract-list",
+      "dao_name": "ChintaisyakuKeiyakuKankeiDAO",
+      "purpose": "Hard deletion of rental contract relationship",
+      "package": "jp.co.daiwahouse.dsmart.domain.contract.persistence",
+      "source_file_0": "ctc-data-en/contract-list/functions/delete-contract/function-overview-en.md"
+    },
+    {
+      "id": "dao:kojin_tasya_keiyaku_kbn_dao",
+      "type": "dao",
+      "name": "Individual Contract Classification DAO",
+      "parent_module": "module:contract-list",
+      "dao_name": "KojinTasyaKeiyakuKbnDAO",
+      "purpose": "Update of customer classification",
+      "package": "jp.co.daiwahouse.dsmart.domain.contract.persistence",
+      "source_file_0": "ctc-data-en/contract-list/functions/delete-contract/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_syounin_user",
+      "type": "database_table",
+      "name": "T_SYOUNIN_USER",
+      "table_name": "t_syounin_user",
+      "parent_module": "module:contract-list"
+    },
+    {
+      "id": "database_table:t_anken",
+      "type": "database_table",
+      "name": "T_ANKEN",
+      "table_name": "t_anken",
+      "parent_module": "module:contract-list"
+    },
+    {
+      "id": "database_table:t_keiyaku",
+      "type": "database_table",
+      "name": "T_KEIYAKU",
+      "table_name": "t_keiyaku",
+      "parent_module": "module:contract-list"
+    },
+    {
+      "id": "database_table:t_kouji",
+      "type": "database_table",
+      "name": "T_KOUJI",
+      "table_name": "t_kouji",
+      "parent_module": "module:contract-list"
+    },
+    {
+      "id": "database_table:t_keiyaku_shijisyo_kankei",
+      "type": "database_table",
+      "name": "T_KEIYAKU_SHIJISYO_KANKEI",
+      "table_name": "t_keiyaku_shijisyo_kankei",
+      "parent_module": "module:contract-list"
+    },
+    {
+      "id": "database_table:t_chintaisyaku_keiyaku_kankei",
+      "type": "database_table",
+      "name": "T_CHINTAISYAKU_KEIYAKU_KANKEI",
+      "table_name": "t_chintaisyaku_keiyaku_kankei",
+      "parent_module": "module:contract-list"
+    },
+    {
+      "id": "database_table:t_gijyutsu_anken_kihon",
+      "type": "database_table",
+      "name": "T_GIJYUTSU_ANKEN_KIHON",
+      "table_name": "t_gijyutsu_anken_kihon",
+      "parent_module": "module:contract-list"
+    },
+    {
+      "id": "database_table:t_keiyaku_kokyaku_kankei",
+      "type": "database_table",
+      "name": "T_KEIYAKU_KOKYAKU_KANKEI",
+      "table_name": "t_keiyaku_kokyaku_kankei",
+      "parent_module": "module:contract-list"
+    },
+    {
+      "id": "database_table:t_kokyaku_kojin",
+      "type": "database_table",
+      "name": "T_KOKYAKU_KOJIN",
+      "table_name": "t_kokyaku_kojin",
+      "parent_module": "module:contract-list"
+    },
+    {
+      "id": "database_table:t_keiyaku_koutei",
+      "type": "database_table",
+      "name": "T_KEIYAKU_KOUTEI",
+      "table_name": "t_keiyaku_koutei",
+      "parent_module": "module:contract-list"
+    },
+    {
+      "id": "database_table:t_jyutyu_koutei",
+      "type": "database_table",
+      "name": "T_JYUTYU_KOUTEI",
+      "table_name": "t_jyutyu_koutei",
+      "parent_module": "module:contract-list"
+    },
+    {
+      "id": "database_table:t_ukagaisyo_teikeigai_koutei",
+      "type": "database_table",
+      "name": "T_UKAGAISYO_TEIKEIGAI_KOUTEI",
+      "table_name": "t_ukagaisyo_teikeigai_koutei",
+      "parent_module": "module:contract-list"
+    }
+  ],
+  "relationships": [
+    {
+      "source": "action:keiyaku_list_init_action",
+      "target": "delegate:syounin_user_find_delegate",
+      "relationship_type": "CALLS",
+      "call_context": "initialization"
+    },
+    {
+      "source": "action:keiyaku_list_init_action",
+      "target": "delegate:anken_find_delegate",
+      "relationship_type": "CALLS",
+      "call_context": "initialization"
+    },
+    {
+      "source": "action:keiyaku_list_init_action",
+      "target": "delegate:keiyaku_list_find_delegate",
+      "relationship_type": "CALLS",
+      "call_context": "initialization"
+    },
+    {
+      "source": "action:keiyaku_list_init_action",
+      "relationship_type": "USES_FORM",
+      "form_bean_name": "anken_cardForm"
+    },
+    {
+      "source": "action:keiyaku_list_init_action",
+      "relationship_type": "FORWARDS_TO",
+      "target_view": "/contract/keiyakuList/keiyakuList.jsp",
+      "condition": "success"
+    },
+    {
+      "source": "action:keiyaku_list_dispatch_action",
+      "target": "action:keiyaku_delete_action",
+      "relationship_type": "FORWARDS_TO",
+      "condition": "when actionType=delete_contract"
+    },
+    {
+      "source": "action:keiyaku_list_dispatch_action",
+      "relationship_type": "USES_FORM",
+      "form_bean_name": "anken_cardForm"
+    },
+    {
+      "source": "action:keiyaku_delete_action",
+      "target": "delegate:keiyaku_delete_delegate",
+      "relationship_type": "CALLS",
+      "call_context": "deletion"
+    },
+    {
+      "source": "action:keiyaku_delete_action",
+      "relationship_type": "USES_FORM",
+      "form_bean_name": "anken_cardForm"
+    },
+    {
+      "source": "action:keiyaku_delete_action",
+      "relationship_type": "FORWARDS_TO",
+      "target_view": "/keiyakuListInit.do",
+      "condition": "after deletion"
+    },
+    {
+      "source": "delegate:syounin_user_find_delegate",
+      "target": "facade:syounin_user_find_facade_bean",
+      "relationship_type": "CALLS",
+      "call_context": "permission retrieval"
+    },
+    {
+      "source": "delegate:anken_find_delegate",
+      "target": "facade:anken_find_facade_bean",
+      "relationship_type": "CALLS",
+      "call_context": "project retrieval"
+    },
+    {
+      "source": "delegate:keiyaku_list_find_delegate",
+      "target": "facade:keiyaku_list_find_facade_bean",
+      "relationship_type": "CALLS",
+      "call_context": "contract list retrieval"
+    },
+    {
+      "source": "delegate:keiyaku_delete_delegate",
+      "target": "facade:keiyaku_delete_facade_bean",
+      "relationship_type": "CALLS",
+      "call_context": "contract deletion"
+    },
+    {
+      "source": "facade:syounin_user_find_facade_bean",
+      "target": "product:syounin_user_find_product",
+      "relationship_type": "CALLS",
+      "call_context": "permission business logic"
+    },
+    {
+      "source": "facade:anken_find_facade_bean",
+      "target": "product:anken_find_product",
+      "relationship_type": "CALLS",
+      "call_context": "project business logic"
+    },
+    {
+      "source": "facade:keiyaku_list_find_facade_bean",
+      "target": "product:keiyaku_list_find_product",
+      "relationship_type": "CALLS",
+      "call_context": "contract list business logic"
+    },
+    {
+      "source": "facade:keiyaku_delete_facade_bean",
+      "target": "product:keiyaku_delete_product",
+      "relationship_type": "CALLS",
+      "call_context": "deletion business logic"
+    },
+    {
+      "source": "product:syounin_user_find_product",
+      "target": "dao:syounin_user_find_dao",
+      "relationship_type": "CALLS",
+      "call_context": "permission data access"
+    },
+    {
+      "source": "product:anken_find_product",
+      "target": "dao:anken_find_dao",
+      "relationship_type": "CALLS",
+      "call_context": "project data access"
+    },
+    {
+      "source": "product:keiyaku_list_find_product",
+      "target": "dao:keiyaku_ichiran_find_dao",
+      "relationship_type": "CALLS",
+      "call_context": "contract list data access"
+    },
+    {
+      "source": "product:keiyaku_delete_product",
+      "target": "dao:anken_find_dao",
+      "relationship_type": "CALLS",
+      "call_context": "retrieve project for deletion validation"
+    },
+    {
+      "source": "product:keiyaku_delete_product",
+      "target": "dao:keiyaku_find_dao",
+      "relationship_type": "CALLS",
+      "call_context": "retrieve contract for deletion"
+    },
+    {
+      "source": "product:keiyaku_delete_product",
+      "target": "dao:kouji_find_dao",
+      "relationship_type": "CALLS",
+      "call_context": "retrieve construction for deletion"
+    },
+    {
+      "source": "product:keiyaku_delete_product",
+      "target": "dao:keiyaku_shijisyo_kankei_find_dao",
+      "relationship_type": "CALLS",
+      "call_context": "check instruction sheet relationships"
+    },
+    {
+      "source": "product:keiyaku_delete_product",
+      "target": "dao:chintaisyaku_keiyaku_kankei_find_dao",
+      "relationship_type": "CALLS",
+      "call_context": "check rental relationships"
+    },
+    {
+      "source": "product:keiyaku_delete_product",
+      "target": "dao:gijyutsu_anken_kihon_find_dao",
+      "relationship_type": "CALLS",
+      "call_context": "check technical project"
+    },
+    {
+      "source": "product:keiyaku_delete_product",
+      "target": "dao:keiyaku_kokyaku_kankei_find_dao",
+      "relationship_type": "CALLS",
+      "call_context": "check customer relationships"
+    },
+    {
+      "source": "product:keiyaku_delete_product",
+      "target": "dao:kojin_tasya_keiyaku_kbn_find_dao",
+      "relationship_type": "CALLS",
+      "call_context": "check customer classification"
+    },
+    {
+      "source": "product:keiyaku_delete_product",
+      "target": "dao:keiyaku_dao",
+      "relationship_type": "CALLS",
+      "call_context": "soft delete contract"
+    },
+    {
+      "source": "product:keiyaku_delete_product",
+      "target": "dao:kouji_dao",
+      "relationship_type": "CALLS",
+      "call_context": "soft delete construction"
+    },
+    {
+      "source": "product:keiyaku_delete_product",
+      "target": "dao:keiyaku_shijisyo_kankei_dao",
+      "relationship_type": "CALLS",
+      "call_context": "hard delete instruction relationships"
+    },
+    {
+      "source": "product:keiyaku_delete_product",
+      "target": "dao:chintaisyaku_keiyaku_kankei_dao",
+      "relationship_type": "CALLS",
+      "call_context": "hard delete rental relationships"
+    },
+    {
+      "source": "product:keiyaku_delete_product",
+      "target": "dao:kojin_tasya_keiyaku_kbn_dao",
+      "relationship_type": "CALLS",
+      "call_context": "update customer classification"
+    },
+    {
+      "source": "dao:syounin_user_find_dao",
+      "target": "database_table:t_syounin_user",
+      "relationship_type": "ACCESSES",
+      "access_type": "READ"
+    },
+    {
+      "source": "dao:anken_find_dao",
+      "target": "database_table:t_anken",
+      "relationship_type": "ACCESSES",
+      "access_type": "READ"
+    },
+    {
+      "source": "dao:keiyaku_ichiran_find_dao",
+      "target": "database_table:t_keiyaku",
+      "relationship_type": "ACCESSES",
+      "access_type": "READ"
+    },
+    {
+      "source": "dao:keiyaku_find_dao",
+      "target": "database_table:t_keiyaku",
+      "relationship_type": "ACCESSES",
+      "access_type": "READ"
+    },
+    {
+      "source": "dao:kouji_find_dao",
+      "target": "database_table:t_kouji",
+      "relationship_type": "ACCESSES",
+      "access_type": "READ"
+    },
+    {
+      "source": "dao:keiyaku_shijisyo_kankei_find_dao",
+      "target": "database_table:t_keiyaku_shijisyo_kankei",
+      "relationship_type": "ACCESSES",
+      "access_type": "READ"
+    },
+    {
+      "source": "dao:chintaisyaku_keiyaku_kankei_find_dao",
+      "target": "database_table:t_chintaisyaku_keiyaku_kankei",
+      "relationship_type": "ACCESSES",
+      "access_type": "READ"
+    },
+    {
+      "source": "dao:gijyutsu_anken_kihon_find_dao",
+      "target": "database_table:t_gijyutsu_anken_kihon",
+      "relationship_type": "ACCESSES",
+      "access_type": "READ"
+    },
+    {
+      "source": "dao:keiyaku_kokyaku_kankei_find_dao",
+      "target": "database_table:t_keiyaku_kokyaku_kankei",
+      "relationship_type": "ACCESSES",
+      "access_type": "READ"
+    },
+    {
+      "source": "dao:kojin_tasya_keiyaku_kbn_find_dao",
+      "target": "database_table:t_kokyaku_kojin",
+      "relationship_type": "ACCESSES",
+      "access_type": "READ"
+    },
+    {
+      "source": "dao:keiyaku_dao",
+      "target": "database_table:t_keiyaku",
+      "relationship_type": "ACCESSES",
+      "access_type": "WRITE"
+    },
+    {
+      "source": "dao:kouji_dao",
+      "target": "database_table:t_kouji",
+      "relationship_type": "ACCESSES",
+      "access_type": "WRITE"
+    },
+    {
+      "source": "dao:keiyaku_shijisyo_kankei_dao",
+      "target": "database_table:t_keiyaku_shijisyo_kankei",
+      "relationship_type": "ACCESSES",
+      "access_type": "DELETE"
+    },
+    {
+      "source": "dao:chintaisyaku_keiyaku_kankei_dao",
+      "target": "database_table:t_chintaisyaku_keiyaku_kankei",
+      "relationship_type": "ACCESSES",
+      "access_type": "DELETE"
+    },
+    {
+      "source": "dao:kojin_tasya_keiyaku_kbn_dao",
+      "target": "database_table:t_kokyaku_kojin",
+      "relationship_type": "ACCESSES",
+      "access_type": "WRITE"
+    },
+    {
+      "source": "action:keiyaku_list_init_action",
+      "target": "delegate:syounin_user_find_delegate",
+      "relationship_type": "DEPENDS_ON",
+      "dependency_type": "business_logic"
+    },
+    {
+      "source": "action:keiyaku_list_init_action",
+      "target": "delegate:anken_find_delegate",
+      "relationship_type": "DEPENDS_ON",
+      "dependency_type": "business_logic"
+    },
+    {
+      "source": "action:keiyaku_list_init_action",
+      "target": "delegate:keiyaku_list_find_delegate",
+      "relationship_type": "DEPENDS_ON",
+      "dependency_type": "business_logic"
+    },
+    {
+      "source": "action:keiyaku_delete_action",
+      "target": "delegate:keiyaku_delete_delegate",
+      "relationship_type": "DEPENDS_ON",
+      "dependency_type": "business_logic"
+    },
+    {
+      "source": "delegate:syounin_user_find_delegate",
+      "target": "facade:syounin_user_find_facade_bean",
+      "relationship_type": "DEPENDS_ON",
+      "dependency_type": "business_logic"
+    },
+    {
+      "source": "delegate:anken_find_delegate",
+      "target": "facade:anken_find_facade_bean",
+      "relationship_type": "DEPENDS_ON",
+      "dependency_type": "business_logic"
+    },
+    {
+      "source": "delegate:keiyaku_list_find_delegate",
+      "target": "facade:keiyaku_list_find_facade_bean",
+      "relationship_type": "DEPENDS_ON",
+      "dependency_type": "business_logic"
+    },
+    {
+      "source": "delegate:keiyaku_delete_delegate",
+      "target": "facade:keiyaku_delete_facade_bean",
+      "relationship_type": "DEPENDS_ON",
+      "dependency_type": "business_logic"
+    },
+    {
+      "source": "facade:syounin_user_find_facade_bean",
+      "target": "product:syounin_user_find_product",
+      "relationship_type": "DEPENDS_ON",
+      "dependency_type": "business_logic"
+    },
+    {
+      "source": "facade:anken_find_facade_bean",
+      "target": "product:anken_find_product",
+      "relationship_type": "DEPENDS_ON",
+      "dependency_type": "business_logic"
+    },
+    {
+      "source": "facade:keiyaku_list_find_facade_bean",
+      "target": "product:keiyaku_list_find_product",
+      "relationship_type": "DEPENDS_ON",
+      "dependency_type": "business_logic"
+    },
+    {
+      "source": "facade:keiyaku_delete_facade_bean",
+      "target": "product:keiyaku_delete_product",
+      "relationship_type": "DEPENDS_ON",
+      "dependency_type": "business_logic"
+    },
+    {
+      "source": "product:syounin_user_find_product",
+      "target": "dao:syounin_user_find_dao",
+      "relationship_type": "DEPENDS_ON",
+      "dependency_type": "data"
+    },
+    {
+      "source": "product:anken_find_product",
+      "target": "dao:anken_find_dao",
+      "relationship_type": "DEPENDS_ON",
+      "dependency_type": "data"
+    },
+    {
+      "source": "product:keiyaku_list_find_product",
+      "target": "dao:keiyaku_ichiran_find_dao",
+      "relationship_type": "DEPENDS_ON",
+      "dependency_type": "data"
+    }
+  ]
+}

@@ -1,1294 +1,714 @@
 {
-    "entities": [
-        {
-            "id": "sql_query:syounin_user_sql_01",
-            "type": "sql_query",
-            "name": "Get user permissions by userId",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "query_name": "SYOUNIN_USER_SQL_01",
-                "query_type": "SELECT",
-                "purpose": "Get user permissions by userId",
-                "operation_type": "read"
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/init-screen/sql-queries-en.md",
-                "function": "init-screen"
-            }
-        },
-        {
-            "id": "sql_query:anken_sql_01",
-            "type": "sql_query",
-            "name": "Get project information by ankenNo",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "query_name": "ANKEN_SQL_01",
-                "query_type": "SELECT",
-                "purpose": "Get project information by ankenNo",
-                "operation_type": "read"
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/init-screen/sql-queries-en.md",
-                "function": "init-screen"
-            }
-        },
-        {
-            "id": "sql_query:keiyaku_ichiran_sql_01",
-            "type": "sql_query",
-            "name": "Get contract list by ankenNo",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "query_name": "KEIYAKU_ICHIRAN_SQL_01",
-                "query_type": "SELECT",
-                "purpose": "Get contract list by ankenNo",
-                "operation_type": "read"
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/init-screen/sql-queries-en.md",
-                "function": "init-screen"
-            }
-        },
-        {
-            "id": "sql_query:anken_sql_03",
-            "type": "sql_query",
-            "name": "Retrieve contract business information",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "query_name": "ANKEN_SQL_03",
-                "query_type": "SELECT",
-                "purpose": "Retrieve contract business information (specified by ankenNo)",
-                "operation_type": "read"
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-queries-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "sql_query:keiyaku_sql_04",
-            "type": "sql_query",
-            "name": "Retrieve contract information",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "query_name": "KEIYAKU_SQL_04",
-                "query_type": "SELECT",
-                "purpose": "Retrieve contract information (specified by ankenNo/keiyakuKey)",
-                "operation_type": "read"
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-queries-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "sql_query:kouji_sql_04",
-            "type": "sql_query",
-            "name": "Retrieve related construction work",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "query_name": "KOUJI_SQL_04",
-                "query_type": "SELECT",
-                "purpose": "Retrieve related construction work (specified by keiyakuKey)",
-                "operation_type": "read"
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-queries-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "sql_query:keiyaku_shijisyo_kankei_sql_01",
-            "type": "sql_query",
-            "name": "Retrieve contract-instruction sheet relationships",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "query_name": "KEIYAKU_SHIJISYO_KANKEI_SQL_01",
-                "query_type": "SELECT",
-                "purpose": "Retrieve contract-instruction sheet relationships",
-                "operation_type": "read"
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-queries-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "sql_query:chintaisyaku_keiyaku_kankei_sql_01",
-            "type": "sql_query",
-            "name": "Retrieve rental contract relationships",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "query_name": "CHINTAISYAKU_KEIYAKU_KANKEI_SQL_01",
-                "query_type": "SELECT",
-                "purpose": "Retrieve rental contract relationships",
-                "operation_type": "read"
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-queries-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "sql_query:gijyutsu_anken_kihon_sql_01",
-            "type": "sql_query",
-            "name": "Retrieve technical case basics",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "query_name": "GIJYUTSU_ANKEN_KIHON_SQL_01",
-                "query_type": "SELECT",
-                "purpose": "Retrieve technical case basics (specified by keiyakuKey)",
-                "operation_type": "read"
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-queries-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "sql_query:keiyaku_kokyaku_kankei_sql_01",
-            "type": "sql_query",
-            "name": "Retrieve contract-customer relationships",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "query_name": "KEIYAKU_KOKYAKU_KANKEI_SQL_01",
-                "query_type": "SELECT",
-                "purpose": "Retrieve contract-customer relationships",
-                "operation_type": "read"
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-queries-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "sql_query:kojin_tasya_keiyaku_kbn_01",
-            "type": "sql_query",
-            "name": "Retrieve customer contract classification",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "query_name": "KOJIN_TASYA_KEIYAKU_KBN_01",
-                "query_type": "SELECT",
-                "purpose": "Retrieve customer contract classification",
-                "operation_type": "read"
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-queries-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "sql_query:kojin_tasya_keiyaku_kbn_05",
-            "type": "sql_query",
-            "name": "Retrieve customer personal information",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "query_name": "KOJIN_TASYA_KEIYAKU_KBN_05",
-                "query_type": "SELECT",
-                "purpose": "Retrieve customer personal information",
-                "operation_type": "read"
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-queries-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "sql_query:keiyaku_dao_update",
-            "type": "sql_query",
-            "name": "Soft deletion of contract",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "query_name": "KEIYAKU_DAO_UPDATE",
-                "query_type": "UPDATE",
-                "purpose": "Soft deletion of contract (t_keiyaku)",
-                "operation_type": "soft_delete"
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "sql_query:kouji_dao_update",
-            "type": "sql_query",
-            "name": "Soft deletion of related construction",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "query_name": "KOUJI_DAO_UPDATE",
-                "query_type": "UPDATE",
-                "purpose": "Soft deletion of related construction (t_kouji)",
-                "operation_type": "soft_delete"
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "sql_query:keiyaku_shijisyo_kankei_dao_delete",
-            "type": "sql_query",
-            "name": "Hard deletion of contract-instruction sheet relationship",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "query_name": "KEIYAKU_SHIJISYO_KANKEI_DAO_DELETE",
-                "query_type": "DELETE",
-                "purpose": "Hard deletion of contract-instruction sheet relationship",
-                "operation_type": "delete"
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "sql_query:chintaisyaku_keiyaku_kankei_dao_delete",
-            "type": "sql_query",
-            "name": "Hard deletion of rental contract relationship",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "query_name": "CHINTAISYAKU_KEIYAKU_KANKEI_DAO_DELETE",
-                "query_type": "DELETE",
-                "purpose": "Hard deletion of rental contract relationship",
-                "operation_type": "delete"
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "sql_query:kojin_tasya_keiyaku_kbn_dao_update",
-            "type": "sql_query",
-            "name": "Update of customer classification",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "query_name": "KOJIN_TASYA_KEIYAKU_KBN_DAO_UPDATE",
-                "query_type": "UPDATE",
-                "purpose": "Update of customer classification",
-                "operation_type": "write"
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:t_anken",
-            "type": "database_table",
-            "name": "Project Table",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "t_anken",
-                "table_type": "transaction",
-                "table_prefix": "T_",
-                "description": "Main project table storing project/case information",
-                "primary_key": [
-                    "anken_no"
-                ],
-                "key_columns": [
-                    "anken_no"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:t_anken_syousai",
-            "type": "database_table",
-            "name": "Project Details Table",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "t_anken_syousai",
-                "table_type": "transaction",
-                "table_prefix": "T_",
-                "description": "Project detailed information table",
-                "primary_key": [
-                    "anken_no"
-                ],
-                "key_columns": [
-                    "anken_no"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:t_anken_mansion",
-            "type": "database_table",
-            "name": "Project Mansion Table",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "t_anken_mansion",
-                "table_type": "transaction",
-                "table_prefix": "T_",
-                "description": "Project mansion-specific information table",
-                "primary_key": [
-                    "anken_no"
-                ],
-                "key_columns": [
-                    "anken_no"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:t_anken_kokyaku_kankei",
-            "type": "database_table",
-            "name": "Project-Customer Relationship Table",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "t_anken_kokyaku_kankei",
-                "table_type": "transaction",
-                "table_prefix": "T_",
-                "description": "Relationship table between projects and customers",
-                "primary_key": [
-                    "anken_no",
-                    "kokyaku_no"
-                ],
-                "key_columns": [
-                    "anken_no",
-                    "kokyaku_no"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:t_keiyaku",
-            "type": "database_table",
-            "name": "Contract Table",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "t_keiyaku",
-                "table_type": "transaction",
-                "table_prefix": "T_",
-                "description": "Main contract transaction table storing contract information",
-                "primary_key": [
-                    "keiyaku_key"
-                ],
-                "key_columns": [
-                    "keiyaku_key",
-                    "anken_no",
-                    "keiyaku_no"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:t_kouji",
-            "type": "database_table",
-            "name": "Construction Work Table",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "t_kouji",
-                "table_type": "transaction",
-                "table_prefix": "T_",
-                "description": "Construction work information table",
-                "primary_key": [
-                    "kouji_key"
-                ],
-                "key_columns": [
-                    "kouji_key",
-                    "keiyaku_key",
-                    "anken_no"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:t_keiyaku_shijisyo_kankei",
-            "type": "database_table",
-            "name": "Contract-Instruction Sheet Relationship Table",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "t_keiyaku_shijisyo_kankei",
-                "table_type": "transaction",
-                "table_prefix": "T_",
-                "description": "Relationship table between contracts and instruction sheets",
-                "primary_key": [
-                    "keiyaku_key",
-                    "shijisyo_no",
-                    "renban"
-                ],
-                "key_columns": [
-                    "keiyaku_key",
-                    "shijisyo_no",
-                    "renban"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:t_chintaisyaku_keiyaku_kankei",
-            "type": "database_table",
-            "name": "Rental Contract Relationship Table",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "t_chintaisyaku_keiyaku_kankei",
-                "table_type": "transaction",
-                "table_prefix": "T_",
-                "description": "Rental contract relationship information table",
-                "primary_key": [
-                    "anken_no",
-                    "renban",
-                    "keiyaku_key"
-                ],
-                "key_columns": [
-                    "anken_no",
-                    "renban",
-                    "keiyaku_key"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:t_gijyutsu_anken_kihon",
-            "type": "database_table",
-            "name": "Technical Case Basics Table",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "t_gijyutsu_anken_kihon",
-                "table_type": "transaction",
-                "table_prefix": "T_",
-                "description": "Technical case basic information table",
-                "primary_key": [
-                    "anken_no",
-                    "kouji_key"
-                ],
-                "key_columns": [
-                    "anken_no",
-                    "kouji_key"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:t_keiyaku_kokyaku_kankei",
-            "type": "database_table",
-            "name": "Contract-Customer Relationship Table",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "t_keiyaku_kokyaku_kankei",
-                "table_type": "transaction",
-                "table_prefix": "T_",
-                "description": "Relationship table between contracts and customers",
-                "primary_key": [
-                    "keiyaku_key",
-                    "kokyaku_no"
-                ],
-                "key_columns": [
-                    "keiyaku_key",
-                    "kokyaku_no"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:t_kokyaku_kojin",
-            "type": "database_table",
-            "name": "Individual Customer Table",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "t_kokyaku_kojin",
-                "table_type": "transaction",
-                "table_prefix": "T_",
-                "description": "Individual customer information table",
-                "primary_key": [
-                    "kokyaku_no"
-                ],
-                "key_columns": [
-                    "kokyaku_no"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:t_kokyaku_soshiki",
-            "type": "database_table",
-            "name": "Organization Customer Table",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "t_kokyaku_soshiki",
-                "table_type": "transaction",
-                "table_prefix": "T_",
-                "description": "Organization customer information table",
-                "primary_key": [
-                    "kokyaku_no"
-                ],
-                "key_columns": [
-                    "kokyaku_no"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:m_user",
-            "type": "database_table",
-            "name": "User Master Table",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "m_user",
-                "table_type": "master",
-                "table_prefix": "M_",
-                "description": "User master data table",
-                "primary_key": [
-                    "user_id"
-                ],
-                "key_columns": [
-                    "user_id"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:m_jigyousyo",
-            "type": "database_table",
-            "name": "Business Office Master Table",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "m_jigyousyo",
-                "table_type": "master",
-                "table_prefix": "M_",
-                "description": "Business office master data table",
-                "primary_key": [
-                    "jigyousyo_cd"
-                ],
-                "key_columns": [
-                    "jigyousyo_cd"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:m_eigyousyo",
-            "type": "database_table",
-            "name": "Sales Office Master Table",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "m_eigyousyo",
-                "table_type": "master",
-                "table_prefix": "M_",
-                "description": "Sales office master data table",
-                "primary_key": [
-                    "eigyousyo_cd"
-                ],
-                "key_columns": [
-                    "eigyousyo_cd"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:m_kyoten",
-            "type": "database_table",
-            "name": "Branch Office Master Table",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "m_kyoten",
-                "table_type": "master",
-                "table_prefix": "M_",
-                "description": "Branch office master data table",
-                "primary_key": [
-                    "kyoten_cd"
-                ],
-                "key_columns": [
-                    "kyoten_cd"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:m_syutoku_kbn",
-            "type": "database_table",
-            "name": "Acquisition Classification Master Table",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "m_syutoku_kbn",
-                "table_type": "master",
-                "table_prefix": "M_",
-                "description": "Acquisition classification master data table",
-                "primary_key": [
-                    "syutoku_kbn_cd"
-                ],
-                "key_columns": [
-                    "syutoku_kbn_cd"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:m_anken_bunruibetsu_rank",
-            "type": "database_table",
-            "name": "Project Category Rank Master Table",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "m_anken_bunruibetsu_rank",
-                "table_type": "master",
-                "table_prefix": "M_",
-                "description": "Project category-specific rank master data table",
-                "primary_key": [
-                    "anken_bunruibetsu_rank_cd",
-                    "anken_bunrui_cd"
-                ],
-                "key_columns": [
-                    "anken_bunruibetsu_rank_cd",
-                    "anken_bunrui_cd"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:m_botsuriyu",
-            "type": "database_table",
-            "name": "Cancellation Reason Master Table",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "m_botsuriyu",
-                "table_type": "master",
-                "table_prefix": "M_",
-                "description": "Cancellation reason master data table",
-                "primary_key": [
-                    "botsu_riyu_cd"
-                ],
-                "key_columns": [
-                    "botsu_riyu_cd"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:m_keiyaku_kbn",
-            "type": "database_table",
-            "name": "Contract Classification Master Table",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "m_keiyaku_kbn",
-                "table_type": "master",
-                "table_prefix": "M_",
-                "description": "Contract classification master data table",
-                "primary_key": [
-                    "keiyaku_kbn_cd"
-                ],
-                "key_columns": [
-                    "keiyaku_kbn_cd"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:m_toriatsukai_kbn",
-            "type": "database_table",
-            "name": "Handling Classification Master Table",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "m_toriatsukai_kbn",
-                "table_type": "master",
-                "table_prefix": "M_",
-                "description": "Handling classification master data table",
-                "primary_key": [
-                    "toriatsukai_kbn_cd"
-                ],
-                "key_columns": [
-                    "toriatsukai_kbn_cd"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:m_kouji_keitai",
-            "type": "database_table",
-            "name": "Construction Type Master Table",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "m_kouji_keitai",
-                "table_type": "master",
-                "table_prefix": "M_",
-                "description": "Construction type master data table",
-                "primary_key": [
-                    "kouji_keitai_cd"
-                ],
-                "key_columns": [
-                    "kouji_keitai_cd"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:m_kouji_kbn",
-            "type": "database_table",
-            "name": "Construction Classification Master Table",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "m_kouji_kbn",
-                "table_type": "master",
-                "table_prefix": "M_",
-                "description": "Construction classification master data table",
-                "primary_key": [
-                    "kouji_kbn_cd"
-                ],
-                "key_columns": [
-                    "kouji_kbn_cd"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:m_tousya_hanbai_keitai",
-            "type": "database_table",
-            "name": "Company Sales Type Master Table",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "m_tousya_hanbai_keitai",
-                "table_type": "master",
-                "table_prefix": "M_",
-                "description": "Company sales type master data table",
-                "primary_key": [
-                    "tousya_hanbai_keitai_cd"
-                ],
-                "key_columns": [
-                    "tousya_hanbai_keitai_cd"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:m_tochi_riyou_kbn",
-            "type": "database_table",
-            "name": "Land Use Classification Master Table",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "m_tochi_riyou_kbn",
-                "table_type": "master",
-                "table_prefix": "M_",
-                "description": "Land use classification master data table",
-                "primary_key": [
-                    "tochi_riyou_kbn_cd"
-                ],
-                "key_columns": [
-                    "tochi_riyou_kbn_cd"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:m_tochi_youto_kbn",
-            "type": "database_table",
-            "name": "Land Usage Classification Master Table",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "m_tochi_youto_kbn",
-                "table_type": "master",
-                "table_prefix": "M_",
-                "description": "Land usage classification master data table",
-                "primary_key": [
-                    "tochi_youto_kbn_cd"
-                ],
-                "key_columns": [
-                    "tochi_youto_kbn_cd"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:m_kazoku_kousei",
-            "type": "database_table",
-            "name": "Family Structure Master Table",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "m_kazoku_kousei",
-                "table_type": "master",
-                "table_prefix": "M_",
-                "description": "Family structure master data table",
-                "primary_key": [
-                    "kazoku_kousei_cd"
-                ],
-                "key_columns": [
-                    "kazoku_kousei_cd"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:m_tkn_menkyo_gyouseicho",
-            "type": "database_table",
-            "name": "Real Estate License Authority Master Table",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "m_tkn_menkyo_gyouseicho",
-                "table_type": "master",
-                "table_prefix": "M_",
-                "description": "Real estate license administrative office master data table",
-                "primary_key": [
-                    "takken_gyouseicho_cd"
-                ],
-                "key_columns": [
-                    "takken_gyouseicho_cd"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:m_syouhin",
-            "type": "database_table",
-            "name": "Product Master Table",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "m_syouhin",
-                "table_type": "master",
-                "table_prefix": "M_",
-                "description": "Product master data table",
-                "primary_key": [
-                    "kigyou_cd",
-                    "syouhin_cd"
-                ],
-                "key_columns": [
-                    "kigyou_cd",
-                    "syouhin_cd"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:m_k_tatemono_youto_bunrui_1",
-            "type": "database_table",
-            "name": "Building Use Category 1 Master Table",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "m_k_tatemono_youto_bunrui_1",
-                "table_type": "master",
-                "table_prefix": "M_",
-                "description": "Building use category level 1 master data table",
-                "primary_key": [
-                    "tatemono_youto_bunrui_cd_1"
-                ],
-                "key_columns": [
-                    "tatemono_youto_bunrui_cd_1"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:m_k_tatemono_youto_bunrui_2",
-            "type": "database_table",
-            "name": "Building Use Category 2 Master Table",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "m_k_tatemono_youto_bunrui_2",
-                "table_type": "master",
-                "table_prefix": "M_",
-                "description": "Building use category level 2 master data table",
-                "primary_key": [
-                    "tatemono_youto_bunrui_cd_1",
-                    "tatemono_youto_bunrui_cd_2"
-                ],
-                "key_columns": [
-                    "tatemono_youto_bunrui_cd_1",
-                    "tatemono_youto_bunrui_cd_2"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:m_k_tatemono_youto_bunrui_3",
-            "type": "database_table",
-            "name": "Building Use Category 3 Master Table",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "m_k_tatemono_youto_bunrui_3",
-                "table_type": "master",
-                "table_prefix": "M_",
-                "description": "Building use category level 3 master data table",
-                "primary_key": [
-                    "tatemono_youto_bunrui_cd_1",
-                    "tatemono_youto_bunrui_cd_2",
-                    "tatemono_youto_bunrui_cd_3"
-                ],
-                "key_columns": [
-                    "tatemono_youto_bunrui_cd_1",
-                    "tatemono_youto_bunrui_cd_2",
-                    "tatemono_youto_bunrui_cd_3"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:v_m_anken_bunrui",
-            "type": "database_table",
-            "name": "Project Classification View",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "v_m_anken_bunrui",
-                "table_type": "view",
-                "table_prefix": "V_",
-                "description": "Project classification master view",
-                "primary_key": [
-                    "master_cd"
-                ],
-                "key_columns": [
-                    "master_cd"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:v_m_syutoku_keitai",
-            "type": "database_table",
-            "name": "Acquisition Type View",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "v_m_syutoku_keitai",
-                "table_type": "view",
-                "table_prefix": "V_",
-                "description": "Acquisition type master view",
-                "primary_key": [
-                    "master_cd"
-                ],
-                "key_columns": [
-                    "master_cd"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:v_m_kyoutsu_rank",
-            "type": "database_table",
-            "name": "Common Rank View",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "v_m_kyoutsu_rank",
-                "table_type": "view",
-                "table_prefix": "V_",
-                "description": "Common rank master view",
-                "primary_key": [
-                    "master_cd"
-                ],
-                "key_columns": [
-                    "master_cd"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:v_m_shittyu_bunrui",
-            "type": "database_table",
-            "name": "Loss Classification View",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "v_m_shittyu_bunrui",
-                "table_type": "view",
-                "table_prefix": "V_",
-                "description": "Loss/defeat classification master view",
-                "primary_key": [
-                    "master_cd"
-                ],
-                "key_columns": [
-                    "master_cd"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:v_m_genzai_madori",
-            "type": "database_table",
-            "name": "Current Floor Plan View",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "v_m_genzai_madori",
-                "table_type": "view",
-                "table_prefix": "V_",
-                "description": "Current floor plan master view",
-                "primary_key": [
-                    "master_cd"
-                ],
-                "key_columns": [
-                    "master_cd"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:v_m_keiyaku_status",
-            "type": "database_table",
-            "name": "Contract Status View",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "v_m_keiyaku_status",
-                "table_type": "view",
-                "table_prefix": "V_",
-                "description": "Contract status master view",
-                "primary_key": [
-                    "master_cd"
-                ],
-                "key_columns": [
-                    "master_cd"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:v_m_keiyaku_sakusei_kbn",
-            "type": "database_table",
-            "name": "Contract Creation Classification View",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "v_m_keiyaku_sakusei_kbn",
-                "table_type": "view",
-                "table_prefix": "V_",
-                "description": "Contract creation classification master view",
-                "primary_key": [
-                    "master_cd"
-                ],
-                "key_columns": [
-                    "master_cd"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:v_m_keiyaku_bunrui_s",
-            "type": "database_table",
-            "name": "Contract Classification View (Simple)",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "v_m_keiyaku_bunrui_s",
-                "table_type": "view",
-                "table_prefix": "V_",
-                "description": "Contract classification master view (simple)",
-                "primary_key": [
-                    "master_cd"
-                ],
-                "key_columns": [
-                    "master_cd"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:v_m_kainushi_moushide_kbn_s",
-            "type": "database_table",
-            "name": "Buyer Application Classification View (Simple)",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "v_m_kainushi_moushide_kbn_s",
-                "table_type": "view",
-                "table_prefix": "V_",
-                "description": "Buyer application classification master view (simple)",
-                "primary_key": [
-                    "master_cd"
-                ],
-                "key_columns": [
-                    "master_cd"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:v_m_keiyakusyo_syurui",
-            "type": "database_table",
-            "name": "Contract Document Type View",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "v_m_keiyakusyo_syurui",
-                "table_type": "view",
-                "table_prefix": "V_",
-                "description": "Contract document type master view",
-                "primary_key": [
-                    "master_cd"
-                ],
-                "key_columns": [
-                    "master_cd"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:v_m_kokyaku_kbn",
-            "type": "database_table",
-            "name": "Customer Classification View",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "v_m_kokyaku_kbn",
-                "table_type": "view",
-                "table_prefix": "V_",
-                "description": "Customer classification master view",
-                "primary_key": [
-                    "master_cd"
-                ],
-                "key_columns": [
-                    "master_cd"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:v_m_tsudukigara",
-            "type": "database_table",
-            "name": "Relationship View",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "v_m_tsudukigara",
-                "table_type": "view",
-                "table_prefix": "V_",
-                "description": "Relationship (family relation) master view",
-                "primary_key": [
-                    "master_cd"
-                ],
-                "key_columns": [
-                    "master_cd"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        },
-        {
-            "id": "database_table:v_m_seihin_bunrui",
-            "type": "database_table",
-            "name": "Product Classification View",
-            "parent_module": "module:contract-list",
-            "properties": {
-                "table_name": "v_m_seihin_bunrui",
-                "table_type": "view",
-                "table_prefix": "V_",
-                "description": "Product classification master view",
-                "primary_key": [
-                    "master_cd"
-                ],
-                "key_columns": [
-                    "master_cd"
-                ]
-            },
-            "metadata": {
-                "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md",
-                "function": "delete-contract"
-            }
-        }
-    ]
+  "entities": [
+    {
+      "id": "sql_query:syounin_user_sql_01",
+      "type": "sql_query",
+      "name": "Get user permissions by userId",
+      "parent_module": "module:contract-list",
+      "query_name": "SYOUNIN_USER_SQL_01",
+      "query_type": "SELECT",
+      "operation_type": "read",
+      "source_file": "ctc-data-en/contract-list/functions/init-screen/sql-queries-en.md"
+    },
+    {
+      "id": "sql_query:anken_sql_01",
+      "type": "sql_query",
+      "name": "Get project information by ankenNo",
+      "parent_module": "module:contract-list",
+      "query_name": "ANKEN_SQL_01",
+      "query_type": "SELECT",
+      "operation_type": "read",
+      "source_file": "ctc-data-en/contract-list/functions/init-screen/sql-queries-en.md"
+    },
+    {
+      "id": "sql_query:keiyaku_ichiran_sql_01",
+      "type": "sql_query",
+      "name": "Get contract list by ankenNo",
+      "parent_module": "module:contract-list",
+      "query_name": "KEIYAKU_ICHIRAN_SQL_01",
+      "query_type": "SELECT",
+      "operation_type": "read",
+      "source_file": "ctc-data-en/contract-list/functions/init-screen/sql-queries-en.md"
+    },
+    {
+      "id": "sql_query:anken_sql_03",
+      "type": "sql_query",
+      "name": "Retrieve contract business information (specified by ankenNo)",
+      "parent_module": "module:contract-list",
+      "query_name": "ANKEN_SQL_03",
+      "query_type": "SELECT",
+      "operation_type": "read",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-queries-en.md"
+    },
+    {
+      "id": "sql_query:keiyaku_sql_04",
+      "type": "sql_query",
+      "name": "Retrieve contract information (specified by ankenNo/keiyakuKey)",
+      "parent_module": "module:contract-list",
+      "query_name": "KEIYAKU_SQL_04",
+      "query_type": "SELECT",
+      "operation_type": "read",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-queries-en.md"
+    },
+    {
+      "id": "sql_query:kouji_sql_04",
+      "type": "sql_query",
+      "name": "Retrieve related construction work (specified by keiyakuKey)",
+      "parent_module": "module:contract-list",
+      "query_name": "KOUJI_SQL_04",
+      "query_type": "SELECT",
+      "operation_type": "read",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-queries-en.md"
+    },
+    {
+      "id": "sql_query:keiyaku_shijisyo_kankei_sql_01",
+      "type": "sql_query",
+      "name": "Retrieve contract-instruction sheet relationships",
+      "parent_module": "module:contract-list",
+      "query_name": "KEIYAKU_SHIJISYO_KANKEI_SQL_01",
+      "query_type": "SELECT",
+      "operation_type": "read",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-queries-en.md"
+    },
+    {
+      "id": "sql_query:chintaisyaku_keiyaku_kankei_sql_01",
+      "type": "sql_query",
+      "name": "Retrieve rental contract relationships",
+      "parent_module": "module:contract-list",
+      "query_name": "CHINTAISYAKU_KEIYAKU_KANKEI_SQL_01",
+      "query_type": "SELECT",
+      "operation_type": "read",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-queries-en.md"
+    },
+    {
+      "id": "sql_query:gijyutsu_anken_kihon_sql_01",
+      "type": "sql_query",
+      "name": "Retrieve technical case basics (specified by keiyakuKey)",
+      "parent_module": "module:contract-list",
+      "query_name": "GIJYUTSU_ANKEN_KIHON_SQL_01",
+      "query_type": "SELECT",
+      "operation_type": "read",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-queries-en.md"
+    },
+    {
+      "id": "sql_query:keiyaku_kokyaku_kankei_sql_01",
+      "type": "sql_query",
+      "name": "Retrieve contract-customer relationships",
+      "parent_module": "module:contract-list",
+      "query_name": "KEIYAKU_KOKYAKU_KANKEI_SQL_01",
+      "query_type": "SELECT",
+      "operation_type": "read",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-queries-en.md"
+    },
+    {
+      "id": "sql_query:kojin_tasya_keiyaku_kbn_01",
+      "type": "sql_query",
+      "name": "Retrieve customer contract classification",
+      "parent_module": "module:contract-list",
+      "query_name": "KOJIN_TASYA_KEIYAKU_KBN_01",
+      "query_type": "SELECT",
+      "operation_type": "read",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-queries-en.md"
+    },
+    {
+      "id": "sql_query:kojin_tasya_keiyaku_kbn_05",
+      "type": "sql_query",
+      "name": "Retrieve customer personal information",
+      "parent_module": "module:contract-list",
+      "query_name": "KOJIN_TASYA_KEIYAKU_KBN_05",
+      "query_type": "SELECT",
+      "operation_type": "read",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-queries-en.md"
+    },
+    {
+      "id": "sql_query:keiyaku_dao_update",
+      "type": "sql_query",
+      "name": "Soft deletion of contract (t_keiyaku)",
+      "parent_module": "module:contract-list",
+      "query_name": "KEIYAKU_DAO_UPDATE",
+      "query_type": "UPDATE",
+      "operation_type": "soft_delete",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "sql_query:kouji_dao_update",
+      "type": "sql_query",
+      "name": "Soft deletion of related construction (t_kouji)",
+      "parent_module": "module:contract-list",
+      "query_name": "KOUJI_DAO_UPDATE",
+      "query_type": "UPDATE",
+      "operation_type": "soft_delete",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "sql_query:keiyaku_shijisyo_kankei_dao_delete",
+      "type": "sql_query",
+      "name": "Hard deletion of contract-instruction sheet relationship",
+      "parent_module": "module:contract-list",
+      "query_name": "KEIYAKU_SHIJISYO_KANKEI_DAO_DELETE",
+      "query_type": "DELETE",
+      "operation_type": "delete",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "sql_query:chintaisyaku_keiyaku_kankei_dao_delete",
+      "type": "sql_query",
+      "name": "Hard deletion of rental contract relationship",
+      "parent_module": "module:contract-list",
+      "query_name": "CHINTAISYAKU_KEIYAKU_KANKEI_DAO_DELETE",
+      "query_type": "DELETE",
+      "operation_type": "delete",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "sql_query:kojin_tasya_keiyaku_kbn_dao_update",
+      "type": "sql_query",
+      "name": "Update of customer classification",
+      "parent_module": "module:contract-list",
+      "query_name": "KOJIN_TASYA_KEIYAKU_KBN_DAO_UPDATE",
+      "query_type": "UPDATE",
+      "operation_type": "write",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:t_anken",
+      "type": "database_table",
+      "name": "Project Table",
+      "parent_module": "module:contract-list",
+      "table_name": "t_anken",
+      "table_type": "transaction",
+      "description": "Main project table storing project information including business details, status, and classification",
+      "primary_key": "[\"anken_no\"]",
+      "key_columns": "[\"anken_no\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:t_anken_syousai",
+      "type": "database_table",
+      "name": "Project Detail Table",
+      "parent_module": "module:contract-list",
+      "table_name": "t_anken_syousai",
+      "table_type": "transaction",
+      "description": "Project detailed information table storing additional project attributes",
+      "primary_key": "[\"anken_no\"]",
+      "key_columns": "[\"anken_no\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:t_anken_mansion",
+      "type": "database_table",
+      "name": "Project Mansion Table",
+      "parent_module": "module:contract-list",
+      "table_name": "t_anken_mansion",
+      "table_type": "transaction",
+      "description": "Project mansion-specific information table",
+      "primary_key": "[\"anken_no\"]",
+      "key_columns": "[\"anken_no\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:t_anken_kokyaku_kankei",
+      "type": "database_table",
+      "name": "Project Customer Relationship Table",
+      "parent_module": "module:contract-list",
+      "table_name": "t_anken_kokyaku_kankei",
+      "table_type": "transaction",
+      "description": "Relationship table linking projects to customers",
+      "primary_key": "[\"anken_no\", \"kokyaku_no\"]",
+      "key_columns": "[\"anken_no\", \"kokyaku_no\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:t_keiyaku",
+      "type": "database_table",
+      "name": "Contract Table",
+      "parent_module": "module:contract-list",
+      "table_name": "t_keiyaku",
+      "table_type": "transaction",
+      "description": "Main contract transaction table storing contract information including status, amounts, and classifications",
+      "primary_key": "[\"keiyaku_key\"]",
+      "key_columns": "[\"keiyaku_key\", \"anken_no\", \"oya_keiyaku_key\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:t_keiyaku_kokyaku_kankei",
+      "type": "database_table",
+      "name": "Contract Customer Relationship Table",
+      "parent_module": "module:contract-list",
+      "table_name": "t_keiyaku_kokyaku_kankei",
+      "table_type": "transaction",
+      "description": "Relationship table linking contracts to customers with role classifications",
+      "primary_key": "[\"keiyaku_key\", \"kokyaku_no\"]",
+      "key_columns": "[\"keiyaku_key\", \"kokyaku_no\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:t_keiyaku_shijisyo_kankei",
+      "type": "database_table",
+      "name": "Contract Instruction Sheet Relationship Table",
+      "parent_module": "module:contract-list",
+      "table_name": "t_keiyaku_shijisyo_kankei",
+      "table_type": "transaction",
+      "description": "Relationship table linking contracts to instruction sheets",
+      "primary_key": "[\"keiyaku_key\", \"shijisyo_no\", \"renban\"]",
+      "key_columns": "[\"keiyaku_key\", \"shijisyo_no\", \"renban\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:t_chintaisyaku_keiyaku_kankei",
+      "type": "database_table",
+      "name": "Rental Contract Relationship Table",
+      "parent_module": "module:contract-list",
+      "table_name": "t_chintaisyaku_keiyaku_kankei",
+      "table_type": "transaction",
+      "description": "Relationship table linking rental contracts",
+      "primary_key": "[\"anken_no\", \"renban\", \"keiyaku_key\"]",
+      "key_columns": "[\"anken_no\", \"keiyaku_key\", \"renban\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:t_kouji",
+      "type": "database_table",
+      "name": "Construction Work Table",
+      "parent_module": "module:contract-list",
+      "table_name": "t_kouji",
+      "table_type": "transaction",
+      "description": "Construction work table storing construction project details and specifications",
+      "primary_key": "[\"kouji_key\"]",
+      "key_columns": "[\"kouji_key\", \"keiyaku_key\", \"anken_no\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:t_gijyutsu_anken_kihon",
+      "type": "database_table",
+      "name": "Technical Project Basic Table",
+      "parent_module": "module:contract-list",
+      "table_name": "t_gijyutsu_anken_kihon",
+      "table_type": "transaction",
+      "description": "Technical project basic information table storing construction technical details",
+      "primary_key": "[\"anken_no\", \"kouji_key\"]",
+      "key_columns": "[\"anken_no\", \"kouji_key\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:t_kokyaku_kojin",
+      "type": "database_table",
+      "name": "Individual Customer Table",
+      "parent_module": "module:contract-list",
+      "table_name": "t_kokyaku_kojin",
+      "table_type": "transaction",
+      "description": "Individual customer personal information table",
+      "primary_key": "[\"kokyaku_no\"]",
+      "key_columns": "[\"kokyaku_no\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:t_kokyaku_soshiki",
+      "type": "database_table",
+      "name": "Organization Customer Table",
+      "parent_module": "module:contract-list",
+      "table_name": "t_kokyaku_soshiki",
+      "table_type": "transaction",
+      "description": "Organization customer information table",
+      "primary_key": "[\"kokyaku_no\"]",
+      "key_columns": "[\"kokyaku_no\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:m_user",
+      "type": "database_table",
+      "name": "User Master Table",
+      "parent_module": "module:contract-list",
+      "table_name": "m_user",
+      "table_type": "master",
+      "description": "User master table storing user information",
+      "primary_key": "[\"user_id\"]",
+      "key_columns": "[\"user_id\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:m_jigyousyo",
+      "type": "database_table",
+      "name": "Business Office Master Table",
+      "parent_module": "module:contract-list",
+      "table_name": "m_jigyousyo",
+      "table_type": "master",
+      "description": "Business office master table storing office information",
+      "primary_key": "[\"jigyousyo_cd\"]",
+      "key_columns": "[\"jigyousyo_cd\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:m_eigyousyo",
+      "type": "database_table",
+      "name": "Sales Office Master Table",
+      "parent_module": "module:contract-list",
+      "table_name": "m_eigyousyo",
+      "table_type": "master",
+      "description": "Sales office master table storing sales office information",
+      "primary_key": "[\"eigyousyo_cd\"]",
+      "key_columns": "[\"eigyousyo_cd\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:m_kyoten",
+      "type": "database_table",
+      "name": "Base Location Master Table",
+      "parent_module": "module:contract-list",
+      "table_name": "m_kyoten",
+      "table_type": "master",
+      "description": "Base location master table storing location information",
+      "primary_key": "[\"kyoten_cd\"]",
+      "key_columns": "[\"kyoten_cd\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:m_syutoku_kbn",
+      "type": "database_table",
+      "name": "Acquisition Classification Master Table",
+      "parent_module": "module:contract-list",
+      "table_name": "m_syutoku_kbn",
+      "table_type": "master",
+      "description": "Acquisition classification master table",
+      "primary_key": "[\"syutoku_kbn_cd\"]",
+      "key_columns": "[\"syutoku_kbn_cd\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:m_anken_bunruibetsu_rank",
+      "type": "database_table",
+      "name": "Project Classification Rank Master Table",
+      "parent_module": "module:contract-list",
+      "table_name": "m_anken_bunruibetsu_rank",
+      "table_type": "master",
+      "description": "Project classification rank master table",
+      "primary_key": "[\"anken_bunruibetsu_rank_cd\", \"anken_bunrui_cd\"]",
+      "key_columns": "[\"anken_bunruibetsu_rank_cd\", \"anken_bunrui_cd\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:m_botsuriyu",
+      "type": "database_table",
+      "name": "Cancellation Reason Master Table",
+      "parent_module": "module:contract-list",
+      "table_name": "m_botsuriyu",
+      "table_type": "master",
+      "description": "Cancellation reason master table",
+      "primary_key": "[\"botsu_riyu_cd\"]",
+      "key_columns": "[\"botsu_riyu_cd\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:m_keiyaku_kbn",
+      "type": "database_table",
+      "name": "Contract Classification Master Table",
+      "parent_module": "module:contract-list",
+      "table_name": "m_keiyaku_kbn",
+      "table_type": "master",
+      "description": "Contract classification master table",
+      "primary_key": "[\"keiyaku_kbn_cd\"]",
+      "key_columns": "[\"keiyaku_kbn_cd\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:m_toriatsukai_kbn",
+      "type": "database_table",
+      "name": "Handling Classification Master Table",
+      "parent_module": "module:contract-list",
+      "table_name": "m_toriatsukai_kbn",
+      "table_type": "master",
+      "description": "Handling classification master table",
+      "primary_key": "[\"toriatsukai_kbn_cd\"]",
+      "key_columns": "[\"toriatsukai_kbn_cd\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:m_kouji_keitai",
+      "type": "database_table",
+      "name": "Construction Type Master Table",
+      "parent_module": "module:contract-list",
+      "table_name": "m_kouji_keitai",
+      "table_type": "master",
+      "description": "Construction type master table",
+      "primary_key": "[\"kouji_keitai_cd\"]",
+      "key_columns": "[\"kouji_keitai_cd\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:m_kouji_kbn",
+      "type": "database_table",
+      "name": "Construction Classification Master Table",
+      "parent_module": "module:contract-list",
+      "table_name": "m_kouji_kbn",
+      "table_type": "master",
+      "description": "Construction classification master table",
+      "primary_key": "[\"kouji_kbn_cd\"]",
+      "key_columns": "[\"kouji_kbn_cd\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:m_tousya_hanbai_keitai",
+      "type": "database_table",
+      "name": "Company Sales Type Master Table",
+      "parent_module": "module:contract-list",
+      "table_name": "m_tousya_hanbai_keitai",
+      "table_type": "master",
+      "description": "Company sales type master table",
+      "primary_key": "[\"tousya_hanbai_keitai_cd\"]",
+      "key_columns": "[\"tousya_hanbai_keitai_cd\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:m_tochi_riyou_kbn",
+      "type": "database_table",
+      "name": "Land Use Classification Master Table",
+      "parent_module": "module:contract-list",
+      "table_name": "m_tochi_riyou_kbn",
+      "table_type": "master",
+      "description": "Land use classification master table",
+      "primary_key": "[\"tochi_riyou_kbn_cd\"]",
+      "key_columns": "[\"tochi_riyou_kbn_cd\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:m_tochi_youto_kbn",
+      "type": "database_table",
+      "name": "Land Purpose Master Table",
+      "parent_module": "module:contract-list",
+      "table_name": "m_tochi_youto_kbn",
+      "table_type": "master",
+      "description": "Land purpose master table",
+      "primary_key": "[\"tochi_youto_kbn_cd\"]",
+      "key_columns": "[\"tochi_youto_kbn_cd\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:m_kazoku_kousei",
+      "type": "database_table",
+      "name": "Family Structure Master Table",
+      "parent_module": "module:contract-list",
+      "table_name": "m_kazoku_kousei",
+      "table_type": "master",
+      "description": "Family structure master table",
+      "primary_key": "[\"kazoku_kousei_cd\"]",
+      "key_columns": "[\"kazoku_kousei_cd\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:m_tkn_menkyo_gyouseicho",
+      "type": "database_table",
+      "name": "Real Estate License Administrative Office Master Table",
+      "parent_module": "module:contract-list",
+      "table_name": "m_tkn_menkyo_gyouseicho",
+      "table_type": "master",
+      "description": "Real estate license administrative office master table",
+      "primary_key": "[\"takken_gyouseicho_cd\"]",
+      "key_columns": "[\"takken_gyouseicho_cd\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:m_syouhin",
+      "type": "database_table",
+      "name": "Product Master Table",
+      "parent_module": "module:contract-list",
+      "table_name": "m_syouhin",
+      "table_type": "master",
+      "description": "Product master table storing product information",
+      "primary_key": "[\"kigyou_cd\", \"syouhin_cd\"]",
+      "key_columns": "[\"syouhin_cd\", \"kigyou_cd\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:m_k_tatemono_youto_bunrui_1",
+      "type": "database_table",
+      "name": "Building Purpose Classification 1 Master Table",
+      "parent_module": "module:contract-list",
+      "table_name": "m_k_tatemono_youto_bunrui_1",
+      "table_type": "master",
+      "description": "Building purpose classification level 1 master table",
+      "primary_key": "[\"tatemono_youto_bunrui_cd_1\"]",
+      "key_columns": "[\"tatemono_youto_bunrui_cd_1\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:m_k_tatemono_youto_bunrui_2",
+      "type": "database_table",
+      "name": "Building Purpose Classification 2 Master Table",
+      "parent_module": "module:contract-list",
+      "table_name": "m_k_tatemono_youto_bunrui_2",
+      "table_type": "master",
+      "description": "Building purpose classification level 2 master table",
+      "primary_key": "[\"tatemono_youto_bunrui_cd_1\", \"tatemono_youto_bunrui_cd_2\"]",
+      "key_columns": "[\"tatemono_youto_bunrui_cd_1\", \"tatemono_youto_bunrui_cd_2\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:m_k_tatemono_youto_bunrui_3",
+      "type": "database_table",
+      "name": "Building Purpose Classification 3 Master Table",
+      "parent_module": "module:contract-list",
+      "table_name": "m_k_tatemono_youto_bunrui_3",
+      "table_type": "master",
+      "description": "Building purpose classification level 3 master table",
+      "primary_key": "[\"tatemono_youto_bunrui_cd_1\", \"tatemono_youto_bunrui_cd_2\", \"tatemono_youto_bunrui_cd_3\"]",
+      "key_columns": "[\"tatemono_youto_bunrui_cd_1\", \"tatemono_youto_bunrui_cd_2\", \"tatemono_youto_bunrui_cd_3\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:v_m_anken_bunrui",
+      "type": "database_table",
+      "name": "Project Classification View",
+      "parent_module": "module:contract-list",
+      "table_name": "v_m_anken_bunrui",
+      "table_type": "view",
+      "description": "View for project classification master data",
+      "primary_key": "[\"master_cd\"]",
+      "key_columns": "[\"master_cd\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:v_m_syutoku_keitai",
+      "type": "database_table",
+      "name": "Acquisition Type View",
+      "parent_module": "module:contract-list",
+      "table_name": "v_m_syutoku_keitai",
+      "table_type": "view",
+      "description": "View for acquisition type master data",
+      "primary_key": "[\"master_cd\"]",
+      "key_columns": "[\"master_cd\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:v_m_kyoutsu_rank",
+      "type": "database_table",
+      "name": "Common Rank View",
+      "parent_module": "module:contract-list",
+      "table_name": "v_m_kyoutsu_rank",
+      "table_type": "view",
+      "description": "View for common rank master data",
+      "primary_key": "[\"master_cd\"]",
+      "key_columns": "[\"master_cd\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:v_m_shittyu_bunrui",
+      "type": "database_table",
+      "name": "Lost Order Classification View",
+      "parent_module": "module:contract-list",
+      "table_name": "v_m_shittyu_bunrui",
+      "table_type": "view",
+      "description": "View for lost order classification master data",
+      "primary_key": "[\"master_cd\"]",
+      "key_columns": "[\"master_cd\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:v_m_genzai_madori",
+      "type": "database_table",
+      "name": "Current Floor Plan View",
+      "parent_module": "module:contract-list",
+      "table_name": "v_m_genzai_madori",
+      "table_type": "view",
+      "description": "View for current floor plan master data",
+      "primary_key": "[\"master_cd\"]",
+      "key_columns": "[\"master_cd\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:v_m_keiyaku_status",
+      "type": "database_table",
+      "name": "Contract Status View",
+      "parent_module": "module:contract-list",
+      "table_name": "v_m_keiyaku_status",
+      "table_type": "view",
+      "description": "View for contract status master data",
+      "primary_key": "[\"master_cd\"]",
+      "key_columns": "[\"master_cd\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:v_m_keiyaku_sakusei_kbn",
+      "type": "database_table",
+      "name": "Contract Creation Classification View",
+      "parent_module": "module:contract-list",
+      "table_name": "v_m_keiyaku_sakusei_kbn",
+      "table_type": "view",
+      "description": "View for contract creation classification master data",
+      "primary_key": "[\"master_cd\"]",
+      "key_columns": "[\"master_cd\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:v_m_keiyaku_bunrui_s",
+      "type": "database_table",
+      "name": "Contract Classification View (Short)",
+      "parent_module": "module:contract-list",
+      "table_name": "v_m_keiyaku_bunrui_s",
+      "table_type": "view",
+      "description": "View for contract classification master data (short version)",
+      "primary_key": "[\"master_cd\"]",
+      "key_columns": "[\"master_cd\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:v_m_kainushi_moushide_kbn_s",
+      "type": "database_table",
+      "name": "Buyer Application Classification View (Short)",
+      "parent_module": "module:contract-list",
+      "table_name": "v_m_kainushi_moushide_kbn_s",
+      "table_type": "view",
+      "description": "View for buyer application classification master data",
+      "primary_key": "[\"master_cd\"]",
+      "key_columns": "[\"master_cd\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:v_m_keiyakusyo_syurui",
+      "type": "database_table",
+      "name": "Contract Document Type View",
+      "parent_module": "module:contract-list",
+      "table_name": "v_m_keiyakusyo_syurui",
+      "table_type": "view",
+      "description": "View for contract document type master data",
+      "primary_key": "[\"master_cd\"]",
+      "key_columns": "[\"master_cd\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:v_m_kokyaku_kbn",
+      "type": "database_table",
+      "name": "Customer Classification View",
+      "parent_module": "module:contract-list",
+      "table_name": "v_m_kokyaku_kbn",
+      "table_type": "view",
+      "description": "View for customer classification master data",
+      "primary_key": "[\"master_cd\"]",
+      "key_columns": "[\"master_cd\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:v_m_tsudukigara",
+      "type": "database_table",
+      "name": "Relationship View",
+      "parent_module": "module:contract-list",
+      "table_name": "v_m_tsudukigara",
+      "table_type": "view",
+      "description": "View for relationship (kinship) master data",
+      "primary_key": "[\"master_cd\"]",
+      "key_columns": "[\"master_cd\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    },
+    {
+      "id": "database_table:v_m_seihin_bunrui",
+      "type": "database_table",
+      "name": "Product Classification View",
+      "parent_module": "module:contract-list",
+      "table_name": "v_m_seihin_bunrui",
+      "table_type": "view",
+      "description": "View for product classification master data",
+      "primary_key": "[\"master_cd\"]",
+      "key_columns": "[\"master_cd\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
+    }
+  ]
 }

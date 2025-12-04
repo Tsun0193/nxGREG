@@ -49,21 +49,7 @@ You must have already created or have access to:
    - `function:contract_deletion` (delete-contract)
 
 2. **DAO Entities** - Already exist in `json/contract-list-component-entities_v2.json`:
-   - `dao:syounin_user_find_dao`
-   - `dao:anken_find_dao`
-   - `dao:keiyaku_ichiran_find_dao`
-   - `dao:keiyaku_dao`
-   - `dao:kouji_dao`
-   - `dao:keiyaku_shijisyo_kankei_dao`
-   - `dao:chintaisyaku_keiyaku_kankei_dao`
-   - `dao:kojin_tasya_keiyaku_kbn_dao`
-   - `dao:keiyaku_find_dao`
-   - `dao:kouji_find_dao`
-   - `dao:keiyaku_shijisyo_kankei_find_dao`
-   - `dao:chintaisyaku_keiyaku_kankei_find_dao`
-   - `dao:gijyutsu_anken_kihon_find_dao`
-   - `dao:keiyaku_kokyaku_kankei_find_dao`
-   - `dao:kojin_tasya_keiyaku_kbn_find_dao`
+ 
 
 3. **SQL Query Entities** - Created from entities extraction phase:
    - Format: `sql_query:<query_name_lowercase>`
@@ -81,6 +67,8 @@ You must have already created or have access to:
 Output must be a valid JSON file containing one top-level array: `relationships`.
 
 ### JSON Structure
+The format is Neo4j-compatible with flattened properties (no nested `properties` layer):
+
 ```json
 {
   "relationships": [
@@ -88,9 +76,7 @@ Output must be a valid JSON file containing one top-level array: `relationships`
       "source": "<source_entity_id>",
       "target": "<target_entity_id>",
       "relationship_type": "<relationship_type>",
-      "properties": {
-        "<property_name>": "<property_value>"
-      }
+      "<property_name>": "<property_value>"
     }
   ]
 }
@@ -99,6 +85,15 @@ Output must be a valid JSON file containing one top-level array: `relationships`
 ---
 
 ## Relationship Taxonomy
+
+This section defines the **4 types of relationships** to extract from the database documentation:
+
+1. **uses_query** - Function → SQL Query
+2. **executed_by** - SQL Query → DAO
+3. **accesses_table** - SQL Query → Database Table (detailed, per-query table access)
+4. **uses_table** - Function → Database Table (high-level, function-level table usage)
+
+---
 
 ### 1. Function-Query Relationship
 
@@ -137,7 +132,7 @@ Output must be a valid JSON file containing one top-level array: `relationships`
 
 **Purpose:** Links a SQL query to the DAO class that executes it.
 
-**Properties:**
+**Flat Properties (Neo4j compatible):**
 - `method_name`: DAO method used (e.g., doSelect, doUpdate, doDelete, doSelectList)
 
 **Example:**
@@ -146,9 +141,7 @@ Output must be a valid JSON file containing one top-level array: `relationships`
   "source": "sql_query:anken_sql_03",
   "target": "dao:anken_find_dao",
   "relationship_type": "executed_by",
-  "properties": {
-    "method_name": "doSelect"
-  }
+  "method_name": "doSelect"
 }
 ```
 
@@ -177,7 +170,7 @@ Output must be a valid JSON file containing one top-level array: `relationships`
 
 **Purpose:** Links a SQL query to the database tables it accesses.
 
-**Properties:**
+**Flat Properties (Neo4j compatible):**
 - `access_type`: One of `read`, `write`, `delete`
 - `table_alias`: Alias used in SQL (if any), otherwise null
 
@@ -187,10 +180,8 @@ Output must be a valid JSON file containing one top-level array: `relationships`
   "source": "sql_query:anken_sql_03",
   "target": "database_table:t_anken",
   "relationship_type": "accesses_table",
-  "properties": {
-    "access_type": "read",
-    "table_alias": null
-  }
+  "access_type": "read",
+  "table_alias": null
 }
 ```
 
@@ -207,6 +198,89 @@ Output must be a valid JSON file containing one top-level array: `relationships`
   - `FROM m_eigyousyo m_eigyousyo_jyutyu` → alias: "m_eigyousyo_jyutyu"
 - Create one relationship per table accessed by the query
 - Include all tables from FROM clause and JOIN clauses
+- **Use full table names with prefixes in target ID** (e.g., `database_table:t_anken`, `database_table:v_m_kokyaku_kbn`)
+  - This ensures relationships correctly reference the entity IDs in the entities file
+  - Entity IDs must match exactly for Neo4j to establish the relationships
+
+---
+
+### 4. Function-Table Relationship
+
+**Relationship Type:** `uses_table`
+
+**Direction:** `function` → `database_table`
+
+**Purpose:** Direct link from a function to the database tables it uses, providing a high-level view of data dependencies per function. This complements the detailed query→table relationships by showing which tables are relevant to each function overall.
+
+**Flat Properties (Neo4j compatible):**
+- `operation_type`: Comma-separated list of operations performed on the table by this function (e.g., "read", "write", "delete", "read,write", "read,delete")
+
+**Example:**
+```json
+{
+  "source": "function:contract_deletion",
+  "target": "database_table:t_keiyaku",
+  "relationship_type": "uses_table",
+  "operation_type": "read,write"
+}
+```
+
+**Extraction Rules:**
+- Read the "DB Tables Used" section in `function-overview-en.md` for each function
+- This section contains a table with columns: Table Name, Description, Create, Read, Update, Delete
+- For each table row where any operation column (Create, Read, Update, Delete) has a mark (○ or 〇):
+  - Create `uses_table` relationship from function to database_table
+  - Determine `operation_type` based on marked columns:
+    - Create marked → include "create" in operation_type
+    - Read marked → include "read" in operation_type
+    - Update marked → include "write" in operation_type
+    - Delete marked → include "delete" in operation_type
+  - Combine multiple operations with commas (e.g., "read,write")
+- Map table names to database_table entity IDs:
+  - `t_keiyaku` → `database_table:t_keiyaku`
+  - `m_user` → `database_table:m_user`
+  - `v_m_keiyaku_status` → `database_table:v_m_keiyaku_status`
+- Use existing function entity IDs:
+  - `function:list_initialization` for init-screen
+  - `function:contract_deletion` for delete-contract
+
+**Example Extraction:**
+
+From the table:
+```
+| **t_keiyaku** | Contract main | | 〇 | 〇 | |
+```
+
+This indicates the function performs Read and Update operations on t_keiyaku, so create:
+```json
+{
+  "source": "function:contract_deletion",
+  "target": "database_table:t_keiyaku",
+  "relationship_type": "uses_table",
+  "operation_type": "read,write"
+}
+```
+
+From the table:
+```
+| **t_keiyaku_koutei** | Contract process | | | | 〇 |
+```
+
+This indicates the function performs only Delete operation, so create:
+```json
+{
+  "source": "function:contract_deletion",
+  "target": "database_table:t_keiyaku_koutei",
+  "relationship_type": "uses_table",
+  "operation_type": "delete"
+}
+```
+
+**Benefits:**
+- Provides quick overview of which tables a function touches
+- Enables high-level impact analysis (which functions use table X?)
+- Complements the detailed query-level relationships
+- Simplifies graph queries for function-level data dependencies
 
 ---
 
@@ -243,7 +317,18 @@ For each query and table combination:
 - Extract table alias if present
 - Create `accesses_table` relationship from sql_query to database_table
 
-### Step 6: Validate Output
+### Step 6: Read Function Overview for DB Tables Used
+Read `function-overview-en.md` for each function to extract:
+- "DB Tables Used" section with operation columns (Create, Read, Update, Delete)
+- Table names and their operation marks (○ or 〇)
+
+### Step 7: Create Function-Table Relationships
+For each function and table combination with marked operations:
+- Determine operation_type from marked columns
+- Create `uses_table` relationship from function to database_table
+- Combine multiple operations with commas
+
+### Step 8: Validate Output
 - Ensure all source and target entity IDs exist
 - Verify all required properties are present
 - Check for duplicate relationships
@@ -310,15 +395,18 @@ When tables have aliases:
 FROM m_eigyousyo m_eigyousyo_jyutyu
 ```
 
-Include the alias:
+Include the alias as a flat property:
 ```json
 {
-  "properties": {
-    "access_type": "read",
-    "table_alias": "m_eigyousyo_jyutyu"
-  }
+  "source": "sql_query:xxx",
+  "target": "database_table:eigyousyo",
+  "relationship_type": "accesses_table",
+  "access_type": "read",
+  "table_alias": "m_eigyousyo_jyutyu"
 }
 ```
+
+**Note:** The target uses the clean table name without prefix (`eigyousyo`), while the alias captures the actual alias used in SQL.
 
 ### 4. Views
 Views are treated as tables for relationship purposes:
@@ -340,20 +428,27 @@ Create relationship to:
 - ✅ All function→query relationships created (uses_query)
 - ✅ All query→DAO relationships created (executed_by)
 - ✅ All query→table relationships created (accesses_table)
+- ✅ All function→table relationships created (uses_table)
 - ✅ All relationship sources and targets reference valid entity IDs
-- ✅ All required properties are present
+- ✅ All required properties are present and flattened (no nested layers)
 - ✅ No duplicate relationships
+- ✅ All table references use full names with prefixes (database_table:t_keiyaku not database_table:keiyaku)
 
 ### Quality Standards
 1. **Accuracy:** All entity IDs must match existing entities exactly
 2. **Completeness:** Extract ALL relationships from all queries
 3. **Consistency:** Use consistent relationship types (only the 3 defined types)
-4. **Traceability:** Every relationship must have source_file in metadata
-5. **Validation:** All source and target IDs must exist in entity files
+4. **Validation:** All source and target IDs must exist in entity files
+5. **Neo4j Compatible:** All properties must be at top level (no nested properties/metadata layers)
+6. **Full Table Names:** All database_table references must use full table names with prefixes (e.g., `database_table:t_keiyaku`, `database_table:v_m_kokyaku_kbn`)
+  - This ensures IDs match the entity definitions exactly
+  - Neo4j will use these IDs to establish graph relationships
 
 ---
 
 ## Example Output Structure
+
+Neo4j-compatible format with flattened properties:
 
 ```json
 {
@@ -367,18 +462,14 @@ Create relationship to:
       "source": "sql_query:syounin_user_sql_01",
       "target": "dao:syounin_user_find_dao",
       "relationship_type": "executed_by",
-      "properties": {
-        "method_name": "doSelect"
-      }
+      "method_name": "doSelect"
     },
     {
       "source": "sql_query:syounin_user_sql_01",
-      "target": "database_table:m_user",
+      "target": "database_table:user",
       "relationship_type": "accesses_table",
-      "properties": {
-        "access_type": "read",
-        "table_alias": null
-      }
+      "access_type": "read",
+      "table_alias": null
     },
     {
       "source": "function:contract_deletion",
@@ -389,35 +480,51 @@ Create relationship to:
       "source": "sql_query:keiyaku_sql_04",
       "target": "dao:keiyaku_find_dao",
       "relationship_type": "executed_by",
-      "properties": {
-        "method_name": "doSelect"
-      }
+      "method_name": "doSelect"
     },
     {
       "source": "sql_query:keiyaku_sql_04",
-      "target": "database_table:t_keiyaku",
+      "target": "database_table:keiyaku",
       "relationship_type": "accesses_table",
-      "properties": {
-        "access_type": "read",
-        "table_alias": null
-      }
+      "access_type": "read",
+      "table_alias": null
     },
     {
       "source": "sql_query:keiyaku_dao_update",
       "target": "dao:keiyaku_dao",
       "relationship_type": "executed_by",
-      "properties": {
-        "method_name": "doUpdate"
-      }
+      "method_name": "doUpdate"
     },
     {
       "source": "sql_query:keiyaku_dao_update",
-      "target": "database_table:t_keiyaku",
+      "target": "database_table:keiyaku",
       "relationship_type": "accesses_table",
-      "properties": {
-        "access_type": "write",
-        "table_alias": null
-      }
+      "access_type": "write",
+      "table_alias": null
+    },
+    {
+      "source": "function:list_initialization",
+      "target": "database_table:t_syounin_user",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:list_initialization",
+      "target": "database_table:t_anken",
+      "relationship_type": "uses_table",
+      "operation_type": "read"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:t_keiyaku",
+      "relationship_type": "uses_table",
+      "operation_type": "read,write"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "database_table:t_keiyaku_koutei",
+      "relationship_type": "uses_table",
+      "operation_type": "delete"
     }
   ]
 }
@@ -439,11 +546,14 @@ Before finalizing the output, verify:
    - ✅ Every SQL query has a uses_query relationship from its function
    - ✅ Every SQL query has an executed_by relationship to its DAO
    - ✅ Every SQL query has at least one accesses_table relationship
+   - ✅ Every function has uses_table relationships for all tables in its "DB Tables Used" section
 
 3. **Property Validation:**
-   - ✅ All executed_by relationships have method_name property
-   - ✅ All accesses_table relationships have access_type property
-   - ✅ All accesses_table relationships have table_alias property (even if null)
+   - ✅ All executed_by relationships have method_name property (at top level, not nested)
+   - ✅ All accesses_table relationships have access_type property (at top level)
+   - ✅ All accesses_table relationships have table_alias property (at top level, even if null)
+   - ✅ All uses_table relationships have operation_type property (at top level)
+   - ✅ All properties are flattened (no nested properties layers)
 
 4. **No Duplicates:**
    - ✅ No duplicate relationship definitions
@@ -457,10 +567,12 @@ A successful relationship extraction should:
 1. ✅ Map all functions to their SQL queries
 2. ✅ Link all queries to their executing DAO classes
 3. ✅ Connect all queries to the tables they access
-4. ✅ Include accurate access types for all query-table relationships
-5. ✅ Reference only existing entity IDs
-6. ✅ Generate valid JSON that can be merged with entities
-7. ✅ Use only the 3 defined relationship types
+4. ✅ Link all functions directly to their database tables
+5. ✅ Include accurate access types for all query-table relationships
+6. ✅ Include accurate operation types for all function-table relationships
+7. ✅ Reference only existing entity IDs
+8. ✅ Generate valid JSON that can be merged with entities
+9. ✅ Use only the 4 defined relationship types (uses_query, executed_by, accesses_table, uses_table)
 
 The output will serve as the foundation for:
 - Understanding data flow in contract operations

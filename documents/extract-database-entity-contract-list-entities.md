@@ -73,6 +73,8 @@ ctc-data-en/contract-list/functions/
 Output must be a valid JSON file containing one top-level array: `entities`.
 
 ### JSON Structure
+The format is Neo4j-compatible with flattened properties (no nested `properties` or `metadata` layers):
+
 ```json
 {
   "entities": [
@@ -81,13 +83,8 @@ Output must be a valid JSON file containing one top-level array: `entities`.
       "type": "<entity_type>",
       "name": "<human_readable_name>",
       "parent_module": "module:contract-list",
-      "properties": {
-        "<property_name>": "<property_value>"
-      },
-      "metadata": {
-        "source_file": "<relative_path_to_source_file>",
-        "function": "<function_name>"
-      }
+      "source_file": "<relative_path_to_source_file>",
+      "<property_name>": "<property_value>"
     }
   ]
 }
@@ -101,30 +98,27 @@ Output must be a valid JSON file containing one top-level array: `entities`.
 
 #### Type ID: `database_table`
 
-**Properties:**
+**Flat Properties (Neo4j compatible):**
 - `table_name`: Full table name (e.g., `t_keiyaku`, `m_user`)
 - `table_type`: One of `master`, `transaction`, `view`
 - `description`: Purpose/description of the table
-- `primary_key`: Primary key column(s) as stringified JSON array
-- `key_columns`: List of key columns used in joins as stringified JSON array
+- `primary_key`: Primary key column(s) as stringified JSON array (e.g., `"[\"keiyaku_key\"]"` as a string)
+- `key_columns`: List of key columns used in joins as stringified JSON array (e.g., `"[\"keiyaku_key\", \"anken_no\"]"` as a string)
+- `source_file`: Path to source documentation file
 
 **Example:**
 ```json
 {
-  "id": "database_table:keiyaku",
+  "id": "database_table:t_keiyaku",
   "type": "database_table",
   "name": "Contract Table",
   "parent_module": "module:contract-list",
-  "properties": {
-    "table_name": "t_keiyaku",
-    "table_type": "transaction",
-    "description": "Main contract transaction table storing contract information",
-    "primary_key": "[\"keiyaku_key\"]",
-    "key_columns": "[\"keiyaku_key\", \"anken_no\", \"keiyaku_no\"]"
-  },
-  "metadata": {
-    "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
-  }
+  "table_name": "t_keiyaku",
+  "table_type": "transaction",
+  "description": "Main contract transaction table storing contract information",
+  "primary_key": "[\"keiyaku_key\"]",
+  "key_columns": "[\"keiyaku_key\", \"anken_no\", \"keiyaku_no\"]",
+  "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
 }
 ```
 
@@ -134,7 +128,10 @@ Output must be a valid JSON file containing one top-level array: `entities`.
 - Extract primary keys from WHERE clauses with `=` conditions and convert to stringified JSON
 - Extract key columns used in JOIN conditions and convert to stringified JSON
 - Include all tables referenced in SQL queries, even if from other modules
-- Remove table prefix from entity ID (e.g., `t_keiyaku` → ID: `database_table:keiyaku`)
+- **KEEP full table name with prefix in entity ID** (e.g., `t_keiyaku` → ID: `database_table:t_keiyaku`, `v_m_kokyaku_kbn` → ID: `database_table:v_m_kokyaku_kbn`)
+  - This ensures consistency between entity IDs and relationship target references in Neo4j
+  - The full table name including prefix must be preserved in the ID for proper graph linking
+- **Do NOT include** function information in database table entities (this is reflected in relationships)
 
 ---
 
@@ -142,11 +139,13 @@ Output must be a valid JSON file containing one top-level array: `entities`.
 
 #### Type ID: `sql_query`
 
-**Properties:**
+**Flat Properties (Neo4j compatible):**
 - `query_name`: SQL identifier (e.g., `ANKEN_SQL_03`, `KEIYAKU_SQL_04`)
 - `query_type`: One of `SELECT`, `INSERT`, `UPDATE`, `DELETE`
-- `purpose`: Description of what the query does
 - `operation_type`: One of `read`, `write`, `delete`, `soft_delete`
+- `source_file`: Path to source documentation file
+
+**Note:** The `name` field already serves as the purpose description, so the `purpose` field is removed. The function that uses this query is captured in relationships, not in the entity itself.
 
 **Example:**
 ```json
@@ -155,15 +154,10 @@ Output must be a valid JSON file containing one top-level array: `entities`.
   "type": "sql_query",
   "name": "Retrieve contract business information",
   "parent_module": "module:contract-list",
-  "properties": {
-    "query_name": "ANKEN_SQL_03",
-    "query_type": "SELECT",
-    "purpose": "Retrieve contract business information (specified by ankenNo)",
-    "operation_type": "read"
-  },
-  "metadata": {
-    "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-queries-en.md"
-  }
+  "query_name": "ANKEN_SQL_03",
+  "query_type": "SELECT",
+  "operation_type": "read",
+  "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-queries-en.md"
 }
 ```
 
@@ -175,6 +169,8 @@ Output must be a valid JSON file containing one top-level array: `entities`.
 - For UPDATE (other) → operation_type = `write`
 - For SELECT → operation_type = `read`
 - For INSERT → operation_type = `write`
+- **Do NOT include** function information in SQL query entities (this is reflected in relationships)
+- **Do NOT include** purpose field (the `name` field already describes the purpose)
 
 ---
 
@@ -203,10 +199,12 @@ For each table found:
 ### Step 4: Create Entities
 - Create database_table entities for all tables found
 - Create sql_query entities for all queries found
-- Ensure all required properties are populated
-- Ensure metadata includes source_file
-- Convert primary_key and key_columns to stringified JSON arrays
+- Flatten all properties to top level (Neo4j compatibility)
+- Include source_file as a top-level field
+- Convert primary_key and key_columns to stringified JSON arrays (as strings)
 - Remove table prefixes (t_, m_, v_) from entity IDs
+- For database tables: remove function field if present
+- For SQL queries: remove function and purpose fields
 
 ### Step 5: Validate Output
 - Ensure all IDs are unique
@@ -280,22 +278,31 @@ SELECT t_keiyaku.anken_no, v_m_keiyaku_status.name AS keiyaku_status_name
 - ✅ All SQL queries documented
 - ✅ All entity IDs are unique and follow format
 - ✅ All entities have parent_module set to "module:contract-list"
-- ✅ All entities have complete metadata (source_file)
-- ✅ All primary_key and key_columns are stringified JSON arrays
-- ✅ All entity IDs use clean names without table prefixes
+- ✅ All entities have source_file as top-level field (flattened)
+- ✅ All primary_key and key_columns are stringified JSON arrays (as strings)
+- ✅ All entity IDs use full table names with prefixes (e.g., `database_table:t_keiyaku`, `database_table:v_m_kokyaku_kbn`)
+- ✅ All properties are at top level (no nested properties/metadata layers)
+- ✅ SQL query entities do NOT include function or purpose fields
+- ✅ Database table entities do NOT include function fields
 
 ### Quality Standards
 1. **Accuracy:** Table names must match exactly
 2. **Completeness:** Extract ALL tables, even from master/view tables
-3. **Consistency:** Use consistent naming for entity IDs (lowercase with underscores, no table prefixes)
-4. **Traceability:** Every entity must have source_file in metadata
-5. **JSON Formatting:** Primary keys and key columns must be stringified JSON arrays
-6. **Clean IDs:** Entity IDs must not include table prefixes (use clean names like `keiyaku` instead of `t_keiyaku`)
-5. **Table Classification:** Accurately identify table types from prefixes
+3. **Consistency:** Use consistent naming for entity IDs (lowercase with underscores, including table prefixes)
+4. **Traceability:** Every entity must have source_file as top-level field (Neo4j compatible)
+5. **JSON Formatting:** Primary keys and key columns must be stringified JSON arrays (as string type, not nested objects)
+6. **Full Table Names in IDs:** Entity IDs must include the complete table name with prefix (e.g., `database_table:t_keiyaku`, `database_table:v_m_kokyaku_kbn`, not stripped versions)
+  - This ensures relationships in Neo4j correctly link entities by matching IDs
+  - Relationships reference the full table name, so entity IDs must match exactly
+7. **Table Classification:** Accurately identify table types from prefixes
+8. **Flat Structure:** All properties must be at top level for Neo4j compatibility (no nested properties/metadata layers)
+9. **Field Removal:** SQL queries exclude function and purpose; Database tables exclude function
 
 ---
 
 ## Example Output Structure
+
+Neo4j-compatible format with flattened properties:
 
 ```json
 {
@@ -305,46 +312,32 @@ SELECT t_keiyaku.anken_no, v_m_keiyaku_status.name AS keiyaku_status_name
       "type": "database_table",
       "name": "Project Table",
       "parent_module": "module:contract-list",
-      "properties": {
-        "table_name": "t_anken",
-        "table_type": "transaction",
-        "description": "Main project table storing project information",
-        "primary_key": "[\"anken_no\"]",
-        "key_columns": "[\"anken_no\"]"
-      },
-      "metadata": {
-        "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
-      }
+      "table_name": "t_anken",
+      "table_type": "transaction",
+      "description": "Main project table storing project information",
+      "primary_key": "[\"anken_no\"]",
+      "key_columns": "[\"anken_no\"]",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
     },
     {
       "id": "sql_query:syounin_user_sql_01",
       "type": "sql_query",
       "name": "Get user permissions by userId",
       "parent_module": "module:contract-list",
-      "properties": {
-        "query_name": "SYOUNIN_USER_SQL_01",
-        "query_type": "SELECT",
-        "purpose": "Get user permissions by userId",
-        "operation_type": "read"
-      },
-      "metadata": {
-        "source_file": "ctc-data-en/contract-list/functions/init-screen/sql-queries-en.md"
-      }
+      "query_name": "SYOUNIN_USER_SQL_01",
+      "query_type": "SELECT",
+      "operation_type": "read",
+      "source_file": "ctc-data-en/contract-list/functions/init-screen/sql-queries-en.md"
     },
     {
       "id": "sql_query:keiyaku_dao_update",
       "type": "sql_query",
       "name": "Soft deletion of contract",
       "parent_module": "module:contract-list",
-      "properties": {
-        "query_name": "KEIYAKU_DAO_UPDATE",
-        "query_type": "UPDATE",
-        "purpose": "Soft deletion of contract (t_keiyaku)",
-        "operation_type": "soft_delete"
-      },
-      "metadata": {
-        "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
-      }
+      "query_name": "KEIYAKU_DAO_UPDATE",
+      "query_type": "UPDATE",
+      "operation_type": "soft_delete",
+      "source_file": "ctc-data-en/contract-list/functions/delete-contract/sql-statements-en.md"
     }
   ]
 }

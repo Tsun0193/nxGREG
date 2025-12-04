@@ -47,17 +47,18 @@ You are a professional technical document analyzer extracting **component-level 
 ```json
 {
   "entities": [
-    { "id": "...", "type": "...", "name": "...", ... }
+    { "id": "...", "type": "...", "name": "...", "property_name": "value", ... }
   ],
   "relationships": [
-    { "source": "...", "target": "...", "relationship_type": "...", ... }
+    { "source": "...", "target": "...", "relationship_type": "...", "property_name": "value", ... }
   ]
 }
 ```
 
-**Key Change:** The output now has TWO top-level arrays:
-1. `entities` - All component entities (same structure as before)
-2. `relationships` - **NEW** - All relationships between entities
+**Key Changes:** 
+1. The output has TWO top-level arrays: `entities` and `relationships`
+2. **Neo4j Compatibility:** All properties are flattened to single level (no nested `properties` or `metadata` objects)
+3. **Relationships as Data:** Dependencies, forwards, and table accesses are expressed as relationships, not nested arrays
 
 ---
 
@@ -82,15 +83,18 @@ Look for sections labeled **"Main Components"** in function overviews. Example:
 
 ### 1. Action Entities
 - **Type ID:** `action`
-- **Properties:** 
+- **Properties (flattened):** 
   - `action_name`: Name of the Struts action class
   - `action_path`: URL path (e.g., `/keiyakuListInit`)
   - `http_method`: HTTP method (GET/POST)
-  - `form_bean`: Associated form bean
-  - `forward_destinations`: Possible forward targets
+  - `form_bean`: Associated form bean (use USES_FORM relationship instead for Neo4j)
   - `validation_enabled`: Whether validation is enabled
-  - `dispatch_methods`: List of dispatch methods (for DispatchAction)
-- **Notes:** Extract all Struts action classes including dispatch actions, init actions, and specialized actions
+  - `package`: Java package path
+  - `source_file_0`: Primary source file path (flattened from metadata)
+- **Removed Properties:** 
+  - ❌ `forward_destinations`: Use FORWARDS_TO relationships instead
+  - ❌ `dispatch_methods`: Use FORWARDS_TO relationships with conditions
+- **Notes:** Extract all Struts action classes including dispatch actions, init actions, and specialized actions. Forward destinations and dispatch methods are now expressed as relationships.
 
 **Example:**
 ```json
@@ -99,29 +103,26 @@ Look for sections labeled **"Main Components"** in function overviews. Example:
   "type": "action",
   "name": "Contract List Init Action",
   "parent_module": "module:contract-list",
-  "properties": {
-    "action_name": "KeiyakuListInitAction",
-    "action_path": "/keiyakuListInit",
-    "http_method": "GET/POST",
-    "form_bean": "anken_cardForm",
-    "forward_destinations": ["success", "error"],
-    "validation_enabled": false,
-    "package": "jp.co.daiwahouse.dsmart.application.contract.keiyakuList.keiyakuListInit"
-  },
-  "metadata": {
-    "source_file": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md"
-  }
+  "action_name": "KeiyakuListInitAction",
+  "action_path": "/keiyakuListInit",
+  "http_method": "GET/POST",
+  "form_bean": "anken_cardForm",
+  "validation_enabled": false,
+  "package": "jp.co.daiwahouse.dsmart.application.contract.keiyakuList.keiyakuListInit",
+  "source_file_0": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md"
 }
 ```
 
 ### 2. Delegate Entities
 - **Type ID:** `delegate`
-- **Properties:** 
+- **Properties (flattened):** 
   - `delegate_name`: Name of the delegate class
   - `purpose`: Business purpose description
-  - `facade_dependencies`: List of facades called
   - `package`: Java package path
-- **Notes:** Delegate layer classes that bridge Actions and Facades
+  - `source_file_0`: Primary source file path (flattened from metadata)
+- **Removed Properties:** 
+  - ❌ `facade_dependencies`: Use CALLS relationships instead
+- **Notes:** Delegate layer classes that bridge Actions and Facades. Dependencies are now expressed as CALLS relationships.
 
 **Example:**
 ```json
@@ -130,26 +131,23 @@ Look for sections labeled **"Main Components"** in function overviews. Example:
   "type": "delegate",
   "name": "Contract List Find Delegate",
   "parent_module": "module:contract-list",
-  "properties": {
-    "delegate_name": "KeiyakuListFindDelegate",
-    "purpose": "Retrieve contract list from business layer",
-    "facade_dependencies": ["KeiyakuListFindFacadeBean"],
-    "package": "jp.co.daiwahouse.dsmart.delegate.contract.keiyakuList"
-  },
-  "metadata": {
-    "source_file": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md"
-  }
+  "delegate_name": "KeiyakuListFindDelegate",
+  "purpose": "Retrieve contract list from business layer",
+  "package": "jp.co.daiwahouse.dsmart.delegate.contract.keiyakuList",
+  "source_file_0": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md"
 }
 ```
 
 ### 3. Facade Entities
 - **Type ID:** `facade`
-- **Properties:** 
+- **Properties (flattened):** 
   - `facade_name`: Name of the facade bean class
   - `purpose`: Business orchestration purpose
-  - `product_dependencies`: List of products called
   - `package`: Java package path
-- **Notes:** Facade layer classes that orchestrate business logic
+  - `source_file_0`: Primary source file path (flattened from metadata)
+- **Removed Properties:** 
+  - ❌ `product_dependencies`: Use CALLS relationships instead
+- **Notes:** Facade layer classes that orchestrate business logic. Dependencies are now expressed as CALLS relationships.
 
 **Example:**
 ```json
@@ -158,26 +156,23 @@ Look for sections labeled **"Main Components"** in function overviews. Example:
   "type": "facade",
   "name": "Contract List Find Facade Bean",
   "parent_module": "module:contract-list",
-  "properties": {
-    "facade_name": "KeiyakuListFindFacadeBean",
-    "purpose": "Facade for contract list retrieval",
-    "product_dependencies": ["KeiyakuListFindProduct"],
-    "package": "jp.co.daiwahouse.dsmart.service.contract.keiyakuList"
-  },
-  "metadata": {
-    "source_file": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md"
-  }
+  "facade_name": "KeiyakuListFindFacadeBean",
+  "purpose": "Facade for contract list retrieval",
+  "package": "jp.co.daiwahouse.dsmart.service.contract.keiyakuList",
+  "source_file_0": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md"
 }
 ```
 
 ### 4. Product Entities
 - **Type ID:** `product`
-- **Properties:** 
+- **Properties (flattened):** 
   - `product_name`: Name of the product class
   - `purpose`: Core business logic purpose
-  - `dao_dependencies`: List of DAOs used
   - `package`: Java package path
-- **Notes:** Product layer classes containing core business logic
+  - `source_file_0`: Primary source file path (flattened from metadata)
+- **Removed Properties:** 
+  - ❌ `dao_dependencies`: Use CALLS relationships instead
+- **Notes:** Product layer classes containing core business logic. DAO dependencies are now expressed as CALLS relationships.
 
 **Example:**
 ```json
@@ -186,27 +181,24 @@ Look for sections labeled **"Main Components"** in function overviews. Example:
   "type": "product",
   "name": "Contract List Find Product",
   "parent_module": "module:contract-list",
-  "properties": {
-    "product_name": "KeiyakuListFindProduct",
-    "purpose": "Business logic for contract list retrieval",
-    "dao_dependencies": ["KeiyakuIchiranFindDAO", "AnkenFindDAO"],
-    "package": "jp.co.daiwahouse.dsmart.service.contract.product.keiyakuList"
-  },
-  "metadata": {
-    "source_file": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md"
-  }
+  "product_name": "KeiyakuListFindProduct",
+  "purpose": "Business logic for contract list retrieval",
+  "package": "jp.co.daiwahouse.dsmart.service.contract.product.keiyakuList",
+  "source_file_0": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md"
 }
 ```
 
 ### 5. DAO Entities
 - **Type ID:** `dao`
-- **Properties:** 
+- **Properties (flattened):** 
   - `dao_name`: Name of the DAO class
   - `purpose`: Data access purpose
-  - `target_tables`: List of database tables accessed
-  - `operations`: CRUD operations supported
   - `package`: Java package path
-- **Notes:** Data Access Object classes. Reference database tables in `target_tables` property instead of creating separate database entities.
+  - `source_file_0`: Primary source file path (flattened from metadata)
+- **Removed Properties:** 
+  - ❌ `target_tables`: Use individual ACCESSES relationships for each table
+  - ❌ `operations`: Include operation type in each ACCESSES relationship
+- **Notes:** Data Access Object classes. Table access is now expressed as individual ACCESSES relationships (one per table), not as a nested array.
 
 **Example:**
 ```json
@@ -215,16 +207,28 @@ Look for sections labeled **"Main Components"** in function overviews. Example:
   "type": "dao",
   "name": "Contract List Find DAO",
   "parent_module": "module:contract-list",
-  "properties": {
-    "dao_name": "KeiyakuIchiranFindDAO",
-    "purpose": "Query for contract list",
-    "target_tables": ["t_keiyaku", "t_anken", "t_keiyaku_kokyaku_kankei"],
-    "operations": ["READ"],
-    "package": "jp.co.daiwahouse.dsmart.domain.contract.find"
-  },
-  "metadata": {
-    "source_file": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md"
-  }
+  "dao_name": "KeiyakuIchiranFindDAO",
+  "purpose": "Query for contract list",
+  "package": "jp.co.daiwahouse.dsmart.domain.contract.find",
+  "source_file_0": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md"
+}
+```
+
+### 6. Database Table Entities
+- **Type ID:** `database_table`
+- **Properties (flattened):** 
+  - `table_name`: Name of the database table
+  - `parent_module`: Parent module reference
+- **Notes:** Database tables accessed by DAOs. These are extracted from the documentation's database table lists and create explicit nodes in the graph for data lineage tracking.
+
+**Example:**
+```json
+{
+  "id": "database_table:t_keiyaku",
+  "type": "database_table",
+  "name": "T_KEIYAKU",
+  "table_name": "t_keiyaku",
+  "parent_module": "module:contract-list"
 }
 ```
 
@@ -240,7 +244,7 @@ Extract relationships between components to capture the architectural flow and d
 - **Source:** Action, Delegate, Facade, Product
 - **Target:** Delegate, Facade, Product, DAO
 - **Description:** Represents method invocation or component usage
-- **Properties:**
+- **Properties (flattened):**
   - `relationship_type`: "CALLS"
   - `purpose`: Brief description of why this call is made
   - `call_context`: Context in which the call occurs (e.g., "initialization", "validation", "deletion")
@@ -251,10 +255,8 @@ Extract relationships between components to capture the architectural flow and d
   "source": "action:keiyaku_list_init_action",
   "target": "delegate:keiyaku_list_find_delegate",
   "relationship_type": "CALLS",
-  "properties": {
-    "purpose": "Retrieve contract list for display",
-    "call_context": "initialization"
-  }
+  "purpose": "Retrieve contract list for display",
+  "call_context": "initialization"
 }
 ```
 
@@ -262,7 +264,7 @@ Extract relationships between components to capture the architectural flow and d
 - **Source:** Any component
 - **Target:** Any component
 - **Description:** Represents dependency where source needs target to function
-- **Properties:**
+- **Properties (flattened):**
   - `relationship_type`: "DEPENDS_ON"
   - `dependency_type`: Type of dependency ("data", "business_logic", "validation")
 
@@ -272,30 +274,38 @@ Extract relationships between components to capture the architectural flow and d
   "source": "facade:keiyaku_list_find_facade_bean",
   "target": "product:keiyaku_list_find_product",
   "relationship_type": "DEPENDS_ON",
-  "properties": {
-    "dependency_type": "business_logic"
-  }
+  "dependency_type": "business_logic"
 }
 ```
 
 #### 3. ACCESSES Relationship
-- **Source:** DAO
-- **Target:** Database tables (referenced as strings in properties)
-- **Description:** Represents data access patterns
-- **Properties:**
+- **Source:** DAO entity
+- **Target:** Database table entity (database_table:table_name)
+- **Description:** Represents data access patterns. **CRITICAL: Create one relationship per table, not a single relationship with array of tables.**
+- **Properties (flattened):**
   - `relationship_type`: "ACCESSES"
-  - `access_type`: "READ", "WRITE", "UPDATE", "DELETE"
-  - `tables`: List of table names accessed
+  - `access_type`: "READ", "WRITE", "UPDATE", or "DELETE"
+  - `target`: Database table entity ID (e.g., "database_table:t_keiyaku")
 
-**Example:**
+**Example (one DAO accessing multiple tables requires multiple relationships):**
 ```json
 {
   "source": "dao:keiyaku_ichiran_find_dao",
+  "target": "database_table:t_keiyaku",
   "relationship_type": "ACCESSES",
-  "properties": {
-    "access_type": "READ",
-    "tables": ["t_keiyaku", "t_anken", "t_keiyaku_kokyaku_kankei"]
-  }
+  "access_type": "READ"
+},
+{
+  "source": "dao:keiyaku_ichiran_find_dao",
+  "target": "database_table:t_anken",
+  "relationship_type": "ACCESSES",
+  "access_type": "READ"
+},
+{
+  "source": "dao:keiyaku_ichiran_find_dao",
+  "target": "database_table:t_keiyaku_kokyaku_kankei",
+  "relationship_type": "ACCESSES",
+  "access_type": "READ"
 }
 ```
 
@@ -303,9 +313,10 @@ Extract relationships between components to capture the architectural flow and d
 - **Source:** Action
 - **Target:** Another Action or JSP page (as string reference)
 - **Description:** Represents navigation flow between screens/actions
-- **Properties:**
+- **Properties (flattened):**
   - `relationship_type`: "FORWARDS_TO"
   - `forward_name`: The forward destination name
+  - `target_view`: JSP or action path
   - `condition`: Condition under which forward occurs (optional)
 
 **Example:**
@@ -313,10 +324,8 @@ Extract relationships between components to capture the architectural flow and d
 {
   "source": "action:keiyaku_list_init_action",
   "relationship_type": "FORWARDS_TO",
-  "properties": {
-    "forward_name": "success",
-    "target_view": "/contract/keiyaku_list.jsp"
-  }
+  "forward_name": "success",
+  "target_view": "/contract/keiyaku_list.jsp"
 }
 ```
 
@@ -324,7 +333,7 @@ Extract relationships between components to capture the architectural flow and d
 - **Source:** Action
 - **Target:** Form bean (referenced as string)
 - **Description:** Represents form bean usage by action
-- **Properties:**
+- **Properties (flattened):**
   - `relationship_type`: "USES_FORM"
   - `form_bean_name`: Name of the form bean
 
@@ -333,9 +342,7 @@ Extract relationships between components to capture the architectural flow and d
 {
   "source": "action:keiyaku_list_init_action",
   "relationship_type": "USES_FORM",
-  "properties": {
-    "form_bean_name": "anken_cardForm"
-  }
+  "form_bean_name": "anken_cardForm"
 }
 ```
 
@@ -349,8 +356,9 @@ Extract relationships between components to capture the architectural flow and d
    - All layers DEPEND_ON their next layer
 
 2. **Data Access Pattern**: For DAOs:
-   - Create ACCESSES relationship for each DAO with its target tables
-   - Include operation types (READ, WRITE, UPDATE, DELETE)
+   - Create **individual ACCESSES relationship for each table** (do not bundle tables in arrays)
+   - Include operation type (READ, WRITE, UPDATE, DELETE) in each relationship
+   - Example: If DAO accesses 3 tables, create 3 separate ACCESSES relationships
 
 3. **Navigation Pattern**: For Actions:
    - Create FORWARDS_TO for each forward destination
@@ -401,30 +409,42 @@ Look for these indicators in documentation:
 #### Finding ACCESSES Relationships
 
 For each DAO entity:
-1. Check the `target_tables` property
-2. Check the `operations` property (READ, WRITE, UPDATE, DELETE)
-3. Create ACCESSES relationship with:
+1. Look for table names in documentation (often in component descriptions or data architecture sections)
+2. Identify operation types (READ, WRITE, UPDATE, DELETE) from DAO purpose/descriptions
+3. **Create database_table entity for each unique table**
+4. **Create individual ACCESSES relationship for each table:**
    - `source`: the DAO entity ID
-   - `properties.access_type`: the operation type
-   - `properties.tables`: the list of tables
+   - `target`: the database_table entity ID (e.g., "database_table:t_keiyaku")
+   - `access_type`: the operation type
+   - **CRITICAL:** One relationship per table, NOT one relationship with array of tables
+
+**Example:** If `KeiyakuIchiranFindDAO` accesses 3 tables, create 3 relationships:
+```json
+{ "source": "dao:keiyaku_ichiran_find_dao", "target": "database_table:t_keiyaku", "relationship_type": "ACCESSES", "access_type": "READ" },
+{ "source": "dao:keiyaku_ichiran_find_dao", "target": "database_table:t_anken", "relationship_type": "ACCESSES", "access_type": "READ" },
+{ "source": "dao:keiyaku_ichiran_find_dao", "target": "database_table:t_keiyaku_kokyaku_kankei", "relationship_type": "ACCESSES", "access_type": "READ" }
+```
 
 #### Finding FORWARDS_TO Relationships
 
 For each Action entity:
-1. Check the `forward_destinations` property
-2. Look for forward mapping descriptions
-3. Create FORWARDS_TO for each destination with:
+1. Look for forward mapping descriptions in documentation (e.g., "forwards to success", "on error forwards to...")
+2. Check struts-config.xml references if available
+3. Look for dispatch method routing information
+4. Create individual FORWARDS_TO for each destination:
    - `source`: the Action entity ID
-   - `properties.forward_name`: the forward key (e.g., "success", "error")
-   - `properties.target_view`: the JSP or next action path (if documented)
+   - `forward_name`: the forward key (e.g., "success", "error")
+   - `target_view`: the JSP or next action path (if documented)
+   - `condition`: when this forward is triggered (for dispatch actions)
 
 #### Finding Dispatch Patterns
 
 For DispatchAction entities:
-1. Check `dispatch_methods` property
-2. Each dispatch method may call different delegates
-3. Create separate CALLS relationships for each dispatch path
-4. Document in `properties.call_context` which dispatch method triggers the call
+1. Look for dispatch method descriptions in documentation
+2. Each dispatch method may forward to different actions/views
+3. Create separate FORWARDS_TO relationships for each dispatch destination
+4. Document in `condition` property which dispatch method/actionType triggers the forward
+5. Example: `"condition": "when actionType=delete_contract"`
 
 ### Relationship Quality Guidelines
 
@@ -546,11 +566,12 @@ Based on `overview-en.md`, extract components for these functions:
 ### Completeness Checklist
 
 For each function documented, ensure you extract:
-- [ ] All Action entity
+- [ ] All Action entities
 - [ ] All Delegate entities mentioned
 - [ ] All Facade entities mentioned
 - [ ] All Product entities mentioned
-- [ ] All DAO entities mentioned (with target_tables property)
+- [ ] All DAO entities mentioned
+- [ ] Individual ACCESSES relationships for each table accessed by each DAO
 
 ---
 
@@ -562,7 +583,7 @@ Output must be a valid JSON file containing both component entities and their re
 ### File Name
 `json/contract-list-component-entities.json`
 
-### JSON Structure
+### JSON Structure (Neo4j Compatible - Flattened)
 ```json
 {
   "entities": [
@@ -571,8 +592,9 @@ Output must be a valid JSON file containing both component entities and their re
       "type": "entity_type",
       "name": "Entity Name",
       "parent_module": "module:contract-list",
-      "properties": { ... },
-      "metadata": { ... }
+      "property_name_1": "value1",
+      "property_name_2": "value2",
+      "source_file_0": "path/to/source.md"
     }
   ],
   "relationships": [
@@ -580,26 +602,38 @@ Output must be a valid JSON file containing both component entities and their re
       "source": "source_entity_id",
       "target": "target_entity_id",
       "relationship_type": "RELATIONSHIP_TYPE",
-      "properties": { ... }
+      "property_name_1": "value1",
+      "property_name_2": "value2"
     }
   ]
 }
 ```
 
+**Key Points:**
+- ✅ All properties are at the top level (no nested `properties` or `metadata` objects)
+- ✅ Source files use `source_file_0`, `source_file_1`, etc. naming
+- ✅ Relationships have properties at the top level
+- ✅ No array properties for dependencies or tables (use relationships instead)
+
 ### Validation Requirements
 
 #### For Entities:
-- Each entity must have all required fields: `id`, `type`, `name`, `parent_module`, `properties`, `metadata`
+- Each entity must have required fields: `id`, `type`, `name`, `parent_module`
+- All properties must be at top level (no nested `properties` or `metadata` objects)
 - Component names must match exactly as documented
 - Entity IDs must be unique and follow the pattern: `type:lowercase_name`
 - Package paths must be complete and accurate
+- Source files should use `source_file_0`, `source_file_1`, etc.
+- Do NOT include dependency arrays (`facade_dependencies`, `dao_dependencies`, `target_tables`, etc.)
 
 #### For Relationships:
-- Each relationship must have: `source`, `target`, `relationship_type`, `properties`
-- Source and target must reference valid entity IDs from the entities array
+- Each relationship must have: `source`, `relationship_type`, and usually `target`
+- All relationship properties must be at top level (no nested `properties` object)
+- Source must reference valid entity ID from the entities array
 - Relationship types must be one of: `CALLS`, `DEPENDS_ON`, `ACCESSES`, `FORWARDS_TO`, `USES_FORM`
-- For ACCESSES relationships, target can be omitted (tables referenced in properties)
-- For FORWARDS_TO and USES_FORM, target can be a string reference (not entity ID)
+- For ACCESSES relationships: `target` must be a database_table entity ID (e.g., "database_table:t_keiyaku"), create one relationship per table
+- For FORWARDS_TO and USES_FORM: `target` can be a string reference (JSP path, form name)
+- For CALLS and DEPENDS_ON: `target` must be a valid entity ID
 
 #### Completeness:
 - Every Action must have at least one CALLS relationship to a Delegate
@@ -618,7 +652,8 @@ Output must be a valid JSON file containing both component entities and their re
 2. **Read** detailed function overviews in `functions/*/function-overview-en.md`
 3. **Extract** all Action, Delegate, Facade, Product, and DAO entities
 4. **Document** entity properties: names, packages, purposes, and layer-specific attributes
-5. **Include** database table references in DAO entities
+5. **Extract** all database table names from documentation
+6. **Create** database_table entities for each unique table
 
 ### Phase 2: Relationship Extraction
 6. **Map** CALLS relationships following the layered architecture:
@@ -627,7 +662,9 @@ Output must be a valid JSON file containing both component entities and their re
    - Identify which Facade calls which Product(s)
    - Identify which Product calls which DAO(s)
 7. **Map** DEPENDS_ON relationships for component dependencies
-8. **Map** ACCESSES relationships for DAO-to-table access patterns
+8. **Map** ACCESSES relationships for DAO-to-table access patterns:
+   - **Create one relationship per table** (not one relationship with array)
+   - Include `access_type` for each relationship
 9. **Map** FORWARDS_TO relationships for Action navigation flows
 10. **Map** USES_FORM relationships for Action form bean usage
 
@@ -648,10 +685,17 @@ Focus on capturing:
 
 ### Important Notes
 
-- **Database Tables**: DO NOT create separate database entities. Reference tables in:
-  - DAO entity properties: use `target_tables` array
-  - ACCESSES relationships: use `tables` array in properties
-  - Example: `"target_tables": ["t_keiyaku", "t_anken", "t_kouji"]`
+- **Neo4j Compatibility**: All properties must be flattened (no nested objects)
+  - ❌ NO: `"properties": { "action_name": "..." }`
+  - ✅ YES: `"action_name": "..."`
+  
+- **Database Tables**: DO NOT create separate database entities. Create individual ACCESSES relationships:
+  - ❌ NO: One relationship with `"tables": ["t_keiyaku", "t_anken"]`
+  - ✅ YES: Two relationships, each with `"target": "t_keiyaku"` and `"target": "t_anken"`
+  
+- **Dependency Arrays**: DO NOT include dependency arrays in entities
+  - ❌ NO: `"dao_dependencies": ["DAO1", "DAO2"]`
+  - ✅ YES: Create CALLS relationships to each DAO
 
 - **Relationship Scope**: Focus ONLY on internal relationships within the contract-list module. External module relationships will be handled in a separate phase.
 
@@ -661,7 +705,7 @@ Focus on capturing:
   - Architecture flow diagrams
   - Method descriptions mentioning component calls
 
-### Complete Example
+### Complete Example (Neo4j Compatible - Flattened Structure)
 
 Here's how a function should be documented with entities and relationships:
 
@@ -669,44 +713,32 @@ Here's how a function should be documented with entities and relationships:
 {
   "entities": [
     {
-      "id": "action:keiyaku_list_init_action",
-      "type": "action",
-      "name": "Contract List Init Action",
-      "parent_module": "module:contract-list",
-      "properties": {
-        "action_name": "KeiyakuListInitAction",
-        "action_path": "/keiyakuListInit",
-        "form_bean": "anken_cardForm"
-      },
-      "metadata": { "source_file": "..." }
+      "id": "database_table:t_keiyaku",
+      "type": "database_table",
+      "name": "T_KEIYAKU",
+      "table_name": "t_keiyaku",
+      "parent_module": "module:contract-list"
     },
     {
-      "id": "delegate:keiyaku_list_find_delegate",
-      "type": "delegate",
-      "name": "Contract List Find Delegate",
-      "parent_module": "module:contract-list",
-      "properties": {
-        "delegate_name": "KeiyakuListFindDelegate"
-      },
-      "metadata": { "source_file": "..." }
-    }
+      "id": "database_table:t_anken",
+      "type": "database_table",
+      "name": "T_ANKEN",
+      "table_name": "t_anken",
+      "parent_module": "module:contract-list"
+    } 
   ],
   "relationships": [
     {
       "source": "action:keiyaku_list_init_action",
       "target": "delegate:keiyaku_list_find_delegate",
       "relationship_type": "CALLS",
-      "properties": {
-        "purpose": "Retrieve contract list for display",
-        "call_context": "initialization"
-      }
+      "purpose": "Retrieve contract list for display",
+      "call_context": "initialization"
     },
     {
       "source": "action:keiyaku_list_init_action",
       "relationship_type": "USES_FORM",
-      "properties": {
-        "form_bean_name": "anken_cardForm"
-      }
+      "form_bean_name": "anken_cardForm"
     }
   ]
 }
@@ -752,21 +784,21 @@ DAOs often access multiple related tables:
   "source": "action:keiyaku_list_init_action",
   "target": "delegate:keiyaku_list_find_delegate",
   "relationship_type": "CALLS",
-  "properties": { "call_context": "get contract list" }
+  "call_context": "get contract list"
 },
 {
   "source": "action:keiyaku_list_init_action",
   "target": "delegate:anken_find_delegate",
   "relationship_type": "CALLS",
-  "properties": { "call_context": "get project info" }
+  "call_context": "get project info"
 }
 ```
 
 ### Q: What if the documentation doesn't explicitly state all relationships?
 **A:** Use architectural patterns to infer:
-- If a Delegate entity has `facade_dependencies: ["FacadeX"]`, create CALLS relationship
-- If components are in same function's Main Components list, they're connected in sequence
+- If components are listed in same function's Main Components list, they're connected in sequence
 - Follow the standard layer flow: Action → Delegate → Facade → Product → DAO
+- Look for component names that match (e.g., KeiyakuListFindDelegate likely calls KeiyakuListFindFacadeBean)
 
 ### Q: Should I create DEPENDS_ON and CALLS for the same pair?
 **A:** Yes, if both are applicable:
@@ -787,16 +819,14 @@ DAOs often access multiple related tables:
 - Focus only on application-level components within contract-list module
 
 ### Q: How to document conditional relationships?
-**A:** Use the `condition` property:
+**A:** Use the `condition` property at the top level:
 ```json
 {
   "source": "action:dispatch_action",
   "target": "delegate:delete_delegate",
   "relationship_type": "CALLS",
-  "properties": {
-    "call_context": "delete operation",
-    "condition": "when actionType=delete_contract"
-  }
+  "call_context": "delete operation",
+  "condition": "when actionType=delete_contract"
 }
 ```
 
@@ -808,10 +838,13 @@ Before submitting the JSON output, verify:
 
 ### Entity Validation
 - [ ] All entities have unique IDs following pattern `type:lowercase_name`
-- [ ] All entities have required fields: id, type, name, parent_module, properties, metadata
+- [ ] All entities have required fields: id, type, name, parent_module
+- [ ] All properties are at top level (no nested `properties` or `metadata` objects)
 - [ ] All component names match documentation exactly
 - [ ] All packages are complete and accurate
 - [ ] Entity count matches expected components from documentation
+- [ ] Source files use `source_file_0`, `source_file_1` naming
+- [ ] No dependency arrays in entities (use relationships instead)
 
 ### Relationship Validation
 - [ ] All CALLS relationships follow layered architecture (no skipping layers)
@@ -819,9 +852,12 @@ Before submitting the JSON output, verify:
 - [ ] Every Delegate has at least one CALLS to a Facade
 - [ ] Every Facade has at least one CALLS to a Product
 - [ ] Every Product has at least one CALLS to a DAO
-- [ ] Every DAO has at least one ACCESSES relationship
-- [ ] All relationship sources and targets reference valid entity IDs
+- [ ] Every DAO has at least one ACCESSES relationship (one per table accessed)
+- [ ] All relationship properties are at top level (no nested `properties` object)
+- [ ] All relationship sources reference valid entity IDs
 - [ ] Relationship types are valid: CALLS, DEPENDS_ON, ACCESSES, FORWARDS_TO, USES_FORM
+- [ ] ACCESSES relationships have individual `target` for each table (not arrays)
+- [ ] Each table access has its own separate relationship
 
 ### Completeness Validation
 - [ ] All functions from overview-en.md are covered

@@ -9,6 +9,8 @@ from typing import Dict, List, Any
 
 from core import GraphData
 from loading.loader import Neo4jLoader
+from ingest.entity_deduplicator import EntityDeduplicator
+from ingest.manual_creation import compose_manual_tasks
 
 from dotenv import load_dotenv
 
@@ -24,6 +26,7 @@ class JSONToGraphPipeline:
         neo4j_uri: str,
         neo4j_user: str,
         neo4j_password: str,
+        use_deduplicator: bool = False,
     ):
         """
         Initialize the pipeline.
@@ -33,24 +36,27 @@ class JSONToGraphPipeline:
             neo4j_uri: Neo4j connection URI
             neo4j_user: Neo4j username
             neo4j_password: Neo4j password
+            use_deduplicator: If True, use EntityDeduplicator to merge duplicate entities
         """
         self.json_dir = Path(json_dir)
         self.loader = Neo4jLoader(uri=neo4j_uri, user=neo4j_user, password=neo4j_password)
         self.graph = GraphData()
+        self.use_deduplicator = use_deduplicator
+        self.deduplicator = EntityDeduplicator() if use_deduplicator else None
 
     @staticmethod
     def _sanitize_properties(properties: Dict[str, Any]) -> Dict[str, Any]:
         """
         Final sanitization to ensure all property values are Neo4j-compatible primitives.
-        
+
         Args:
             properties: Dictionary to sanitize
-            
+
         Returns:
             Dictionary with only primitive values or arrays of primitives
         """
         sanitized = {}
-        
+
         for key, value in properties.items():
             if value is None:
                 sanitized[key] = ""
@@ -69,8 +75,28 @@ class JSONToGraphPipeline:
             else:
                 # Convert any other type to string
                 sanitized[key] = str(value)
-        
+
         return sanitized
+
+    def _add_entity_to_graph(
+        self,
+        entity_id: str,
+        entity_type: str,
+        properties: Dict[str, Any],
+    ) -> None:
+        """
+        Add an entity to the graph, using deduplicator if enabled.
+
+        Args:
+            entity_id: Unique entity ID
+            entity_type: Type of entity
+            properties: Entity properties
+        """
+        properties["uid"] = entity_id
+        properties = self._sanitize_properties(properties)
+
+        labels = [entity_type]
+        self.graph.add_node(key=entity_id, labels=labels, **properties)
 
     @staticmethod
     def _flatten_properties(data: Dict[str, Any], prefix: str = "") -> Dict[str, Any]:
@@ -252,14 +278,14 @@ class JSONToGraphPipeline:
 
                     # Extract properties (already flattened in v5 format)
                     properties = {k: v for k, v in entity.items() if k not in ["id", "type"]}
-                    properties["uid"] = entity_id
-                    
-                    # Sanitize to ensure Neo4j compatibility
-                    properties = self._sanitize_properties(properties)
 
-                    labels = [entity_type]
-                    self.graph.add_node(key=entity_id, labels=labels, properties=properties)
-                    entity_count += 1
+                    if self.use_deduplicator:
+                        # Add to deduplicator for merging
+                        self.deduplicator.add_entity(entity, file_path.name)
+                    else:
+                        # Add directly to graph
+                        self._add_entity_to_graph(entity_id, entity_type, properties)
+                        entity_count += 1
 
         # Case 2: Data is a dict
         elif isinstance(data, dict):
@@ -278,14 +304,14 @@ class JSONToGraphPipeline:
 
                     # Extract properties (already flattened in v5 format)
                     properties = {k: v for k, v in entity.items() if k not in ["id", "type"]}
-                    properties["uid"] = entity_id
-                    
-                    # Sanitize to ensure Neo4j compatibility
-                    properties = self._sanitize_properties(properties)
 
-                    labels = [entity_type]
-                    self.graph.add_node(key=entity_id, labels=labels, properties=properties)
-                    entity_count += 1
+                    if self.use_deduplicator:
+                        # Add to deduplicator for merging
+                        self.deduplicator.add_entity(entity, file_path.name)
+                    else:
+                        # Add directly to graph
+                        self._add_entity_to_graph(entity_id, entity_type, properties)
+                        entity_count += 1
 
             # Load relationships if present
             relationships = data.get("relationships", [])
@@ -303,7 +329,7 @@ class JSONToGraphPipeline:
 
                     # Extract relationship properties (already flattened in v5 format)
                     properties = rel.get("properties", {})
-                    
+
                     # Sanitize to ensure Neo4j compatibility
                     properties = self._sanitize_properties(properties)
 
@@ -316,6 +342,43 @@ class JSONToGraphPipeline:
                     relationship_count += 1
 
         print(f"  → Loaded {entity_count} entities and {relationship_count} relationships from {file_path.name}")
+
+    def apply_manual_relationships(
+        self,
+        json_files: List[Path] = None,
+    ) -> Dict[str, int]:
+        """
+        Apply manual relationship creation tasks to the graph.
+        
+        Args:
+            json_files: List of JSON files to process. If None, processes all JSON files in json_dir.
+            
+        Returns:
+            Dictionary mapping task names to relationship counts
+        """
+        print("\n=== Applying Manual Relationships ===")
+        
+        if json_files is None:
+            json_files = sorted(self.json_dir.glob("*.json"))
+        
+        total_results = {}
+        
+        for json_file in json_files:
+            print(f"Processing manual relationships for: {json_file.name}")
+            results = compose_manual_tasks(json_file, self.graph)
+            
+            # Aggregate results
+            for task_name, count in results.items():
+                total_results[task_name] = total_results.get(task_name, 0) + count
+        
+        print(f"\n=== Manual Relationships Summary ===")
+        for task_name, count in total_results.items():
+            print(f"  {task_name}: {count}")
+        
+        total_count = sum(total_results.values())
+        print(f"Total manual relationships created: {total_count}")
+        
+        return total_results
 
     def load_all_json_files(
         self,
@@ -336,6 +399,10 @@ class JSONToGraphPipeline:
             print("\n=== Loading All JSON Files (Mixed Mode) ===")
             for json_file in sorted(self.json_dir.glob("*.json")):
                 self.load_from_mixed_file(json_file)
+
+            # If using deduplicator, finalize and add deduplicated entities to graph
+            if self.use_deduplicator:
+                self._finalize_deduplication()
         else:
             # Legacy approach: Separate entity and relationship files
             if entity_patterns is None:
@@ -370,12 +437,44 @@ class JSONToGraphPipeline:
         self.loader.load(self.graph, wipe=wipe)
         print("Successfully loaded data into Neo4j!")
 
+    def _finalize_deduplication(self) -> None:
+        """
+        Finalize deduplication and add all deduplicated entities to the graph.
+        """
+        print("\n=== Finalizing Deduplication ===")
+
+        # Get merge report
+        report = self.deduplicator.get_merge_report()
+        print(f"Total Entities: {report['total_entities']}")
+        print(f"Merged Entities: {report['merged_entities']}")
+        print(f"New Entities: {report['new_entities']}")
+        print(f"Merge Operations: {report['merge_operations']}")
+
+        # Add all deduplicated entities to graph
+        for entity in self.deduplicator.get_all_entities():
+            entity_id = entity.get("id")
+            entity_type = entity.get("type")
+
+            if not entity_id or not entity_type:
+                continue
+
+            # Extract properties (remove internal tracking fields)
+            properties = {
+                k: v for k, v in entity.items()
+                if k not in ["id", "type"] and not k.startswith("_")
+            }
+
+            self._add_entity_to_graph(entity_id, entity_type, properties)
+
+        print(f"Added {report['total_entities']} deduplicated entities to graph")
+
     def run(
         self,
         entity_patterns: List[str] = None,
         relationship_patterns: List[str] = None,
         wipe: bool = False,
         use_mixed_mode: bool = True,
+        apply_manual_relationships: bool = True,
     ) -> None:
         """
         Run the complete pipeline: load JSON files and ingest into Neo4j.
@@ -385,12 +484,18 @@ class JSONToGraphPipeline:
             relationship_patterns: List of filename patterns for relationship files (ignored if use_mixed_mode=True)
             wipe: If True, delete all existing data in Neo4j before loading
             use_mixed_mode: If True, auto-detect entities and relationships in all JSON files
+            apply_manual_relationships: If True, apply manual relationship creation after loading entities
         """
         self.load_all_json_files(
             entity_patterns=entity_patterns,
             relationship_patterns=relationship_patterns,
             use_mixed_mode=use_mixed_mode,
         )
+        
+        # Apply manual relationship creation if enabled
+        if apply_manual_relationships:
+            self.apply_manual_relationships()
+        
         self.load_to_neo4j(wipe=wipe)
 
     def close(self) -> None:
@@ -427,7 +532,8 @@ def main():
 
         # Run the pipeline with default patterns
         # Set wipe=True to clear existing data, or False to append
-        pipeline.run(wipe=True)
+        # apply_manual_relationships=True to enable manual relationship creation
+        pipeline.run(wipe=True, apply_manual_relationships=True)
 
     finally:
         pipeline.close()

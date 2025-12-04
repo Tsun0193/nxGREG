@@ -15,11 +15,11 @@ You are a professional knowledge graph architect specializing in entity relation
 
 You must use these three JSON files as input:
 
-1. **`json/contract-list-entities_v4.json`** - Core entities
+1. **`json/contract-list-entities.json`** - Core entities
    - Modules, Screens, Functions, Forms, Value Objects, Sessions
    - Total: ~60 entities
 
-2. **`json/contract-list-component-entities_v2.json`** - Component entities with internal relationships
+2. **`json/contract-list-component-entities.json`** - Component entities with internal relationships
    - Actions, Delegates, Facades, Products, DAOs
    - Total: ~30 entities
    - Note: Contains internal component relationships already
@@ -31,7 +31,13 @@ You must use these three JSON files as input:
 4. **`json/contract-list-database-relationships.json`** - Database relationships (already created)
    - DAO-to-Table relationships
    - Function-to-Query relationships
+   - Funtcion-to-Database table
    - Note: Do NOT duplicate these relationships
+
+4. **`json/contract-list-database-entities.json`** - Database entities (already created)
+   - Database table
+   - SQL query
+   - Note: No need for relationship build
 
 ---
 
@@ -40,10 +46,14 @@ You must use these three JSON files as input:
 ### Format
 Output must be a valid JSON file containing one top-level array: `relationships`.
 
+**IMPORTANT:** The format is Neo4j-compatible with flattened properties. Neo4j does NOT support nested property objects, so all properties must be at the top level of each relationship object.
+
 ### File Name
 `json/contract-list-cross-layer-relationships.json`
 
 ### JSON Structure
+The format is Neo4j-compatible with flattened properties (no nested `properties` layer):
+
 ```json
 {
   "relationships": [
@@ -51,9 +61,7 @@ Output must be a valid JSON file containing one top-level array: `relationships`
       "source": "<source_entity_id>",
       "target": "<target_entity_id>",
       "relationship_type": "<relationship_type>",
-      "properties": {
-        "<property_name>": "<property_value>"
-      }
+      "<property_name>": "<property_value>"
     }
   ]
 }
@@ -63,7 +71,7 @@ Output must be a valid JSON file containing one top-level array: `relationships`
 - **source**: Entity ID from source entity file
 - **target**: Entity ID from target entity file
 - **relationship_type**: Type from taxonomy below
-- **properties**: Type-specific properties
+- **property fields**: Type-specific properties (flattened at top level)
 
 ---
 
@@ -84,9 +92,7 @@ Output must be a valid JSON file containing one top-level array: `relationships`
   "source": "screen:contract_list_main",
   "target": "route:keiyaku_list_init",
   "relationship_type": "USES_ROUTE",
-  "properties": {
-    "is_primary_route": true
-  }
+  "is_primary_route": true
 }
 ```
 
@@ -103,9 +109,7 @@ Output must be a valid JSON file containing one top-level array: `relationships`
   "source": "screen:contract_list_main",
   "target": "view:keiyaku_list_jsp",
   "relationship_type": "DISPLAYS_VIEW",
-  "properties": {
-    "view_type": "main"
-  }
+  "view_type": "main"
 }
 ```
 
@@ -122,9 +126,7 @@ Output must be a valid JSON file containing one top-level array: `relationships`
   "source": "screen:contract_list_main",
   "target": "form:anken_card_form",
   "relationship_type": "USES_FORM",
-  "properties": {
-    "form_scope": "request"
-  }
+  "form_scope": "request"
 }
 ```
 
@@ -145,9 +147,7 @@ Output must be a valid JSON file containing one top-level array: `relationships`
   "source": "view:keiyaku_list_jsp",
   "target": "button:new_contract",
   "relationship_type": "CONTAINS_BUTTON",
-  "properties": {
-    "button_position": "top_action_bar"
-  }
+  "button_position": "top_action_bar"
 }
 ```
 
@@ -164,9 +164,7 @@ Output must be a valid JSON file containing one top-level array: `relationships`
   "source": "button:new_contract",
   "target": "event:new_contract_button_click",
   "relationship_type": "TRIGGERS_EVENT",
-  "properties": {
-    "javascript_function": "keiyakuList_submit(1)"
-  }
+  "javascript_function": "keiyakuList_submit(1)"
 }
 ```
 
@@ -183,9 +181,7 @@ Output must be a valid JSON file containing one top-level array: `relationships`
   "source": "event:new_contract_button_click",
   "target": "action_type:new_contract",
   "relationship_type": "INVOKES_ACTION_TYPE",
-  "properties": {
-    "action_type_parameter": "new_contract"
-  }
+  "action_type_parameter": "new_contract"
 }
 ```
 
@@ -202,9 +198,7 @@ Output must be a valid JSON file containing one top-level array: `relationships`
   "source": "action_type:new_contract",
   "target": "action:keiyaku_list_dispatch_action",
   "relationship_type": "ROUTES_TO_ACTION",
-  "properties": {
-    "dispatch_method": "new_contract"
-  }
+  "dispatch_method": "new_contract"
 }
 ```
 
@@ -225,9 +219,7 @@ Output must be a valid JSON file containing one top-level array: `relationships`
   "source": "route:keiyaku_list_init",
   "target": "action:keiyaku_list_init_action",
   "relationship_type": "MAPS_TO_ACTION",
-  "properties": {
-    "http_methods": ["GET", "POST"]
-  }
+  "http_methods": ["GET", "POST"]
 }
 ```
 
@@ -244,9 +236,7 @@ Output must be a valid JSON file containing one top-level array: `relationships`
   "source": "route:keiyaku_delete",
   "target": "route:keiyaku_list_init",
   "relationship_type": "FORWARDS_TO_ROUTE",
-  "properties": {
-    "forward_condition": "success"
-  }
+  "forward_condition": "success"
 }
 ```
 
@@ -262,8 +252,7 @@ Output must be a valid JSON file containing one top-level array: `relationships`
 {
   "source": "route:keiyaku_list_assign",
   "target": "screen:contract_type_selection",
-  "relationship_type": "INITIALIZES_SCREEN",
-  "properties": {}
+  "relationship_type": "INITIALIZES_SCREEN"
 }
 ```
 
@@ -283,8 +272,7 @@ Output must be a valid JSON file containing one top-level array: `relationships`
 {
   "source": "action:keiyaku_list_init_action",
   "target": "function:list_initialization",
-  "relationship_type": "IMPLEMENTS_FUNCTION",
-  "properties": {}
+  "relationship_type": "IMPLEMENTS_FUNCTION"
 }
 ```
 
@@ -301,10 +289,8 @@ Output must be a valid JSON file containing one top-level array: `relationships`
   "source": "action:keiyaku_list_dispatch_action",
   "target": "route:keiyaku_list_assign",
   "relationship_type": "FORWARDS_TO_ROUTE",
-  "properties": {
-    "forward_name": "new_contract",
-    "condition": "on_new_contract"
-  }
+  "forward_name": "new_contract",
+  "condition": "on_new_contract"
 }
 ```
 
@@ -321,9 +307,7 @@ Output must be a valid JSON file containing one top-level array: `relationships`
   "source": "function:list_initialization",
   "target": "form:anken_card_form",
   "relationship_type": "USES_FORM",
-  "properties": {
-    "input_output": "input"
-  }
+  "input_output": "input"
 }
 ```
 
@@ -344,9 +328,7 @@ Output must be a valid JSON file containing one top-level array: `relationships`
   "source": "form:anken_card_form",
   "target": "value_object:anken_vo",
   "relationship_type": "MAPS_TO_VO",
-  "properties": {
-    "mapping_direction": "bidirectional"
-  }
+  "mapping_direction": "bidirectional"
 }
 ```
 
@@ -367,10 +349,8 @@ Output must be a valid JSON file containing one top-level array: `relationships`
   "source": "session:contract_keiyaku_vo",
   "target": "value_object:keiyaku_vo",
   "relationship_type": "STORES_VO",
-  "properties": {
-    "scope": "session",
-    "lifecycle": "user_session"
-  }
+  "scope": "session",
+  "lifecycle": "user_session"
 }
 ```
 
@@ -391,10 +371,8 @@ Output must be a valid JSON file containing one top-level array: `relationships`
   "source": "flag:shinki_keiyaku_sakusei_kahi",
   "target": "button:new_contract",
   "relationship_type": "CONTROLS_VISIBILITY",
-  "properties": {
-    "visible_when": "true",
-    "control_type": "visibility"
-  }
+  "visible_when": "true",
+  "control_type": "visibility"
 }
 ```
 
@@ -411,9 +389,7 @@ Output must be a valid JSON file containing one top-level array: `relationships`
   "source": "flag:shinki_keiyaku_sakusei_kahi",
   "target": "session:business_flag_shinki_keiyaku_sakusei_kahi",
   "relationship_type": "STORED_IN_SESSION",
-  "properties": {
-    "session_key": "CONTRACT_SHINKI_KEIYAKU_SAKUSEI_KAHI_FLG"
-  }
+  "session_key": "CONTRACT_SHINKI_KEIYAKU_SAKUSEI_KAHI_FLG"
 }
 ```
 
@@ -430,10 +406,8 @@ Output must be a valid JSON file containing one top-level array: `relationships`
   "source": "flag:anken_bunrui_cd",
   "target": "button:delete_contract",
   "relationship_type": "CONTROLS_STATE",
-  "properties": {
-    "disabled_when": "30,40",
-    "control_type": "enabled_state"
-  }
+  "disabled_when": "30,40",
+  "control_type": "enabled_state"
 }
 ```
 
@@ -467,9 +441,7 @@ Output must be a valid JSON file containing one top-level array: `relationships`
   "source": "action_type:new_contract",
   "target": "screen:contract_type_selection",
   "relationship_type": "NAVIGATES_TO_SCREEN",
-  "properties": {
-    "forward_name": "new_contract"
-  }
+  "forward_name": "new_contract"
 }
 ```
 
@@ -486,9 +458,7 @@ Output must be a valid JSON file containing one top-level array: `relationships`
   "source": "screen:contract_deletion",
   "target": "screen:contract_list_main",
   "relationship_type": "RETURNS_TO_SCREEN",
-  "properties": {
-    "return_condition": "after_deletion"
-  }
+  "return_condition": "after_deletion"
 }
 ```
 
@@ -509,9 +479,7 @@ Output must be a valid JSON file containing one top-level array: `relationships`
   "source": "view:keiyaku_list_jsp",
   "target": "view:keiyaku_list_body_jsp",
   "relationship_type": "INCLUDES_VIEW",
-  "properties": {
-    "inclusion_method": "tiles"
-  }
+  "inclusion_method": "tiles"
 }
 ```
 
@@ -528,9 +496,7 @@ Output must be a valid JSON file containing one top-level array: `relationships`
   "source": "view:keiyaku_list_body_jsp",
   "target": "session:contract_option_keiyaku_ichiran_vo_list",
   "relationship_type": "DISPLAYS_SESSION_DATA",
-  "properties": {
-    "display_method": "iterate"
-  }
+  "display_method": "iterate"
 }
 ```
 
@@ -680,6 +646,8 @@ For each view:
 
 ## Example Output Structure
 
+Neo4j-compatible format with flattened properties:
+
 ```json
 {
   "relationships": [
@@ -687,40 +655,31 @@ For each view:
       "source": "button:new_contract",
       "target": "event:new_contract_button_click",
       "relationship_type": "TRIGGERS_EVENT",
-      "properties": {
-        "javascript_function": "keiyakuList_submit(1)"
-      }
+      "javascript_function": "keiyakuList_submit(1)"
     },
     {
       "source": "event:new_contract_button_click",
       "target": "action_type:new_contract",
       "relationship_type": "INVOKES_ACTION_TYPE",
-      "properties": {
-        "action_type_parameter": "new_contract"
-      }
+      "action_type_parameter": "new_contract"
     },
     {
       "source": "action_type:new_contract",
       "target": "action:keiyaku_list_dispatch_action",
       "relationship_type": "ROUTES_TO_ACTION",
-      "properties": {
-        "dispatch_method": "new_contract"
-      }
+      "dispatch_method": "new_contract"
     },
     {
       "source": "action:keiyaku_list_dispatch_action",
       "target": "route:keiyaku_list_assign",
       "relationship_type": "FORWARDS_TO_ROUTE",
-      "properties": {
-        "forward_name": "new_contract",
-        "condition": "on_new_contract"
-      }
+      "forward_name": "new_contract",
+      "condition": "on_new_contract"
     },
     {
       "source": "action:keiyaku_list_init_action",
       "target": "function:list_initialization",
-      "relationship_type": "IMPLEMENTS_FUNCTION",
-      "properties": {}
+      "relationship_type": "IMPLEMENTS_FUNCTION"
     }
   ]
 }
@@ -736,9 +695,11 @@ Before submitting the output, verify:
 - [ ] No relationships duplicate those in component or database files
 - [ ] Relationship directions are correct (source → target)
 - [ ] Properties match the relationship type requirements
+- [ ] **All properties are flattened (no nested `properties` or `metadata` layers)**
 - [ ] JSON is valid and properly formatted
 - [ ] High priority relationships are all extracted
 - [ ] No orphaned entities (entities with no relationships)
+- [ ] **Neo4j compatibility: All properties at top level, no nested objects**
 
 ---
 
@@ -766,10 +727,8 @@ Based on the documentation analysis, ensure these critical relationships are ext
   "source": "action:keiyaku_list_dispatch_action",
   "target": "route:keiyaku_list_assign",
   "relationship_type": "FORWARDS_TO_ROUTE",
-  "properties": {
-    "forward_name": "new_contract",
-    "condition": "when_action_type_is_new_contract"
-  }
+  "forward_name": "new_contract",
+  "condition": "when_action_type_is_new_contract"
 }
 ```
 
@@ -787,8 +746,7 @@ Based on the documentation analysis, ensure these critical relationships are ext
 {
   "source": "route:keiyaku_list_assign",
   "target": "screen:contract_type_selection",
-  "relationship_type": "INITIALIZES_SCREEN",
-  "properties": {}
+  "relationship_type": "INITIALIZES_SCREEN"
 }
 ```
 
@@ -802,8 +760,7 @@ Based on the documentation analysis, ensure these critical relationships are ext
 {
   "source": "action:keiyaku_list_init_action",
   "target": "function:list_initialization",
-  "relationship_type": "IMPLEMENTS_FUNCTION",
-  "properties": {}
+  "relationship_type": "IMPLEMENTS_FUNCTION"
 }
 ```
 
@@ -817,9 +774,7 @@ Based on the documentation analysis, ensure these critical relationships are ext
   "source": "route:keiyaku_list_assign",
   "target": "route:keiyaku_list_init",
   "relationship_type": "FORWARDS_TO_ROUTE",
-  "properties": {
-    "forward_condition": "after_contract_creation"
-  }
+  "forward_condition": "after_contract_creation"
 }
 ```
 

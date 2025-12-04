@@ -1,865 +1,753 @@
 {
-    "relationships": [
-        {
-            "source": "screen:contract_list_main",
-            "target": "route:keiyaku_list_init",
-            "relationship_type": "USES_ROUTE",
-            "properties": {
-                "is_primary_route": true
-            }
-        },
-        {
-            "source": "screen:contract_list_main",
-            "target": "view:keiyaku_list_jsp",
-            "relationship_type": "DISPLAYS_VIEW",
-            "properties": {
-                "view_type": "main"
-            }
-        },
-        {
-            "source": "screen:contract_list_main",
-            "target": "form:anken_card_form",
-            "relationship_type": "USES_FORM",
-            "properties": {
-                "form_scope": "request"
-            }
-        },
-        {
-            "source": "screen:contract_type_selection",
-            "target": "route:keiyaku_list_assign",
-            "relationship_type": "USES_ROUTE",
-            "properties": {
-                "is_primary_route": true
-            }
-        },
-        {
-            "source": "screen:contract_type_selection",
-            "target": "form:keiyaku_card_form",
-            "relationship_type": "USES_FORM",
-            "properties": {
-                "form_scope": "request"
-            }
-        },
-        {
-            "source": "screen:after_contract_creation",
-            "target": "route:yuusyou_keiyaku_list_assign",
-            "relationship_type": "USES_ROUTE",
-            "properties": {
-                "is_primary_route": true
-            }
-        },
-        {
-            "source": "screen:after_contract_creation",
-            "target": "form:keiyaku_card_form",
-            "relationship_type": "USES_FORM",
-            "properties": {
-                "form_scope": "request"
-            }
-        },
-        {
-            "source": "screen:multiple_order_selection",
-            "target": "route:moushide_select_init",
-            "relationship_type": "USES_ROUTE",
-            "properties": {
-                "is_primary_route": true
-            }
-        },
-        {
-            "source": "screen:multiple_order_selection",
-            "target": "form:keiyaku_card_form",
-            "relationship_type": "USES_FORM",
-            "properties": {
-                "form_scope": "request"
-            }
-        },
-        {
-            "source": "view:keiyaku_list_jsp",
-            "target": "view:keiyaku_list_body_jsp",
-            "relationship_type": "INCLUDES_VIEW",
-            "properties": {
-                "inclusion_method": "tiles"
-            }
-        },
-        {
-            "source": "view:keiyaku_list_jsp",
-            "target": "button:new_contract",
-            "relationship_type": "CONTAINS_BUTTON",
-            "properties": {
-                "button_position": "top_action_bar"
-            }
-        },
-        {
-            "source": "view:keiyaku_list_jsp",
-            "target": "button:additional_contract",
-            "relationship_type": "CONTAINS_BUTTON",
-            "properties": {
-                "button_position": "top_action_bar"
-            }
-        },
-        {
-            "source": "view:keiyaku_list_jsp",
-            "target": "button:update_contract",
-            "relationship_type": "CONTAINS_BUTTON",
-            "properties": {
-                "button_position": "top_action_bar"
-            }
-        },
-        {
-            "source": "view:keiyaku_list_jsp",
-            "target": "button:delete_contract",
-            "relationship_type": "CONTAINS_BUTTON",
-            "properties": {
-                "button_position": "top_action_bar"
-            }
-        },
-        {
-            "source": "view:keiyaku_list_jsp",
-            "target": "button:after_sales_contract",
-            "relationship_type": "CONTAINS_BUTTON",
-            "properties": {
-                "button_position": "top_action_bar"
-            }
-        },
-        {
-            "source": "view:keiyaku_list_jsp",
-            "target": "button:multiple_orders",
-            "relationship_type": "CONTAINS_BUTTON",
-            "properties": {
-                "button_position": "top_action_bar"
-            }
-        },
-        {
-            "source": "view:keiyaku_list_jsp",
-            "target": "button:return_button",
-            "relationship_type": "CONTAINS_BUTTON",
-            "properties": {
-                "button_position": "top_action_bar"
-            }
-        },
-        {
-            "source": "view:keiyaku_list_body_jsp",
-            "target": "button:contract_number_link",
-            "relationship_type": "CONTAINS_BUTTON",
-            "properties": {
-                "button_position": "table_row"
-            }
-        },
-        {
-            "source": "view:keiyaku_list_body_jsp",
-            "target": "session:contract_option_keiyaku_ichiran_vo_list",
-            "relationship_type": "DISPLAYS_SESSION_DATA",
-            "properties": {
-                "display_method": "iterate"
-            }
-        },
-        {
-            "source": "view:keiyaku_list_jsp",
-            "target": "session:contract_authority_vo",
-            "relationship_type": "DISPLAYS_SESSION_DATA",
-            "properties": {
-                "display_method": "direct_access"
-            }
-        },
-        {
-            "source": "view:keiyaku_list_jsp",
-            "target": "session:contract_anken_vo",
-            "relationship_type": "DISPLAYS_SESSION_DATA",
-            "properties": {
-                "display_method": "direct_access"
-            }
-        },
-        {
-            "source": "button:new_contract",
-            "target": "event:new_contract_button_click",
-            "relationship_type": "TRIGGERS_EVENT",
-            "properties": {
-                "javascript_function": "keiyakuList_submit(1)"
-            }
-        },
-        {
-            "source": "button:additional_contract",
-            "target": "event:add_contract_button_click",
-            "relationship_type": "TRIGGERS_EVENT",
-            "properties": {
-                "javascript_function": "keiyakuList_submit(3)"
-            }
-        },
-        {
-            "source": "button:update_contract",
-            "target": "event:update_contract_button_click",
-            "relationship_type": "TRIGGERS_EVENT",
-            "properties": {
-                "javascript_function": "keiyakuList_submit(4)"
-            }
-        },
-        {
-            "source": "button:delete_contract",
-            "target": "event:delete_contract_button_click",
-            "relationship_type": "TRIGGERS_EVENT",
-            "properties": {
-                "javascript_function": "keiyakuList_submit(5)"
-            }
-        },
-        {
-            "source": "button:after_sales_contract",
-            "target": "event:after_sales_button_click",
-            "relationship_type": "TRIGGERS_EVENT",
-            "properties": {
-                "javascript_function": "keiyakuList_submit(6)"
-            }
-        },
-        {
-            "source": "button:multiple_orders",
-            "target": "event:multiple_orders_button_click",
-            "relationship_type": "TRIGGERS_EVENT",
-            "properties": {
-                "javascript_function": "keiyakuList_submit(7)"
-            }
-        },
-        {
-            "source": "button:contract_number_link",
-            "target": "event:contract_link_click",
-            "relationship_type": "TRIGGERS_EVENT",
-            "properties": {
-                "javascript_function": "keiyakuList_submit(8)"
-            }
-        },
-        {
-            "source": "event:new_contract_button_click",
-            "target": "action_type:new_contract",
-            "relationship_type": "INVOKES_ACTION_TYPE",
-            "properties": {
-                "action_type_parameter": "new_contract"
-            }
-        },
-        {
-            "source": "event:add_contract_button_click",
-            "target": "action_type:add_contract",
-            "relationship_type": "INVOKES_ACTION_TYPE",
-            "properties": {
-                "action_type_parameter": "add_contract"
-            }
-        },
-        {
-            "source": "event:update_contract_button_click",
-            "target": "action_type:update_contract",
-            "relationship_type": "INVOKES_ACTION_TYPE",
-            "properties": {
-                "action_type_parameter": "update_contract"
-            }
-        },
-        {
-            "source": "event:delete_contract_button_click",
-            "target": "action_type:delete_contract",
-            "relationship_type": "INVOKES_ACTION_TYPE",
-            "properties": {
-                "action_type_parameter": "delete_contract"
-            }
-        },
-        {
-            "source": "event:after_sales_button_click",
-            "target": "action_type:new_yuusyou_contract",
-            "relationship_type": "INVOKES_ACTION_TYPE",
-            "properties": {
-                "action_type_parameter": "new_yuusyou_contract"
-            }
-        },
-        {
-            "source": "event:multiple_orders_button_click",
-            "target": "action_type:new_yuusyou_after_contract",
-            "relationship_type": "INVOKES_ACTION_TYPE",
-            "properties": {
-                "action_type_parameter": "new_yuusyou_after_contract"
-            }
-        },
-        {
-            "source": "event:contract_link_click",
-            "target": "action_type:keiyaku_card_anchor",
-            "relationship_type": "INVOKES_ACTION_TYPE",
-            "properties": {
-                "action_type_parameter": "keiyaku_card_anchor"
-            }
-        },
-        {
-            "source": "action_type:new_contract",
-            "target": "action:keiyaku_list_dispatch_action",
-            "relationship_type": "ROUTES_TO_ACTION",
-            "properties": {
-                "dispatch_method": "new_contract"
-            }
-        },
-        {
-            "source": "action_type:add_contract",
-            "target": "action:keiyaku_list_dispatch_action",
-            "relationship_type": "ROUTES_TO_ACTION",
-            "properties": {
-                "dispatch_method": "add_contract"
-            }
-        },
-        {
-            "source": "action_type:update_contract",
-            "target": "action:keiyaku_list_dispatch_action",
-            "relationship_type": "ROUTES_TO_ACTION",
-            "properties": {
-                "dispatch_method": "update_contract"
-            }
-        },
-        {
-            "source": "action_type:delete_contract",
-            "target": "action:keiyaku_list_dispatch_action",
-            "relationship_type": "ROUTES_TO_ACTION",
-            "properties": {
-                "dispatch_method": "delete_contract"
-            }
-        },
-        {
-            "source": "action_type:new_yuusyou_contract",
-            "target": "action:keiyaku_list_dispatch_action",
-            "relationship_type": "ROUTES_TO_ACTION",
-            "properties": {
-                "dispatch_method": "new_yuusyou_contract"
-            }
-        },
-        {
-            "source": "action_type:new_yuusyou_after_contract",
-            "target": "action:keiyaku_list_dispatch_action",
-            "relationship_type": "ROUTES_TO_ACTION",
-            "properties": {
-                "dispatch_method": "new_yuusyou_after_contract"
-            }
-        },
-        {
-            "source": "action_type:keiyaku_card_anchor",
-            "target": "action:keiyaku_list_dispatch_action",
-            "relationship_type": "ROUTES_TO_ACTION",
-            "properties": {
-                "dispatch_method": "keiyaku_card_anchor"
-            }
-        },
-        {
-            "source": "route:keiyaku_list_init",
-            "target": "action:keiyaku_list_init_action",
-            "relationship_type": "MAPS_TO_ACTION",
-            "properties": {
-                "http_methods": [
-                    "GET",
-                    "POST"
-                ]
-            }
-        },
-        {
-            "source": "route:keiyaku_list_dispatch",
-            "target": "action:keiyaku_list_dispatch_action",
-            "relationship_type": "MAPS_TO_ACTION",
-            "properties": {
-                "http_methods": [
-                    "POST"
-                ]
-            }
-        },
-        {
-            "source": "route:keiyaku_delete",
-            "target": "action:keiyaku_delete_action",
-            "relationship_type": "MAPS_TO_ACTION",
-            "properties": {
-                "http_methods": [
-                    "POST"
-                ]
-            }
-        },
-        {
-            "source": "route:keiyaku_delete",
-            "target": "route:keiyaku_list_init",
-            "relationship_type": "FORWARDS_TO_ROUTE",
-            "properties": {
-                "forward_condition": "success"
-            }
-        },
-        {
-            "source": "action_type:new_contract",
-            "target": "screen:contract_type_selection",
-            "relationship_type": "NAVIGATES_TO_SCREEN",
-            "properties": {
-                "forward_name": "new_contract"
-            }
-        },
-        {
-            "source": "action_type:add_contract",
-            "target": "screen:additional_contract_creation",
-            "relationship_type": "NAVIGATES_TO_SCREEN",
-            "properties": {
-                "forward_name": "add_contract"
-            }
-        },
-        {
-            "source": "action_type:update_contract",
-            "target": "screen:contract_modification",
-            "relationship_type": "NAVIGATES_TO_SCREEN",
-            "properties": {
-                "forward_name": "update_contract"
-            }
-        },
-        {
-            "source": "action_type:new_yuusyou_contract",
-            "target": "screen:after_contract_creation",
-            "relationship_type": "NAVIGATES_TO_SCREEN",
-            "properties": {
-                "forward_name": "new_yuusyou_contract"
-            }
-        },
-        {
-            "source": "action_type:new_yuusyou_after_contract",
-            "target": "screen:multiple_order_selection",
-            "relationship_type": "NAVIGATES_TO_SCREEN",
-            "properties": {
-                "forward_name": "new_yuusyou_after_contract"
-            }
-        },
-        {
-            "source": "action_type:keiyaku_card_anchor",
-            "target": "screen:contract_details",
-            "relationship_type": "NAVIGATES_TO_SCREEN",
-            "properties": {
-                "forward_name": "keiyaku_card_anchor"
-            }
-        },
-        {
-            "source": "screen:contract_deletion",
-            "target": "screen:contract_list_main",
-            "relationship_type": "RETURNS_TO_SCREEN",
-            "properties": {
-                "return_condition": "after_deletion"
-            }
-        },
-        {
-            "source": "screen:contract_type_selection",
-            "target": "screen:contract_list_main",
-            "relationship_type": "RETURNS_TO_SCREEN",
-            "properties": {
-                "return_condition": "after_contract_creation"
-            }
-        },
-        {
-            "source": "screen:additional_contract_creation",
-            "target": "screen:contract_list_main",
-            "relationship_type": "RETURNS_TO_SCREEN",
-            "properties": {
-                "return_condition": "after_contract_creation"
-            }
-        },
-        {
-            "source": "screen:contract_modification",
-            "target": "screen:contract_list_main",
-            "relationship_type": "RETURNS_TO_SCREEN",
-            "properties": {
-                "return_condition": "after_modification"
-            }
-        },
-        {
-            "source": "screen:after_contract_creation",
-            "target": "screen:contract_list_main",
-            "relationship_type": "RETURNS_TO_SCREEN",
-            "properties": {
-                "return_condition": "after_contract_creation"
-            }
-        },
-        {
-            "source": "screen:multiple_order_selection",
-            "target": "screen:contract_list_main",
-            "relationship_type": "RETURNS_TO_SCREEN",
-            "properties": {
-                "return_condition": "after_order_creation"
-            }
-        },
-        {
-            "source": "screen:contract_details",
-            "target": "screen:contract_list_main",
-            "relationship_type": "RETURNS_TO_SCREEN",
-            "properties": {
-                "return_condition": "after_viewing_details"
-            }
-        },
-        {
-            "source": "form:anken_card_form",
-            "target": "value_object:anken_vo",
-            "relationship_type": "MAPS_TO_VO",
-            "properties": {
-                "mapping_direction": "bidirectional"
-            }
-        },
-        {
-            "source": "form:keiyaku_card_form",
-            "target": "value_object:keiyaku_vo",
-            "relationship_type": "MAPS_TO_VO",
-            "properties": {
-                "mapping_direction": "bidirectional"
-            }
-        },
-        {
-            "source": "session:contract_keiyaku_vo",
-            "target": "value_object:keiyaku_vo",
-            "relationship_type": "STORES_VO",
-            "properties": {
-                "scope": "session",
-                "lifecycle": "user_session"
-            }
-        },
-        {
-            "source": "session:contract_authority_vo",
-            "target": "value_object:authority_vo",
-            "relationship_type": "STORES_VO",
-            "properties": {
-                "scope": "session",
-                "lifecycle": "user_session"
-            }
-        },
-        {
-            "source": "session:contract_option_keiyaku_ichiran_vo_list",
-            "target": "value_object:keiyaku_ichiran_vo",
-            "relationship_type": "STORES_VO",
-            "properties": {
-                "scope": "session",
-                "lifecycle": "user_session",
-                "storage_type": "list"
-            }
-        },
-        {
-            "source": "session:contract_anken_vo",
-            "target": "value_object:anken_vo",
-            "relationship_type": "STORES_VO",
-            "properties": {
-                "scope": "session",
-                "lifecycle": "user_session"
-            }
-        },
-        {
-            "source": "flag:shinki_keiyaku_sakusei_kahi",
-            "target": "button:new_contract",
-            "relationship_type": "CONTROLS_VISIBILITY",
-            "properties": {
-                "visible_when": "true",
-                "control_type": "visibility"
-            }
-        },
-        {
-            "source": "flag:tsuika_keiyaku_sakusei_kahi",
-            "target": "button:additional_contract",
-            "relationship_type": "CONTROLS_VISIBILITY",
-            "properties": {
-                "visible_when": "true",
-                "control_type": "visibility"
-            }
-        },
-        {
-            "source": "flag:keiyaku_henko_kahi",
-            "target": "button:update_contract",
-            "relationship_type": "CONTROLS_VISIBILITY",
-            "properties": {
-                "visible_when": "true",
-                "control_type": "visibility"
-            }
-        },
-        {
-            "source": "flag:keiyaku_sakujo_kahi",
-            "target": "button:delete_contract",
-            "relationship_type": "CONTROLS_VISIBILITY",
-            "properties": {
-                "visible_when": "true",
-                "control_type": "visibility"
-            }
-        },
-        {
-            "source": "flag:yuusyou_go_sakusei_kahi",
-            "target": "button:after_sales_contract",
-            "relationship_type": "CONTROLS_VISIBILITY",
-            "properties": {
-                "visible_when": "true",
-                "control_type": "visibility"
-            }
-        },
-        {
-            "source": "flag:fukusuu_moushide_kahi",
-            "target": "button:multiple_orders",
-            "relationship_type": "CONTROLS_VISIBILITY",
-            "properties": {
-                "visible_when": "true",
-                "control_type": "visibility"
-            }
-        },
-        {
-            "source": "flag:anken_bunrui_cd",
-            "target": "button:delete_contract",
-            "relationship_type": "CONTROLS_STATE",
-            "properties": {
-                "disabled_when": "30,40",
-                "control_type": "enabled_state"
-            }
-        },
-        {
-            "source": "flag:keiyaku_jyoutai_kbn",
-            "target": "button:delete_contract",
-            "relationship_type": "CONTROLS_STATE",
-            "properties": {
-                "disabled_when": "not_in_valid_state",
-                "control_type": "enabled_state"
-            }
-        },
-        {
-            "source": "flag:shinki_keiyaku_sakusei_kahi",
-            "target": "session:business_flag_shinki_keiyaku_sakusei_kahi",
-            "relationship_type": "STORED_IN_SESSION",
-            "properties": {
-                "session_key": "CONTRACT_SHINKI_KEIYAKU_SAKUSEI_KAHI_FLG"
-            }
-        },
-        {
-            "source": "flag:tsuika_keiyaku_sakusei_kahi",
-            "target": "session:business_flag_tsuika_keiyaku_sakusei_kahi",
-            "relationship_type": "STORED_IN_SESSION",
-            "properties": {
-                "session_key": "CONTRACT_TSUIKA_KEIYAKU_SAKUSEI_KAHI_FLG"
-            }
-        },
-        {
-            "source": "flag:keiyaku_henko_kahi",
-            "target": "session:business_flag_keiyaku_henko_kahi",
-            "relationship_type": "STORED_IN_SESSION",
-            "properties": {
-                "session_key": "CONTRACT_KEIYAKU_HENKO_KAHI_FLG"
-            }
-        },
-        {
-            "source": "flag:keiyaku_sakujo_kahi",
-            "target": "session:business_flag_keiyaku_sakujo_kahi",
-            "relationship_type": "STORED_IN_SESSION",
-            "properties": {
-                "session_key": "CONTRACT_KEIYAKU_SAKUJO_KAHI_FLG"
-            }
-        },
-        {
-            "source": "flag:yuusyou_go_sakusei_kahi",
-            "target": "session:business_flag_yuusyou_go_sakusei_kahi",
-            "relationship_type": "STORED_IN_SESSION",
-            "properties": {
-                "session_key": "CONTRACT_YUUSYOU_GO_SAKUSEI_KAHI_FLG"
-            }
-        },
-        {
-            "source": "flag:fukusuu_moushide_kahi",
-            "target": "session:business_flag_fukusuu_moushide_kahi",
-            "relationship_type": "STORED_IN_SESSION",
-            "properties": {
-                "session_key": "CONTRACT_FUKUSUU_MOUSHIDE_KAHI_FLG"
-            }
-        },
-        {
-            "source": "flag:anken_bunrui_cd",
-            "target": "session:business_flag_anken_bunrui_cd",
-            "relationship_type": "STORED_IN_SESSION",
-            "properties": {
-                "session_key": "CONTRACT_ANKEN_BUNRUI_CD"
-            }
-        },
-        {
-            "source": "flag:keiyaku_jyoutai_kbn",
-            "target": "session:business_flag_keiyaku_jyoutai_kbn",
-            "relationship_type": "STORED_IN_SESSION",
-            "properties": {
-                "session_key": "CONTRACT_KEIYAKU_JYOUTAI_KBN"
-            }
-        },
-        {
-            "source": "action:keiyaku_list_init_action",
-            "target": "function:list_initialization",
-            "relationship_type": "IMPLEMENTS_FUNCTION",
-            "properties": {}
-        },
-        {
-            "source": "action:keiyaku_delete_action",
-            "target": "function:contract_deletion",
-            "relationship_type": "IMPLEMENTS_FUNCTION",
-            "properties": {}
-        },
-        {
-            "source": "action:keiyaku_list_dispatch_action",
-            "target": "route:keiyaku_list_assign",
-            "relationship_type": "FORWARDS_TO_ROUTE",
-            "properties": {
-                "forward_name": "new_contract",
-                "condition": "when_action_type_is_new_contract"
-            }
-        },
-        {
-            "source": "action:keiyaku_list_dispatch_action",
-            "target": "route:tsuika_keiyaku_dispatch",
-            "relationship_type": "FORWARDS_TO_ROUTE",
-            "properties": {
-                "forward_name": "add_contract",
-                "condition": "when_action_type_is_add_contract"
-            }
-        },
-        {
-            "source": "action:keiyaku_list_dispatch_action",
-            "target": "route:henko_keiyaku_dispatch",
-            "relationship_type": "FORWARDS_TO_ROUTE",
-            "properties": {
-                "forward_name": "update_contract",
-                "condition": "when_action_type_is_update_contract"
-            }
-        },
-        {
-            "source": "action:keiyaku_list_dispatch_action",
-            "target": "route:keiyaku_delete",
-            "relationship_type": "FORWARDS_TO_ROUTE",
-            "properties": {
-                "forward_name": "delete_contract",
-                "condition": "when_action_type_is_delete_contract"
-            }
-        },
-        {
-            "source": "action:keiyaku_list_dispatch_action",
-            "target": "route:yuusyou_keiyaku_list_assign",
-            "relationship_type": "FORWARDS_TO_ROUTE",
-            "properties": {
-                "forward_name": "new_yuusyou_contract",
-                "condition": "when_action_type_is_new_yuusyou_contract"
-            }
-        },
-        {
-            "source": "action:keiyaku_list_dispatch_action",
-            "target": "route:moushide_select_init",
-            "relationship_type": "FORWARDS_TO_ROUTE",
-            "properties": {
-                "forward_name": "new_yuusyou_after_contract",
-                "condition": "when_action_type_is_new_yuusyou_after_contract"
-            }
-        },
-        {
-            "source": "action:keiyaku_list_dispatch_action",
-            "target": "route:anchor_keiyaku_dispatch",
-            "relationship_type": "FORWARDS_TO_ROUTE",
-            "properties": {
-                "forward_name": "keiyaku_card_anchor",
-                "condition": "when_action_type_is_keiyaku_card_anchor"
-            }
-        },
-        {
-            "source": "route:keiyaku_list_init",
-            "target": "screen:contract_list_main",
-            "relationship_type": "INITIALIZES_SCREEN",
-            "properties": {}
-        },
-        {
-            "source": "route:keiyaku_list_assign",
-            "target": "screen:contract_type_selection",
-            "relationship_type": "INITIALIZES_SCREEN",
-            "properties": {}
-        },
-        {
-            "source": "route:yuusyou_keiyaku_list_assign",
-            "target": "screen:after_contract_creation",
-            "relationship_type": "INITIALIZES_SCREEN",
-            "properties": {}
-        },
-        {
-            "source": "route:moushide_select_init",
-            "target": "screen:multiple_order_selection",
-            "relationship_type": "INITIALIZES_SCREEN",
-            "properties": {}
-        },
-        {
-            "source": "route:keiyaku_list_assign",
-            "target": "route:keiyaku_list_init",
-            "relationship_type": "FORWARDS_TO_ROUTE",
-            "properties": {
-                "forward_condition": "after_contract_creation"
-            }
-        },
-        {
-            "source": "route:tsuika_keiyaku_dispatch",
-            "target": "route:keiyaku_list_init",
-            "relationship_type": "FORWARDS_TO_ROUTE",
-            "properties": {
-                "forward_condition": "after_additional_contract"
-            }
-        },
-        {
-            "source": "route:henko_keiyaku_dispatch",
-            "target": "route:keiyaku_list_init",
-            "relationship_type": "FORWARDS_TO_ROUTE",
-            "properties": {
-                "forward_condition": "after_modification"
-            }
-        },
-        {
-            "source": "route:yuusyou_keiyaku_list_assign",
-            "target": "route:keiyaku_list_init",
-            "relationship_type": "FORWARDS_TO_ROUTE",
-            "properties": {
-                "forward_condition": "after_after_sales_contract"
-            }
-        },
-        {
-            "source": "route:moushide_select_init",
-            "target": "route:keiyaku_list_init",
-            "relationship_type": "FORWARDS_TO_ROUTE",
-            "properties": {
-                "forward_condition": "after_multiple_orders"
-            }
-        },
-        {
-            "source": "route:anchor_keiyaku_dispatch",
-            "target": "route:keiyaku_list_init",
-            "relationship_type": "FORWARDS_TO_ROUTE",
-            "properties": {
-                "forward_condition": "after_viewing_details"
-            }
-        },
-        {
-            "source": "function:list_initialization",
-            "target": "form:anken_card_form",
-            "relationship_type": "USES_FORM",
-            "properties": {
-                "input_output": "output"
-            }
-        },
-        {
-            "source": "function:contract_deletion",
-            "target": "form:keiyaku_card_form",
-            "relationship_type": "USES_FORM",
-            "properties": {
-                "input_output": "input"
-            }
-        },
-        {
-            "source": "function:new_contract_creation",
-            "target": "form:keiyaku_card_form",
-            "relationship_type": "USES_FORM",
-            "properties": {
-                "input_output": "input"
-            }
-        },
-        {
-            "source": "function:additional_contract_creation",
-            "target": "form:keiyaku_card_form",
-            "relationship_type": "USES_FORM",
-            "properties": {
-                "input_output": "input"
-            }
-        },
-        {
-            "source": "function:contract_modification",
-            "target": "form:keiyaku_card_form",
-            "relationship_type": "USES_FORM",
-            "properties": {
-                "input_output": "input"
-            }
-        },
-        {
-            "source": "route:keiyaku_list_from_after_screen_init",
-            "target": "screen:contract_list_from_after_screen",
-            "relationship_type": "INITIALIZES_SCREEN",
-            "properties": {}
-        }
-    ]
+  "relationships": [
+    {
+      "source": "screen:contract_list_main",
+      "target": "route:keiyaku_list_init",
+      "relationship_type": "USES_ROUTE",
+      "is_primary_route": true
+    },
+    {
+      "source": "screen:contract_list_main",
+      "target": "view:keiyaku_list_jsp",
+      "relationship_type": "DISPLAYS_VIEW",
+      "view_type": "main"
+    },
+    {
+      "source": "screen:contract_list_main",
+      "target": "form:anken_card_form",
+      "relationship_type": "USES_FORM",
+      "form_scope": "request"
+    },
+    {
+      "source": "screen:contract_type_selection",
+      "target": "route:keiyaku_list_assign",
+      "relationship_type": "USES_ROUTE",
+      "is_primary_route": true
+    },
+    {
+      "source": "screen:after_contract_creation",
+      "target": "route:yuusyou_keiyaku_list_assign",
+      "relationship_type": "USES_ROUTE",
+      "is_primary_route": true
+    },
+    {
+      "source": "screen:multiple_order_selection",
+      "target": "route:moushide_select_init",
+      "relationship_type": "USES_ROUTE",
+      "is_primary_route": true
+    },
+    {
+      "source": "screen:contract_deletion",
+      "target": "route:keiyaku_delete",
+      "relationship_type": "USES_ROUTE",
+      "is_primary_route": true
+    },
+    {
+      "source": "screen:contract_list_from_after_screen",
+      "target": "route:keiyaku_list_from_after_screen_init",
+      "relationship_type": "USES_ROUTE",
+      "is_primary_route": true
+    },
+    {
+      "source": "view:keiyaku_list_jsp",
+      "target": "button:new_contract",
+      "relationship_type": "CONTAINS_BUTTON",
+      "button_position": "top_action_bar"
+    },
+    {
+      "source": "view:keiyaku_list_jsp",
+      "target": "button:add_contract",
+      "relationship_type": "CONTAINS_BUTTON",
+      "button_position": "top_action_bar"
+    },
+    {
+      "source": "view:keiyaku_list_jsp",
+      "target": "button:update_contract",
+      "relationship_type": "CONTAINS_BUTTON",
+      "button_position": "top_action_bar"
+    },
+    {
+      "source": "view:keiyaku_list_jsp",
+      "target": "button:delete_contract",
+      "relationship_type": "CONTAINS_BUTTON",
+      "button_position": "top_action_bar"
+    },
+    {
+      "source": "view:keiyaku_list_jsp",
+      "target": "button:yuusyou_contract",
+      "relationship_type": "CONTAINS_BUTTON",
+      "button_position": "top_action_bar"
+    },
+    {
+      "source": "view:keiyaku_list_jsp",
+      "target": "button:multiple_orders",
+      "relationship_type": "CONTAINS_BUTTON",
+      "button_position": "top_action_bar"
+    },
+    {
+      "source": "view:keiyaku_list_jsp",
+      "target": "button:return_button",
+      "relationship_type": "CONTAINS_BUTTON",
+      "button_position": "bottom_action_bar"
+    },
+    {
+      "source": "view:keiyaku_list_body_jsp",
+      "target": "button:contract_number_link",
+      "relationship_type": "CONTAINS_BUTTON",
+      "button_position": "contract_row"
+    },
+    {
+      "source": "view:keiyaku_list_body_jsp",
+      "target": "button:contract_selection_radio",
+      "relationship_type": "CONTAINS_BUTTON",
+      "button_position": "contract_row"
+    },
+    {
+      "source": "button:new_contract",
+      "target": "event:new_contract_button_click",
+      "relationship_type": "TRIGGERS_EVENT",
+      "javascript_function": "keiyakuList_submit(1)"
+    },
+    {
+      "source": "button:add_contract",
+      "target": "event:add_contract_button_click",
+      "relationship_type": "TRIGGERS_EVENT",
+      "javascript_function": "keiyakuList_submit(3)"
+    },
+    {
+      "source": "button:update_contract",
+      "target": "event:update_contract_button_click",
+      "relationship_type": "TRIGGERS_EVENT",
+      "javascript_function": "keiyakuList_submit(2)"
+    },
+    {
+      "source": "button:delete_contract",
+      "target": "event:delete_contract_button_click",
+      "relationship_type": "TRIGGERS_EVENT",
+      "javascript_function": "keiyakuList_submit(4)"
+    },
+    {
+      "source": "button:yuusyou_contract",
+      "target": "event:yuusyou_contract_button_click",
+      "relationship_type": "TRIGGERS_EVENT",
+      "javascript_function": "keiyakuList_submit(5)"
+    },
+    {
+      "source": "button:multiple_orders",
+      "target": "event:multiple_orders_button_click",
+      "relationship_type": "TRIGGERS_EVENT",
+      "javascript_function": "doFukusujyutyuSakusei()"
+    },
+    {
+      "source": "button:contract_number_link",
+      "target": "event:contract_number_link_click",
+      "relationship_type": "TRIGGERS_EVENT",
+      "javascript_function": "keiyakuAnchor_submit()"
+    },
+    {
+      "source": "button:contract_selection_radio",
+      "target": "event:contract_selection_change",
+      "relationship_type": "TRIGGERS_EVENT",
+      "javascript_function": "radioSelection()"
+    },
+    {
+      "source": "button:return_button",
+      "target": "event:return_button_click",
+      "relationship_type": "TRIGGERS_EVENT",
+      "javascript_function": "window.close()"
+    },
+    {
+      "source": "event:new_contract_button_click",
+      "target": "action_type:new_contract",
+      "relationship_type": "INVOKES_ACTION_TYPE",
+      "action_type_parameter": "new_contract"
+    },
+    {
+      "source": "event:add_contract_button_click",
+      "target": "action_type:add_contract",
+      "relationship_type": "INVOKES_ACTION_TYPE",
+      "action_type_parameter": "add_contract"
+    },
+    {
+      "source": "event:update_contract_button_click",
+      "target": "action_type:update_contract",
+      "relationship_type": "INVOKES_ACTION_TYPE",
+      "action_type_parameter": "update_contract"
+    },
+    {
+      "source": "event:delete_contract_button_click",
+      "target": "action_type:delete_contract",
+      "relationship_type": "INVOKES_ACTION_TYPE",
+      "action_type_parameter": "delete_contract"
+    },
+    {
+      "source": "event:yuusyou_contract_button_click",
+      "target": "action_type:new_yuusyou_contract",
+      "relationship_type": "INVOKES_ACTION_TYPE",
+      "action_type_parameter": "new_yuusyou_contract"
+    },
+    {
+      "source": "event:multiple_orders_button_click",
+      "target": "action_type:new_yuusyou_after_contract",
+      "relationship_type": "INVOKES_ACTION_TYPE",
+      "action_type_parameter": "new_yuusyou_after_contract"
+    },
+    {
+      "source": "event:contract_number_link_click",
+      "target": "action_type:keiyaku_card_anchor",
+      "relationship_type": "INVOKES_ACTION_TYPE",
+      "action_type_parameter": "keiyaku_card_anchor"
+    },
+    {
+      "source": "event:return_button_click",
+      "target": "action_type:returnAnken",
+      "relationship_type": "INVOKES_ACTION_TYPE",
+      "action_type_parameter": "returnAnken"
+    },
+    {
+      "source": "action_type:new_contract",
+      "target": "action:keiyaku_list_dispatch_action",
+      "relationship_type": "ROUTES_TO_ACTION",
+      "dispatch_method": "new_contract"
+    },
+    {
+      "source": "action_type:add_contract",
+      "target": "action:keiyaku_list_dispatch_action",
+      "relationship_type": "ROUTES_TO_ACTION",
+      "dispatch_method": "add_contract"
+    },
+    {
+      "source": "action_type:update_contract",
+      "target": "action:keiyaku_list_dispatch_action",
+      "relationship_type": "ROUTES_TO_ACTION",
+      "dispatch_method": "update_contract"
+    },
+    {
+      "source": "action_type:delete_contract",
+      "target": "action:keiyaku_list_dispatch_action",
+      "relationship_type": "ROUTES_TO_ACTION",
+      "dispatch_method": "delete_contract"
+    },
+    {
+      "source": "action_type:new_yuusyou_contract",
+      "target": "action:keiyaku_list_dispatch_action",
+      "relationship_type": "ROUTES_TO_ACTION",
+      "dispatch_method": "new_yuusyou_contract"
+    },
+    {
+      "source": "action_type:new_yuusyou_after_contract",
+      "target": "action:keiyaku_list_dispatch_action",
+      "relationship_type": "ROUTES_TO_ACTION",
+      "dispatch_method": "new_yuusyou_after_contract"
+    },
+    {
+      "source": "action_type:keiyaku_card_anchor",
+      "target": "action:keiyaku_list_dispatch_action",
+      "relationship_type": "ROUTES_TO_ACTION",
+      "dispatch_method": "keiyaku_card_anchor"
+    },
+    {
+      "source": "action_type:returnAnken",
+      "target": "action:keiyaku_list_dispatch_action",
+      "relationship_type": "ROUTES_TO_ACTION",
+      "dispatch_method": "returnAnken"
+    },
+    {
+      "source": "route:keiyaku_list_init",
+      "target": "action:keiyaku_list_init_action",
+      "relationship_type": "MAPS_TO_ACTION",
+      "http_methods": "GET,POST"
+    },
+    {
+      "source": "route:keiyaku_list_from_after_screen_init",
+      "target": "action:keiyaku_list_from_after_screen_init_action",
+      "relationship_type": "MAPS_TO_ACTION",
+      "http_methods": "GET,POST"
+    },
+    {
+      "source": "route:keiyaku_list_dispatch",
+      "target": "action:keiyaku_list_dispatch_action",
+      "relationship_type": "MAPS_TO_ACTION",
+      "http_methods": "GET,POST"
+    },
+    {
+      "source": "route:keiyaku_delete",
+      "target": "action:keiyaku_delete_action",
+      "relationship_type": "MAPS_TO_ACTION",
+      "http_methods": "POST"
+    },
+    {
+      "source": "route:keiyaku_list_init",
+      "target": "screen:contract_list_main",
+      "relationship_type": "INITIALIZES_SCREEN"
+    },
+    {
+      "source": "route:keiyaku_list_assign",
+      "target": "screen:contract_type_selection",
+      "relationship_type": "INITIALIZES_SCREEN"
+    },
+    {
+      "source": "route:yuusyou_keiyaku_list_assign",
+      "target": "screen:after_contract_creation",
+      "relationship_type": "INITIALIZES_SCREEN"
+    },
+    {
+      "source": "route:moushide_select_init",
+      "target": "screen:multiple_order_selection",
+      "relationship_type": "INITIALIZES_SCREEN"
+    },
+    {
+      "source": "action:keiyaku_list_init_action",
+      "target": "function:list_initialization",
+      "relationship_type": "IMPLEMENTS_FUNCTION"
+    },
+    {
+      "source": "action:keiyaku_delete_action",
+      "target": "function:contract_deletion",
+      "relationship_type": "IMPLEMENTS_FUNCTION"
+    },
+    {
+      "source": "action:keiyaku_list_dispatch_action",
+      "target": "route:keiyaku_list_assign",
+      "relationship_type": "FORWARDS_TO_ROUTE",
+      "forward_name": "new_contract",
+      "condition": "when_action_type_is_new_contract"
+    },
+    {
+      "source": "action:keiyaku_list_dispatch_action",
+      "target": "route:tsuika_keiyaku_dispatch",
+      "relationship_type": "FORWARDS_TO_ROUTE",
+      "forward_name": "add_contract",
+      "condition": "when_action_type_is_add_contract"
+    },
+    {
+      "source": "action:keiyaku_list_dispatch_action",
+      "target": "route:henko_keiyaku_dispatch",
+      "relationship_type": "FORWARDS_TO_ROUTE",
+      "forward_name": "update_contract",
+      "condition": "when_action_type_is_update_contract"
+    },
+    {
+      "source": "action:keiyaku_list_dispatch_action",
+      "target": "route:keiyaku_delete",
+      "relationship_type": "FORWARDS_TO_ROUTE",
+      "forward_name": "delete_contract",
+      "condition": "when_action_type_is_delete_contract"
+    },
+    {
+      "source": "action:keiyaku_list_dispatch_action",
+      "target": "route:yuusyou_keiyaku_list_assign",
+      "relationship_type": "FORWARDS_TO_ROUTE",
+      "forward_name": "new_yuusyou_contract",
+      "condition": "when_action_type_is_new_yuusyou_contract"
+    },
+    {
+      "source": "action:keiyaku_list_dispatch_action",
+      "target": "route:moushide_select_init",
+      "relationship_type": "FORWARDS_TO_ROUTE",
+      "forward_name": "new_yuusyou_after_contract",
+      "condition": "when_action_type_is_new_yuusyou_after_contract"
+    },
+    {
+      "source": "action:keiyaku_list_dispatch_action",
+      "target": "route:anchor_keiyaku_dispatch",
+      "relationship_type": "FORWARDS_TO_ROUTE",
+      "forward_name": "keiyaku_card_anchor",
+      "condition": "when_action_type_is_keiyaku_card_anchor"
+    },
+    {
+      "source": "route:keiyaku_delete",
+      "target": "route:keiyaku_list_init",
+      "relationship_type": "FORWARDS_TO_ROUTE",
+      "forward_condition": "after_deletion"
+    },
+    {
+      "source": "route:keiyaku_list_assign",
+      "target": "route:keiyaku_list_init",
+      "relationship_type": "FORWARDS_TO_ROUTE",
+      "forward_condition": "after_contract_creation"
+    },
+    {
+      "source": "route:tsuika_keiyaku_dispatch",
+      "target": "route:keiyaku_list_init",
+      "relationship_type": "FORWARDS_TO_ROUTE",
+      "forward_condition": "after_additional_contract"
+    },
+    {
+      "source": "route:henko_keiyaku_dispatch",
+      "target": "route:keiyaku_list_init",
+      "relationship_type": "FORWARDS_TO_ROUTE",
+      "forward_condition": "after_modification"
+    },
+    {
+      "source": "route:yuusyou_keiyaku_list_assign",
+      "target": "route:keiyaku_list_init",
+      "relationship_type": "FORWARDS_TO_ROUTE",
+      "forward_condition": "after_after_sales"
+    },
+    {
+      "source": "route:moushide_select_init",
+      "target": "route:keiyaku_list_init",
+      "relationship_type": "FORWARDS_TO_ROUTE",
+      "forward_condition": "after_multiple_orders"
+    },
+    {
+      "source": "route:anchor_keiyaku_dispatch",
+      "target": "route:keiyaku_list_init",
+      "relationship_type": "FORWARDS_TO_ROUTE",
+      "forward_condition": "after_viewing_details"
+    },
+    {
+      "source": "function:list_initialization",
+      "target": "form:anken_card_form",
+      "relationship_type": "USES_FORM",
+      "input_output": "input"
+    },
+    {
+      "source": "function:list_initialization",
+      "target": "form:keiyaku_list_kensaku_form",
+      "relationship_type": "USES_FORM",
+      "input_output": "input"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "form:keiyaku_card_form",
+      "relationship_type": "USES_FORM",
+      "input_output": "input"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "form:keiyaku_card_form",
+      "relationship_type": "USES_FORM",
+      "input_output": "input"
+    },
+    {
+      "source": "form:anken_card_form",
+      "target": "value_object:anken_vo",
+      "relationship_type": "MAPS_TO_VO",
+      "mapping_direction": "bidirectional"
+    },
+    {
+      "source": "form:keiyaku_card_form",
+      "target": "value_object:keiyaku_vo",
+      "relationship_type": "MAPS_TO_VO",
+      "mapping_direction": "bidirectional"
+    },
+    {
+      "source": "session:contract_keiyaku_vo",
+      "target": "value_object:keiyaku_vo",
+      "relationship_type": "STORES_VO",
+      "scope": "session",
+      "lifecycle": "user_session"
+    },
+    {
+      "source": "session:contract_authority_vo",
+      "target": "value_object:authority_vo",
+      "relationship_type": "STORES_VO",
+      "scope": "session",
+      "lifecycle": "user_session"
+    },
+    {
+      "source": "session:contract_option_keiyaku_ichiran_vo_list",
+      "target": "value_object:keiyaku_ichiran_vo",
+      "relationship_type": "STORES_VO",
+      "scope": "session",
+      "lifecycle": "user_session"
+    },
+    {
+      "source": "session:contract_anken_vo",
+      "target": "value_object:anken_vo",
+      "relationship_type": "STORES_VO",
+      "scope": "session",
+      "lifecycle": "user_session"
+    },
+    {
+      "source": "flag:shinki_keiyaku_sakusei_kahi",
+      "target": "button:new_contract",
+      "relationship_type": "CONTROLS_VISIBILITY",
+      "visible_when": "true",
+      "control_type": "visibility"
+    },
+    {
+      "source": "flag:tuika_keiyaku_sakusei_kahi",
+      "target": "button:add_contract",
+      "relationship_type": "CONTROLS_VISIBILITY",
+      "visible_when": "true",
+      "control_type": "visibility"
+    },
+    {
+      "source": "flag:keiyaku_data_henko_kahi",
+      "target": "button:update_contract",
+      "relationship_type": "CONTROLS_VISIBILITY",
+      "visible_when": "true",
+      "control_type": "visibility"
+    },
+    {
+      "source": "flag:kani_keiyaku_sakusei_kahi",
+      "target": "button:yuusyou_contract",
+      "relationship_type": "CONTROLS_VISIBILITY",
+      "visible_when": "true",
+      "control_type": "visibility"
+    },
+    {
+      "source": "flag:hukusu_jyutyu_sakusei_hyouji",
+      "target": "button:multiple_orders",
+      "relationship_type": "CONTROLS_VISIBILITY",
+      "visible_when": "true",
+      "control_type": "visibility"
+    },
+    {
+      "source": "flag:anken_bunrui_cd",
+      "target": "button:delete_contract",
+      "relationship_type": "CONTROLS_STATE",
+      "disabled_when": "30,40",
+      "control_type": "enabled_state"
+    },
+    {
+      "source": "flag:keiyaku_card_syubetsu_cd",
+      "target": "button:contract_number_link",
+      "relationship_type": "CONTROLS_STATE",
+      "enabled_when": "less_than_90",
+      "control_type": "link_or_text"
+    },
+    {
+      "source": "flag:keiyaku_card_syubetsu_cd",
+      "target": "button:contract_selection_radio",
+      "relationship_type": "CONTROLS_VISIBILITY",
+      "visible_when": "less_than_90",
+      "control_type": "visibility"
+    },
+    {
+      "source": "flag:keiyaku_ukagai_kbn",
+      "target": "button:contract_number_link",
+      "relationship_type": "CONTROLS_STATE",
+      "disabled_when": "1",
+      "control_type": "link_to_text"
+    },
+    {
+      "source": "flag:keiyaku_ukagai_kbn",
+      "target": "button:contract_selection_radio",
+      "relationship_type": "CONTROLS_STATE",
+      "disabled_when": "1",
+      "control_type": "enabled_state"
+    },
+    {
+      "source": "flag:user_agent_device",
+      "target": "button:new_contract",
+      "relationship_type": "CONTROLS_VISIBILITY",
+      "visible_when": "not_ipad",
+      "control_type": "visibility"
+    },
+    {
+      "source": "flag:user_agent_device",
+      "target": "button:add_contract",
+      "relationship_type": "CONTROLS_VISIBILITY",
+      "visible_when": "not_ipad",
+      "control_type": "visibility"
+    },
+    {
+      "source": "flag:user_agent_device",
+      "target": "button:update_contract",
+      "relationship_type": "CONTROLS_VISIBILITY",
+      "visible_when": "not_ipad",
+      "control_type": "visibility"
+    },
+    {
+      "source": "flag:user_agent_device",
+      "target": "button:delete_contract",
+      "relationship_type": "CONTROLS_VISIBILITY",
+      "visible_when": "not_ipad",
+      "control_type": "visibility"
+    },
+    {
+      "source": "flag:user_agent_device",
+      "target": "button:yuusyou_contract",
+      "relationship_type": "CONTROLS_VISIBILITY",
+      "visible_when": "not_ipad",
+      "control_type": "visibility"
+    },
+    {
+      "source": "flag:user_agent_device",
+      "target": "button:multiple_orders",
+      "relationship_type": "CONTROLS_VISIBILITY",
+      "visible_when": "not_ipad",
+      "control_type": "visibility"
+    },
+    {
+      "source": "flag:user_agent_device",
+      "target": "button:contract_number_link",
+      "relationship_type": "CONTROLS_STATE",
+      "disabled_when": "ipad",
+      "control_type": "link_to_text"
+    },
+    {
+      "source": "flag:shinki_keiyaku_sakusei_kahi",
+      "target": "session:business_flag_shinki_keiyaku_sakusei_kahi",
+      "relationship_type": "STORED_IN_SESSION",
+      "session_key": "CONTRACT_SHINKI_KEIYAKU_SAKUSEI_KAHI_FLG"
+    },
+    {
+      "source": "flag:tuika_keiyaku_sakusei_kahi",
+      "target": "session:business_flag_tsuika_keiyaku_sakusei_kahi",
+      "relationship_type": "STORED_IN_SESSION",
+      "session_key": "CONTRACT_TUIKA_KEIYAKU_SAKUSEI_KAHI_FLG"
+    },
+    {
+      "source": "flag:keiyaku_data_henko_kahi",
+      "target": "session:business_flag_keiyaku_data_henko_kahi",
+      "relationship_type": "STORED_IN_SESSION",
+      "session_key": "CONTRACT_KEIYAKU_DATA_HENKO_KAHI_FLG"
+    },
+    {
+      "source": "flag:kani_keiyaku_sakusei_kahi",
+      "target": "session:business_flag_kani_keiyaku_sakusei_kahi",
+      "relationship_type": "STORED_IN_SESSION",
+      "session_key": "CONTRACT_KANI_KEIYAKU_SAKUSEI_KAHI_FLG"
+    },
+    {
+      "source": "flag:hukusu_jyutyu_sakusei_hyouji",
+      "target": "session:business_flag_hukusu_jyutyu_sakusei_hyouji",
+      "relationship_type": "STORED_IN_SESSION",
+      "session_key": "CONTRACT_HUKUSU_JYUTYU_SAKUSEI_HYOUJI_FLG"
+    },
+    {
+      "source": "view:keiyaku_list_jsp",
+      "target": "view:keiyaku_list_body_jsp",
+      "relationship_type": "INCLUDES_VIEW",
+      "inclusion_method": "tiles"
+    },
+    {
+      "source": "view:keiyaku_list_body_jsp",
+      "target": "session:contract_option_keiyaku_ichiran_vo_list",
+      "relationship_type": "DISPLAYS_SESSION_DATA",
+      "display_method": "iterate"
+    },
+    {
+      "source": "action_type:new_contract",
+      "target": "screen:contract_type_selection",
+      "relationship_type": "NAVIGATES_TO_SCREEN",
+      "forward_name": "new_contract"
+    },
+    {
+      "source": "action_type:add_contract",
+      "target": "screen:additional_contract_creation",
+      "relationship_type": "NAVIGATES_TO_SCREEN",
+      "forward_name": "add_contract"
+    },
+    {
+      "source": "action_type:update_contract",
+      "target": "screen:contract_modification",
+      "relationship_type": "NAVIGATES_TO_SCREEN",
+      "forward_name": "update_contract"
+    },
+    {
+      "source": "action_type:new_yuusyou_contract",
+      "target": "screen:after_contract_creation",
+      "relationship_type": "NAVIGATES_TO_SCREEN",
+      "forward_name": "new_yuusyou_contract"
+    },
+    {
+      "source": "action_type:new_yuusyou_after_contract",
+      "target": "screen:multiple_order_selection",
+      "relationship_type": "NAVIGATES_TO_SCREEN",
+      "forward_name": "new_yuusyou_after_contract"
+    },
+    {
+      "source": "action_type:keiyaku_card_anchor",
+      "target": "screen:contract_details",
+      "relationship_type": "NAVIGATES_TO_SCREEN",
+      "forward_name": "keiyaku_card_anchor"
+    },
+    {
+      "source": "screen:contract_deletion",
+      "target": "screen:contract_list_main",
+      "relationship_type": "RETURNS_TO_SCREEN",
+      "return_condition": "after_deletion"
+    },
+    {
+      "source": "screen:contract_type_selection",
+      "target": "screen:contract_list_main",
+      "relationship_type": "RETURNS_TO_SCREEN",
+      "return_condition": "after_contract_creation"
+    },
+    {
+      "source": "screen:additional_contract_creation",
+      "target": "screen:contract_list_main",
+      "relationship_type": "RETURNS_TO_SCREEN",
+      "return_condition": "after_additional_contract"
+    },
+    {
+      "source": "screen:contract_modification",
+      "target": "screen:contract_list_main",
+      "relationship_type": "RETURNS_TO_SCREEN",
+      "return_condition": "after_modification"
+    },
+    {
+      "source": "screen:after_contract_creation",
+      "target": "screen:contract_list_main",
+      "relationship_type": "RETURNS_TO_SCREEN",
+      "return_condition": "after_after_sales"
+    },
+    {
+      "source": "screen:multiple_order_selection",
+      "target": "screen:contract_list_main",
+      "relationship_type": "RETURNS_TO_SCREEN",
+      "return_condition": "after_multiple_orders"
+    },
+    {
+      "source": "screen:contract_details",
+      "target": "screen:contract_list_main",
+      "relationship_type": "RETURNS_TO_SCREEN",
+      "return_condition": "after_viewing_details"
+    },
+    {
+      "source": "flag:pre_screan",
+      "target": "view:keiyaku_list_body_jsp",
+      "relationship_type": "CONTROLS_STATE",
+      "control_type": "view_selection",
+      "controlled_view": "keiyakuListAfter/body.jsp_or_keiyakuList/body.jsp"
+    },
+    {
+      "source": "screen:contract_type_selection",
+      "target": "form:keiyaku_card_form",
+      "relationship_type": "USES_FORM",
+      "form_scope": "request"
+    },
+    {
+      "source": "screen:after_contract_creation",
+      "target": "form:keiyaku_card_form",
+      "relationship_type": "USES_FORM",
+      "form_scope": "request"
+    },
+    {
+      "source": "screen:multiple_order_selection",
+      "target": "form:keiyaku_card_form",
+      "relationship_type": "USES_FORM",
+      "form_scope": "request"
+    },
+    {
+      "source": "screen:contract_modification",
+      "target": "form:keiyaku_card_form",
+      "relationship_type": "USES_FORM",
+      "form_scope": "request"
+    },
+    {
+      "source": "screen:additional_contract_creation",
+      "target": "form:keiyaku_card_form",
+      "relationship_type": "USES_FORM",
+      "form_scope": "request"
+    },
+    {
+      "source": "screen:contract_details",
+      "target": "form:keiyaku_card_form",
+      "relationship_type": "USES_FORM",
+      "form_scope": "request"
+    },
+    {
+      "source": "screen:contract_deletion",
+      "target": "form:keiyaku_card_form",
+      "relationship_type": "USES_FORM",
+      "form_scope": "request"
+    }
+  ]
 }
