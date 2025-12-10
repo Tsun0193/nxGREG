@@ -513,7 +513,7 @@ def main():
     # Get the project root directory
     current_dir = Path(__file__).parent
     project_root = current_dir.parent
-    json_dir = project_root / "json"
+    json_dir = project_root / "json" / "simple"
     
     print("done")
 

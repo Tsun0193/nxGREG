@@ -1,0 +1,1275 @@
+{
+  "module": "housing",
+  "total_files": 10,
+  "total_entities": 65,
+  "total_relationships": 75,
+  "entities": [
+    {
+      "id": "tab-desc:housing:accounting-registration:overview",
+      "type": "TabOverview",
+      "name": "Accounting Tab (Accounting Registration)",
+      "module": "housing",
+      "tab_name": "accounting-registration",
+      "main_function": "Display and management of accounting information, financial data, and payment processing",
+      "contract_type": "Simple Input Contract",
+      "document_purpose": "Analyze the impact of the Basic Tab (Basic Information) on the Accounting Tab",
+      "analysis_scope": "When basic information is changed in the Basic Tab → Direct impact on data/options in the Accounting Tab",
+      "source_file": "housing/accounting-registration/description_keiri_init_screen-en.md",
+      "section_title": "Overview"
+    },
+    {
+      "id": "tab-desc:housing:accounting-registration:flow",
+      "type": "TabProcessingFlow",
+      "name": "Tab Click Processing from Basic to Accounting",
+      "module": "housing",
+      "tab_name": "accounting-registration",
+      "source_file": "housing/accounting-registration/description_keiri_init_screen-en.md",
+      "section_title": "Tab Click Processing from Basic to Accounting",
+      "mermaid_diagram": "flowchart TD\n    A[User clicks Accounting tab] --> B[Get sinkiSakuseiKbn from Basic]\n    B --> C{sinkiSakuseiKbn<br/>Allow tab switching?}\n    C -->|No| D[Do not allow tab switching]\n    C -->|Yes| E[Get KeiyakuStatusCd and hensyuMode from Basic]\n    E --> F[Status analysis]\n    F --> G[KeiyakuStatusCd = 00/99<br/>hensyuMode = 0]\n    F --> H[KeiyakuStatusCd ≠ 00/99<br/>hensyuMode = 0]\n    F --> I[hensyuMode = 1]\n    G --> J[KeiriInitAction<br/>keiyakuNewtmp/keiri.jsp]\n    H --> K[KeiriLockInitAction<br/>keiyakuLock/keiri.jsp]\n    I --> L[KeiriHenkouInitAction<br/>keiyakuHenkou/keiri.jsp]\n    \n    style A fill:#e1f5fe\n    style D fill:#ffcdd2    style J fill:#f3e5f5    style K fill:#f3e5f5    style L fill:#f3e5f5"
+    },
+    {
+      "id": "tab-desc:housing:accounting-registration:impact:contractor-editing-j0001",
+      "type": "TabImpact",
+      "name": "**Contractor Editing (J0001)**",
+      "module": "housing",
+      "tab_name": "accounting-registration",
+      "source_file": "housing/accounting-registration/description_keiri_init_screen-en.md",
+      "section_title": "Impact from Basic Tab",
+      "change_type": "**Contractor Editing (J0001)**",
+      "database_impact": "Contractor data updated in DB",
+      "action_impact": "KeiriInitAction retrieves new contractor data",
+      "ui_impact": "B0003.jsp displays updated contractor information for accounting registration and financial processing"
+    },
+    {
+      "id": "tab-desc:housing:accounting-registration:impact:joint-contractor-editing-j0002",
+      "type": "TabImpact",
+      "name": "**Joint Contractor Editing (J0002)**",
+      "module": "housing",
+      "tab_name": "accounting-registration",
+      "source_file": "housing/accounting-registration/description_keiri_init_screen-en.md",
+      "section_title": "Impact from Basic Tab",
+      "change_type": "**Joint Contractor Editing (J0002)**",
+      "database_impact": "Joint contractor data updated in DB",
+      "action_impact": "KeiriInitAction retrieves new joint contractor data",
+      "ui_impact": "B0003.jsp displays updated joint contractor information for accounting purposes and payment processing"
+    },
+    {
+      "id": "tab-desc:housing:accounting-registration:impact:guarantor-editing-j0003",
+      "type": "TabImpact",
+      "name": "**Guarantor Editing (J0003)**",
+      "module": "housing",
+      "tab_name": "accounting-registration",
+      "source_file": "housing/accounting-registration/description_keiri_init_screen-en.md",
+      "section_title": "Impact from Basic Tab",
+      "change_type": "**Guarantor Editing (J0003)**",
+      "database_impact": "Guarantor data updated in DB",
+      "action_impact": "KeiriInitAction retrieves new guarantor data",
+      "ui_impact": "B0003.jsp displays updated guarantor information for accounting purposes and financial calculations"
+    },
+    {
+      "id": "tab-desc:housing:accounting-registration:impact:block-deletion-j0001j0002j0003",
+      "type": "TabImpact",
+      "name": "**Block Deletion (J0001/J0002/J0003)**",
+      "module": "housing",
+      "tab_name": "accounting-registration",
+      "source_file": "housing/accounting-registration/description_keiri_init_screen-en.md",
+      "section_title": "Impact from Basic Tab",
+      "change_type": "**Block Deletion (J0001/J0002/J0003)**",
+      "database_impact": "Party/guarantor data deleted from DB",
+      "action_impact": "KeiriInitAction retrieves updated data",
+      "ui_impact": "B0003.jsp removes accounting information for deleted targets and updates financial calculations"
+    },
+    {
+      "id": "tab-desc:housing:accounting-registration:impact:registration-button-saving-basic",
+      "type": "TabImpact",
+      "name": "**Registration Button (Saving Basic)**",
+      "module": "housing",
+      "tab_name": "accounting-registration",
+      "source_file": "housing/accounting-registration/description_keiri_init_screen-en.md",
+      "section_title": "Impact from Basic Tab",
+      "change_type": "**Registration Button (Saving Basic)**",
+      "database_impact": "All Basic changes saved to DB",
+      "action_impact": "KeiriInitAction retrieves all updated data",
+      "ui_impact": "B0003.jsp displays updated contractor/case information for accounting registration and financial data management"
+    },
+    {
+      "id": "tab-desc:housing:cancellation-info:overview",
+      "type": "TabOverview",
+      "name": "Tab Cancellation Information (Cancellation Information)",
+      "module": "housing",
+      "tab_name": "cancellation-info",
+      "main_function": "Display and management of contract cancellation information, cancellation reasons, and cancellation processing",
+      "contract_type": "Simple Entry Contract",
+      "document_purpose": "Analyze how the Basic tab (Basic Information) affects the Cancellation Information tab",
+      "analysis_scope": "When basic information is changed in the Basic tab → Direct impact on data/options in the Cancellation Information tab",
+      "source_file": "housing/cancellation-info/description_canceljyouhou_init_screen-en.md",
+      "section_title": "Overview"
+    },
+    {
+      "id": "tab-desc:housing:cancellation-info:flow",
+      "type": "TabProcessingFlow",
+      "name": "Tab Click Processing from Basic to Cancellation Information",
+      "module": "housing",
+      "tab_name": "cancellation-info",
+      "source_file": "housing/cancellation-info/description_canceljyouhou_init_screen-en.md",
+      "section_title": "Tab Click Processing from Basic to Cancellation Information",
+      "mermaid_diagram": "flowchart TD\n    A[User clicks Cancellation Information tab] --> B[Get sinkiSakuseiKbn from Basic]\n    B --> C{sinkiSakuseiKbn<br/>Allow tab switching?}\n    C -->|No| D[Do not allow tab switching]\n    C -->|Yes| E[Get KeiyakuStatusCd and hensyuMode from Basic]\n    E --> F[Status analysis]\n    F --> G[KeiyakuStatusCd = 00/99<br/>hensyuMode = 0]\n    F --> H[KeiyakuStatusCd ≠ 00/99<br/>hensyuMode = 0]\n    F --> I[hensyuMode = 1]\n    G --> J[CanceljyouhouInitAction<br/>keiyakuNewtmp/canceljyouhou.jsp]\n    H --> K[CanceljyouhouLockInitAction<br/>keiyakuLock/canceljyouhou.jsp]\n    I --> L[CanceljyouhouHenkouInitAction<br/>keiyakuHenkou/canceljyouhou.jsp]\n    \n    style A fill:#e1f5fe\n    style D fill:#ffcdd2    style J fill:#f3e5f5    style K fill:#f3e5f5    style L fill:#f3e5f5"
+    },
+    {
+      "id": "tab-desc:housing:cancellation-info:impact:contractor-editing-j0001",
+      "type": "TabImpact",
+      "name": "**Contractor Editing (J0001)**",
+      "module": "housing",
+      "tab_name": "cancellation-info",
+      "source_file": "housing/cancellation-info/description_canceljyouhou_init_screen-en.md",
+      "section_title": "Impact from the Basic Tab",
+      "change_type": "**Contractor Editing (J0001)**",
+      "database_impact": "Contractor data updated in DB",
+      "action_impact": "CanceljyouhouInitAction retrieves new contractor data",
+      "ui_impact": "JH02.jsp updates contractor card for cancellation processing, E0010.jsp updates contractor information for cancellation reason"
+    },
+    {
+      "id": "tab-desc:housing:cancellation-info:impact:co-contractor-editing-j0002",
+      "type": "TabImpact",
+      "name": "**Co-contractor Editing (J0002)**",
+      "module": "housing",
+      "tab_name": "cancellation-info",
+      "source_file": "housing/cancellation-info/description_canceljyouhou_init_screen-en.md",
+      "section_title": "Impact from the Basic Tab",
+      "change_type": "**Co-contractor Editing (J0002)**",
+      "database_impact": "Co-contractor data updated in DB",
+      "action_impact": "CanceljyouhouInitAction retrieves new co-contractor data",
+      "ui_impact": "E0010.jsp displays updated co-contractor information for cancellation processing and reason analysis"
+    },
+    {
+      "id": "tab-desc:housing:cancellation-info:impact:guarantor-editing-j0003",
+      "type": "TabImpact",
+      "name": "**Guarantor Editing (J0003)**",
+      "module": "housing",
+      "tab_name": "cancellation-info",
+      "source_file": "housing/cancellation-info/description_canceljyouhou_init_screen-en.md",
+      "section_title": "Impact from the Basic Tab",
+      "change_type": "**Guarantor Editing (J0003)**",
+      "database_impact": "Guarantor data updated in DB",
+      "action_impact": "CanceljyouhouInitAction retrieves new guarantor data",
+      "ui_impact": "E0010.jsp displays updated guarantor information for cancellation processing and impact assessment"
+    },
+    {
+      "id": "tab-desc:housing:cancellation-info:impact:block-deletion-j0001j0002j0003",
+      "type": "TabImpact",
+      "name": "**Block Deletion (J0001/J0002/J0003)**",
+      "module": "housing",
+      "tab_name": "cancellation-info",
+      "source_file": "housing/cancellation-info/description_canceljyouhou_init_screen-en.md",
+      "section_title": "Impact from the Basic Tab",
+      "change_type": "**Block Deletion (J0001/J0002/J0003)**",
+      "database_impact": "Party/guarantor data deleted from DB",
+      "action_impact": "CanceljyouhouInitAction retrieves updated data",
+      "ui_impact": "E0010.jsp removes party information from cancellation processing, E0005.jsp updates cancellation reason with no deletion target"
+    },
+    {
+      "id": "tab-desc:housing:cancellation-info:impact:register-button-basic-save",
+      "type": "TabImpact",
+      "name": "**Register Button (Basic save)**",
+      "module": "housing",
+      "tab_name": "cancellation-info",
+      "source_file": "housing/cancellation-info/description_canceljyouhou_init_screen-en.md",
+      "section_title": "Impact from the Basic Tab",
+      "change_type": "**Register Button (Basic save)**",
+      "database_impact": "All Basic changes saved to DB",
+      "action_impact": "CanceljyouhouInitAction retrieves all updated data",
+      "ui_impact": "All cancellation blocks (E0003, E0010, E0005) display updated contractor/case information for cancellation processing and reason management"
+    },
+    {
+      "id": "tab-desc:housing:change-info:overview",
+      "type": "TabOverview",
+      "name": "Tab Change Information (Change Information)",
+      "module": "housing",
+      "tab_name": "change-info",
+      "main_function": "Display and management of contract change information, change reasons, and change processing",
+      "contract_type": "Simple Input Contract",
+      "document_purpose": "Analysis of how the Basic tab (Basic Information) affects the Change Information tab",
+      "analysis_scope": "When changing basic information on the Basic tab → Direct impact on data/options in the Change Information tab",
+      "source_file": "housing/change-info/description_henkoujyouhou_init_screen-en.md",
+      "section_title": "Overview"
+    },
+    {
+      "id": "tab-desc:housing:change-info:flow",
+      "type": "TabProcessingFlow",
+      "name": "Tab Click Processing from Basic to Change Information",
+      "module": "housing",
+      "tab_name": "change-info",
+      "source_file": "housing/change-info/description_henkoujyouhou_init_screen-en.md",
+      "section_title": "Tab Click Processing from Basic to Change Information",
+      "mermaid_diagram": "flowchart TD\n    A[User clicks Change Information tab] --> B[Get sinkiSakuseiKbn from Basic]\n    B --> C{sinkiSakuseiKbn<br/>Allow tab switch?}\n    C -->|No| D[Do not allow tab switch]\n    C -->|Yes| E[Get KeiyakuStatusCd and hensyuMode from Basic]\n    E --> F[Status analysis]\n    F --> G[KeiyakuStatusCd = 00/99<br/>hensyuMode = 0]\n    F --> H[KeiyakuStatusCd ≠ 00/99<br/>hensyuMode = 0]\n    F --> I[hensyuMode = 1]\n    G --> J[HenkoujyouhouInitAction<br/>keiyakuHenkou/henkoujyouhou.jsp]\n    H --> K[HenkoujyouhouLockInitAction<br/>keiyakuLock/henkoujyouhou.jsp]\n    I --> L[HenkoujyouhouHenkouInitAction<br/>keiyakuHenkou/henkoujyouhou.jsp]\n    \n    style A fill:#e1f5fe\n    style D fill:#ffcdd2    style J fill:#f3e5f5    style K fill:#f3e5f5    style L fill:#f3e5f5"
+    },
+    {
+      "id": "tab-desc:housing:collection-conditions:overview",
+      "type": "TabOverview",
+      "name": "Tab Collection (Collection Information)",
+      "module": "housing",
+      "tab_name": "collection-conditions",
+      "main_function": "Display and management of collection information, payment tracking, and accounts receivable management",
+      "contract_type": "Simple Input Contract",
+      "document_purpose": "Analyze the impact of Basic Tab (Basic Information) on Collection Tab",
+      "analysis_scope": "When basic information is changed in the Basic Tab → Direct impact on data/options in the Collection Tab",
+      "source_file": "housing/collection-conditions/description_kaisyu_init_screen-en.md",
+      "section_title": "Overview"
+    },
+    {
+      "id": "tab-desc:housing:collection-conditions:flow",
+      "type": "TabProcessingFlow",
+      "name": "Tab Click Processing from Basic to Collection",
+      "module": "housing",
+      "tab_name": "collection-conditions",
+      "source_file": "housing/collection-conditions/description_kaisyu_init_screen-en.md",
+      "section_title": "Tab Click Processing from Basic to Collection",
+      "mermaid_diagram": "flowchart TD\n    A[User clicks Collection tab] --> B[Get sinkiSakuseiKbn from Basic]\n    B --> C{sinkiSakuseiKbn<br/>Allow tab switch?}\n    C -->|No| D[Tab switch not allowed]\n    C -->|Yes| E[Get KeiyakuStatusCd and hensyuMode from Basic]\n    E --> F[Status analysis]\n    F --> G[KeiyakuStatusCd = 00/99<br/>hensyuMode = 0]\n    F --> H[KeiyakuStatusCd ≠ 00/99<br/>hensyuMode = 0]\n    F --> I[hensyuMode = 1]\n    G --> J[KaisyuInitAction<br/>keiyakuNewtmp/kaisyu.jsp]\n    H --> K[KaisyuLockInitAction<br/>keiyakuLock/kaisyu.jsp]\n    I --> L[KaisyuHenkouInitAction<br/>keiyakuHenkou/kaisyu.jsp]\n    \n    style A fill:#e1f5fe\n    style D fill:#ffcdd2    style J fill:#f3e5f5    style K fill:#f3e5f5    style L fill:#f3e5f5"
+    },
+    {
+      "id": "tab-desc:housing:collection-conditions:impact:contractor-editing-j0001",
+      "type": "TabImpact",
+      "name": "**Contractor Editing (J0001)**",
+      "module": "housing",
+      "tab_name": "collection-conditions",
+      "source_file": "housing/collection-conditions/description_kaisyu_init_screen-en.md",
+      "section_title": "Impact from the Basic Tab",
+      "change_type": "**Contractor Editing (J0001)**",
+      "database_impact": "Contractor data updated in DB",
+      "action_impact": "KaisyuInitAction retrieves new contractor data",
+      "ui_impact": "A0020.jsp, A0002.jsp, A0033.jsp display updated contractor information for collection processing and payment tracking"
+    },
+    {
+      "id": "tab-desc:housing:collection-conditions:impact:joint-contractor-editing-j0002",
+      "type": "TabImpact",
+      "name": "**Joint Contractor Editing (J0002)**",
+      "module": "housing",
+      "tab_name": "collection-conditions",
+      "source_file": "housing/collection-conditions/description_kaisyu_init_screen-en.md",
+      "section_title": "Impact from the Basic Tab",
+      "change_type": "**Joint Contractor Editing (J0002)**",
+      "database_impact": "Joint contractor data updated in DB",
+      "action_impact": "KaisyuInitAction retrieves new joint contractor data",
+      "ui_impact": "Collection information block displays updated joint contractor information for collection processing and accounts receivable management"
+    },
+    {
+      "id": "tab-desc:housing:collection-conditions:impact:guarantor-editing-j0003",
+      "type": "TabImpact",
+      "name": "**Guarantor Editing (J0003)**",
+      "module": "housing",
+      "tab_name": "collection-conditions",
+      "source_file": "housing/collection-conditions/description_kaisyu_init_screen-en.md",
+      "section_title": "Impact from the Basic Tab",
+      "change_type": "**Guarantor Editing (J0003)**",
+      "database_impact": "Guarantor data updated in DB",
+      "action_impact": "KaisyuInitAction retrieves new guarantor data",
+      "ui_impact": "Collection information block displays updated guarantor information for collection processing and payment schedules"
+    },
+    {
+      "id": "tab-desc:housing:collection-conditions:impact:block-deletion-j0001j0002j0003",
+      "type": "TabImpact",
+      "name": "**Block Deletion (J0001/J0002/J0003)**",
+      "module": "housing",
+      "tab_name": "collection-conditions",
+      "source_file": "housing/collection-conditions/description_kaisyu_init_screen-en.md",
+      "section_title": "Impact from the Basic Tab",
+      "change_type": "**Block Deletion (J0001/J0002/J0003)**",
+      "database_impact": "Party/guarantor data deleted from DB",
+      "action_impact": "KaisyuInitAction retrieves updated data",
+      "ui_impact": "Collection information block removes collection data for deleted targets and updates payment tracking information"
+    },
+    {
+      "id": "tab-desc:housing:collection-conditions:impact:register-button-basic-save",
+      "type": "TabImpact",
+      "name": "**Register Button (Basic Save)**",
+      "module": "housing",
+      "tab_name": "collection-conditions",
+      "source_file": "housing/collection-conditions/description_kaisyu_init_screen-en.md",
+      "section_title": "Impact from the Basic Tab",
+      "change_type": "**Register Button (Basic Save)**",
+      "database_impact": "All Basic changes saved to DB",
+      "action_impact": "KaisyuInitAction retrieves all updated data",
+      "ui_impact": "All collection blocks (A0020, A0002, A0033) display updated contractor/case information for collection processing and accounts receivable management"
+    },
+    {
+      "id": "tab-desc:housing:contruction-planning:overview",
+      "type": "TabOverview",
+      "name": "Construction Process Tab (Construction Planning)",
+      "module": "housing",
+      "tab_name": "contruction-planning",
+      "main_function": "Display and management of construction planning information, project details, and construction schedule",
+      "contract_type": "Simple Input Contract",
+      "document_purpose": "Analyze the impact of the Basic Tab (Basic Information) on the Construction Process Tab",
+      "analysis_scope": "When basic information is changed in the Basic Tab → Direct impact on data/options in the Construction Process Tab",
+      "source_file": "housing/contruction-planning/description_koutei_init_screen-en.md",
+      "section_title": "Overview"
+    },
+    {
+      "id": "tab-desc:housing:contruction-planning:flow",
+      "type": "TabProcessingFlow",
+      "name": "Tab Click Processing from Basic to Construction Process",
+      "module": "housing",
+      "tab_name": "contruction-planning",
+      "source_file": "housing/contruction-planning/description_koutei_init_screen-en.md",
+      "section_title": "Tab Click Processing from Basic to Construction Process",
+      "mermaid_diagram": "flowchart TD\n    A[User clicks on Construction Process tab] --> B[Get sinkiSakuseiKbn from Basic tab]\n    B --> C{sinkiSakuseiKbn<br/>Allow tab switch?}\n    C -->|No| D[Do not allow tab switch]\n    C -->|Yes| E[Get KeiyakuStatusCd and hensyuMode from Basic tab]\n    E --> F[Status analysis]\n    F --> G[KeiyakuStatusCd = 00/99<br/>hensyuMode = 0]\n    F --> H[KeiyakuStatusCd ≠ 00/99<br/>hensyuMode = 0]\n    F --> I[hensyuMode = 1]\n    G --> J[KouteiInitAction<br/>keiyakuNewtmp/koutei.jsp]\n    H --> K[KouteiLockInitAction<br/>keiyakuLock/koutei.jsp]\n    I --> L[KouteiHenkouInitAction<br/>keiyakuHenkou/koutei.jsp]\n    \n    style A fill:#e1f5fe\n    style D fill:#ffcdd2    style J fill:#f3e5f5    style K fill:#f3e5f5    style L fill:#f3e5f5"
+    },
+    {
+      "id": "tab-desc:housing:contruction-planning:impact:contractor-edit-j0001",
+      "type": "TabImpact",
+      "name": "**Contractor Edit (J0001)**",
+      "module": "housing",
+      "tab_name": "contruction-planning",
+      "source_file": "housing/contruction-planning/description_koutei_init_screen-en.md",
+      "section_title": "Impact from Basic Tab",
+      "change_type": "**Contractor Edit (J0001)**",
+      "database_impact": "Contractor data updated in DB",
+      "action_impact": "KouteiInitAction retrieves new contractor data",
+      "ui_impact": "JH02.jsp updates the contractor card for construction planning, JH06.jsp updates the order number of the construction project"
+    },
+    {
+      "id": "tab-desc:housing:contruction-planning:impact:joint-contractor-edit-j0002",
+      "type": "TabImpact",
+      "name": "**Joint Contractor Edit (J0002)**",
+      "module": "housing",
+      "tab_name": "contruction-planning",
+      "source_file": "housing/contruction-planning/description_koutei_init_screen-en.md",
+      "section_title": "Impact from Basic Tab",
+      "change_type": "**Joint Contractor Edit (J0002)**",
+      "database_impact": "Joint contractor data updated in DB",
+      "action_impact": "KouteiInitAction retrieves new joint contractor data",
+      "ui_impact": "JH02.jsp updates joint contractor information for construction contract, J0052.jsp may update the construction planning table"
+    },
+    {
+      "id": "tab-desc:housing:contruction-planning:impact:joint-guarantor-edit-j0003",
+      "type": "TabImpact",
+      "name": "**Joint Guarantor Edit (J0003)**",
+      "module": "housing",
+      "tab_name": "contruction-planning",
+      "source_file": "housing/contruction-planning/description_koutei_init_screen-en.md",
+      "section_title": "Impact from Basic Tab",
+      "change_type": "**Joint Guarantor Edit (J0003)**",
+      "database_impact": "Guarantor data updated in DB",
+      "action_impact": "KouteiInitAction retrieves new guarantor data",
+      "ui_impact": "JH02.jsp updates guarantor information for construction contract, B0022.jsp may update order process checkboxes"
+    },
+    {
+      "id": "tab-desc:housing:contruction-planning:impact:block-deletion-j0001j0002j0003",
+      "type": "TabImpact",
+      "name": "**Block Deletion (J0001/J0002/J0003)**",
+      "module": "housing",
+      "tab_name": "contruction-planning",
+      "source_file": "housing/contruction-planning/description_koutei_init_screen-en.md",
+      "section_title": "Impact from Basic Tab",
+      "change_type": "**Block Deletion (J0001/J0002/J0003)**",
+      "database_impact": "Party/guarantor data deleted from DB",
+      "action_impact": "KouteiInitAction retrieves updated data",
+      "ui_impact": "JH02.jsp removes the deleted party information from construction contract, JH03.jsp updates construction information without the deleted target"
+    },
+    {
+      "id": "tab-desc:housing:contruction-planning:impact:register-button-save-basic",
+      "type": "TabImpact",
+      "name": "**Register Button (Save Basic)**",
+      "module": "housing",
+      "tab_name": "contruction-planning",
+      "source_file": "housing/contruction-planning/description_koutei_init_screen-en.md",
+      "section_title": "Impact from Basic Tab",
+      "change_type": "**Register Button (Save Basic)**",
+      "database_impact": "All basic changes saved to DB",
+      "action_impact": "KouteiInitAction retrieves all updated data",
+      "ui_impact": "JH03.jsp updates construction information, JH02.jsp updates contractor details, J0052.jsp updates construction planning table with new project data"
+    },
+    {
+      "id": "tab-desc:housing:loan-info:overview",
+      "type": "TabOverview",
+      "name": "Loan Tab (Loan Information)",
+      "module": "housing",
+      "tab_name": "loan-info",
+      "main_function": "Display and management of loan information, financing details, and payment schedules",
+      "contract_type": "Simple Input Contract",
+      "document_purpose": "Analyze the impact of Basic Tab (Basic Information) on Loan Tab",
+      "analysis_scope": "When basic information is changed in Basic Tab → Direct impact on data/options in Loan Tab",
+      "source_file": "housing/loan-info/description_loan_init_screen-en.md",
+      "section_title": "Overview"
+    },
+    {
+      "id": "tab-desc:housing:loan-info:flow",
+      "type": "TabProcessingFlow",
+      "name": "Tab Click Processing from Basic to Loan",
+      "module": "housing",
+      "tab_name": "loan-info",
+      "source_file": "housing/loan-info/description_loan_init_screen-en.md",
+      "section_title": "Tab Click Processing from Basic to Loan",
+      "mermaid_diagram": "flowchart TD\n    A[User clicks Loan tab] --> B[Get sinkiSakuseiKbn from Basic tab]\n    B --> C{sinkiSakuseiKbn<br/>Allow tab switching?}\n    C -->|No| D[Tab switching not allowed]\n    C -->|Yes| E[Get KeiyakuStatusCd and hensyuMode from Basic tab]\n    E --> F[Status analysis]\n    F --> G[KeiyakuStatusCd = 00/99<br/>hensyuMode = 0]\n    F --> H[KeiyakuStatusCd ≠ 00/99<br/>hensyuMode = 0]\n    F --> I[hensyuMode = 1]\n    G --> J[LoanInitAction<br/>keiyakuNewtmp/loan.jsp]\n    H --> K[LoanLockInitAction<br/>keiyakuLock/loan.jsp]\n    I --> L[LoanHenkouInitAction<br/>keiyakuHenkou/loan.jsp]\n    \n    style A fill:#e1f5fe\n    style D fill:#ffcdd2    style J fill:#f3e5f5    style K fill:#f3e5f5    style L fill:#f3e5f5"
+    },
+    {
+      "id": "tab-desc:housing:loan-info:impact:contractor-editing-j0001",
+      "type": "TabImpact",
+      "name": "**Contractor Editing (J0001)**",
+      "module": "housing",
+      "tab_name": "loan-info",
+      "source_file": "housing/loan-info/description_loan_init_screen-en.md",
+      "section_title": "Impact from Basic Tab",
+      "change_type": "**Contractor Editing (J0001)**",
+      "database_impact": "Contractor data updated in DB",
+      "action_impact": "LoanInitAction retrieves new contractor data",
+      "ui_impact": "A0019.jsp displays updated contractor information for loan processing and financing details"
+    },
+    {
+      "id": "tab-desc:housing:loan-info:impact:co-contractor-editing-j0002",
+      "type": "TabImpact",
+      "name": "**Co-contractor Editing (J0002)**",
+      "module": "housing",
+      "tab_name": "loan-info",
+      "source_file": "housing/loan-info/description_loan_init_screen-en.md",
+      "section_title": "Impact from Basic Tab",
+      "change_type": "**Co-contractor Editing (J0002)**",
+      "database_impact": "Co-contractor data updated in DB",
+      "action_impact": "LoanInitAction retrieves new co-contractor data",
+      "ui_impact": "A0019.jsp displays updated co-contractor information for loan processing and payment schedules"
+    },
+    {
+      "id": "tab-desc:housing:loan-info:impact:guarantor-editing-j0003",
+      "type": "TabImpact",
+      "name": "**Guarantor Editing (J0003)**",
+      "module": "housing",
+      "tab_name": "loan-info",
+      "source_file": "housing/loan-info/description_loan_init_screen-en.md",
+      "section_title": "Impact from Basic Tab",
+      "change_type": "**Guarantor Editing (J0003)**",
+      "database_impact": "Guarantor data updated in DB",
+      "action_impact": "LoanInitAction retrieves new guarantor data",
+      "ui_impact": "A0019.jsp displays updated guarantor information for loan processing and financing calculations"
+    },
+    {
+      "id": "tab-desc:housing:loan-info:impact:block-deletion-j0001j0002j0003",
+      "type": "TabImpact",
+      "name": "**Block Deletion (J0001/J0002/J0003)**",
+      "module": "housing",
+      "tab_name": "loan-info",
+      "source_file": "housing/loan-info/description_loan_init_screen-en.md",
+      "section_title": "Impact from Basic Tab",
+      "change_type": "**Block Deletion (J0001/J0002/J0003)**",
+      "database_impact": "Party/guarantor data deleted from DB",
+      "action_impact": "LoanInitAction retrieves updated data",
+      "ui_impact": "A0019.jsp removes deleted loan information and updates financing calculations"
+    },
+    {
+      "id": "tab-desc:housing:loan-info:impact:register-button-basic-tab-save",
+      "type": "TabImpact",
+      "name": "**Register Button (Basic tab save)**",
+      "module": "housing",
+      "tab_name": "loan-info",
+      "source_file": "housing/loan-info/description_loan_init_screen-en.md",
+      "section_title": "Impact from Basic Tab",
+      "change_type": "**Register Button (Basic tab save)**",
+      "database_impact": "All Basic tab changes saved to DB",
+      "action_impact": "LoanInitAction retrieves all updated data",
+      "ui_impact": "A0019.jsp displays updated contractor/case information for loan processing and financing management"
+    },
+    {
+      "id": "tab-desc:housing:obstacle-factors:overview",
+      "type": "TabOverview",
+      "name": "Tab Obstacle Factors (Obstacle Factors)",
+      "module": "housing",
+      "tab_name": "obstacle-factors",
+      "main_function": "Display and management of obstacle factors, risk assessment, and potential issues that may affect contracts",
+      "contract_type": "Simplified Input Contract",
+      "document_purpose": "Analyze how the Basic Tab (Basic Information) affects the Obstacle Factors Tab",
+      "analysis_scope": "When basic information is changed in the Basic Tab → Direct impact on data/options in the Obstacle Factors Tab",
+      "source_file": "housing/obstacle-factors/description_sogaiyouin_init_screen-en.md",
+      "section_title": "Overview"
+    },
+    {
+      "id": "tab-desc:housing:obstacle-factors:flow",
+      "type": "TabProcessingFlow",
+      "name": "Tab Click Processing from Basic to Obstacle Factors",
+      "module": "housing",
+      "tab_name": "obstacle-factors",
+      "source_file": "housing/obstacle-factors/description_sogaiyouin_init_screen-en.md",
+      "section_title": "Tab Click Processing from Basic to Obstacle Factors",
+      "mermaid_diagram": "flowchart TD\n    A[User clicks Obstacle Factors tab] --> B[Retrieve sinkiSakuseiKbn from Basic]\n    B --> C{sinkiSakuseiKbn<br/>Allow tab switching?}\n    C -->|No| D[Do not allow tab switching]\n    C -->|Yes| E[Retrieve KeiyakuStatusCd and hensyuMode from Basic]\n    E --> F[Status analysis]\n    F --> G[KeiyakuStatusCd = 00/99<br/>hensyuMode = 0]\n    F --> H[KeiyakuStatusCd ≠ 00/99<br/>hensyuMode = 0]\n    F --> I[hensyuMode = 1]\n    G --> J[SogaiyouinInitAction<br/>keiyakuNewtmp/sogaiyouin.jsp]\n    H --> K[SogaiyouinLockInitAction<br/>keiyakuLock/sogaiyouin.jsp]\n    I --> L[SogaiyouinHenkouInitAction<br/>keiyakuHenkou/sogaiyouin.jsp]\n    \n    style A fill:#e1f5fe\n    style D fill:#ffcdd2    style J fill:#f3e5f5    style K fill:#f3e5f5    style L fill:#f3e5f5"
+    },
+    {
+      "id": "tab-desc:housing:obstacle-factors:impact:contractor-editing-j0001",
+      "type": "TabImpact",
+      "name": "**Contractor Editing (J0001)**",
+      "module": "housing",
+      "tab_name": "obstacle-factors",
+      "source_file": "housing/obstacle-factors/description_sogaiyouin_init_screen-en.md",
+      "section_title": "Impact from Basic Tab",
+      "change_type": "**Contractor Editing (J0001)**",
+      "database_impact": "Contractor data updated in DB",
+      "action_impact": "SogaiyouinInitAction retrieves new contractor data",
+      "ui_impact": "J0013.jsp, J0014.jsp display updated contractor information for obstacle factor evaluation and risk analysis"
+    },
+    {
+      "id": "tab-desc:housing:obstacle-factors:impact:joint-contractor-editing-j0002",
+      "type": "TabImpact",
+      "name": "**Joint Contractor Editing (J0002)**",
+      "module": "housing",
+      "tab_name": "obstacle-factors",
+      "source_file": "housing/obstacle-factors/description_sogaiyouin_init_screen-en.md",
+      "section_title": "Impact from Basic Tab",
+      "change_type": "**Joint Contractor Editing (J0002)**",
+      "database_impact": "Joint contractor data updated in DB",
+      "action_impact": "SogaiyouinInitAction retrieves new joint contractor data",
+      "ui_impact": "Obstacle factor blocks display updated joint contractor information for risk assessment and potential issue identification"
+    },
+    {
+      "id": "tab-desc:housing:obstacle-factors:impact:guarantor-editing-j0003",
+      "type": "TabImpact",
+      "name": "**Guarantor Editing (J0003)**",
+      "module": "housing",
+      "tab_name": "obstacle-factors",
+      "source_file": "housing/obstacle-factors/description_sogaiyouin_init_screen-en.md",
+      "section_title": "Impact from Basic Tab",
+      "change_type": "**Guarantor Editing (J0003)**",
+      "database_impact": "Guarantor data updated in DB",
+      "action_impact": "SogaiyouinInitAction retrieves new guarantor data",
+      "ui_impact": "Obstacle factor blocks display updated guarantor information for risk assessment and contract impact analysis"
+    },
+    {
+      "id": "tab-desc:housing:obstacle-factors:impact:block-deletion-j0001j0002j0003",
+      "type": "TabImpact",
+      "name": "**Block Deletion (J0001/J0002/J0003)**",
+      "module": "housing",
+      "tab_name": "obstacle-factors",
+      "source_file": "housing/obstacle-factors/description_sogaiyouin_init_screen-en.md",
+      "section_title": "Impact from Basic Tab",
+      "change_type": "**Block Deletion (J0001/J0002/J0003)**",
+      "database_impact": "Party/guarantor data deleted from DB",
+      "action_impact": "SogaiyouinInitAction retrieves updated data",
+      "ui_impact": "Obstacle factor blocks remove risk assessment data for deleted targets and update risk timeline evaluation"
+    },
+    {
+      "id": "tab-desc:housing:obstacle-factors:impact:register-button-save-basic",
+      "type": "TabImpact",
+      "name": "**Register Button (Save Basic)**",
+      "module": "housing",
+      "tab_name": "obstacle-factors",
+      "source_file": "housing/obstacle-factors/description_sogaiyouin_init_screen-en.md",
+      "section_title": "Impact from Basic Tab",
+      "change_type": "**Register Button (Save Basic)**",
+      "database_impact": "All Basic changes saved to DB",
+      "action_impact": "SogaiyouinInitAction retrieves all updated data",
+      "ui_impact": "All obstacle factor blocks (J0013, J0014) display updated contractor/case information for risk assessment and obstacle factor management"
+    },
+    {
+      "id": "tab-desc:housing:order-info:overview",
+      "type": "TabOverview",
+      "name": "Order Tab (Order Information)",
+      "module": "housing",
+      "tab_name": "order-info",
+      "main_function": "",
+      "contract_type": "Simple Input Contract",
+      "document_purpose": "Analyze the influence of the Basic Tab (Basic Information) on the Order Tab",
+      "analysis_scope": "When basic information is changed in the Basic Tab → Direct impact on data/options in the Order Tab",
+      "source_file": "housing/order-info/description_jyutyu_init_screen-en.md",
+      "section_title": "Overview"
+    },
+    {
+      "id": "tab-desc:housing:order-info:flow",
+      "type": "TabProcessingFlow",
+      "name": "Tab Click Processing from Basic to Order",
+      "module": "housing",
+      "tab_name": "order-info",
+      "source_file": "housing/order-info/description_jyutyu_init_screen-en.md",
+      "section_title": "Tab Click Processing from Basic to Order",
+      "mermaid_diagram": "flowchart TD\n    A[User clicks Order tab] --> B[Get sinkiSakuseiKbn from Basic tab]\n    B --> C{sinkiSakuseiKbn<br/>Allow tab switching?}\n    C -->|No| D[Do not allow tab switching]\n    C -->|Yes| E[Get KeiyakuStatusCd and hensyuMode from Basic tab]\n    E --> F[Status analysis]\n    F --> G[KeiyakuStatusCd = 00/99<br/>hensyuMode = 0]\n    F --> H[KeiyakuStatusCd ≠ 00/99<br/>hensyuMode = 0]\n    F --> I[hensyuMode = 1]\n    G --> J[JyutyuInitAction<br/>keiyakuNewtmp/jyutyu.jsp]\n    H --> K[JyutyuLockInitAction<br/>keiyakuLock/jyutyu.jsp]\n    I --> L[JyutyuHenkouInitAction<br/>keiyakuHenkou/jyutyu.jsp]\n    \n    style A fill:#e1f5fe\n    style D fill:#ffcdd2    style J fill:#f3e5f5    style K fill:#f3e5f5    style L fill:#f3e5f5"
+    },
+    {
+      "id": "tab-desc:housing:order-info:impact:contractor-editing-j0001",
+      "type": "TabImpact",
+      "name": "**Contractor Editing (J0001)**",
+      "module": "housing",
+      "tab_name": "order-info",
+      "source_file": "housing/order-info/description_jyutyu_init_screen-en.md",
+      "section_title": "Impact from the Basic Tab",
+      "change_type": "**Contractor Editing (J0001)**",
+      "database_impact": "Contractor data updated in DB",
+      "action_impact": "JyutyuInitAction retrieves new contractor data",
+      "ui_impact": "J0005.jsp, J0006.jsp, J0007.jsp display updated contractor information for order processing, delivery details also updated"
+    },
+    {
+      "id": "tab-desc:housing:order-info:impact:joint-contractor-editing-j0002",
+      "type": "TabImpact",
+      "name": "**Joint Contractor Editing (J0002)**",
+      "module": "housing",
+      "tab_name": "order-info",
+      "source_file": "housing/order-info/description_jyutyu_init_screen-en.md",
+      "section_title": "Impact from the Basic Tab",
+      "change_type": "**Joint Contractor Editing (J0002)**",
+      "database_impact": "Joint contractor data updated in DB",
+      "action_impact": "JyutyuInitAction retrieves new joint contractor data",
+      "ui_impact": "J0081.jsp displays updated joint contractor information for multiple constructor list, J0082.jsp may update defect liability insurance company information"
+    },
+    {
+      "id": "tab-desc:housing:order-info:impact:joint-guarantor-editing-j0003",
+      "type": "TabImpact",
+      "name": "**Joint Guarantor Editing (J0003)**",
+      "module": "housing",
+      "tab_name": "order-info",
+      "source_file": "housing/order-info/description_jyutyu_init_screen-en.md",
+      "section_title": "Impact from the Basic Tab",
+      "change_type": "**Joint Guarantor Editing (J0003)**",
+      "database_impact": "Guarantor data updated in DB",
+      "action_impact": "JyutyuInitAction retrieves new guarantor data",
+      "ui_impact": "Order information block displays updated guarantor information for order processing and delivery"
+    },
+    {
+      "id": "tab-desc:housing:order-info:impact:block-deletion-j0001j0002j0003",
+      "type": "TabImpact",
+      "name": "**Block Deletion (J0001/J0002/J0003)**",
+      "module": "housing",
+      "tab_name": "order-info",
+      "source_file": "housing/order-info/description_jyutyu_init_screen-en.md",
+      "section_title": "Impact from the Basic Tab",
+      "change_type": "**Block Deletion (J0001/J0002/J0003)**",
+      "database_impact": "Party/guarantor data deleted from DB",
+      "action_impact": "JyutyuInitAction retrieves updated data",
+      "ui_impact": "J0081.jsp removes deletion targets from multiple constructor list, J0005~J0007 display order information without deleted targets"
+    },
+    {
+      "id": "tab-desc:housing:order-info:impact:register-button-basic-save",
+      "type": "TabImpact",
+      "name": "**Register Button (Basic Save)**",
+      "module": "housing",
+      "tab_name": "order-info",
+      "source_file": "housing/order-info/description_jyutyu_init_screen-en.md",
+      "section_title": "Impact from the Basic Tab",
+      "change_type": "**Register Button (Basic Save)**",
+      "database_impact": "All basic changes saved to DB",
+      "action_impact": "JyutyuInitAction retrieves all updated data",
+      "ui_impact": "All order blocks (J0005, J0006, J0007, J0093) display updated contractor/case information for order processing and delivery management"
+    },
+    {
+      "id": "tab-desc:housing:supplementary-contract-info:overview",
+      "type": "TabOverview",
+      "name": "Tab Supplementary (Supplementary Items)",
+      "module": "housing",
+      "tab_name": "supplementary-contract-info",
+      "main_function": "Display and management of contract supplementary clauses, additional conditions, and special provisions",
+      "contract_type": "Simple Input Contract",
+      "document_purpose": "Analysis of how Tab Basic (Basic Information) affects Tab Supplementary",
+      "analysis_scope": "When basic information is changed in Tab Basic → Direct impact on data/options in Tab Supplementary",
+      "source_file": "housing/supplementary-contract-info/description_hosoku_init_screen-en.md",
+      "section_title": "Overview"
+    },
+    {
+      "id": "tab-desc:housing:supplementary-contract-info:flow",
+      "type": "TabProcessingFlow",
+      "name": "Tab Click Processing from Basic to Supplementary",
+      "module": "housing",
+      "tab_name": "supplementary-contract-info",
+      "source_file": "housing/supplementary-contract-info/description_hosoku_init_screen-en.md",
+      "section_title": "Tab Click Processing from Basic to Supplementary",
+      "mermaid_diagram": "flowchart TD\n    A[User clicks Supplementary tab] --> B[Obtain sinkiSakuseiKbn from Basic]\n    B --> C{sinkiSakuseiKbn<br/>Allow tab switching?}\n    C -->|No| D[Do not allow tab switching]\n    C -->|Yes| E[Obtain KeiyakuStatusCd and hensyuMode from Basic]\n    E --> F[Status analysis]\n    F --> G[KeiyakuStatusCd = 00/99<br/>hensyuMode = 0]\n    F --> H[KeiyakuStatusCd ≠ 00/99<br/>hensyuMode = 0]\n    F --> I[hensyuMode = 1]\n    G --> J[HosokuInitAction<br/>keiyakuNewtmp/hosoku.jsp]\n    H --> K[HosokuLockInitAction<br/>keiyakuLock/hosoku.jsp]\n    I --> L[HosokuHenkouInitAction<br/>keiyakuHenkou/hosoku.jsp]\n    \n    style A fill:#e1f5fe\n    style D fill:#ffcdd2    style J fill:#f3e5f5    style K fill:#f3e5f5    style L fill:#f3e5f5"
+    },
+    {
+      "id": "tab-desc:housing:supplementary-contract-info:impact:contractor-edit-j0001",
+      "type": "TabImpact",
+      "name": "**Contractor Edit (J0001)**",
+      "module": "housing",
+      "tab_name": "supplementary-contract-info",
+      "source_file": "housing/supplementary-contract-info/description_hosoku_init_screen-en.md",
+      "section_title": "Impact from Tab Basic",
+      "change_type": "**Contractor Edit (J0001)**",
+      "database_impact": "Contractor data updated in DB",
+      "action_impact": "HosokuInitAction retrieves new contractor data",
+      "ui_impact": "J0015.jsp updates display of contractor supplementary clauses/conditions, J0075.jsp updates housing-specific supplementary items"
+    },
+    {
+      "id": "tab-desc:housing:supplementary-contract-info:impact:joint-contractor-edit-j0002",
+      "type": "TabImpact",
+      "name": "**Joint Contractor Edit (J0002)**",
+      "module": "housing",
+      "tab_name": "supplementary-contract-info",
+      "source_file": "housing/supplementary-contract-info/description_hosoku_init_screen-en.md",
+      "section_title": "Impact from Tab Basic",
+      "change_type": "**Joint Contractor Edit (J0002)**",
+      "database_impact": "Joint contractor data updated in DB",
+      "action_impact": "HosokuInitAction retrieves new joint contractor data",
+      "ui_impact": "J0015.jsp updates display of joint contractor supplementary clauses/conditions, J0074.jsp updates housing-specific supplementary items"
+    },
+    {
+      "id": "tab-desc:housing:supplementary-contract-info:impact:guarantor-edit-j0003",
+      "type": "TabImpact",
+      "name": "**Guarantor Edit (J0003)**",
+      "module": "housing",
+      "tab_name": "supplementary-contract-info",
+      "source_file": "housing/supplementary-contract-info/description_hosoku_init_screen-en.md",
+      "section_title": "Impact from Tab Basic",
+      "change_type": "**Guarantor Edit (J0003)**",
+      "database_impact": "Guarantor data updated in DB",
+      "action_impact": "HosokuInitAction retrieves new guarantor data",
+      "ui_impact": "J0015.jsp updates display of guarantor supplementary clauses/conditions, E0001.jsp updates additional special provisions"
+    },
+    {
+      "id": "tab-desc:housing:supplementary-contract-info:impact:block-deletion-j0001j0002j0003",
+      "type": "TabImpact",
+      "name": "**Block Deletion (J0001/J0002/J0003)**",
+      "module": "housing",
+      "tab_name": "supplementary-contract-info",
+      "source_file": "housing/supplementary-contract-info/description_hosoku_init_screen-en.md",
+      "section_title": "Impact from Tab Basic",
+      "change_type": "**Block Deletion (J0001/J0002/J0003)**",
+      "database_impact": "Party/guarantor data deleted from DB",
+      "action_impact": "HosokuInitAction retrieves updated data",
+      "ui_impact": "J0015.jsp removes supplementary information for deleted targets, condition display logic in J0075/J0074 may change"
+    },
+    {
+      "id": "tab-desc:housing:supplementary-contract-info:impact:register-button-save-basic",
+      "type": "TabImpact",
+      "name": "**Register Button (Save Basic)**",
+      "module": "housing",
+      "tab_name": "supplementary-contract-info",
+      "source_file": "housing/supplementary-contract-info/description_hosoku_init_screen-en.md",
+      "section_title": "Impact from Tab Basic",
+      "change_type": "**Register Button (Save Basic)**",
+      "database_impact": "All basic changes saved to DB",
+      "action_impact": "HosokuInitAction retrieves all updated data",
+      "ui_impact": "All supplementary item blocks (J0015, J0074, J0075, E0001) display updated contractor/case information for supplementary clause management"
+    },
+    {
+      "id": "tab-desc:housing:various-expenses-&-special-terms:overview",
+      "type": "TabOverview",
+      "name": "Tab Consumption Tax (Consumption Tax)",
+      "module": "housing",
+      "tab_name": "various-expenses-&-special-terms",
+      "main_function": "Display and management of consumption tax information, tax calculation, and tax-related documents",
+      "contract_type": "Simple input contract",
+      "document_purpose": "Analyze the impact of Tab Basic (Basic Information) on Tab Consumption Tax",
+      "analysis_scope": "When basic information is changed in Tab Basic → Direct impact on data/options in Tab Consumption Tax",
+      "source_file": "housing/various-expenses-&-special-terms/description_syohiyou_init_screen-en.md",
+      "section_title": "Overview"
+    },
+    {
+      "id": "tab-desc:housing:various-expenses-&-special-terms:flow",
+      "type": "TabProcessingFlow",
+      "name": "Tab Click Processing from Basic to Consumption Tax",
+      "module": "housing",
+      "tab_name": "various-expenses-&-special-terms",
+      "source_file": "housing/various-expenses-&-special-terms/description_syohiyou_init_screen-en.md",
+      "section_title": "Tab Click Processing from Basic to Consumption Tax",
+      "mermaid_diagram": "flowchart TD\n    A[User clicks Consumption Tax tab] --> B[Get sinkiSakuseiKbn from Basic]\n    B --> C{sinkiSakuseiKbn<br/>Allow tab switch?}\n    C -->|No| D[Do not allow tab switch]\n    C -->|Yes| E[Get KeiyakuStatusCd and hensyuMode from Basic]\n    E --> F[Status analysis]\n    F --> G[KeiyakuStatusCd = 00/99<br/>hensyuMode = 0]\n    F --> H[KeiyakuStatusCd ≠ 00/99<br/>hensyuMode = 0]\n    F --> I[hensyuMode = 1]\n    G --> J[SyohiyouInitAction<br/>keiyakuNewtmp/syohiyou.jsp]\n    H --> K[SyohiyouLockInitAction<br/>keiyakuLock/syohiyou.jsp]\n    I --> L[SyohiyouHenkouInitAction<br/>keiyakuHenkou/syohiyou.jsp]\n    \n    style A fill:#e1f5fe\n    style D fill:#ffcdd2    style J fill:#f3e5f5    style K fill:#f3e5f5    style L fill:#f3e5f5"
+    },
+    {
+      "id": "tab-desc:housing:various-expenses-&-special-terms:impact:contractor-editing-j0001",
+      "type": "TabImpact",
+      "name": "**Contractor Editing (J0001)**",
+      "module": "housing",
+      "tab_name": "various-expenses-&-special-terms",
+      "source_file": "housing/various-expenses-&-special-terms/description_syohiyou_init_screen-en.md",
+      "section_title": "Impact from Tab Basic",
+      "change_type": "**Contractor Editing (J0001)**",
+      "database_impact": "Contractor data updated in DB",
+      "action_impact": "SyohiyouInitAction retrieves new contractor data",
+      "ui_impact": "A0005.jsp, J0083.jsp, A0007.jsp display updated contractor information for consumption tax calculation and tax-related documents"
+    },
+    {
+      "id": "tab-desc:housing:various-expenses-&-special-terms:impact:joint-contractor-editing-j0002",
+      "type": "TabImpact",
+      "name": "**Joint Contractor Editing (J0002)**",
+      "module": "housing",
+      "tab_name": "various-expenses-&-special-terms",
+      "source_file": "housing/various-expenses-&-special-terms/description_syohiyou_init_screen-en.md",
+      "section_title": "Impact from Tab Basic",
+      "change_type": "**Joint Contractor Editing (J0002)**",
+      "database_impact": "Joint contractor data updated in DB",
+      "action_impact": "SyohiyouInitAction retrieves new joint contractor data",
+      "ui_impact": "Tax information block displays updated joint contractor information for consumption tax calculation and taxation period calculation"
+    },
+    {
+      "id": "tab-desc:housing:various-expenses-&-special-terms:impact:guarantor-editing-j0003",
+      "type": "TabImpact",
+      "name": "**Guarantor Editing (J0003)**",
+      "module": "housing",
+      "tab_name": "various-expenses-&-special-terms",
+      "source_file": "housing/various-expenses-&-special-terms/description_syohiyou_init_screen-en.md",
+      "section_title": "Impact from Tab Basic",
+      "change_type": "**Guarantor Editing (J0003)**",
+      "database_impact": "Guarantor data updated in DB",
+      "action_impact": "SyohiyouInitAction retrieves new guarantor data",
+      "ui_impact": "Tax information block displays updated guarantor information for consumption tax calculation and tax document generation"
+    },
+    {
+      "id": "tab-desc:housing:various-expenses-&-special-terms:impact:block-deletion-j0001j0002j0003",
+      "type": "TabImpact",
+      "name": "**Block Deletion (J0001/J0002/J0003)**",
+      "module": "housing",
+      "tab_name": "various-expenses-&-special-terms",
+      "source_file": "housing/various-expenses-&-special-terms/description_syohiyou_init_screen-en.md",
+      "section_title": "Impact from Tab Basic",
+      "change_type": "**Block Deletion (J0001/J0002/J0003)**",
+      "database_impact": "Party/guarantor data deleted from DB",
+      "action_impact": "SyohiyouInitAction retrieves updated data",
+      "ui_impact": "Tax information block removes tax data for deleted targets and updates consumption tax calculation"
+    },
+    {
+      "id": "tab-desc:housing:various-expenses-&-special-terms:impact:register-button-save-basic",
+      "type": "TabImpact",
+      "name": "**Register Button (Save Basic)**",
+      "module": "housing",
+      "tab_name": "various-expenses-&-special-terms",
+      "source_file": "housing/various-expenses-&-special-terms/description_syohiyou_init_screen-en.md",
+      "section_title": "Impact from Tab Basic",
+      "change_type": "**Register Button (Save Basic)**",
+      "database_impact": "All basic changes saved to DB",
+      "action_impact": "SyohiyouInitAction retrieves all updated data",
+      "ui_impact": "All tax blocks (A0005, J0083, A0007) display updated contractor/case information for consumption tax calculation and tax management"
+    }
+  ],
+  "relationships": [
+    {
+      "source": "tab-desc:housing:accounting-registration:overview",
+      "target": "tab:accounting_registration",
+      "relationship_type": "DESCRIBES",
+      "description": "Overview describes tab:accounting_registration"
+    },
+    {
+      "source": "tab-desc:housing:accounting-registration:flow",
+      "target": "tab:accounting_registration",
+      "relationship_type": "DESCRIBES_FLOW",
+      "description": "Processing flow describes navigation to tab:accounting_registration"
+    },
+    {
+      "source": "tab-desc:housing:accounting-registration:impact:contractor-editing-j0001",
+      "target": "tab:accounting_registration",
+      "relationship_type": "IMPACTS",
+      "description": "**Contractor Editing (J0001)** impacts tab:accounting_registration"
+    },
+    {
+      "source": "tab-desc:housing:accounting-registration:impact:joint-contractor-editing-j0002",
+      "target": "tab:accounting_registration",
+      "relationship_type": "IMPACTS",
+      "description": "**Joint Contractor Editing (J0002)** impacts tab:accounting_registration"
+    },
+    {
+      "source": "tab-desc:housing:accounting-registration:impact:guarantor-editing-j0003",
+      "target": "tab:accounting_registration",
+      "relationship_type": "IMPACTS",
+      "description": "**Guarantor Editing (J0003)** impacts tab:accounting_registration"
+    },
+    {
+      "source": "tab-desc:housing:accounting-registration:impact:block-deletion-j0001j0002j0003",
+      "target": "tab:accounting_registration",
+      "relationship_type": "IMPACTS",
+      "description": "**Block Deletion (J0001/J0002/J0003)** impacts tab:accounting_registration"
+    },
+    {
+      "source": "tab-desc:housing:accounting-registration:impact:registration-button-saving-basic",
+      "target": "tab:accounting_registration",
+      "relationship_type": "IMPACTS",
+      "description": "**Registration Button (Saving Basic)** impacts tab:accounting_registration"
+    },
+    {
+      "source": "tab-desc:housing:cancellation-info:overview",
+      "target": "tab:cancellation_information_housing",
+      "relationship_type": "DESCRIBES",
+      "description": "Overview describes tab:cancellation_information_housing"
+    },
+    {
+      "source": "tab-desc:housing:cancellation-info:flow",
+      "target": "tab:cancellation_information_housing",
+      "relationship_type": "DESCRIBES_FLOW",
+      "description": "Processing flow describes navigation to tab:cancellation_information_housing"
+    },
+    {
+      "source": "tab-desc:housing:cancellation-info:impact:contractor-editing-j0001",
+      "target": "tab:cancellation_information_housing",
+      "relationship_type": "IMPACTS",
+      "description": "**Contractor Editing (J0001)** impacts tab:cancellation_information_housing"
+    },
+    {
+      "source": "tab-desc:housing:cancellation-info:impact:co-contractor-editing-j0002",
+      "target": "tab:cancellation_information_housing",
+      "relationship_type": "IMPACTS",
+      "description": "**Co-contractor Editing (J0002)** impacts tab:cancellation_information_housing"
+    },
+    {
+      "source": "tab-desc:housing:cancellation-info:impact:guarantor-editing-j0003",
+      "target": "tab:cancellation_information_housing",
+      "relationship_type": "IMPACTS",
+      "description": "**Guarantor Editing (J0003)** impacts tab:cancellation_information_housing"
+    },
+    {
+      "source": "tab-desc:housing:cancellation-info:impact:block-deletion-j0001j0002j0003",
+      "target": "tab:cancellation_information_housing",
+      "relationship_type": "IMPACTS",
+      "description": "**Block Deletion (J0001/J0002/J0003)** impacts tab:cancellation_information_housing"
+    },
+    {
+      "source": "tab-desc:housing:cancellation-info:impact:register-button-basic-save",
+      "target": "tab:cancellation_information_housing",
+      "relationship_type": "IMPACTS",
+      "description": "**Register Button (Basic save)** impacts tab:cancellation_information_housing"
+    },
+    {
+      "source": "tab-desc:housing:change-info:overview",
+      "target": "tab:change_information",
+      "relationship_type": "DESCRIBES",
+      "description": "Overview describes tab:change_information"
+    },
+    {
+      "source": "tab-desc:housing:change-info:flow",
+      "target": "tab:change_information",
+      "relationship_type": "DESCRIBES_FLOW",
+      "description": "Processing flow describes navigation to tab:change_information"
+    },
+    {
+      "source": "tab-desc:housing:collection-conditions:overview",
+      "target": "tab:collection_conditions",
+      "relationship_type": "DESCRIBES",
+      "description": "Overview describes tab:collection_conditions"
+    },
+    {
+      "source": "tab-desc:housing:collection-conditions:flow",
+      "target": "tab:collection_conditions",
+      "relationship_type": "DESCRIBES_FLOW",
+      "description": "Processing flow describes navigation to tab:collection_conditions"
+    },
+    {
+      "source": "tab-desc:housing:collection-conditions:impact:contractor-editing-j0001",
+      "target": "tab:collection_conditions",
+      "relationship_type": "IMPACTS",
+      "description": "**Contractor Editing (J0001)** impacts tab:collection_conditions"
+    },
+    {
+      "source": "tab-desc:housing:collection-conditions:impact:joint-contractor-editing-j0002",
+      "target": "tab:collection_conditions",
+      "relationship_type": "IMPACTS",
+      "description": "**Joint Contractor Editing (J0002)** impacts tab:collection_conditions"
+    },
+    {
+      "source": "tab-desc:housing:collection-conditions:impact:guarantor-editing-j0003",
+      "target": "tab:collection_conditions",
+      "relationship_type": "IMPACTS",
+      "description": "**Guarantor Editing (J0003)** impacts tab:collection_conditions"
+    },
+    {
+      "source": "tab-desc:housing:collection-conditions:impact:block-deletion-j0001j0002j0003",
+      "target": "tab:collection_conditions",
+      "relationship_type": "IMPACTS",
+      "description": "**Block Deletion (J0001/J0002/J0003)** impacts tab:collection_conditions"
+    },
+    {
+      "source": "tab-desc:housing:collection-conditions:impact:register-button-basic-save",
+      "target": "tab:collection_conditions",
+      "relationship_type": "IMPACTS",
+      "description": "**Register Button (Basic Save)** impacts tab:collection_conditions"
+    },
+    {
+      "source": "tab-desc:housing:contruction-planning:overview",
+      "target": "tab:construction_planning",
+      "relationship_type": "DESCRIBES",
+      "description": "Overview describes tab:construction_planning"
+    },
+    {
+      "source": "tab-desc:housing:contruction-planning:flow",
+      "target": "tab:construction_planning",
+      "relationship_type": "DESCRIBES_FLOW",
+      "description": "Processing flow describes navigation to tab:construction_planning"
+    },
+    {
+      "source": "tab-desc:housing:contruction-planning:impact:contractor-edit-j0001",
+      "target": "tab:construction_planning",
+      "relationship_type": "IMPACTS",
+      "description": "**Contractor Edit (J0001)** impacts tab:construction_planning"
+    },
+    {
+      "source": "tab-desc:housing:contruction-planning:impact:joint-contractor-edit-j0002",
+      "target": "tab:construction_planning",
+      "relationship_type": "IMPACTS",
+      "description": "**Joint Contractor Edit (J0002)** impacts tab:construction_planning"
+    },
+    {
+      "source": "tab-desc:housing:contruction-planning:impact:joint-guarantor-edit-j0003",
+      "target": "tab:construction_planning",
+      "relationship_type": "IMPACTS",
+      "description": "**Joint Guarantor Edit (J0003)** impacts tab:construction_planning"
+    },
+    {
+      "source": "tab-desc:housing:contruction-planning:impact:block-deletion-j0001j0002j0003",
+      "target": "tab:construction_planning",
+      "relationship_type": "IMPACTS",
+      "description": "**Block Deletion (J0001/J0002/J0003)** impacts tab:construction_planning"
+    },
+    {
+      "source": "tab-desc:housing:contruction-planning:impact:register-button-save-basic",
+      "target": "tab:construction_planning",
+      "relationship_type": "IMPACTS",
+      "description": "**Register Button (Save Basic)** impacts tab:construction_planning"
+    },
+    {
+      "source": "tab-desc:housing:loan-info:overview",
+      "target": "tab:loan_information",
+      "relationship_type": "DESCRIBES",
+      "description": "Overview describes tab:loan_information"
+    },
+    {
+      "source": "tab-desc:housing:loan-info:flow",
+      "target": "tab:loan_information",
+      "relationship_type": "DESCRIBES_FLOW",
+      "description": "Processing flow describes navigation to tab:loan_information"
+    },
+    {
+      "source": "tab-desc:housing:loan-info:impact:contractor-editing-j0001",
+      "target": "tab:loan_information",
+      "relationship_type": "IMPACTS",
+      "description": "**Contractor Editing (J0001)** impacts tab:loan_information"
+    },
+    {
+      "source": "tab-desc:housing:loan-info:impact:co-contractor-editing-j0002",
+      "target": "tab:loan_information",
+      "relationship_type": "IMPACTS",
+      "description": "**Co-contractor Editing (J0002)** impacts tab:loan_information"
+    },
+    {
+      "source": "tab-desc:housing:loan-info:impact:guarantor-editing-j0003",
+      "target": "tab:loan_information",
+      "relationship_type": "IMPACTS",
+      "description": "**Guarantor Editing (J0003)** impacts tab:loan_information"
+    },
+    {
+      "source": "tab-desc:housing:loan-info:impact:block-deletion-j0001j0002j0003",
+      "target": "tab:loan_information",
+      "relationship_type": "IMPACTS",
+      "description": "**Block Deletion (J0001/J0002/J0003)** impacts tab:loan_information"
+    },
+    {
+      "source": "tab-desc:housing:loan-info:impact:register-button-basic-tab-save",
+      "target": "tab:loan_information",
+      "relationship_type": "IMPACTS",
+      "description": "**Register Button (Basic tab save)** impacts tab:loan_information"
+    },
+    {
+      "source": "tab-desc:housing:obstacle-factors:overview",
+      "target": "tab:obstacle_factors",
+      "relationship_type": "DESCRIBES",
+      "description": "Overview describes tab:obstacle_factors"
+    },
+    {
+      "source": "tab-desc:housing:obstacle-factors:flow",
+      "target": "tab:obstacle_factors",
+      "relationship_type": "DESCRIBES_FLOW",
+      "description": "Processing flow describes navigation to tab:obstacle_factors"
+    },
+    {
+      "source": "tab-desc:housing:obstacle-factors:impact:contractor-editing-j0001",
+      "target": "tab:obstacle_factors",
+      "relationship_type": "IMPACTS",
+      "description": "**Contractor Editing (J0001)** impacts tab:obstacle_factors"
+    },
+    {
+      "source": "tab-desc:housing:obstacle-factors:impact:joint-contractor-editing-j0002",
+      "target": "tab:obstacle_factors",
+      "relationship_type": "IMPACTS",
+      "description": "**Joint Contractor Editing (J0002)** impacts tab:obstacle_factors"
+    },
+    {
+      "source": "tab-desc:housing:obstacle-factors:impact:guarantor-editing-j0003",
+      "target": "tab:obstacle_factors",
+      "relationship_type": "IMPACTS",
+      "description": "**Guarantor Editing (J0003)** impacts tab:obstacle_factors"
+    },
+    {
+      "source": "tab-desc:housing:obstacle-factors:impact:block-deletion-j0001j0002j0003",
+      "target": "tab:obstacle_factors",
+      "relationship_type": "IMPACTS",
+      "description": "**Block Deletion (J0001/J0002/J0003)** impacts tab:obstacle_factors"
+    },
+    {
+      "source": "tab-desc:housing:obstacle-factors:impact:register-button-save-basic",
+      "target": "tab:obstacle_factors",
+      "relationship_type": "IMPACTS",
+      "description": "**Register Button (Save Basic)** impacts tab:obstacle_factors"
+    },
+    {
+      "source": "tab-desc:housing:order-info:overview",
+      "target": "tab:order_information_housing",
+      "relationship_type": "DESCRIBES",
+      "description": "Overview describes tab:order_information_housing"
+    },
+    {
+      "source": "tab-desc:housing:order-info:flow",
+      "target": "tab:order_information_housing",
+      "relationship_type": "DESCRIBES_FLOW",
+      "description": "Processing flow describes navigation to tab:order_information_housing"
+    },
+    {
+      "source": "tab-desc:housing:order-info:impact:contractor-editing-j0001",
+      "target": "tab:order_information_housing",
+      "relationship_type": "IMPACTS",
+      "description": "**Contractor Editing (J0001)** impacts tab:order_information_housing"
+    },
+    {
+      "source": "tab-desc:housing:order-info:impact:joint-contractor-editing-j0002",
+      "target": "tab:order_information_housing",
+      "relationship_type": "IMPACTS",
+      "description": "**Joint Contractor Editing (J0002)** impacts tab:order_information_housing"
+    },
+    {
+      "source": "tab-desc:housing:order-info:impact:joint-guarantor-editing-j0003",
+      "target": "tab:order_information_housing",
+      "relationship_type": "IMPACTS",
+      "description": "**Joint Guarantor Editing (J0003)** impacts tab:order_information_housing"
+    },
+    {
+      "source": "tab-desc:housing:order-info:impact:block-deletion-j0001j0002j0003",
+      "target": "tab:order_information_housing",
+      "relationship_type": "IMPACTS",
+      "description": "**Block Deletion (J0001/J0002/J0003)** impacts tab:order_information_housing"
+    },
+    {
+      "source": "tab-desc:housing:order-info:impact:register-button-basic-save",
+      "target": "tab:order_information_housing",
+      "relationship_type": "IMPACTS",
+      "description": "**Register Button (Basic Save)** impacts tab:order_information_housing"
+    },
+    {
+      "source": "tab-desc:housing:supplementary-contract-info:overview",
+      "target": "tab:supplementary_contract_info",
+      "relationship_type": "DESCRIBES",
+      "description": "Overview describes tab:supplementary_contract_info"
+    },
+    {
+      "source": "tab-desc:housing:supplementary-contract-info:flow",
+      "target": "tab:supplementary_contract_info",
+      "relationship_type": "DESCRIBES_FLOW",
+      "description": "Processing flow describes navigation to tab:supplementary_contract_info"
+    },
+    {
+      "source": "tab-desc:housing:supplementary-contract-info:impact:contractor-edit-j0001",
+      "target": "tab:supplementary_contract_info",
+      "relationship_type": "IMPACTS",
+      "description": "**Contractor Edit (J0001)** impacts tab:supplementary_contract_info"
+    },
+    {
+      "source": "tab-desc:housing:supplementary-contract-info:impact:joint-contractor-edit-j0002",
+      "target": "tab:supplementary_contract_info",
+      "relationship_type": "IMPACTS",
+      "description": "**Joint Contractor Edit (J0002)** impacts tab:supplementary_contract_info"
+    },
+    {
+      "source": "tab-desc:housing:supplementary-contract-info:impact:guarantor-edit-j0003",
+      "target": "tab:supplementary_contract_info",
+      "relationship_type": "IMPACTS",
+      "description": "**Guarantor Edit (J0003)** impacts tab:supplementary_contract_info"
+    },
+    {
+      "source": "tab-desc:housing:supplementary-contract-info:impact:block-deletion-j0001j0002j0003",
+      "target": "tab:supplementary_contract_info",
+      "relationship_type": "IMPACTS",
+      "description": "**Block Deletion (J0001/J0002/J0003)** impacts tab:supplementary_contract_info"
+    },
+    {
+      "source": "tab-desc:housing:supplementary-contract-info:impact:register-button-save-basic",
+      "target": "tab:supplementary_contract_info",
+      "relationship_type": "IMPACTS",
+      "description": "**Register Button (Save Basic)** impacts tab:supplementary_contract_info"
+    },
+    {
+      "source": "tab-desc:housing:various-expenses-&-special-terms:overview",
+      "target": "tab:various_expenses_special_terms",
+      "relationship_type": "DESCRIBES",
+      "description": "Overview describes tab:various_expenses_special_terms"
+    },
+    {
+      "source": "tab-desc:housing:various-expenses-&-special-terms:flow",
+      "target": "tab:various_expenses_special_terms",
+      "relationship_type": "DESCRIBES_FLOW",
+      "description": "Processing flow describes navigation to tab:various_expenses_special_terms"
+    },
+    {
+      "source": "tab-desc:housing:various-expenses-&-special-terms:impact:contractor-editing-j0001",
+      "target": "tab:various_expenses_special_terms",
+      "relationship_type": "IMPACTS",
+      "description": "**Contractor Editing (J0001)** impacts tab:various_expenses_special_terms"
+    },
+    {
+      "source": "tab-desc:housing:various-expenses-&-special-terms:impact:joint-contractor-editing-j0002",
+      "target": "tab:various_expenses_special_terms",
+      "relationship_type": "IMPACTS",
+      "description": "**Joint Contractor Editing (J0002)** impacts tab:various_expenses_special_terms"
+    },
+    {
+      "source": "tab-desc:housing:various-expenses-&-special-terms:impact:guarantor-editing-j0003",
+      "target": "tab:various_expenses_special_terms",
+      "relationship_type": "IMPACTS",
+      "description": "**Guarantor Editing (J0003)** impacts tab:various_expenses_special_terms"
+    },
+    {
+      "source": "tab-desc:housing:various-expenses-&-special-terms:impact:block-deletion-j0001j0002j0003",
+      "target": "tab:various_expenses_special_terms",
+      "relationship_type": "IMPACTS",
+      "description": "**Block Deletion (J0001/J0002/J0003)** impacts tab:various_expenses_special_terms"
+    },
+    {
+      "source": "tab-desc:housing:various-expenses-&-special-terms:impact:register-button-save-basic",
+      "target": "tab:various_expenses_special_terms",
+      "relationship_type": "IMPACTS",
+      "description": "**Register Button (Save Basic)** impacts tab:various_expenses_special_terms"
+    },
+    {
+      "source": "tab:basic_information_housing",
+      "target": "tab:accounting_registration",
+      "relationship_type": "AFFECTS",
+      "description": "Basic Information tab affects tab:accounting_registration"
+    },
+    {
+      "source": "tab:basic_information_housing",
+      "target": "tab:cancellation_information_housing",
+      "relationship_type": "AFFECTS",
+      "description": "Basic Information tab affects tab:cancellation_information_housing"
+    },
+    {
+      "source": "tab:basic_information_housing",
+      "target": "tab:change_information",
+      "relationship_type": "AFFECTS",
+      "description": "Basic Information tab affects tab:change_information"
+    },
+    {
+      "source": "tab:basic_information_housing",
+      "target": "tab:collection_conditions",
+      "relationship_type": "AFFECTS",
+      "description": "Basic Information tab affects tab:collection_conditions"
+    },
+    {
+      "source": "tab:basic_information_housing",
+      "target": "tab:construction_planning",
+      "relationship_type": "AFFECTS",
+      "description": "Basic Information tab affects tab:construction_planning"
+    },
+    {
+      "source": "tab:basic_information_housing",
+      "target": "tab:loan_information",
+      "relationship_type": "AFFECTS",
+      "description": "Basic Information tab affects tab:loan_information"
+    },
+    {
+      "source": "tab:basic_information_housing",
+      "target": "tab:obstacle_factors",
+      "relationship_type": "AFFECTS",
+      "description": "Basic Information tab affects tab:obstacle_factors"
+    },
+    {
+      "source": "tab:basic_information_housing",
+      "target": "tab:order_information_housing",
+      "relationship_type": "AFFECTS",
+      "description": "Basic Information tab affects tab:order_information_housing"
+    },
+    {
+      "source": "tab:basic_information_housing",
+      "target": "tab:supplementary_contract_info",
+      "relationship_type": "AFFECTS",
+      "description": "Basic Information tab affects tab:supplementary_contract_info"
+    },
+    {
+      "source": "tab:basic_information_housing",
+      "target": "tab:various_expenses_special_terms",
+      "relationship_type": "AFFECTS",
+      "description": "Basic Information tab affects tab:various_expenses_special_terms"
+    }
+  ]
+}

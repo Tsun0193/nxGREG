@@ -14,7 +14,7 @@ def main():
     neo4j_password = os.getenv("NEO4J_PASSWORD", "password")
     
     # Path to JSON directory
-    json_dir = Path("json")
+    json_dir = Path("json/housing")
     
     # Create the pipeline
     pipeline = JSONToGraphPipeline(
@@ -44,14 +44,25 @@ def main():
         # Separate files
         print(json_dir)
         # Use load_from_mixed_file for v3 format (has both entities and relationships keys)
-        pipeline.load_from_mixed_file(json_dir / "contract-list-entities.json")
-        pipeline.load_from_mixed_file(json_dir / "contract-list-ui-interaction-entities.json")
-        pipeline.load_from_mixed_file(json_dir / "contract-list-component-entities.json")     
-        pipeline.load_from_mixed_file(json_dir / "contract-list-database-entities.json")
-        pipeline.load_from_mixed_file(json_dir / "contract-list-database-relationships.json")
-        pipeline.load_from_mixed_file(json_dir / "contract-list-cross-layer-relationships.json")
+        # pipeline.load_from_mixed_file(json_dir / "contract-list-entities.json")
+        # pipeline.load_from_mixed_file(json_dir / "contract-list-ui-interaction-entities.json")
+        # pipeline.load_from_mixed_file(json_dir / "contract-list-component-entities.json")     
+        # pipeline.load_from_mixed_file(json_dir / "contract-list-database-entities.json")
+        # pipeline.load_from_mixed_file(json_dir / "contract-list-database-relationships.json")
+        # pipeline.load_from_mixed_file(json_dir / "contract-list-cross-layer-relationships.json")
 
         # pipeline.load_relationships_from_file(json_dir / "contract-list-cross-layer-relationships.json")
+        
+        # pipeline.run(wipe=True, apply_manual_relationships=True)
+        
+        files = os.listdir(json_dir)
+        print(files)
+        for f in files:
+            # file_path = json_dir / f
+            # print(file_path)
+            pipeline.load_from_mixed_file(json_dir / f)
+
+            
         
         # Then load to Neo4j
         pipeline.load_to_neo4j(wipe=True)

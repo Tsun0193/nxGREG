@@ -1,0 +1,1 @@
+python -m ingest.json_to_graph

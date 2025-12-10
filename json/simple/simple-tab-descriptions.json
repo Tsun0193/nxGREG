@@ -1,0 +1,494 @@
+{
+  "module": "simple",
+  "total_files": 3,
+  "total_entities": 25,
+  "total_relationships": 28,
+  "entities": [
+    {
+      "id": "tab-desc:simple:accounting-info-simple-contract:overview",
+      "type": "TabOverview",
+      "name": "Tab Accounting (Accounting Information)",
+      "module": "simple",
+      "tab_name": "accounting-info-simple-contract",
+      "main_function": "Management of accounting/financial information for simplified contracts",
+      "contract_type": "Simplified Contract",
+      "document_purpose": "Analysis of how Tab Basic Information (Basic Information) affects Tab Accounting",
+      "analysis_scope": "When basic information is changed in Tab Basic Information → Direct impact on Tab Accounting data and options",
+      "source_file": "simple/accounting-info-simple-contract/description_accounting_init_screen-en.md",
+      "section_title": "Overview"
+    },
+    {
+      "id": "tab-desc:simple:accounting-info-simple-contract:flow",
+      "type": "TabProcessingFlow",
+      "name": "Tab Click Processing from Basic Information to Accounting",
+      "module": "simple",
+      "tab_name": "accounting-info-simple-contract",
+      "source_file": "simple/accounting-info-simple-contract/description_accounting_init_screen-en.md",
+      "section_title": "Tab Click Processing from Basic Information to Accounting",
+      "mermaid_diagram": "flowchart TD\n    A[User clicks Tab Accounting] --> B[Retrieve sinkiSakuseiKbn from basic information]\n    B --> C{sinkiSakuseiKbn<br/>Tab switching allowed?}\n    C -->|No| D[Tab switching not allowed]\n    C -->|Yes| E[Retrieve KeiyakuStatusCd and hensyuMode from basic information]\n    E --> F{Status analysis}\n    F --> G[KeiyakuStatusCd = 00/99<br/>hensyuMode = 0]\n    F --> H[KeiyakuStatusCd ≠ 00/99<br/>hensyuMode = 0]\n    F --> I[hensyuMode = 1]\n    G --> J[keiriInitAction<br/>keiyakuNewtmp/keiri.jsp]\n    H --> K[keiriLockInitAction<br/>keiyakuLock/keiri.jsp]\n    I --> L[keiriHenkouInitAction<br/>keiyakuHenkou/keiri.jsp]\n    \n    style A fill:#e1f5fe\n    style D fill:#ffcdd2\n    style J fill:#f3e5f5\n    style K fill:#f3e5f5\n    style L fill:#f3e5f5"
+    },
+    {
+      "id": "tab-desc:simple:accounting-info-simple-contract:impact:contract-information-update",
+      "type": "TabImpact",
+      "name": "**Contract Information Update**",
+      "module": "simple",
+      "tab_name": "accounting-info-simple-contract",
+      "source_file": "simple/accounting-info-simple-contract/description_accounting_init_screen-en.md",
+      "section_title": "Impact from Tab Basic Information",
+      "change_type": "**Contract Information Update**",
+      "database_impact": "Updated in database with new information",
+      "action_impact": "KeiriInitAction retrieves new data from database",
+      "ui_impact": "Displays new contract number in Tab Accounting, updates contract classification information"
+    },
+    {
+      "id": "tab-desc:simple:accounting-info-simple-contract:impact:contract-type-change",
+      "type": "TabImpact",
+      "name": "**Contract Type Change**",
+      "module": "simple",
+      "tab_name": "accounting-info-simple-contract",
+      "source_file": "simple/accounting-info-simple-contract/description_accounting_init_screen-en.md",
+      "section_title": "Impact from Tab Basic Information",
+      "change_type": "**Contract Type Change**",
+      "database_impact": "Updated in database with new contract type",
+      "action_impact": "KeiriInitAction retrieves new data from database",
+      "ui_impact": "Changes product classification list according to contract type, updates dropdown options"
+    },
+    {
+      "id": "tab-desc:simple:accounting-info-simple-contract:impact:case-information-update",
+      "type": "TabImpact",
+      "name": "**Case Information Update**",
+      "module": "simple",
+      "tab_name": "accounting-info-simple-contract",
+      "source_file": "simple/accounting-info-simple-contract/description_accounting_init_screen-en.md",
+      "section_title": "Impact from Tab Basic Information",
+      "change_type": "**Case Information Update**",
+      "database_impact": "Updated in database with new case information",
+      "action_impact": "KeiriInitAction retrieves new data from database",
+      "ui_impact": "Displays case name in Tab Accounting, case classification affects tax options"
+    },
+    {
+      "id": "tab-desc:simple:accounting-info-simple-contract:impact:office-change",
+      "type": "TabImpact",
+      "name": "**Office Change**",
+      "module": "simple",
+      "tab_name": "accounting-info-simple-contract",
+      "source_file": "simple/accounting-info-simple-contract/description_accounting_init_screen-en.md",
+      "section_title": "Impact from Tab Basic Information",
+      "change_type": "**Office Change**",
+      "database_impact": "Updated in database with new office",
+      "action_impact": "KeiriInitAction retrieves new data from database",
+      "ui_impact": "Changes contract and product classification lists according to office, updates dropdown options"
+    },
+    {
+      "id": "tab-desc:simple:accounting-info-simple-contract:impact:customer-management",
+      "type": "TabImpact",
+      "name": "**Customer Management**",
+      "module": "simple",
+      "tab_name": "accounting-info-simple-contract",
+      "source_file": "simple/accounting-info-simple-contract/description_accounting_init_screen-en.md",
+      "section_title": "Impact from Tab Basic Information",
+      "change_type": "**Customer Management**",
+      "database_impact": "Updated in database with new customer information",
+      "action_impact": "KeiriInitAction retrieves new data from database",
+      "ui_impact": "Displays customer information in Tab Accounting, may affect tax calculations and discounts"
+    },
+    {
+      "id": "tab-desc:simple:accounting-info-simple-contract:impact:important-date-update",
+      "type": "TabImpact",
+      "name": "**Important Date Update**",
+      "module": "simple",
+      "tab_name": "accounting-info-simple-contract",
+      "source_file": "simple/accounting-info-simple-contract/description_accounting_init_screen-en.md",
+      "section_title": "Impact from Tab Basic Information",
+      "change_type": "**Important Date Update**",
+      "database_impact": "Updated in database with new dates",
+      "action_impact": "KeiriInitAction retrieves new data from database",
+      "ui_impact": "Contract conclusion date affects tax calculations, accounting date affects financial reporting"
+    },
+    {
+      "id": "tab-desc:simple:cancel-info-simple-contract:overview",
+      "type": "TabOverview",
+      "name": "Tab Cancellation (Cancellation Information)",
+      "module": "simple",
+      "tab_name": "cancel-info-simple-contract",
+      "main_function": "Management of information related to cancellation and changes of simplified contracts",
+      "contract_type": "Simplified Contract",
+      "document_purpose": "Analyze the impact of Tab Basic Information (Basic Information) on Tab Cancellation",
+      "analysis_scope": "When changing basic information in Tab Basic Information → Direct impact on Tab Cancellation data and options",
+      "source_file": "simple/cancel-info-simple-contract/description_cancel_init_screen-en.md",
+      "section_title": "Overview"
+    },
+    {
+      "id": "tab-desc:simple:cancel-info-simple-contract:flow",
+      "type": "TabProcessingFlow",
+      "name": "Tab Click Processing from Basic Information to Cancellation",
+      "module": "simple",
+      "tab_name": "cancel-info-simple-contract",
+      "source_file": "simple/cancel-info-simple-contract/description_cancel_init_screen-en.md",
+      "section_title": "Tab Click Processing from Basic Information to Cancellation",
+      "mermaid_diagram": "flowchart TD\n    A[User clicks Tab Cancellation] --> B[Get sinkiSakuseiKbn from Basic Information]\n    B --> C{sinkiSakuseiKbn<br/>Tab switching allowed?}\n    C -->|No| D[Tab switching not allowed]\n    C -->|Yes| E[Get KeiyakuStatusCd and hensyuMode from Basic Information]\n    E --> F{Status Analysis}\n    F --> G[KeiyakuStatusCd = 00/99<br/>hensyuMode = 0]\n    F --> H[KeiyakuStatusCd ≠ 00/99<br/>hensyuMode = 0]\n    F --> I[hensyuMode = 1]\n    G --> J[canceljyouhouInitAction<br/>keiyakuNewtmp/canceljyouhou.jsp]\n    H --> K[canceljyouhouLockInitAction<br/>keiyakuLock/canceljyouhou.jsp]\n    I --> L[canceljyouhouHenkouInitAction<br/>keiyakuHenkou/canceljyouhou.jsp]\n    \n    style A fill:#e1f5fe\n    style D fill:#ffcdd2\n    style J fill:#f3e5f5\n    style K fill:#f3e5f5\n    style L fill:#f3e5f5"
+    },
+    {
+      "id": "tab-desc:simple:cancel-info-simple-contract:impact:contract-information-update",
+      "type": "TabImpact",
+      "name": "**Contract Information Update**",
+      "module": "simple",
+      "tab_name": "cancel-info-simple-contract",
+      "source_file": "simple/cancel-info-simple-contract/description_cancel_init_screen-en.md",
+      "section_title": "Impact from Tab Basic Information",
+      "change_type": "**Contract Information Update**",
+      "database_impact": "Database updated with new information",
+      "action_impact": "CanceljyouhouInitAction retrieves new data from database",
+      "ui_impact": "Displays new contract information on Tab Cancellation, updates contract number and basic information"
+    },
+    {
+      "id": "tab-desc:simple:cancel-info-simple-contract:impact:contract-type-change",
+      "type": "TabImpact",
+      "name": "**Contract Type Change**",
+      "module": "simple",
+      "tab_name": "cancel-info-simple-contract",
+      "source_file": "simple/cancel-info-simple-contract/description_cancel_init_screen-en.md",
+      "section_title": "Impact from Tab Basic Information",
+      "change_type": "**Contract Type Change**",
+      "database_impact": "Database updated with new contract type",
+      "action_impact": "CanceljyouhouInitAction retrieves new data from database",
+      "ui_impact": "Changes cancellation reason list according to contract type, updates dropdown options"
+    },
+    {
+      "id": "tab-desc:simple:cancel-info-simple-contract:impact:case-information-update",
+      "type": "TabImpact",
+      "name": "**Case Information Update**",
+      "module": "simple",
+      "tab_name": "cancel-info-simple-contract",
+      "source_file": "simple/cancel-info-simple-contract/description_cancel_init_screen-en.md",
+      "section_title": "Impact from Tab Basic Information",
+      "change_type": "**Case Information Update**",
+      "database_impact": "Database updated with new case information",
+      "action_impact": "CanceljyouhouInitAction retrieves new data from database",
+      "ui_impact": "Displays case name on Tab Cancellation, updates construction address"
+    },
+    {
+      "id": "tab-desc:simple:cancel-info-simple-contract:impact:branch-office-change",
+      "type": "TabImpact",
+      "name": "**Branch Office Change**",
+      "module": "simple",
+      "tab_name": "cancel-info-simple-contract",
+      "source_file": "simple/cancel-info-simple-contract/description_cancel_init_screen-en.md",
+      "section_title": "Impact from Tab Basic Information",
+      "change_type": "**Branch Office Change**",
+      "database_impact": "Database updated with new branch office",
+      "action_impact": "CanceljyouhouInitAction retrieves new data from database",
+      "ui_impact": "Changes manufacturer list according to branch office, updates dropdown options"
+    },
+    {
+      "id": "tab-desc:simple:cancel-info-simple-contract:impact:important-date-update",
+      "type": "TabImpact",
+      "name": "**Important Date Update**",
+      "module": "simple",
+      "tab_name": "cancel-info-simple-contract",
+      "source_file": "simple/cancel-info-simple-contract/description_cancel_init_screen-en.md",
+      "section_title": "Impact from Tab Basic Information",
+      "change_type": "**Important Date Update**",
+      "database_impact": "Database updated with new dates",
+      "action_impact": "CanceljyouhouInitAction retrieves new data from database",
+      "ui_impact": "Contract conclusion date affects cancellation information, updates accounting date"
+    },
+    {
+      "id": "tab-desc:simple:cancel-info-simple-contract:impact:customer-management",
+      "type": "TabImpact",
+      "name": "**Customer Management**",
+      "module": "simple",
+      "tab_name": "cancel-info-simple-contract",
+      "source_file": "simple/cancel-info-simple-contract/description_cancel_init_screen-en.md",
+      "section_title": "Impact from Tab Basic Information",
+      "change_type": "**Customer Management**",
+      "database_impact": "Database updated with new customer information",
+      "action_impact": "CanceljyouhouInitAction retrieves new data from database",
+      "ui_impact": "Displays customer information on Tab Cancellation, updates form fields"
+    },
+    {
+      "id": "tab-desc:simple:order-info-simple-contract:overview",
+      "type": "TabOverview",
+      "name": "Tab Order (Order Information)",
+      "module": "simple",
+      "tab_name": "order-info-simple-contract",
+      "main_function": "Simple Contract Order/Purchase Information Management",
+      "contract_type": "Simple Contract",
+      "document_purpose": "Analyze how Tab Basic Information (Basic Information) affects Tab Order",
+      "analysis_scope": "When Basic Information is changed in Tab Basic Information → Direct impact on Tab Order data and options",
+      "source_file": "simple/order-info-simple-contract/description_jyutyu_init_screen-en.md",
+      "section_title": "Overview"
+    },
+    {
+      "id": "tab-desc:simple:order-info-simple-contract:flow",
+      "type": "TabProcessingFlow",
+      "name": "Tab Click Processing from Basic Information to Order",
+      "module": "simple",
+      "tab_name": "order-info-simple-contract",
+      "source_file": "simple/order-info-simple-contract/description_jyutyu_init_screen-en.md",
+      "section_title": "Tab Click Processing from Basic Information to Order",
+      "mermaid_diagram": "flowchart TD\n    A[User clicks Tab Order] --> B[Get sinkiSakuseiKbn from Basic Information]\n    B --> C{sinkiSakuseiKbn<br/>Tab switch allowed?}\n    C -->|No| D[Tab switching not permitted]\n    C -->|Yes| E[Get KeiyakuStatusCd and hensyuMode from Basic Information]\n    E --> F{Status Analysis}\n    F --> G[KeiyakuStatusCd = 00/99<br/>hensyuMode = 0]\n    F --> H[KeiyakuStatusCd ≠ 00/99<br/>hensyuMode = 0]\n    F --> I[hensyuMode = 1]\n    G --> J[jyutyuInitAction<br/>keiyakuNewtmp/jyutyu.jsp]\n    H --> K[jyutyuLockInitAction<br/>keiyakuLock/jyutyu.jsp]\n    I --> L[jyutyuHenkouInitAction<br/>keiyakuHenkou/jyutyu.jsp]\n    \n    style A fill:#e1f5fe\n    style D fill:#ffcdd2\n    style J fill:#f3e5f5\n    style K fill:#f3e5f5\n    style L fill:#f3e5f5"
+    },
+    {
+      "id": "tab-desc:simple:order-info-simple-contract:impact:contract-information-update",
+      "type": "TabImpact",
+      "name": "**Contract Information Update**",
+      "module": "simple",
+      "tab_name": "order-info-simple-contract",
+      "source_file": "simple/order-info-simple-contract/description_jyutyu_init_screen-en.md",
+      "section_title": "Impact from Tab Basic Information",
+      "change_type": "**Contract Information Update**",
+      "database_impact": "Database updated with new information",
+      "action_impact": "JyutyuInitAction retrieves new data from database",
+      "ui_impact": "Tab Order displays new customer information, project information updated"
+    },
+    {
+      "id": "tab-desc:simple:order-info-simple-contract:impact:customer-management",
+      "type": "TabImpact",
+      "name": "**Customer Management**",
+      "module": "simple",
+      "tab_name": "order-info-simple-contract",
+      "source_file": "simple/order-info-simple-contract/description_jyutyu_init_screen-en.md",
+      "section_title": "Impact from Tab Basic Information",
+      "change_type": "**Customer Management**",
+      "database_impact": "Database updated with new customer information",
+      "action_impact": "JyutyuInitAction retrieves new data from database",
+      "ui_impact": "Tab Order displays new/changed customer information, form fields updated with new information"
+    },
+    {
+      "id": "tab-desc:simple:order-info-simple-contract:impact:customer-deletion",
+      "type": "TabImpact",
+      "name": "**Customer Deletion**",
+      "module": "simple",
+      "tab_name": "order-info-simple-contract",
+      "source_file": "simple/order-info-simple-contract/description_jyutyu_init_screen-en.md",
+      "section_title": "Impact from Tab Basic Information",
+      "change_type": "**Customer Deletion**",
+      "database_impact": "Database updated (customer deleted)",
+      "action_impact": "JyutyuInitAction retrieves new data from database",
+      "ui_impact": "Deleted customer not displayed in Tab Order, related form fields cleared"
+    },
+    {
+      "id": "tab-desc:simple:order-info-simple-contract:impact:mainsub-customer-setting",
+      "type": "TabImpact",
+      "name": "**Main/Sub Customer Setting**",
+      "module": "simple",
+      "tab_name": "order-info-simple-contract",
+      "source_file": "simple/order-info-simple-contract/description_jyutyu_init_screen-en.md",
+      "section_title": "Impact from Tab Basic Information",
+      "change_type": "**Main/Sub Customer Setting**",
+      "database_impact": "Database updated with new classification",
+      "action_impact": "JyutyuInitAction retrieves new data from database",
+      "ui_impact": "Tab Order displays correct main/sub customers, display order changed according to new classification"
+    },
+    {
+      "id": "tab-desc:simple:order-info-simple-contract:impact:project-information-update",
+      "type": "TabImpact",
+      "name": "**Project Information Update**",
+      "module": "simple",
+      "tab_name": "order-info-simple-contract",
+      "source_file": "simple/order-info-simple-contract/description_jyutyu_init_screen-en.md",
+      "section_title": "Impact from Tab Basic Information",
+      "change_type": "**Project Information Update**",
+      "database_impact": "Database updated with new project information",
+      "action_impact": "JyutyuInitAction retrieves new data from database",
+      "ui_impact": "Tab Order displays project name, construction address updated"
+    },
+    {
+      "id": "tab-desc:simple:order-info-simple-contract:impact:sales-office-change",
+      "type": "TabImpact",
+      "name": "**Sales Office Change**",
+      "module": "simple",
+      "tab_name": "order-info-simple-contract",
+      "source_file": "simple/order-info-simple-contract/description_jyutyu_init_screen-en.md",
+      "section_title": "Impact from Tab Basic Information",
+      "change_type": "**Sales Office Change**",
+      "database_impact": "Database updated with new sales office",
+      "action_impact": "JyutyuInitAction retrieves new data from database",
+      "ui_impact": "System checks project integration data, Tab Order displays new sales office information"
+    },
+    {
+      "id": "tab-desc:simple:order-info-simple-contract:impact:important-date-update",
+      "type": "TabImpact",
+      "name": "**Important Date Update**",
+      "module": "simple",
+      "tab_name": "order-info-simple-contract",
+      "source_file": "simple/order-info-simple-contract/description_jyutyu_init_screen-en.md",
+      "section_title": "Impact from Tab Basic Information",
+      "change_type": "**Important Date Update**",
+      "database_impact": "Database updated with new dates",
+      "action_impact": "JyutyuInitAction retrieves new data from database",
+      "ui_impact": "Contract signing date affects order, order date updated"
+    }
+  ],
+  "relationships": [
+    {
+      "source": "tab-desc:simple:accounting-info-simple-contract:overview",
+      "target": "tab:accounting_information",
+      "relationship_type": "DESCRIBES",
+      "description": "Overview describes tab:accounting_information"
+    },
+    {
+      "source": "tab-desc:simple:accounting-info-simple-contract:flow",
+      "target": "tab:accounting_information",
+      "relationship_type": "DESCRIBES_FLOW",
+      "description": "Processing flow describes navigation to tab:accounting_information"
+    },
+    {
+      "source": "tab-desc:simple:accounting-info-simple-contract:impact:contract-information-update",
+      "target": "tab:accounting_information",
+      "relationship_type": "IMPACTS",
+      "description": "**Contract Information Update** impacts tab:accounting_information"
+    },
+    {
+      "source": "tab-desc:simple:accounting-info-simple-contract:impact:contract-type-change",
+      "target": "tab:accounting_information",
+      "relationship_type": "IMPACTS",
+      "description": "**Contract Type Change** impacts tab:accounting_information"
+    },
+    {
+      "source": "tab-desc:simple:accounting-info-simple-contract:impact:case-information-update",
+      "target": "tab:accounting_information",
+      "relationship_type": "IMPACTS",
+      "description": "**Case Information Update** impacts tab:accounting_information"
+    },
+    {
+      "source": "tab-desc:simple:accounting-info-simple-contract:impact:office-change",
+      "target": "tab:accounting_information",
+      "relationship_type": "IMPACTS",
+      "description": "**Office Change** impacts tab:accounting_information"
+    },
+    {
+      "source": "tab-desc:simple:accounting-info-simple-contract:impact:customer-management",
+      "target": "tab:accounting_information",
+      "relationship_type": "IMPACTS",
+      "description": "**Customer Management** impacts tab:accounting_information"
+    },
+    {
+      "source": "tab-desc:simple:accounting-info-simple-contract:impact:important-date-update",
+      "target": "tab:accounting_information",
+      "relationship_type": "IMPACTS",
+      "description": "**Important Date Update** impacts tab:accounting_information"
+    },
+    {
+      "source": "tab-desc:simple:cancel-info-simple-contract:overview",
+      "target": "tab:cancellation_information",
+      "relationship_type": "DESCRIBES",
+      "description": "Overview describes tab:cancellation_information"
+    },
+    {
+      "source": "tab-desc:simple:cancel-info-simple-contract:flow",
+      "target": "tab:cancellation_information",
+      "relationship_type": "DESCRIBES_FLOW",
+      "description": "Processing flow describes navigation to tab:cancellation_information"
+    },
+    {
+      "source": "tab-desc:simple:cancel-info-simple-contract:impact:contract-information-update",
+      "target": "tab:cancellation_information",
+      "relationship_type": "IMPACTS",
+      "description": "**Contract Information Update** impacts tab:cancellation_information"
+    },
+    {
+      "source": "tab-desc:simple:cancel-info-simple-contract:impact:contract-type-change",
+      "target": "tab:cancellation_information",
+      "relationship_type": "IMPACTS",
+      "description": "**Contract Type Change** impacts tab:cancellation_information"
+    },
+    {
+      "source": "tab-desc:simple:cancel-info-simple-contract:impact:case-information-update",
+      "target": "tab:cancellation_information",
+      "relationship_type": "IMPACTS",
+      "description": "**Case Information Update** impacts tab:cancellation_information"
+    },
+    {
+      "source": "tab-desc:simple:cancel-info-simple-contract:impact:branch-office-change",
+      "target": "tab:cancellation_information",
+      "relationship_type": "IMPACTS",
+      "description": "**Branch Office Change** impacts tab:cancellation_information"
+    },
+    {
+      "source": "tab-desc:simple:cancel-info-simple-contract:impact:important-date-update",
+      "target": "tab:cancellation_information",
+      "relationship_type": "IMPACTS",
+      "description": "**Important Date Update** impacts tab:cancellation_information"
+    },
+    {
+      "source": "tab-desc:simple:cancel-info-simple-contract:impact:customer-management",
+      "target": "tab:cancellation_information",
+      "relationship_type": "IMPACTS",
+      "description": "**Customer Management** impacts tab:cancellation_information"
+    },
+    {
+      "source": "tab-desc:simple:order-info-simple-contract:overview",
+      "target": "tab:order_information",
+      "relationship_type": "DESCRIBES",
+      "description": "Overview describes tab:order_information"
+    },
+    {
+      "source": "tab-desc:simple:order-info-simple-contract:flow",
+      "target": "tab:order_information",
+      "relationship_type": "DESCRIBES_FLOW",
+      "description": "Processing flow describes navigation to tab:order_information"
+    },
+    {
+      "source": "tab-desc:simple:order-info-simple-contract:impact:contract-information-update",
+      "target": "tab:order_information",
+      "relationship_type": "IMPACTS",
+      "description": "**Contract Information Update** impacts tab:order_information"
+    },
+    {
+      "source": "tab-desc:simple:order-info-simple-contract:impact:customer-management",
+      "target": "tab:order_information",
+      "relationship_type": "IMPACTS",
+      "description": "**Customer Management** impacts tab:order_information"
+    },
+    {
+      "source": "tab-desc:simple:order-info-simple-contract:impact:customer-deletion",
+      "target": "tab:order_information",
+      "relationship_type": "IMPACTS",
+      "description": "**Customer Deletion** impacts tab:order_information"
+    },
+    {
+      "source": "tab-desc:simple:order-info-simple-contract:impact:mainsub-customer-setting",
+      "target": "tab:order_information",
+      "relationship_type": "IMPACTS",
+      "description": "**Main/Sub Customer Setting** impacts tab:order_information"
+    },
+    {
+      "source": "tab-desc:simple:order-info-simple-contract:impact:project-information-update",
+      "target": "tab:order_information",
+      "relationship_type": "IMPACTS",
+      "description": "**Project Information Update** impacts tab:order_information"
+    },
+    {
+      "source": "tab-desc:simple:order-info-simple-contract:impact:sales-office-change",
+      "target": "tab:order_information",
+      "relationship_type": "IMPACTS",
+      "description": "**Sales Office Change** impacts tab:order_information"
+    },
+    {
+      "source": "tab-desc:simple:order-info-simple-contract:impact:important-date-update",
+      "target": "tab:order_information",
+      "relationship_type": "IMPACTS",
+      "description": "**Important Date Update** impacts tab:order_information"
+    },
+    {
+      "source": "tab:basic_information",
+      "target": "tab:accounting_information",
+      "relationship_type": "AFFECTS",
+      "description": "Basic Information tab affects tab:accounting_information"
+    },
+    {
+      "source": "tab:basic_information",
+      "target": "tab:cancellation_information",
+      "relationship_type": "AFFECTS",
+      "description": "Basic Information tab affects tab:cancellation_information"
+    },
+    {
+      "source": "tab:basic_information",
+      "target": "tab:order_information",
+      "relationship_type": "AFFECTS",
+      "description": "Basic Information tab affects tab:order_information"
+    }
+  ]
+}
