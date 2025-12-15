@@ -22,6 +22,7 @@ def main():
         neo4j_uri=neo4j_uri,
         neo4j_user=neo4j_user,
         neo4j_password=neo4j_password,
+        use_deduplicator=True
     )
     
     try:
@@ -62,7 +63,9 @@ def main():
             # print(file_path)
             pipeline.load_from_mixed_file(json_dir / f)
 
-            
+        # Finalize deduplication before loading to Neo4j
+        if pipeline.use_deduplicator:
+            pipeline._finalize_deduplication()
         
         # Then load to Neo4j
         pipeline.load_to_neo4j(wipe=True)

@@ -6,7 +6,7 @@
   "entities": [
     {
       "id": "tab-desc:simple:accounting-info-simple-contract:overview",
-      "type": "TabOverview",
+      "type": "tab_overview",
       "name": "Tab Accounting (Accounting Information)",
       "module": "simple",
       "tab_name": "accounting-info-simple-contract",
@@ -19,7 +19,7 @@
     },
     {
       "id": "tab-desc:simple:accounting-info-simple-contract:flow",
-      "type": "TabProcessingFlow",
+      "type": "tab_processing_flow",
       "name": "Tab Click Processing from Basic Information to Accounting",
       "module": "simple",
       "tab_name": "accounting-info-simple-contract",
@@ -29,7 +29,7 @@
     },
     {
       "id": "tab-desc:simple:accounting-info-simple-contract:impact:contract-information-update",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Contract Information Update**",
       "module": "simple",
       "tab_name": "accounting-info-simple-contract",
@@ -42,7 +42,7 @@
     },
     {
       "id": "tab-desc:simple:accounting-info-simple-contract:impact:contract-type-change",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Contract Type Change**",
       "module": "simple",
       "tab_name": "accounting-info-simple-contract",
@@ -55,7 +55,7 @@
     },
     {
       "id": "tab-desc:simple:accounting-info-simple-contract:impact:case-information-update",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Case Information Update**",
       "module": "simple",
       "tab_name": "accounting-info-simple-contract",
@@ -68,7 +68,7 @@
     },
     {
       "id": "tab-desc:simple:accounting-info-simple-contract:impact:office-change",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Office Change**",
       "module": "simple",
       "tab_name": "accounting-info-simple-contract",
@@ -81,7 +81,7 @@
     },
     {
       "id": "tab-desc:simple:accounting-info-simple-contract:impact:customer-management",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Customer Management**",
       "module": "simple",
       "tab_name": "accounting-info-simple-contract",
@@ -94,7 +94,7 @@
     },
     {
       "id": "tab-desc:simple:accounting-info-simple-contract:impact:important-date-update",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Important Date Update**",
       "module": "simple",
       "tab_name": "accounting-info-simple-contract",
@@ -107,7 +107,7 @@
     },
     {
       "id": "tab-desc:simple:cancel-info-simple-contract:overview",
-      "type": "TabOverview",
+      "type": "tab_overview",
       "name": "Tab Cancellation (Cancellation Information)",
       "module": "simple",
       "tab_name": "cancel-info-simple-contract",
@@ -120,7 +120,7 @@
     },
     {
       "id": "tab-desc:simple:cancel-info-simple-contract:flow",
-      "type": "TabProcessingFlow",
+      "type": "tab_processing_flow",
       "name": "Tab Click Processing from Basic Information to Cancellation",
       "module": "simple",
       "tab_name": "cancel-info-simple-contract",
@@ -130,7 +130,7 @@
     },
     {
       "id": "tab-desc:simple:cancel-info-simple-contract:impact:contract-information-update",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Contract Information Update**",
       "module": "simple",
       "tab_name": "cancel-info-simple-contract",
@@ -143,7 +143,7 @@
     },
     {
       "id": "tab-desc:simple:cancel-info-simple-contract:impact:contract-type-change",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Contract Type Change**",
       "module": "simple",
       "tab_name": "cancel-info-simple-contract",
@@ -156,7 +156,7 @@
     },
     {
       "id": "tab-desc:simple:cancel-info-simple-contract:impact:case-information-update",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Case Information Update**",
       "module": "simple",
       "tab_name": "cancel-info-simple-contract",
@@ -169,7 +169,7 @@
     },
     {
       "id": "tab-desc:simple:cancel-info-simple-contract:impact:branch-office-change",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Branch Office Change**",
       "module": "simple",
       "tab_name": "cancel-info-simple-contract",
@@ -182,7 +182,7 @@
     },
     {
       "id": "tab-desc:simple:cancel-info-simple-contract:impact:important-date-update",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Important Date Update**",
       "module": "simple",
       "tab_name": "cancel-info-simple-contract",
@@ -195,7 +195,7 @@
     },
     {
       "id": "tab-desc:simple:cancel-info-simple-contract:impact:customer-management",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Customer Management**",
       "module": "simple",
       "tab_name": "cancel-info-simple-contract",
@@ -208,7 +208,7 @@
     },
     {
       "id": "tab-desc:simple:order-info-simple-contract:overview",
-      "type": "TabOverview",
+      "type": "tab_overview",
       "name": "Tab Order (Order Information)",
       "module": "simple",
       "tab_name": "order-info-simple-contract",
@@ -221,7 +221,7 @@
     },
     {
       "id": "tab-desc:simple:order-info-simple-contract:flow",
-      "type": "TabProcessingFlow",
+      "type": "tab_processing_flow",
       "name": "Tab Click Processing from Basic Information to Order",
       "module": "simple",
       "tab_name": "order-info-simple-contract",
@@ -231,7 +231,7 @@
     },
     {
       "id": "tab-desc:simple:order-info-simple-contract:impact:contract-information-update",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Contract Information Update**",
       "module": "simple",
       "tab_name": "order-info-simple-contract",
@@ -244,7 +244,7 @@
     },
     {
       "id": "tab-desc:simple:order-info-simple-contract:impact:customer-management",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Customer Management**",
       "module": "simple",
       "tab_name": "order-info-simple-contract",
@@ -257,7 +257,7 @@
     },
     {
       "id": "tab-desc:simple:order-info-simple-contract:impact:customer-deletion",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Customer Deletion**",
       "module": "simple",
       "tab_name": "order-info-simple-contract",
@@ -270,7 +270,7 @@
     },
     {
       "id": "tab-desc:simple:order-info-simple-contract:impact:mainsub-customer-setting",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Main/Sub Customer Setting**",
       "module": "simple",
       "tab_name": "order-info-simple-contract",
@@ -283,7 +283,7 @@
     },
     {
       "id": "tab-desc:simple:order-info-simple-contract:impact:project-information-update",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Project Information Update**",
       "module": "simple",
       "tab_name": "order-info-simple-contract",
@@ -296,7 +296,7 @@
     },
     {
       "id": "tab-desc:simple:order-info-simple-contract:impact:sales-office-change",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Sales Office Change**",
       "module": "simple",
       "tab_name": "order-info-simple-contract",
@@ -309,7 +309,7 @@
     },
     {
       "id": "tab-desc:simple:order-info-simple-contract:impact:important-date-update",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Important Date Update**",
       "module": "simple",
       "tab_name": "order-info-simple-contract",

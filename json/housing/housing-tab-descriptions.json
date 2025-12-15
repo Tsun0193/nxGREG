@@ -6,7 +6,7 @@
   "entities": [
     {
       "id": "tab-desc:housing:accounting-registration:overview",
-      "type": "TabOverview",
+      "type": "tab_overview",
       "name": "Accounting Tab (Accounting Registration)",
       "module": "housing",
       "tab_name": "accounting-registration",
@@ -19,7 +19,7 @@
     },
     {
       "id": "tab-desc:housing:accounting-registration:flow",
-      "type": "TabProcessingFlow",
+      "type": "tab_processing_flow",
       "name": "Tab Click Processing from Basic to Accounting",
       "module": "housing",
       "tab_name": "accounting-registration",
@@ -29,7 +29,7 @@
     },
     {
       "id": "tab-desc:housing:accounting-registration:data-display",
-      "type": "TabDataDisplay",
+      "type": "tab_data_display",
       "name": "Data displayed in the Accounting Tab:",
       "module": "housing",
       "tab_name": "accounting-registration",
@@ -44,7 +44,7 @@
     },
     {
       "id": "tab-desc:housing:accounting-registration:impact:contractor-editing-j0001",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Contractor Editing (J0001)**",
       "module": "housing",
       "tab_name": "accounting-registration",
@@ -57,7 +57,7 @@
     },
     {
       "id": "tab-desc:housing:accounting-registration:impact:joint-contractor-editing-j0002",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Joint Contractor Editing (J0002)**",
       "module": "housing",
       "tab_name": "accounting-registration",
@@ -70,7 +70,7 @@
     },
     {
       "id": "tab-desc:housing:accounting-registration:impact:guarantor-editing-j0003",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Guarantor Editing (J0003)**",
       "module": "housing",
       "tab_name": "accounting-registration",
@@ -83,7 +83,7 @@
     },
     {
       "id": "tab-desc:housing:accounting-registration:impact:block-deletion-j0001j0002j0003",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Block Deletion (J0001/J0002/J0003)**",
       "module": "housing",
       "tab_name": "accounting-registration",
@@ -96,7 +96,7 @@
     },
     {
       "id": "tab-desc:housing:accounting-registration:impact:registration-button-saving-basic",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Registration Button (Saving Basic)**",
       "module": "housing",
       "tab_name": "accounting-registration",
@@ -109,7 +109,7 @@
     },
     {
       "id": "tab-desc:housing:cancellation-info:overview",
-      "type": "TabOverview",
+      "type": "tab_overview",
       "name": "Tab Cancellation Information (Cancellation Information)",
       "module": "housing",
       "tab_name": "cancellation-info",
@@ -122,7 +122,7 @@
     },
     {
       "id": "tab-desc:housing:cancellation-info:flow",
-      "type": "TabProcessingFlow",
+      "type": "tab_processing_flow",
       "name": "Tab Click Processing from Basic to Cancellation Information",
       "module": "housing",
       "tab_name": "cancellation-info",
@@ -132,7 +132,7 @@
     },
     {
       "id": "tab-desc:housing:cancellation-info:data-display",
-      "type": "TabDataDisplay",
+      "type": "tab_data_display",
       "name": "Data displayed in the Cancellation Information tab:",
       "module": "housing",
       "tab_name": "cancellation-info",
@@ -151,7 +151,7 @@
     },
     {
       "id": "tab-desc:housing:cancellation-info:impact:contractor-editing-j0001",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Contractor Editing (J0001)**",
       "module": "housing",
       "tab_name": "cancellation-info",
@@ -164,7 +164,7 @@
     },
     {
       "id": "tab-desc:housing:cancellation-info:impact:co-contractor-editing-j0002",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Co-contractor Editing (J0002)**",
       "module": "housing",
       "tab_name": "cancellation-info",
@@ -177,7 +177,7 @@
     },
     {
       "id": "tab-desc:housing:cancellation-info:impact:guarantor-editing-j0003",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Guarantor Editing (J0003)**",
       "module": "housing",
       "tab_name": "cancellation-info",
@@ -190,7 +190,7 @@
     },
     {
       "id": "tab-desc:housing:cancellation-info:impact:block-deletion-j0001j0002j0003",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Block Deletion (J0001/J0002/J0003)**",
       "module": "housing",
       "tab_name": "cancellation-info",
@@ -203,7 +203,7 @@
     },
     {
       "id": "tab-desc:housing:cancellation-info:impact:register-button-basic-save",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Register Button (Basic save)**",
       "module": "housing",
       "tab_name": "cancellation-info",
@@ -216,7 +216,7 @@
     },
     {
       "id": "tab-desc:housing:change-info:overview",
-      "type": "TabOverview",
+      "type": "tab_overview",
       "name": "Tab Change Information (Change Information)",
       "module": "housing",
       "tab_name": "change-info",
@@ -229,7 +229,7 @@
     },
     {
       "id": "tab-desc:housing:change-info:flow",
-      "type": "TabProcessingFlow",
+      "type": "tab_processing_flow",
       "name": "Tab Click Processing from Basic to Change Information",
       "module": "housing",
       "tab_name": "change-info",
@@ -239,7 +239,7 @@
     },
     {
       "id": "tab-desc:housing:change-info:data-display",
-      "type": "TabDataDisplay",
+      "type": "tab_data_display",
       "name": "Data displayed in the Change Information tab:",
       "module": "housing",
       "tab_name": "change-info",
@@ -254,7 +254,7 @@
     },
     {
       "id": "tab-desc:housing:collection-conditions:overview",
-      "type": "TabOverview",
+      "type": "tab_overview",
       "name": "Tab Collection (Collection Information)",
       "module": "housing",
       "tab_name": "collection-conditions",
@@ -267,7 +267,7 @@
     },
     {
       "id": "tab-desc:housing:collection-conditions:flow",
-      "type": "TabProcessingFlow",
+      "type": "tab_processing_flow",
       "name": "Tab Click Processing from Basic to Collection",
       "module": "housing",
       "tab_name": "collection-conditions",
@@ -277,7 +277,7 @@
     },
     {
       "id": "tab-desc:housing:collection-conditions:data-display",
-      "type": "TabDataDisplay",
+      "type": "tab_data_display",
       "name": "Data displayed in the Collection Tab:",
       "module": "housing",
       "tab_name": "collection-conditions",
@@ -296,7 +296,7 @@
     },
     {
       "id": "tab-desc:housing:collection-conditions:impact:contractor-editing-j0001",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Contractor Editing (J0001)**",
       "module": "housing",
       "tab_name": "collection-conditions",
@@ -309,7 +309,7 @@
     },
     {
       "id": "tab-desc:housing:collection-conditions:impact:joint-contractor-editing-j0002",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Joint Contractor Editing (J0002)**",
       "module": "housing",
       "tab_name": "collection-conditions",
@@ -322,7 +322,7 @@
     },
     {
       "id": "tab-desc:housing:collection-conditions:impact:guarantor-editing-j0003",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Guarantor Editing (J0003)**",
       "module": "housing",
       "tab_name": "collection-conditions",
@@ -335,7 +335,7 @@
     },
     {
       "id": "tab-desc:housing:collection-conditions:impact:block-deletion-j0001j0002j0003",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Block Deletion (J0001/J0002/J0003)**",
       "module": "housing",
       "tab_name": "collection-conditions",
@@ -348,7 +348,7 @@
     },
     {
       "id": "tab-desc:housing:collection-conditions:impact:register-button-basic-save",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Register Button (Basic Save)**",
       "module": "housing",
       "tab_name": "collection-conditions",
@@ -361,7 +361,7 @@
     },
     {
       "id": "tab-desc:housing:contruction-planning:overview",
-      "type": "TabOverview",
+      "type": "tab_overview",
       "name": "Construction Process Tab (Construction Planning)",
       "module": "housing",
       "tab_name": "contruction-planning",
@@ -374,7 +374,7 @@
     },
     {
       "id": "tab-desc:housing:contruction-planning:flow",
-      "type": "TabProcessingFlow",
+      "type": "tab_processing_flow",
       "name": "Tab Click Processing from Basic to Construction Process",
       "module": "housing",
       "tab_name": "contruction-planning",
@@ -384,7 +384,7 @@
     },
     {
       "id": "tab-desc:housing:contruction-planning:data-display",
-      "type": "TabDataDisplay",
+      "type": "tab_data_display",
       "name": "Data displayed in the Construction Process tab:",
       "module": "housing",
       "tab_name": "contruction-planning",
@@ -401,7 +401,7 @@
     },
     {
       "id": "tab-desc:housing:contruction-planning:impact:contractor-edit-j0001",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Contractor Edit (J0001)**",
       "module": "housing",
       "tab_name": "contruction-planning",
@@ -414,7 +414,7 @@
     },
     {
       "id": "tab-desc:housing:contruction-planning:impact:joint-contractor-edit-j0002",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Joint Contractor Edit (J0002)**",
       "module": "housing",
       "tab_name": "contruction-planning",
@@ -427,7 +427,7 @@
     },
     {
       "id": "tab-desc:housing:contruction-planning:impact:joint-guarantor-edit-j0003",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Joint Guarantor Edit (J0003)**",
       "module": "housing",
       "tab_name": "contruction-planning",
@@ -440,7 +440,7 @@
     },
     {
       "id": "tab-desc:housing:contruction-planning:impact:block-deletion-j0001j0002j0003",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Block Deletion (J0001/J0002/J0003)**",
       "module": "housing",
       "tab_name": "contruction-planning",
@@ -453,7 +453,7 @@
     },
     {
       "id": "tab-desc:housing:contruction-planning:impact:register-button-save-basic",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Register Button (Save Basic)**",
       "module": "housing",
       "tab_name": "contruction-planning",
@@ -466,7 +466,7 @@
     },
     {
       "id": "tab-desc:housing:loan-info:overview",
-      "type": "TabOverview",
+      "type": "tab_overview",
       "name": "Loan Tab (Loan Information)",
       "module": "housing",
       "tab_name": "loan-info",
@@ -479,7 +479,7 @@
     },
     {
       "id": "tab-desc:housing:loan-info:flow",
-      "type": "TabProcessingFlow",
+      "type": "tab_processing_flow",
       "name": "Tab Click Processing from Basic to Loan",
       "module": "housing",
       "tab_name": "loan-info",
@@ -489,7 +489,7 @@
     },
     {
       "id": "tab-desc:housing:loan-info:data-display",
-      "type": "TabDataDisplay",
+      "type": "tab_data_display",
       "name": "Data displayed in Loan Tab:",
       "module": "housing",
       "tab_name": "loan-info",
@@ -504,7 +504,7 @@
     },
     {
       "id": "tab-desc:housing:loan-info:impact:contractor-editing-j0001",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Contractor Editing (J0001)**",
       "module": "housing",
       "tab_name": "loan-info",
@@ -517,7 +517,7 @@
     },
     {
       "id": "tab-desc:housing:loan-info:impact:co-contractor-editing-j0002",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Co-contractor Editing (J0002)**",
       "module": "housing",
       "tab_name": "loan-info",
@@ -530,7 +530,7 @@
     },
     {
       "id": "tab-desc:housing:loan-info:impact:guarantor-editing-j0003",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Guarantor Editing (J0003)**",
       "module": "housing",
       "tab_name": "loan-info",
@@ -543,7 +543,7 @@
     },
     {
       "id": "tab-desc:housing:loan-info:impact:block-deletion-j0001j0002j0003",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Block Deletion (J0001/J0002/J0003)**",
       "module": "housing",
       "tab_name": "loan-info",
@@ -556,7 +556,7 @@
     },
     {
       "id": "tab-desc:housing:loan-info:impact:register-button-basic-tab-save",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Register Button (Basic tab save)**",
       "module": "housing",
       "tab_name": "loan-info",
@@ -569,7 +569,7 @@
     },
     {
       "id": "tab-desc:housing:obstacle-factors:overview",
-      "type": "TabOverview",
+      "type": "tab_overview",
       "name": "Tab Obstacle Factors (Obstacle Factors)",
       "module": "housing",
       "tab_name": "obstacle-factors",
@@ -582,7 +582,7 @@
     },
     {
       "id": "tab-desc:housing:obstacle-factors:flow",
-      "type": "TabProcessingFlow",
+      "type": "tab_processing_flow",
       "name": "Tab Click Processing from Basic to Obstacle Factors",
       "module": "housing",
       "tab_name": "obstacle-factors",
@@ -592,7 +592,7 @@
     },
     {
       "id": "tab-desc:housing:obstacle-factors:data-display",
-      "type": "TabDataDisplay",
+      "type": "tab_data_display",
       "name": "Data displayed in the Obstacle Factors tab:",
       "module": "housing",
       "tab_name": "obstacle-factors",
@@ -609,7 +609,7 @@
     },
     {
       "id": "tab-desc:housing:obstacle-factors:impact:contractor-editing-j0001",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Contractor Editing (J0001)**",
       "module": "housing",
       "tab_name": "obstacle-factors",
@@ -622,7 +622,7 @@
     },
     {
       "id": "tab-desc:housing:obstacle-factors:impact:joint-contractor-editing-j0002",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Joint Contractor Editing (J0002)**",
       "module": "housing",
       "tab_name": "obstacle-factors",
@@ -635,7 +635,7 @@
     },
     {
       "id": "tab-desc:housing:obstacle-factors:impact:guarantor-editing-j0003",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Guarantor Editing (J0003)**",
       "module": "housing",
       "tab_name": "obstacle-factors",
@@ -648,7 +648,7 @@
     },
     {
       "id": "tab-desc:housing:obstacle-factors:impact:block-deletion-j0001j0002j0003",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Block Deletion (J0001/J0002/J0003)**",
       "module": "housing",
       "tab_name": "obstacle-factors",
@@ -661,7 +661,7 @@
     },
     {
       "id": "tab-desc:housing:obstacle-factors:impact:register-button-save-basic",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Register Button (Save Basic)**",
       "module": "housing",
       "tab_name": "obstacle-factors",
@@ -674,7 +674,7 @@
     },
     {
       "id": "tab-desc:housing:order-info:overview",
-      "type": "TabOverview",
+      "type": "tab_overview",
       "name": "Order Tab (Order Information)",
       "module": "housing",
       "tab_name": "order-info",
@@ -687,7 +687,7 @@
     },
     {
       "id": "tab-desc:housing:order-info:flow",
-      "type": "TabProcessingFlow",
+      "type": "tab_processing_flow",
       "name": "Tab Click Processing from Basic to Order",
       "module": "housing",
       "tab_name": "order-info",
@@ -697,7 +697,7 @@
     },
     {
       "id": "tab-desc:housing:order-info:data-display",
-      "type": "TabDataDisplay",
+      "type": "tab_data_display",
       "name": "Data displayed in the Order Tab:",
       "module": "housing",
       "tab_name": "order-info",
@@ -722,7 +722,7 @@
     },
     {
       "id": "tab-desc:housing:order-info:impact:contractor-editing-j0001",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Contractor Editing (J0001)**",
       "module": "housing",
       "tab_name": "order-info",
@@ -735,7 +735,7 @@
     },
     {
       "id": "tab-desc:housing:order-info:impact:joint-contractor-editing-j0002",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Joint Contractor Editing (J0002)**",
       "module": "housing",
       "tab_name": "order-info",
@@ -748,7 +748,7 @@
     },
     {
       "id": "tab-desc:housing:order-info:impact:joint-guarantor-editing-j0003",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Joint Guarantor Editing (J0003)**",
       "module": "housing",
       "tab_name": "order-info",
@@ -761,7 +761,7 @@
     },
     {
       "id": "tab-desc:housing:order-info:impact:block-deletion-j0001j0002j0003",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Block Deletion (J0001/J0002/J0003)**",
       "module": "housing",
       "tab_name": "order-info",
@@ -774,7 +774,7 @@
     },
     {
       "id": "tab-desc:housing:order-info:impact:register-button-basic-save",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Register Button (Basic Save)**",
       "module": "housing",
       "tab_name": "order-info",
@@ -787,7 +787,7 @@
     },
     {
       "id": "tab-desc:housing:supplementary-contract-info:overview",
-      "type": "TabOverview",
+      "type": "tab_overview",
       "name": "Tab Supplementary (Supplementary Items)",
       "module": "housing",
       "tab_name": "supplementary-contract-info",
@@ -800,7 +800,7 @@
     },
     {
       "id": "tab-desc:housing:supplementary-contract-info:flow",
-      "type": "TabProcessingFlow",
+      "type": "tab_processing_flow",
       "name": "Tab Click Processing from Basic to Supplementary",
       "module": "housing",
       "tab_name": "supplementary-contract-info",
@@ -810,7 +810,7 @@
     },
     {
       "id": "tab-desc:housing:supplementary-contract-info:data-display",
-      "type": "TabDataDisplay",
+      "type": "tab_data_display",
       "name": "Data displayed in Supplementary tab:",
       "module": "housing",
       "tab_name": "supplementary-contract-info",
@@ -831,7 +831,7 @@
     },
     {
       "id": "tab-desc:housing:supplementary-contract-info:impact:contractor-edit-j0001",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Contractor Edit (J0001)**",
       "module": "housing",
       "tab_name": "supplementary-contract-info",
@@ -844,7 +844,7 @@
     },
     {
       "id": "tab-desc:housing:supplementary-contract-info:impact:joint-contractor-edit-j0002",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Joint Contractor Edit (J0002)**",
       "module": "housing",
       "tab_name": "supplementary-contract-info",
@@ -857,7 +857,7 @@
     },
     {
       "id": "tab-desc:housing:supplementary-contract-info:impact:guarantor-edit-j0003",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Guarantor Edit (J0003)**",
       "module": "housing",
       "tab_name": "supplementary-contract-info",
@@ -870,7 +870,7 @@
     },
     {
       "id": "tab-desc:housing:supplementary-contract-info:impact:block-deletion-j0001j0002j0003",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Block Deletion (J0001/J0002/J0003)**",
       "module": "housing",
       "tab_name": "supplementary-contract-info",
@@ -883,7 +883,7 @@
     },
     {
       "id": "tab-desc:housing:supplementary-contract-info:impact:register-button-save-basic",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Register Button (Save Basic)**",
       "module": "housing",
       "tab_name": "supplementary-contract-info",
@@ -896,7 +896,7 @@
     },
     {
       "id": "tab-desc:housing:various-expenses-&-special-terms:overview",
-      "type": "TabOverview",
+      "type": "tab_overview",
       "name": "Tab Consumption Tax (Consumption Tax)",
       "module": "housing",
       "tab_name": "various-expenses-&-special-terms",
@@ -909,7 +909,7 @@
     },
     {
       "id": "tab-desc:housing:various-expenses-&-special-terms:flow",
-      "type": "TabProcessingFlow",
+      "type": "tab_processing_flow",
       "name": "Tab Click Processing from Basic to Consumption Tax",
       "module": "housing",
       "tab_name": "various-expenses-&-special-terms",
@@ -919,7 +919,7 @@
     },
     {
       "id": "tab-desc:housing:various-expenses-&-special-terms:data-display",
-      "type": "TabDataDisplay",
+      "type": "tab_data_display",
       "name": "Data displayed in Consumption Tax tab:",
       "module": "housing",
       "tab_name": "various-expenses-&-special-terms",
@@ -938,7 +938,7 @@
     },
     {
       "id": "tab-desc:housing:various-expenses-&-special-terms:impact:contractor-editing-j0001",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Contractor Editing (J0001)**",
       "module": "housing",
       "tab_name": "various-expenses-&-special-terms",
@@ -951,7 +951,7 @@
     },
     {
       "id": "tab-desc:housing:various-expenses-&-special-terms:impact:joint-contractor-editing-j0002",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Joint Contractor Editing (J0002)**",
       "module": "housing",
       "tab_name": "various-expenses-&-special-terms",
@@ -964,7 +964,7 @@
     },
     {
       "id": "tab-desc:housing:various-expenses-&-special-terms:impact:guarantor-editing-j0003",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Guarantor Editing (J0003)**",
       "module": "housing",
       "tab_name": "various-expenses-&-special-terms",
@@ -977,7 +977,7 @@
     },
     {
       "id": "tab-desc:housing:various-expenses-&-special-terms:impact:block-deletion-j0001j0002j0003",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Block Deletion (J0001/J0002/J0003)**",
       "module": "housing",
       "tab_name": "various-expenses-&-special-terms",
@@ -990,7 +990,7 @@
     },
     {
       "id": "tab-desc:housing:various-expenses-&-special-terms:impact:register-button-save-basic",
-      "type": "TabImpact",
+      "type": "tab_impact",
       "name": "**Register Button (Save Basic)**",
       "module": "housing",
       "tab_name": "various-expenses-&-special-terms",

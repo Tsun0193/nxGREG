@@ -5,7 +5,7 @@ You are a professional technical document analyzer and knowledge graph database 
 
 **Project Goal:** Build a comprehensive knowledge graph RAG system for a contract management system by extracting entities and their relationships from structured markdown documentation.
 
-**Current Task:** Phase 1 - Entity Extraction. Extract all entities with their properties from the simple module documentation to a JSON file before establishing relationships in Phase 2.
+**Current Task:** Extract all entities with their properties AND their relationships from the simple module documentation. Output format follows Neo4j-compatible structure with separate entities and relationships arrays.
 
 ---
 
@@ -71,29 +71,46 @@ The simple module contains 4 folders corresponding to the 4 tab screens:
 ## Output Specification
 
 ### Format
-Output must be a valid JSON file containing an array of entity objects.
+Output must be a valid JSON file with TWO top-level arrays: `entities` and `relationships`.
 
-### Entity Schema
-Each entity must follow this structure:
-
+### JSON Structure (Neo4j Compatible)
 ```json
 {
-  "id": "<type>:<unique_name>",
-  "type": "<entity_type>",
-  "name": "<human_readable_name>",
-  "parent_module": "module:simple",
-  "<property_name>": "<property_value>",
-  "source_file": "<relative_path_to_source_file>"
+  "entities": [
+    {
+      "id": "<type>:<unique_name>",
+      "type": "<entity_type>",
+      "name": "<human_readable_name>",
+      "parent_module": "module:simple",
+      "property_name": "property_value",
+      "source_file_0": "<relative_path_to_source_file>"
+    }
+  ],
+  "relationships": [
+    {
+      "source": "<source_entity_id>",
+      "target": "<target_entity_id>",
+      "relationship_type": "<RELATIONSHIP_TYPE>",
+      "property_name": "property_value"
+    }
+  ]
 }
 ```
 
-### Required Fields
-- **id**: Unique identifier in format `<type>:<name>` (e.g., `screen:simple_contract_basic_info`)
+### Entity Schema Requirements
+- **id**: Unique identifier in format `<type>:<name>` (e.g., `screen:simple_contract_main`)
 - **type**: Entity type from the taxonomy below
-- **name**: The extracted name
+- **name**: Human-readable name
 - **parent_module**: Always `"module:simple"` for this extraction
-- **source_file**: Source file path for traceability
-- **Additional fields**: Type-specific properties (see entity taxonomy) as direct fields
+- **source_file_0**: Primary source file path (use `source_file_0`, `source_file_1` for multiple sources)
+- **All properties at top level**: No nested `properties` or `metadata` objects
+- **DO NOT include relationship fields**: No `parent_screen_id`, `parent_tab_id`, `parent_module_id` - use relationships array instead
+
+### Relationship Schema Requirements
+- **source**: Entity ID that initiates the relationship
+- **target**: Entity ID that receives the relationship
+- **relationship_type**: Type of relationship (see taxonomy below)
+- **All properties at top level**: No nested objects
 
 ---
 
@@ -108,42 +125,194 @@ Extract the following entity types (included but not limited to):
 
 ### 2. Screen Entities
 - **Type ID:** `screen`
-- **Fields:** screen_id, title, url_pattern, access_level, layout_type, tab_code, gcnt_id, main_jsp
+- **Fields:** screen_id, title, url_pattern, access_level, layout_type, tab_code, gcnt_id, main_jsp, action_class, has_tabs, tab_count
 - **Notes:** All screens navigable from this module are documented in `ctc-data-en/simple/yuusyou-kihon/screen-flow-en.md`. Extract each screen as a separate entity including the 4 main tabs:
   - Tab 1: Basic Information (GCNT19001)
   - Tab 2: Order Information (GCNT19002)
   - Tab 3: Accounting Information (GCNT19009)
   - Tab 4: Cancellation Information (GCNT19012)
+- **DO NOT include:** `parent_module_id` - use BELONGS_TO relationship instead
 
 ### 3. Form Entities
 - **Type ID:** `form`
-- **Fields:** form_id, form_bean_class, scope, submission_action, description
-- **Notes:** Struts form beans used for request/response handling. Form fields should be extracted as separate `form_field` entities.
+- **Fields:** form_id, form_bean_class, scope, submission_action, description, fields (semicolon-separated list of field names)
+- **Notes:** Struts form beans used for request/response handling. Include all form fields as a semicolon-separated list in the `fields` property.
 
-### 4. Form Field Entities
-- **Type ID:** `form_field`
-- **Fields:** field_name, field_type, required, validation_rules, form_id, description
-- **Notes:** Individual form fields extracted separately from form entities for better relationship modeling.
-
-### 5. Session Entities
+### 4. Session Entities
 - **Type ID:** `session`
 - **Fields:** session_key, scope, lifecycle, stored_data, description
 - **Notes:** Session attributes used to maintain state across requests
 
-### 6. Function Entities
+### 5. Function Entities
 - **Type ID:** `function`
-- **Fields:** function_name, parameters (stringified JSON), return_type, business_logic, used_database_tables, url, validation_rules
+- **Fields:** function_name, parameters (stringified JSON), return_type, business_logic, url, validation_rules, output_success, output_failure
 - **Notes:** The functions are documented in "ctc-data-en/simple/yuusyou-kihon/functions" as:
   + **1. Screen Initialization Feature** (init-screen)
   + **2. Simple Contract Registration Feature** (register-contract)
   + **3. Customer/Contractor Update Feature** (update-customer)
   + **4. Contract Validation Feature** (validation-contract)
 - Keep the function name as the same as the folder name
+- **DO NOT include:** `parent_tab_id`, `used_database_tables` - use BELONGS_TO and ACCESSES relationships instead
 
-### 7. Tab Entities
+### 6. Tab Entities
 - **Type ID:** `tab`
-- **Fields:** tab_code, tab_name, tab_index, gcnt_id, associated_screen_id, description
+- **Fields:** tab_code, tab_name, tab_index, gcnt_id, associated_screen_id, action_class, documentation_folder, documentation_type, key_functions
 - **Notes:** The simple contract system uses a tab-based interface with 4 main tabs. Extract each tab as a separate entity.
+- **DO NOT include:** `parent_screen_id`, `affected_by` - use BELONGS_TO and AFFECTS relationships instead
+
+### 7. Form Field Entities
+- **Type ID:** `form_field`
+- **Fields:** field_name, field_type, required, validation_rules, form_id
+- **Notes:** Individual form fields extracted from form documentation
+- **DO NOT include:** Nested in forms - create as separate entities with BELONGS_TO relationship
+
+---
+
+## Relationship Taxonomy
+
+Extract the following relationship types between entities:
+
+### 1. BELONGS_TO Relationship
+- **Source:** Screen, Tab, Function, Form, Form Field, Session
+- **Target:** Module, Screen, Tab, Form
+- **Description:** Represents hierarchical ownership/containment
+- **Properties:**
+  - `relationship_type`: "BELONGS_TO"
+
+**Examples:**
+```json
+{
+  "source": "screen:simple_contract_main",
+  "target": "module:simple",
+  "relationship_type": "BELONGS_TO"
+},
+{
+  "source": "tab:basic_information",
+  "target": "screen:simple_contract_main",
+  "relationship_type": "BELONGS_TO"
+},
+{
+  "source": "function:init_screen",
+  "target": "tab:basic_information",
+  "relationship_type": "BELONGS_TO"
+},
+```
+
+### 2. HAS_TAB Relationship
+- **Source:** Screen
+- **Target:** Tab
+- **Description:** Screen contains multiple tabs (inverse of BELONGS_TO for clarity)
+- **Properties:**
+  - `relationship_type`: "HAS_TAB"
+  - `tab_index`: Position of tab in the interface
+  - `is_default`: Whether this is the default tab
+
+**Example:**
+```json
+{
+  "source": "screen:simple_contract_main",
+  "target": "tab:basic_information",
+  "relationship_type": "HAS_TAB",
+  "tab_index": 1,
+  "is_default": true
+}
+```
+
+### 3. PROVIDES Relationship
+- **Source:** Tab, Screen
+- **Target:** Function
+- **Description:** Tab or screen provides specific functionality
+- **Properties:**
+  - `relationship_type`: "PROVIDES"
+  - `function_category`: Type of function provided
+
+**Example:**
+```json
+{
+  "source": "tab:basic_information",
+  "target": "function:register_contract",
+  "relationship_type": "PROVIDES",
+  "function_category": "contract_registration"
+}
+```
+
+### 4. USES_FORM Relationship
+- **Source:** Function, Screen, Tab
+- **Target:** Form
+- **Description:** Component uses a form for data input/submission
+- **Properties:**
+  - `relationship_type": "USES_FORM"
+  - `usage_context`: How the form is used
+
+**Example:**
+```json
+{
+  "source": "function:register_contract",
+  "target": "form:yuusyou_keiyakuNewtmp_kihonForm",
+  "relationship_type": "USES_FORM",
+  "usage_context": "Contract data submission"
+}
+```
+
+
+### 6. STORES Relationship
+- **Source:** Function, Screen, Tab
+- **Target:** Session
+- **Description:** Component stores data in session
+- **Properties:**
+  - `relationship_type`: "STORES"
+  - `storage_purpose`: Why data is stored
+
+**Example:**
+```json
+{
+  "source": "function:init_screen",
+  "target": "session:mainVO",
+  "relationship_type": "STORES",
+  "storage_purpose": "Preserve contract data across tabs"
+}
+```
+
+### 7. NAVIGATES_TO Relationship
+- **Source:** Screen, Function
+- **Target:** Screen
+- **Description:** Navigation flow between screens
+- **Properties:**
+  - `relationship_type`: "NAVIGATES_TO"
+  - `trigger`: What triggers navigation
+  - `condition`: Under what condition navigation occurs
+
+**Example:**
+```json
+{
+  "source": "screen:contract_list",
+  "target": "screen:simple_contract_main",
+  "relationship_type": "NAVIGATES_TO",
+  "trigger": "New Simple Contract button click",
+  "condition": "User has create permission"
+}
+```
+
+### Relationship Extraction Rules
+
+1. **Hierarchy Pattern:** Extract BELONGS_TO relationships for all containment hierarchies:
+   - Screen → Module
+   - Tab → Screen  
+   - Function → Tab
+   - Form Field → Form
+   - Session → Module
+
+2. **Bidirectional Clarity:** Use both BELONGS_TO and HAS_TAB for Screen↔Tab to make relationships explicit in both directions
+
+3. **Data Flow:** Use AFFECTS for tabs that influence each other (e.g., Basic Information affects Order, Accounting, Cancellation tabs)
+
+4. **Session Management:** Use STORES for functions/tabs that save data to session entities
+
+5. **Completeness:** For each entity, extract:
+   - At least one BELONGS_TO relationship (except Module)
+   - All functional relationships (PROVIDES, USES_FORM, etc.)
+   - All navigation flows (NAVIGATES_TO)
+   - All data dependencies (AFFECTS, STORES)
 
 ---
 
@@ -235,152 +404,124 @@ These UI and interaction entities have been moved to a separate instruction file
 
 5. **Layered Architecture**: Component entities (Action, Delegate, Facade, Product, DAO) are documented separately in `extract-component-entity-simple.md` and will not be listed in this task
 
-### Example Module Entity
+---
+
+### Example Entities and Relationships
+
+**Entities Array:**
 ```json
 {
-  "id": "module:simple",
-  "type": "module",
-  "name": "Simple Contract Module",
-  "parent_module": "module:contract_system",
-  "module_name": "simple",
-  "description": "Simple Contract (Paid Contract) - Manages paid contracts for commercial transactions in construction and real estate fields with a tab-based interface",
-  "tab_based_interface": true,
-  "main_screens": "Basic Information (Tab 1); Order Information (Tab 2); Accounting Information (Tab 3); Cancellation Information (Tab 4)",
-  "main_jsp": "kihon.jsp",
-  "key_features": "Manages four main aspects: basic information, orders, accounting, and cancellation; Tab-based navigation system; Integration with project and customer management systems",
-  "documentation_structure": "yuusyou-kihon (primary); order-info-simple-contract (impact analysis); accounting-info-simple-contract (impact analysis); cancel-info-simple-contract (impact analysis)",
-  "source_file": "ctc-data-en/simple/simple-contract-overview-en.md"
+  "entities": [
+    {
+      "id": "screen:simple_contract_main",
+      "type": "screen",
+      "name": "Simple Input Contract Screen",
+      "parent_module": "module:simple",
+      "screen_id": "GCNT19101",
+      "title": "Simple Input (Contract Card)",
+      "url_pattern": "/dsmart/contract/yuusyouKeiyaku/kihonInit.do",
+      "main_jsp": "kihon.jsp",
+      "action_class": "KihonInitAction",
+      "layout_type": "tab_based_interface",
+      "has_tabs": true,
+      "tab_count": 4,
+      "description": "Main screen for simple contract management with 4 tabs",
+      "source_file_0": "ctc-data-en/simple/yuusyou-kihon/screen-flow-en.md"
+    },
+    {
+      "id": "tab:basic_information",
+      "type": "tab",
+      "name": "Basic Information Tab",
+      "parent_module": "module:simple",
+      "tab_code": "TABCD_KEIYAKUKIHONJYOUHOU",
+      "tab_name": "Contract Basic Information",
+      "tab_index": 1,
+      "gcnt_id": "GCNT19001",
+      "associated_screen_id": "kihon.jsp",
+      "action_class": "KihonInitAction",
+      "documentation_folder": "yuusyou-kihon",
+      "key_functions": "Contract initialization; New contract registration; Customer/contractor update; Contract validation",
+      "description": "Primary tab - manages contract basic information with contractor and building owner management",
+      "source_file_0": "ctc-data-en/simple/yuusyou-kihon/screen-flow-en.md"
+    },
+    {
+      "id": "tab:order_information",
+      "type": "tab",
+      "name": "Order Information Tab",
+      "parent_module": "module:simple",
+      "tab_code": "TABCD_HONTAIJUTYU",
+      "tab_name": "Main Order",
+      "tab_index": 2,
+      "gcnt_id": "GCNT19002",
+      "associated_screen_id": "kihon.jsp",
+      "action_class": "JyutyuInitAction",
+      "documentation_folder": "order-info-simple-contract",
+      "documentation_type": "impact_analysis",
+      "description": "Displays order/purchase information - affected by changes made in Basic Information tab",
+      "source_file_0": "ctc-data-en/simple/order-info-simple-contract/description_jyutyu_init_screen-en.md"
+    },
+    {
+      "id": "function:register_contract",
+      "type": "function",
+      "name": "Simple Contract Registration Feature",
+      "parent_module": "module:simple",
+      "function_name": "register-contract",
+      "url": "/dsmart/contract/yuusyouKeiyaku/kihonDispatch.do?actionType=register_contract",
+      "parameters": "{\"actionType\":{\"name\":\"actionType\",\"type\":\"String\",\"value\":\"register_contract\",\"required\":true}}",
+      "return_type": "Forward",
+      "output_success": "/kihonInit.do",
+      "output_failure": "/kihonInit.do with error message",
+      "description": "Registers new simple contract with basic information, validates data, and creates contract records",
+      "validation_rules": "All required fields must be filled; Contract dates must be valid; Customer information must exist",
+      "source_file_0": "ctc-data-en/simple/yuusyou-kihon/functions/register-contract/function-overview-en.md"
+    }
+  ],
+  "relationships": [
+    {
+      "source": "screen:simple_contract_main",
+      "target": "module:simple",
+      "relationship_type": "BELONGS_TO"
+    },
+    {
+      "source": "tab:basic_information",
+      "target": "screen:simple_contract_main",
+      "relationship_type": "BELONGS_TO"
+    },
+    {
+      "source": "screen:simple_contract_main",
+      "target": "tab:basic_information",
+      "relationship_type": "HAS_TAB",
+      "tab_index": 1,
+      "is_default": true
+    },
+    {
+      "source": "tab:basic_information",
+      "target": "tab:order_information",
+      "relationship_type": "AFFECTS",
+      "impact_type": "data",
+      "description": "Basic information changes update order data display"
+    },
+    {
+      "source": "function:register_contract",
+      "target": "tab:basic_information",
+      "relationship_type": "BELONGS_TO"
+    },
+    {
+      "source": "tab:basic_information",
+      "target": "function:register_contract",
+      "relationship_type": "PROVIDES",
+      "function_category": "contract_registration"
+    }
+  ]
 }
 ```
 
-### Example Screen Entity (Main Screen)
-```json
-{
-  "id": "screen:simple_contract_main",
-  "type": "screen",
-  "name": "Simple Input Contract Screen",
-  "parent_module": "module:simple",
-  "screen_id": "GCNT19101",
-  "title": "Simple Input (Contract Card)",
-  "url_pattern": "/dsmart/contract/yuusyouKeiyaku/kihonInit.do",
-  "main_jsp": "kihon.jsp",
-  "action_class": "KihonInitAction",
-  "layout_type": "tab_based_interface",
-  "has_tabs": true,
-  "tab_count": 4,
-  "description": "Main screen for simple contract management with 4 tabs: Basic Information, Order Information, Accounting Information, and Cancellation Information",
-  "source_file": "ctc-data-en/simple/yuusyou-kihon/screen-flow-en.md"
-}
-```
-
-### Example Tab Entity (Tab 1)
-```json
-{
-  "id": "tab:basic_information",
-  "type": "tab",
-  "name": "Basic Information Tab",
-  "parent_module": "module:simple",
-  "tab_code": "TABCD_KEIYAKUKIHONJYOUHOU",
-  "tab_name": "Contract Basic Information",
-  "tab_index": 1,
-  "gcnt_id": "GCNT19001",
-  "associated_screen_id": "kihon.jsp",
-  "action_class": "KihonInitAction",
-  "documentation_folder": "yuusyou-kihon",
-  "key_functions": "Contract initialization; New contract registration; Customer/contractor update; Contract validation",
-  "description": "Primary tab with the most comprehensive documentation - manages contract basic information with contractor and building owner management",
-  "source_file": "ctc-data-en/simple/yuusyou-kihon/screen-flow-en.md"
-}
-```
-
-### Example Tab Entity (Tab 2)
-```json
-{
-  "id": "tab:order_information",
-  "type": "tab",
-  "name": "Order Information Tab",
-  "parent_module": "module:simple",
-  "tab_code": "TABCD_HONTAIJUTYU",
-  "tab_name": "Main Order",
-  "tab_index": 2,
-  "gcnt_id": "GCNT19002",
-  "associated_screen_id": "kihon.jsp",
-  "action_class": "JyutyuInitAction",
-  "documentation_folder": "order-info-simple-contract",
-  "documentation_type": "impact_analysis",
-  "affected_by": "tab:basic_information",
-  "description": "Displays order/purchase information - affected by changes made in Basic Information tab",
-  "source_file": "ctc-data-en/simple/order-info-simple-contract/description_jyutyu_init_screen-en.md"
-}
-```
-
-### Example Function Entity
-```json
-{
-  "id": "function:simple_contract_registration",
-  "type": "function",
-  "name": "Simple Contract Registration Feature",
-  "parent_module": "module:simple",
-  "function_name": "Simple Contract Registration",
-  "url": "/dsmart/contract/yuusyouKeiyaku/kihonDispatch.do?actionType=register_contract",
-  "parameters": "{\"actionType\":{\"name\":\"actionType\",\"type\":\"String\",\"value\":\"register_contract\",\"required\":true},\"kihonForm\":{\"name\":\"kihonForm\",\"type\":\"KihonForm\",\"description\":\"Form data containing contract information\",\"required\":true}}",
-  "return_type": "Forward",
-  "output_success": "/kihonInit.do",
-  "output_failure": "/kihonInit.do with error message",
-  "description": "Registers new simple contract with basic information, validates data, and creates contract records",
-  "validation_rules": "All required fields must be filled; Contract dates must be valid; Customer information must exist",
-  "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/register-contract/function-overview-en.md"
-}
-```
-
-### Example Form Entity
-```json
-{
-  "id": "form:kihon_form",
-  "type": "form",
-  "name": "Basic Information Form",
-  "parent_module": "module:simple",
-  "form_id": "kihon_form",
-  "form_bean_class": "KihonForm",
-  "scope": "request",
-  "submission_action": "/kihonDispatch.do",
-  "description": "Form for simple contract basic information input and submission",
-  "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
-}
-```
-
-### Example Form Field Entity
-```json
-{
-  "id": "form_field:keiyaku_no",
-  "type": "form_field",
-  "name": "Contract Number Field",
-  "parent_module": "module:simple",
-  "field_name": "keiyakuNo",
-  "field_type": "String",
-  "required": true,
-  "form_id": "kihon_form",
-  "validation_rules": "Must be unique; Maximum 20 characters; Alphanumeric only",
-  "description": "Unique identifier for the contract",
-  "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
-}
-```
-
-### Example Session Entity
-```json
-{
-  "id": "session:kihon_form_data",
-  "type": "session",
-  "name": "Basic Information Form Data Session",
-  "parent_module": "module:simple",
-  "session_key": "kihonFormData",
-  "scope": "session",
-  "lifecycle": "Maintained across tab navigation within contract editing session",
-  "stored_data": "KihonForm object containing contract basic information",
-  "description": "Preserves form data when navigating between tabs in simple contract screen",
-  "source_file": "ctc-data-en/simple/yuusyou-kihon/overview-en.md"
-}
-```
+**Key Points:**
+- Entities have NO relationship fields (`parent_screen_id`, `parent_tab_id`, etc.)
+- Relationships are stored in a separate array
+- All properties are at the top level (no nesting)
+- Bidirectional relationships (BELONGS_TO + HAS_TAB) make graph traversal easier
+- Impact relationships (AFFECTS) show data dependencies between tabs
 
 ---
 
@@ -388,30 +529,40 @@ These UI and interaction entities have been moved to a separate instruction file
 
 1. **Read** all markdown files in the `ctc-data-en/simple/` directory (including all 4 subdirectories)
 2. **Identify** all entities according to the taxonomy (excluding database table entities and component entities)
-3. **Extract** entity information according to the schema
+3. **Extract** entity information according to the schema:
    - For module: Extract only ONE module entity (simple) - this is NOT a nested structure
    - For screens: Use `ctc-data-en/simple/yuusyou-kihon/screen-flow-en.md` as the primary source
-   - For tabs: Extract each of the 4 tabs with their action classes and documentation sources:
-     * Tab 1 (Basic Information): Primary documentation in `yuusyou-kihon/`
-     * Tab 2 (Order Information): Impact analysis in `order-info-simple-contract/`
-     * Tab 3 (Accounting Information): Impact analysis in `accounting-info-simple-contract/`
-     * Tab 4 (Cancellation Information): Impact analysis in `cancel-info-simple-contract/`
+   - For tabs: Extract each of the 4 tabs with their action classes and documentation sources
    - For functions: Use `ctc-data-en/simple/yuusyou-kihon/functions/` as the primary source (Tab 1 only)
-   - For forms and form fields: Use `ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md` as the primary source
-   - **Create separate entities for form fields** with relationships to parent forms
-   - **Create separate entities for tabs** with their navigation properties and action classes
-   - **Convert array fields to semicolon-separated strings** (e.g., fields, validation_rules)
-   - **Convert complex parameters to stringified JSON** for function entities
+   - For forms: Use `ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md` as the primary source
+   - For form fields: Extract individual fields as separate entities
+   - For sessions: Extract session attributes from function overviews and overview documents
+   - **DO NOT include relationship fields** like `parent_screen_id`, `parent_tab_id`, `parent_module_id`
 
-4. **Validate** JSON structure and required fields
-5. **Output** entities to appropriate JSON files:
-   - Main entities: `json/simple-entities.json`
+4. **Extract** relationships according to the relationship taxonomy:
+   - BELONGS_TO: For all hierarchical relationships (Screen→Module, Tab→Screen, Function→Tab, etc.)
+   - HAS_TAB: For Screen→Tab relationships (bidirectional with BELONGS_TO)
+   - PROVIDES: For Tab/Screen→Function relationships
+   - USES_FORM: For Function→Form relationships
+   - AFFECTS: For Tab→Tab impact relationships
+   - STORES: For Function/Tab→Session relationships
+   - NAVIGATES_TO: For Screen→Screen navigation flows
+
+5. **Validate** JSON structure and required fields
+6. **Output** to `json/simple/simple-entities.json` with structure:
+   ```json
+   {
+     "entities": [ /* array of entity objects */ ],
+     "relationships": [ /* array of relationship objects */ ]
+   }
+   ```
 
 **Format Guidelines:**
-- No nested properties - all fields at root level
-- Arrays converted to semicolon-separated strings
-- Complex objects (like function parameters) as stringified JSON
-- Forms and form fields as separate entities for better relationship modeling
-- Tabs as separate entities linked to their parent screen
+- **All properties at top level** - no nested `properties` or `metadata` objects
+- **Source files** use `source_file_0`, `source_file_1` naming
+- **Arrays** converted to semicolon-separated strings where appropriate
+- **Complex parameters** as stringified JSON for function entities
+- **NO relationship fields** in entities - use relationships array only
+- **Relationships are separate** from entities in the JSON structure
 
 Focus on precision, completeness, and maintaining the semantic meaning from the source documentation.

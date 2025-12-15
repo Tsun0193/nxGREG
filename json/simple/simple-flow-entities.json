@@ -2,7 +2,7 @@
   "entities": [
     {
       "id": "flow:init_screen:sequence_flow",
-      "type": "ProcessFlow",
+      "type": "process_flow",
       "name": "Sequence Flow",
       "function_name": "init_screen",
       "parent_function": "function:init_screen",
@@ -12,8 +12,19 @@
       "description": "Process flow for Sequence Flow in init_screen function"
     },
     {
+      "id": "flow:init_screen:overview_process_flow",
+      "type": "process_flow_overview",
+      "name": "init_screen - Process Flow Overview",
+      "function_name": "init_screen",
+      "parent_function": "function:init_screen",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/init-screen/function-overview-en.md",
+      "section_title": "Process Flow",
+      "content": "sequenceDiagram\n    participant Client as Client\n    participant Action as KihonInitAction\n    participant Delegate as IBaseDelegate\n    participant Master as MasterDelegate\n    participant Session as HttpSession\n    participant DB as Database\n\n    Client->>Action: execute() - Contract screen initialization\n    Action->>Session: Get previous screen information\n    Session-->>Action: preScreanInf, afterZentaiKbn\n    \n    Action->>Delegate: find(formMap, vo)\n    Delegate->>DB: Query contract data\n    DB-->>Delegate: Contract data\n    Delegate-->>Action: vo (complete contract data)\n    \n    Action->>Action: repack(vo, formMap) - Convert VO to FORM\n    Action->>Session: Save main VO and order VO\n    \n    Action->>Master: getKoujiKeitaiYuusyouList()\n    Master->>DB: SELECT master data\n    DB-->>Master: Master data\n    Master-->>Action: koujiKeitaiList\n    \n    Action->>Action: Validate company and construction address\n    Action-->>Client: ActionForward(\"success\") - Transition to success screen",
+      "description": "High-level process flow overview for init_screen function"
+    },
+    {
       "id": "flow:update_customer:edit_operation_no_database_update",
-      "type": "ProcessFlow",
+      "type": "process_flow",
       "name": "Edit Operation (No Database Update)",
       "function_name": "update_customer",
       "parent_function": "function:update_customer",
@@ -24,7 +35,7 @@
     },
     {
       "id": "flow:update_customer:update_operation_mainsubdelete",
-      "type": "ProcessFlow",
+      "type": "process_flow",
       "name": "Update Operation (Main/Sub/Delete)",
       "function_name": "update_customer",
       "parent_function": "function:update_customer",
@@ -34,8 +45,19 @@
       "description": "Process flow for Update Operation (Main/Sub/Delete) in update_customer function"
     },
     {
+      "id": "flow:update_customer:overview_process_flow",
+      "type": "process_flow_overview",
+      "name": "update_customer - Process Flow Overview",
+      "function_name": "update_customer",
+      "parent_function": "function:update_customer",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/update-customer/function-overview-en.md",
+      "section_title": "Process Flow",
+      "content": "sequenceDiagram\n    participant View as View/Browser\n    participant Action as Action Layer\n    participant Delegate as Delegate\n    participant Facade as Facade\n    participant Product as Product (YuusyouKihonProduct)\n    participant DAO as DAO Layer\n    participant DB as Database\n\n    View->>Action: Submit main/sub/delete (with actionType, uniqueId)\n    alt main/sub\n        Action->>Action: Validate duplication, record count\n    else delete\n        Action->>Action: Validate deletion conditions\n    end\n    Action->>Delegate: update(...)\n    Delegate->>Facade: update(...)\n    Facade->>Product: doUpdate(...)\n    alt Apartment (Special Contract)\n        Product->>DAO: Update contract-customer relation (main_kbn/sakujyo_kbn)\n        DAO->>DB: Update T_KEIYAKU_KOKYAKU_KANKEI\n    else Regular Contract\n        Product->>DAO: Update contract-customer relation (main_kbn/sakujyo_kbn)\n        DAO->>DB: Update T_KEIYAKU_KOKYAKU_KANKEI\n        alt Individual customer update needed\n            Product->>DAO: Update individual customer classification (tasya_keiyaku_kbn)\n            DAO->>DB: Update T_KOKYAKU_KOJIN\n        end\n        alt Supplementary/Main contract update needed\n            Product->>DAO: Update supplementary/main contract info\n            DAO->>DB: Update T_KEIYAKU_HOSOKU_JYOUHOU / T_KEIYAKU\n        end\n    end\n    DAO-->>Product: Return value\n    Product-->>Facade: Return value\n    Facade-->>Delegate: Return value\n    Delegate-->>Action: Return value\n    Action-->>View: Forward/Redirect to view",
+      "description": "High-level process flow overview for update_customer function"
+    },
+    {
       "id": "flow:validation_contract:detailed_sequence_diagram",
-      "type": "ProcessFlow",
+      "type": "process_flow",
       "name": "Detailed Sequence Diagram",
       "function_name": "validation_contract",
       "parent_function": "function:validation_contract",
@@ -45,8 +67,19 @@
       "description": "Process flow for Detailed Sequence Diagram in validation_contract function"
     },
     {
+      "id": "flow:validation_contract:overview_process_flow",
+      "type": "process_flow_overview",
+      "name": "validation_contract - Process Flow Overview",
+      "function_name": "validation_contract",
+      "parent_function": "function:validation_contract",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/validation-contract/function-overview-en.md",
+      "section_title": "Process Flow",
+      "content": "sequenceDiagram\n    participant User as User\n    participant JSP as JSP/JS\n    participant Action as KihonRegisterAction\n    participant Delegate as BaseDelegate\n    participant Facade as ShinkaikeiFacadeBean\n    participant Product as Shinki/HenkouAcceptanceProduct\n    participant Check as Check Layer\n    participant DAO as DAO Layer\n    participant DB as Database\n    participant View as Result View\n\n    User->>JSP: Click button (Approval or Consistency Check)\n    JSP->>Action: Submit form (actionType)\n    Action->>Delegate: renkeiShinkaikei/consistencyChecker\n    Delegate->>Facade: prepareAcceptance(vo)\n    Facade->>Product: prepareAcceptance(vo)\n    Product->>Check: checkBeforeShinkaikei/CheckXXX\n    Check->>DAO: getXXX, updateXXX\n    DAO-->>Check: Query results\n    Check-->>Product: Check results\n    Product-->>Facade: Processing results\n    Facade-->>Delegate: Processing results\n    Delegate-->>Action: Processing results\n    Action-->>View: Forward/Redirect (Success or Error)\n    View-->>User: Display results",
+      "description": "High-level process flow overview for validation_contract function"
+    },
+    {
       "id": "flow:register_contract:visual_sequence_flow",
-      "type": "ProcessFlow",
+      "type": "process_flow",
       "name": "Visual Sequence Flow",
       "function_name": "register_contract",
       "parent_function": "function:register_contract",
@@ -57,7 +90,7 @@
     },
     {
       "id": "flow:register_contract:detailed_flow_of_updatemain_method",
-      "type": "ProcessFlow",
+      "type": "process_flow",
       "name": "Detailed Flow of updateMain() Method",
       "function_name": "register_contract",
       "parent_function": "function:register_contract",
@@ -65,6 +98,17 @@
       "section_title": "Detailed Flow of updateMain() Method",
       "content": "sequenceDiagram\n    participant Product as YuusyouKihonProduct\n    participant JyutyuVO as JyutyuVO\n    participant Lock as LockManager\n    participant CommonEdit as CommonEdit\n    participant UkeoiProduct as UkeoiKihonProduct\n    participant CheckCommon as CheckCommon\n    participant DB as Database\n\n    Note over Product: updateMain(KeiyakuVO vo) - Start\n    \n    Product->>Product: Get JyutyuVO from vo.getJyutyuList().get(0)\n    Product->>Product: Determine lock table names based on hensyuMode\n    \n    alt Normal edit mode (HENSYU_MODE_NORMAL)\n        Product->>Product: lockKeiyakuTableName = \"t_keiyaku\"\n        Product->>Product: lockJyutyuTableName = \"t_jyutyu\"\n    else Other edit mode\n        Product->>Product: lockKeiyakuTableName = \"t_c_keiyaku\"\n        Product->>Product: lockJyutyuTableName = \"t_c_jyutyu\"\n    end\n    \n    Note over Product: Lock contract data\n    Product->>Product: Create keiyakuCondition (keiyaku_key, sakujyo_kbn)\n    Product->>Lock: checkMasterForUpdateNowait(lockKeiyakuTableName, keiyakuCondition)\n    Lock->>DB: SELECT FOR UPDATE NOWAIT on t_keiyaku\n    DB-->>Lock: Lock acquired or exception\n    \n    alt JyutyuVO exists and has jyutyuKey\n        Product->>Product: Create jyutyuCondition (jyutyu_key, sakujyo_kbn)\n        Product->>Lock: checkMasterForUpdateNowait(lockJyutyuTableName, jyutyuCondition)\n        Lock->>DB: SELECT FOR UPDATE NOWAIT on t_jyutyu\n        DB-->>Lock: Lock acquired or exception\n    end\n    \n    alt JyutyuVO.kouji exists and isUpdate() is true\n        Product->>Product: Create koujiCondition (kouji_key, sakujyo_kbn)\n        Product->>Product: lockKoujiTableName = \"t_kouji\"\n        Product->>Lock: checkMasterForUpdateNowait(lockKoujiTableName, koujiCondition)\n        Lock->>DB: SELECT FOR UPDATE NOWAIT on t_kouji\n        DB-->>Lock: Lock acquired or exception\n    end\n    \n    Note over Product: Start database updates\n    Product->>Product: updateTochi(vo)\n    Product->>DB: UPDATE t_tochi, t_keiyaku_tochi (land data)\n    \n    Product->>Product: updateJyutyu(vo)\n    Product->>DB: UPDATE t_jyutyu, t_jyutyu_tatemono (order/construction data)\n    \n    Product->>Product: updateKeiyakuSyainKankei(vo)\n    Product->>DB: UPDATE t_keiyaku_syain_kankei (contract-employee relationships)\n    \n    Product->>Product: updateKeiyakuHosokuJyouhou(vo)\n    Product->>DB: UPDATE t_keiyaku_hosoku (contract supplementary info)\n    \n    Product->>Product: updateAnkenSyainKankei(vo)\n    Product->>DB: UPDATE t_anken_syain_kankei (case-employee relationships)\n    \n    Product->>Product: updateKoutei(vo)\n    Product->>DB: UPDATE t_keiyaku_koutei (contract conditions)\n    \n    Note over Product: Business entity editing (if applicable)\n    alt vo.isNewtmp() && JIGYOUTAI_EDIT_KAHI_KBN_KA.equals(vo.getJigyoutaiEditKahiKbn())\n        Product->>CommonEdit: editKeiyakuJigyoutaiFind(vo, false)\n        CommonEdit->>DB: Search business entity data\n        \n        alt JIGYOUTAI_EDIT_KAHI_KBN_KA.equals(vo.getJigyoutaiEditKahiKbn()) && RENEW_KBN_NOT_RENEW.equals(vo.getRenewKbn())\n            Product->>CommonEdit: editUkeoiJigyoutaiKankei(vo)\n            CommonEdit->>DB: UPDATE t_ukeoi_jigyoutai_kankei (business entity relationships)\n            \n            Product->>UkeoiProduct: updateUkeoiJigyoutaiKankei(vo)\n            UkeoiProduct->>DB: UPDATE t_ukeoi_jigyoutai_kankei (subcontractor business entity relationships)\n        end\n    end\n    \n    Note over Product: Update shared order data\n    Product->>CommonEdit: updateKihonKyoudouJyutyuMinashi(vo)\n    CommonEdit->>DB: UPDATE t_kyoudou_jyutyu (shared order data)\n    \n    Note over Product: Delete contract instruction relationships\n    alt vo.isNewtmp()\n        Product->>Product: Get deleteKeiyakuShijisyoKankeiList\n        loop For each item in delete list\n            Product->>Product: deleteKeiyakuShijisyoKankei(keiyakuShijisyoKankeiVO)\n            Product->>DB: DELETE from t_keiyaku_shijisyo_kankei (contract instruction relationships)\n        end\n    end\n    \n    Note over Product: Technical staff placement check\n    Product->>CheckCommon: isGenbaGijyutsusya(vo)\n    CheckCommon-->>Product: true/false\n    \n    alt isGenbaGijyutsusya returns true\n        Product->>CheckCommon: checkGijyutsusyaHaichiYouhiTouroku(vo)\n        CheckCommon->>DB: Check technical staff placement requirements\n    end\n    \n    Note over Product: Final contract update\n    Product->>Product: updateKeiyaku(vo)\n    Product->>DB: UPDATE t_keiyaku (main contract data)\n    \n    Note over Product: updateMain(KeiyakuVO vo) - End",
       "description": "Process flow for Detailed Flow of updateMain() Method in register_contract function"
+    },
+    {
+      "id": "flow:register_contract:overview_process_flow",
+      "type": "process_flow_overview",
+      "name": "register_contract - Process Flow Overview",
+      "function_name": "register_contract",
+      "parent_function": "function:register_contract",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/register-contract/function-overview-en.md",
+      "section_title": "Processing Flow",
+      "content": "sequenceDiagram\n    participant Browser as Browser(kihon.jsp)\n    participant ActionServlet as Struts Controller\n    participant Action as KihonRegisterAction\n    participant IBaseDelegate as IBaseDelegate\n    participant Session as HttpSession\n    participant Database as Database\n\n    Browser->>ActionServlet: POST /kihonRegister\n    ActionServlet->>Action: execute(mapping, form, request, response, userInfo, vo)\n    Action->>Action: DynaActionForm dform = (DynaActionForm)form\n    Action->>Action: Validation and change check\n    Action->>Session: getAttribute(CONTRACT_KEIYAKU_CARD_PRE_SCREAN)\n    Action->>IBaseDelegate: AbstractDelegateFactory.getFactory().createDelegate()\n    alt actionType = \"register\"\n        Action->>IBaseDelegate: update(dform.getMap(), vo)\n        IBaseDelegate->>Database: UPDATE keiyaku_kihon\n        Database-->>IBaseDelegate: Success\n        IBaseDelegate-->>Action: Success\n        Action->>ActionServlet: findForward(\"success\")\n    end\n    ActionServlet->>Browser: Forward to JSP",
+      "description": "High-level process flow overview for register_contract function"
     }
   ],
   "relationships": [
@@ -73,6 +117,12 @@
       "target": "function:init_screen",
       "relationship_type": "BELONGS_TO",
       "description": "Sequence Flow belongs to init-screen function"
+    },
+    {
+      "source": "flow:init_screen:overview_process_flow",
+      "target": "function:init_screen",
+      "relationship_type": "BELONGS_TO",
+      "description": "init_screen - Process Flow Overview belongs to init-screen function"
     },
     {
       "source": "flow:update_customer:edit_operation_no_database_update",
@@ -87,10 +137,22 @@
       "description": "Update Operation (Main/Sub/Delete) belongs to update-customer function"
     },
     {
+      "source": "flow:update_customer:overview_process_flow",
+      "target": "function:update_customer",
+      "relationship_type": "BELONGS_TO",
+      "description": "update_customer - Process Flow Overview belongs to update-customer function"
+    },
+    {
       "source": "flow:validation_contract:detailed_sequence_diagram",
       "target": "function:validation_contract",
       "relationship_type": "BELONGS_TO",
       "description": "Detailed Sequence Diagram belongs to validation-contract function"
+    },
+    {
+      "source": "flow:validation_contract:overview_process_flow",
+      "target": "function:validation_contract",
+      "relationship_type": "BELONGS_TO",
+      "description": "validation_contract - Process Flow Overview belongs to validation-contract function"
     },
     {
       "source": "flow:register_contract:visual_sequence_flow",
@@ -103,12 +165,18 @@
       "target": "function:register_contract",
       "relationship_type": "BELONGS_TO",
       "description": "Detailed Flow of updateMain() Method belongs to register-contract function"
+    },
+    {
+      "source": "flow:register_contract:overview_process_flow",
+      "target": "function:register_contract",
+      "relationship_type": "BELONGS_TO",
+      "description": "register_contract - Process Flow Overview belongs to register-contract function"
     }
   ],
   "metadata": {
     "module": "simple",
-    "total_entities": 6,
-    "total_relationships": 6,
+    "total_entities": 10,
+    "total_relationships": 10,
     "functions_processed": 4
   }
 }

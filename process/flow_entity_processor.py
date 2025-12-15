@@ -1,12 +1,16 @@
 """
 Flow Entity Processor
 
-This module processes sequence diagram markdown files from function directories
-and extracts flow entities with their mermaid diagrams. It also creates relationships
-between flow entities and their parent functions.
+This module processes flow diagram markdown files from function directories
+and extracts flow entities with their mermaid diagrams. It processes:
+1. sequence-diagram-en.md - Detailed sequence flows
+2. function-overview-en.md - High-level process flow (Section 3)
+
+It also creates relationships between flow entities and their parent functions.
 
 Author: System
 Date: December 8, 2025
+Updated: December 15, 2025
 """
 
 import os
@@ -18,8 +22,12 @@ from typing import List, Dict, Any, Optional, Tuple
 
 class FlowEntityProcessor:
     """
-    Processes sequence diagram files to extract flow entities and establish
+    Processes flow diagram files to extract flow entities and establish
     relationships with functions.
+    
+    Processes two types of files:
+    - sequence-diagram-en.md: Detailed implementation flows
+    - function-overview-en.md: High-level process flow overview (Section 3)
     """
     
     def __init__(self, base_path: str, module_name: str = "simple"):
@@ -32,7 +40,8 @@ class FlowEntityProcessor:
         """
         self.base_path = Path(base_path)
         self.module_name = module_name
-        self.module_path = self.base_path / module_name / "yuusyou-kihon" / "functions"
+        self.basic_tab_name = "yuusyou-kihon" if module_name == "simple" else "basic-info-housing-contract"
+        self.module_path = self.base_path / module_name / self.basic_tab_name / "functions"
         self.entities = []
         self.relationships = []
     
@@ -174,7 +183,7 @@ class FlowEntityProcessor:
                 
                 entity = {
                     "id": flow_id,
-                    "type": "ProcessFlow",
+                    "type": "process_flow",
                     "name": clean_title,
                     "function_name": function_name_normalized,
                     "parent_function": f"function:{function_name_normalized}",
@@ -188,9 +197,58 @@ class FlowEntityProcessor:
         
         return flow_entities
     
+    def process_function_overview(self, function_name: str, file_path: Path) -> List[Dict[str, Any]]:
+        """
+        Process function overview file and extract the Process Flow section.
+        
+        Args:
+            function_name: Name of the function (from directory name, e.g., "init-screen")
+            file_path: Path to the function-overview-en.md file
+            
+        Returns:
+            List containing the process flow entity (if found)
+        """
+        flow_entities = []
+        
+        # Convert function name from hyphens to underscores to match entity ID format
+        function_name_normalized = function_name.replace('-', '_')
+        
+        # Extract sections from markdown
+        sections = self.extract_sections_from_markdown(file_path)
+        
+        # Get relative path for source_file
+        relative_path = file_path.relative_to(self.base_path.parent)
+        
+        # Look for the "Process Flow" section
+        for section in sections:
+            # Check if this is the Process Flow section (handle variations)
+            clean_title = self.strip_bullet_number(section['title'])
+            if clean_title.lower() in ['process flow', 'processing flow', 'workflow']:
+                # Only process if it has a mermaid diagram
+                if section['mermaid']:
+                    flow_id = f"flow:{function_name_normalized}:overview_process_flow"
+                    
+                    entity = {
+                        "id": flow_id,
+                        "type": "process_flow_overview",
+                        "name": f"{function_name_normalized} - Process Flow Overview",
+                        "function_name": function_name_normalized,
+                        "parent_function": f"function:{function_name_normalized}",
+                        "source_file": str(relative_path).replace('\\', '/'),
+                        "section_title": clean_title,
+                        "content": section['mermaid'],
+                        "description": f"High-level process flow overview for {function_name_normalized} function"
+                    }
+                    
+                    flow_entities.append(entity)
+                    break  # Only take the first Process Flow section
+        
+        return flow_entities
+    
     def process_all_functions(self) -> None:
         """
-        Process all function directories and extract flow entities.
+        Process all function directories and extract flow entities from both
+        sequence-diagram-en.md and function-overview-en.md files.
         """
         if not self.module_path.exists():
             raise FileNotFoundError(f"Module path not found: {self.module_path}")
@@ -200,11 +258,15 @@ class FlowEntityProcessor:
             if function_dir.is_dir():
                 function_name = function_dir.name
                 sequence_file = function_dir / "sequence-diagram-en.md"
+                overview_file = function_dir / "function-overview-en.md"
                 
+                total_flows = 0
+                
+                # Process sequence diagram file (detailed flows)
                 if sequence_file.exists():
                     print(f"Processing function: {function_name}")
                     
-                    # Extract flow entities
+                    # Extract flow entities from sequence diagram
                     flow_entities = self.process_sequence_diagram(function_name, sequence_file)
                     self.entities.extend(flow_entities)
                     
@@ -218,7 +280,34 @@ class FlowEntityProcessor:
                         }
                         self.relationships.append(relationship)
                     
-                    print(f"  - Extracted {len(flow_entities)} flow entities")
+                    total_flows += len(flow_entities)
+                    print(f"  - Extracted {len(flow_entities)} detailed flow entities")
+                
+                # Process function overview file (high-level process flow)
+                if overview_file.exists():
+                    if not sequence_file.exists():
+                        print(f"Processing function: {function_name}")
+                    
+                    # Extract process flow from overview
+                    overview_flows = self.process_function_overview(function_name, overview_file)
+                    self.entities.extend(overview_flows)
+                    
+                    # Create relationships
+                    for entity in overview_flows:
+                        relationship = {
+                            "source": entity["id"],
+                            "target": entity["parent_function"],
+                            "relationship_type": "BELONGS_TO",
+                            "description": f"{entity['name']} belongs to {function_name} function"
+                        }
+                        self.relationships.append(relationship)
+                    
+                    total_flows += len(overview_flows)
+                    if overview_flows:
+                        print(f"  - Extracted {len(overview_flows)} process flow overview")
+                
+                if total_flows > 0:
+                    print(f"  - Total: {total_flows} flow entities")
     
     def get_results(self) -> Dict[str, Any]:
         """
@@ -262,10 +351,11 @@ def main():
     """
     # Set up paths
     base_path = "/data_hdd_16t/vuongchu/nxGREG/ctc-data-en"
-    output_path = "/data_hdd_16t/vuongchu/nxGREG/json/simple-flow-entities.json"
+    module = "housing"
+    output_path = f"/data_hdd_16t/vuongchu/nxGREG/json/{module}/{module}-flow-entities.json"
     
     # Create processor
-    processor = FlowEntityProcessor(base_path, module_name="simple")
+    processor = FlowEntityProcessor(base_path, module_name=module)
     
     # Process all functions
     print("Starting flow entity extraction...\n")

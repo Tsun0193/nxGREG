@@ -99,7 +99,7 @@ class TabDescriptionProcessor:
         
         entity = {
             "id": f"tab-desc:{self.module_name}:{tab_name}:overview",
-            "type": "TabOverview",
+            "type": "tab_overview",
             "name": overview_data.get("Screen Name", "Unknown Tab"),
             "module": self.module_name,
             "tab_name": tab_name,
@@ -168,7 +168,7 @@ class TabDescriptionProcessor:
         
         entity = {
             "id": f"tab-desc:{self.module_name}:{tab_name}:flow",
-            "type": "TabProcessingFlow",
+            "type": "tab_processing_flow",
             "name": section_title,
             "module": self.module_name,
             "tab_name": tab_name,
@@ -215,7 +215,7 @@ class TabDescriptionProcessor:
         
         entity = {
             "id": f"tab-desc:{self.module_name}:{tab_name}:data-display",
-            "type": "TabDataDisplay",
+            "type": "tab_data_display",
             "name": section_title,
             "module": self.module_name,
             "tab_name": tab_name,
@@ -286,7 +286,7 @@ class TabDescriptionProcessor:
         for impact in impacts:
             entity = {
                 "id": f"tab-desc:{self.module_name}:{tab_name}:impact:{self._slugify(impact['change_type'])}",
-                "type": "TabImpact",
+                "type": "tab_impact",
                 "name": impact["change_type"],
                 "module": self.module_name,
                 "tab_name": tab_name,
@@ -630,7 +630,7 @@ def main():
     
     # Get base path from command line or use default
     base_path = sys.argv[1] if len(sys.argv) > 1 else "ctc-data-en"
-    module_name = sys.argv[2] if len(sys.argv) > 2 else "housing"
+    module_name = sys.argv[2] if len(sys.argv) > 2 else "simple"
     
     processor = TabDescriptionProcessor(base_path, module_name)
     
