@@ -179,6 +179,82 @@ class TabDescriptionProcessor:
         
         return entity
     
+    def extract_data_display_section(self, content: str, file_path: Path) -> Optional[Dict[str, Any]]:
+        """
+        Extract the "Data displayed in the [Tab]" section with JSP files list.
+        This section appears in housing module files.
+        
+        Args:
+            content: Full markdown content
+            file_path: Path to the file
+            
+        Returns:
+            Data display entity dict or None
+        """
+        # Find "Data displayed in" section
+        data_display_pattern = r'###\s+(Data displayed.*?)\s*\n(.*?)(?=\n###\s+|\n\|\s+Change|\Z)'
+        data_display_match = re.search(data_display_pattern, content, re.DOTALL | re.IGNORECASE)
+        
+        if not data_display_match:
+            return None
+        
+        section_title = data_display_match.group(1).strip()
+        section_content = data_display_match.group(2).strip()
+        
+        # Extract JSP files from bullet list
+        jsp_files = self._parse_jsp_files(section_content)
+        
+        if not jsp_files:
+            return None
+        
+        tab_name = self.extract_tab_name_from_path(file_path)
+        
+        # Create a list of "file: description" strings for Neo4j compatibility
+        jsp_files_list = [jsp["file"] for jsp in jsp_files]
+        jsp_descriptions_list = [f"{jsp['file']}: {jsp['description']}" for jsp in jsp_files]
+        
+        entity = {
+            "id": f"tab-desc:{self.module_name}:{tab_name}:data-display",
+            "type": "TabDataDisplay",
+            "name": section_title,
+            "module": self.module_name,
+            "tab_name": tab_name,
+            "source_file": str(file_path.relative_to(self.base_path)),
+            "section_title": section_title,
+            "jsp_files": jsp_files_list,
+            "jsp_descriptions": jsp_descriptions_list
+        }
+        
+        return entity
+    
+    def _parse_jsp_files(self, content: str) -> List[Dict[str, str]]:
+        """
+        Parse JSP file list from content.
+        
+        Expected format:
+        - **A0020.jsp**: Collection Information
+        - **A0002.jsp**: Collection Conditions
+        
+        Args:
+            content: Section content
+            
+        Returns:
+            List of dicts with 'file' and 'description' keys
+        """
+        jsp_files = []
+        
+        # Match JSP file entries
+        jsp_pattern = r'-\s+\*\*([A-Z][0-9]{4}\.jsp)\*\*:\s+(.+?)(?=\n|$)'
+        matches = re.findall(jsp_pattern, content, re.MULTILINE)
+        
+        for file_name, description in matches:
+            jsp_files.append({
+                "file": file_name,
+                "description": description.strip()
+            })
+        
+        return jsp_files
+    
     def extract_impact_section(self, content: str, file_path: Path) -> List[Dict[str, Any]]:
         """
         Extract the Impact section table and create separate entities for each impact type.
@@ -435,6 +511,29 @@ class TabDescriptionProcessor:
                 "relationship_type": "DESCRIBES_FLOW",
                 "description": f"Processing flow describes navigation to {tab_entity_id}"
             })
+        
+        # Extract data display section (housing module specific)
+        data_display_entity = self.extract_data_display_section(content, file_path)
+        if data_display_entity:
+            entities.append(data_display_entity)
+            
+            # Create relationship from data display to actual tab entity
+            relationships.append({
+                "source": data_display_entity["id"],
+                "target": tab_entity_id,
+                "relationship_type": "DISPLAYS_DATA",
+                "description": f"Data display section describes JSP files shown in {tab_entity_id}"
+            })
+            
+            # Create relationships from data display to JSP files (if they exist as entities)
+            for jsp_file in data_display_entity["jsp_files"]:
+                jsp_entity_id = f"jsp:{jsp_file.replace('.jsp', '').lower()}"
+                relationships.append({
+                    "source": data_display_entity["id"],
+                    "target": jsp_entity_id,
+                    "relationship_type": "REFERENCES_JSP",
+                    "description": f"References JSP file {jsp_file}"
+                })
         
         # Extract impacts
         impact_entities = self.extract_impact_section(content, file_path)

@@ -1,0 +1,1820 @@
+{
+  "entities": [
+    {
+      "id": "form_group:yuusyou_keiyakuNewtmp_kihonForm:COMMON",
+      "type": "form_group",
+      "name": "Common Properties",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "prefix": "COMMON",
+      "field_count": 10,
+      "description": "Common Properties - Form-level common fields",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_group:yuusyou_keiyakuNewtmp_kihonForm:CH01_",
+      "type": "form_group",
+      "name": "Header Group",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "prefix": "CH01_",
+      "field_count": 32,
+      "description": "Header Group - Fields with prefix CH01_",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_group:yuusyou_keiyakuNewtmp_kihonForm:J0001_",
+      "type": "form_group",
+      "name": "Customer Group",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "prefix": "J0001_",
+      "field_count": 18,
+      "description": "Customer Group - Fields with prefix J0001_",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_group:yuusyou_keiyakuNewtmp_kihonForm:J0002_",
+      "type": "form_group",
+      "name": "Building Owner Group",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "prefix": "J0002_",
+      "field_count": 17,
+      "description": "Building Owner Group - Fields with prefix J0002_",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_group:yuusyou_keiyakuNewtmp_kihonForm:C0001_",
+      "type": "form_group",
+      "name": "Construction Case Group",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "prefix": "C0001_",
+      "field_count": 10,
+      "description": "Construction Case Group - Fields with prefix C0001_",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_group:yuusyou_keiyakuNewtmp_kihonForm:B0031_",
+      "type": "form_group",
+      "name": "Date Group",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "prefix": "B0031_",
+      "field_count": 6,
+      "description": "Date Group - Fields with prefix B0031_",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_group:yuusyou_keiyakuNewtmp_kihonForm:E0001_",
+      "type": "form_group",
+      "name": "Memo Group",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "prefix": "E0001_",
+      "field_count": 1,
+      "description": "Memo Group - Fields with prefix E0001_",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:actionType",
+      "type": "form_field",
+      "name": "actionType",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "actionType",
+      "data_type": "String",
+      "description": "Action type (submit, update, delete...)",
+      "group_prefix": "COMMON",
+      "group_name": "Common Properties",
+      "is_common": true,
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:uniqueId",
+      "type": "form_field",
+      "name": "uniqueId",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "uniqueId",
+      "data_type": "String",
+      "description": "Unique ID for form or record",
+      "group_prefix": "COMMON",
+      "group_name": "Common Properties",
+      "is_common": true,
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:ankenBunruiCd",
+      "type": "form_field",
+      "name": "ankenBunruiCd",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "ankenBunruiCd",
+      "data_type": "String",
+      "description": "Case classification code (case)",
+      "group_prefix": "COMMON",
+      "group_name": "Common Properties",
+      "is_common": true,
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:keiyakuCardSyubetsuCd",
+      "type": "form_field",
+      "name": "keiyakuCardSyubetsuCd",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "keiyakuCardSyubetsuCd",
+      "data_type": "String",
+      "description": "Contract card type classification code",
+      "group_prefix": "COMMON",
+      "group_name": "Common Properties",
+      "is_common": true,
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:tabCd",
+      "type": "form_field",
+      "name": "tabCd",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "tabCd",
+      "data_type": "String",
+      "description": "Tab code (for UI tab navigation)",
+      "group_prefix": "COMMON",
+      "group_name": "Common Properties",
+      "is_common": true,
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:sinkiSakuseiKbn",
+      "type": "form_field",
+      "name": "sinkiSakuseiKbn",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "sinkiSakuseiKbn",
+      "data_type": "String",
+      "description": "New creation classification",
+      "group_prefix": "COMMON",
+      "group_name": "Common Properties",
+      "is_common": true,
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:afterShijisyoNo",
+      "type": "form_field",
+      "name": "afterShijisyoNo",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "afterShijisyoNo",
+      "data_type": "String",
+      "description": "After instruction sheet number (maintenance/repair related)",
+      "group_prefix": "COMMON",
+      "group_name": "Common Properties",
+      "is_common": true,
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:seigouseiCheckSuccessFlg",
+      "type": "form_field",
+      "name": "seigouseiCheckSuccessFlg",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "seigouseiCheckSuccessFlg",
+      "data_type": "String",
+      "description": "Consistency check success flag",
+      "group_prefix": "COMMON",
+      "group_name": "Common Properties",
+      "is_common": true,
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:keiriNorRegistFlg",
+      "type": "form_field",
+      "name": "keiriNorRegistFlg",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "keiriNorRegistFlg",
+      "data_type": "String",
+      "description": "Normal accounting registration flag",
+      "group_prefix": "COMMON",
+      "group_name": "Common Properties",
+      "is_common": true,
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:keiriNoSetIsDoneFlg",
+      "type": "form_field",
+      "name": "keiriNoSetIsDoneFlg",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "keiriNoSetIsDoneFlg",
+      "data_type": "String",
+      "description": "Accounting number setting completion flag",
+      "group_prefix": "COMMON",
+      "group_name": "Common Properties",
+      "is_common": true,
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:CH01_keiyakuKbnCd",
+      "type": "form_field",
+      "name": "CH01_keiyakuKbnCd",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "CH01_keiyakuKbnCd",
+      "data_type": "String",
+      "description": "Contract type code",
+      "group_prefix": "CH01_",
+      "group_name": "Header Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:CH01_keiyakuKbnName",
+      "type": "form_field",
+      "name": "CH01_keiyakuKbnName",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "CH01_keiyakuKbnName",
+      "data_type": "String",
+      "description": "Contract type name",
+      "group_prefix": "CH01_",
+      "group_name": "Header Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:CH01_hToriatsukaiKbnCd",
+      "type": "form_field",
+      "name": "CH01_hToriatsukaiKbnCd",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "CH01_hToriatsukaiKbnCd",
+      "data_type": "String",
+      "description": "Handling classification code",
+      "group_prefix": "CH01_",
+      "group_name": "Header Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:CH01_toriatsukaiKbnName",
+      "type": "form_field",
+      "name": "CH01_toriatsukaiKbnName",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "CH01_toriatsukaiKbnName",
+      "data_type": "String",
+      "description": "Handling classification name",
+      "group_prefix": "CH01_",
+      "group_name": "Header Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:CH01_hJyutyuEigyousyoCd",
+      "type": "form_field",
+      "name": "CH01_hJyutyuEigyousyoCd",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "CH01_hJyutyuEigyousyoCd",
+      "data_type": "String",
+      "description": "Order receiving office code",
+      "group_prefix": "CH01_",
+      "group_name": "Header Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:CH01_jyutyuEigyousyoName",
+      "type": "form_field",
+      "name": "CH01_jyutyuEigyousyoName",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "CH01_jyutyuEigyousyoName",
+      "data_type": "String",
+      "description": "Order receiving office name",
+      "group_prefix": "CH01_",
+      "group_name": "Header Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:CH01_hUriageEigyousyoCd",
+      "type": "form_field",
+      "name": "CH01_hUriageEigyousyoCd",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "CH01_hUriageEigyousyoCd",
+      "data_type": "String",
+      "description": "Sales office code",
+      "group_prefix": "CH01_",
+      "group_name": "Header Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:CH01_uriageEigyousyoName",
+      "type": "form_field",
+      "name": "CH01_uriageEigyousyoName",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "CH01_uriageEigyousyoName",
+      "data_type": "String",
+      "description": "Sales office name",
+      "group_prefix": "CH01_",
+      "group_name": "Header Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:CH01_eigyouUserName",
+      "type": "form_field",
+      "name": "CH01_eigyouUserName",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "CH01_eigyouUserName",
+      "data_type": "String",
+      "description": "Sales representative name",
+      "group_prefix": "CH01_",
+      "group_name": "Header Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:CH01_hEigyouUseId",
+      "type": "form_field",
+      "name": "CH01_hEigyouUseId",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "CH01_hEigyouUseId",
+      "data_type": "String",
+      "description": "Sales representative ID",
+      "group_prefix": "CH01_",
+      "group_name": "Header Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:CH01_hEigyouJyugyouinKbn",
+      "type": "form_field",
+      "name": "CH01_hEigyouJyugyouinKbn",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "CH01_hEigyouJyugyouinKbn",
+      "data_type": "String",
+      "description": "Sales employee classification",
+      "group_prefix": "CH01_",
+      "group_name": "Header Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:CH01_hEigyouSyozokuEigyousyoCd",
+      "type": "form_field",
+      "name": "CH01_hEigyouSyozokuEigyousyoCd",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "CH01_hEigyouSyozokuEigyousyoCd",
+      "data_type": "String",
+      "description": "Sales representative affiliated office code",
+      "group_prefix": "CH01_",
+      "group_name": "Header Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:CH01_hEigyouJinjiSeihinKbnCd",
+      "type": "form_field",
+      "name": "CH01_hEigyouJinjiSeihinKbnCd",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "CH01_hEigyouJinjiSeihinKbnCd",
+      "data_type": "String",
+      "description": "Sales representative HR product classification code",
+      "group_prefix": "CH01_",
+      "group_name": "Header Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:CH01_kyotenName",
+      "type": "form_field",
+      "name": "CH01_kyotenName",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "CH01_kyotenName",
+      "data_type": "String",
+      "description": "Base name",
+      "group_prefix": "CH01_",
+      "group_name": "Header Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:CH01_hSyozokuKyotenCd",
+      "type": "form_field",
+      "name": "CH01_hSyozokuKyotenCd",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "CH01_hSyozokuKyotenCd",
+      "data_type": "String",
+      "description": "Affiliated base code",
+      "group_prefix": "CH01_",
+      "group_name": "Header Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:CH01_kigyouName",
+      "type": "form_field",
+      "name": "CH01_kigyouName",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "CH01_kigyouName",
+      "data_type": "String",
+      "description": "Company name",
+      "group_prefix": "CH01_",
+      "group_name": "Header Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:CH01_hTokuyakuDairiKigyouCd",
+      "type": "form_field",
+      "name": "CH01_hTokuyakuDairiKigyouCd",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "CH01_hTokuyakuDairiKigyouCd",
+      "data_type": "String",
+      "description": "Special agent company code",
+      "group_prefix": "CH01_",
+      "group_name": "Header Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:CH01_tokuyakuUserName",
+      "type": "form_field",
+      "name": "CH01_tokuyakuUserName",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "CH01_tokuyakuUserName",
+      "data_type": "String",
+      "description": "Special agent representative name",
+      "group_prefix": "CH01_",
+      "group_name": "Header Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:CH01_hTokuyakuUserId",
+      "type": "form_field",
+      "name": "CH01_hTokuyakuUserId",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "CH01_hTokuyakuUserId",
+      "data_type": "String",
+      "description": "Special agent representative ID",
+      "group_prefix": "CH01_",
+      "group_name": "Header Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:CH01_hTokuyakuSyozokuEigyousyoCd",
+      "type": "form_field",
+      "name": "CH01_hTokuyakuSyozokuEigyousyoCd",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "CH01_hTokuyakuSyozokuEigyousyoCd",
+      "data_type": "String",
+      "description": "Special agent affiliated office code",
+      "group_prefix": "CH01_",
+      "group_name": "Header Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:CH01_hTokuyakuTantouUserId",
+      "type": "form_field",
+      "name": "CH01_hTokuyakuTantouUserId",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "CH01_hTokuyakuTantouUserId",
+      "data_type": "String",
+      "description": "Special agent representative ID",
+      "group_prefix": "CH01_",
+      "group_name": "Header Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:CH01_hTokuyakuJyugyouinKbn",
+      "type": "form_field",
+      "name": "CH01_hTokuyakuJyugyouinKbn",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "CH01_hTokuyakuJyugyouinKbn",
+      "data_type": "String",
+      "description": "Special agent employee classification",
+      "group_prefix": "CH01_",
+      "group_name": "Header Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:CH01_hTokuyakuJinjiSeihinKbnCd",
+      "type": "form_field",
+      "name": "CH01_hTokuyakuJinjiSeihinKbnCd",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "CH01_hTokuyakuJinjiSeihinKbnCd",
+      "data_type": "String",
+      "description": "Special agent HR product classification code",
+      "group_prefix": "CH01_",
+      "group_name": "Header Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:CH01_sekkeiUserName",
+      "type": "form_field",
+      "name": "CH01_sekkeiUserName",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "CH01_sekkeiUserName",
+      "data_type": "String",
+      "description": "Designer name",
+      "group_prefix": "CH01_",
+      "group_name": "Header Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:CH01_hSekkeiUserId",
+      "type": "form_field",
+      "name": "CH01_hSekkeiUserId",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "CH01_hSekkeiUserId",
+      "data_type": "String",
+      "description": "Designer ID",
+      "group_prefix": "CH01_",
+      "group_name": "Header Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:CH01_hSekkeiSyozokuEigyousyoCd",
+      "type": "form_field",
+      "name": "CH01_hSekkeiSyozokuEigyousyoCd",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "CH01_hSekkeiSyozokuEigyousyoCd",
+      "data_type": "String",
+      "description": "Design affiliated office code",
+      "group_prefix": "CH01_",
+      "group_name": "Header Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:CH01_hSekkeiTantouUserId",
+      "type": "form_field",
+      "name": "CH01_hSekkeiTantouUserId",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "CH01_hSekkeiTantouUserId",
+      "data_type": "String",
+      "description": "Design representative ID",
+      "group_prefix": "CH01_",
+      "group_name": "Header Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:CH01_hSekkeiJyugyouinKbn",
+      "type": "form_field",
+      "name": "CH01_hSekkeiJyugyouinKbn",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "CH01_hSekkeiJyugyouinKbn",
+      "data_type": "String",
+      "description": "Design employee classification",
+      "group_prefix": "CH01_",
+      "group_name": "Header Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:CH01_hSekkeiJinjiSeihinKbnCd",
+      "type": "form_field",
+      "name": "CH01_hSekkeiJinjiSeihinKbnCd",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "CH01_hSekkeiJinjiSeihinKbnCd",
+      "data_type": "String",
+      "description": "Design HR product classification code",
+      "group_prefix": "CH01_",
+      "group_name": "Header Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:CH01_hTokuyakuKyotenCd",
+      "type": "form_field",
+      "name": "CH01_hTokuyakuKyotenCd",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "CH01_hTokuyakuKyotenCd",
+      "data_type": "String",
+      "description": "Special agent base code",
+      "group_prefix": "CH01_",
+      "group_name": "Header Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:CH01_hSekkeiKyotenCd",
+      "type": "form_field",
+      "name": "CH01_hSekkeiKyotenCd",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "CH01_hSekkeiKyotenCd",
+      "data_type": "String",
+      "description": "Design base code",
+      "group_prefix": "CH01_",
+      "group_name": "Header Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:CH01_koujiKeitaiCd",
+      "type": "form_field",
+      "name": "CH01_koujiKeitaiCd",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "CH01_koujiKeitaiCd",
+      "data_type": "String",
+      "description": "Construction form code",
+      "group_prefix": "CH01_",
+      "group_name": "Header Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:J0001_hUniqueId",
+      "type": "form_field",
+      "name": "J0001_hUniqueId",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "J0001_hUniqueId",
+      "data_type": "String",
+      "description": "Customer unique ID",
+      "group_prefix": "J0001_",
+      "group_name": "Customer Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:J0001_kokyakuNameKana",
+      "type": "form_field",
+      "name": "J0001_kokyakuNameKana",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "J0001_kokyakuNameKana",
+      "data_type": "String",
+      "description": "Customer name (kana)",
+      "group_prefix": "J0001_",
+      "group_name": "Customer Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:J0001_kokyakuName",
+      "type": "form_field",
+      "name": "J0001_kokyakuName",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "J0001_kokyakuName",
+      "data_type": "String",
+      "description": "Customer name",
+      "group_prefix": "J0001_",
+      "group_name": "Customer Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:J0001_kokyakuTel1",
+      "type": "form_field",
+      "name": "J0001_kokyakuTel1",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "J0001_kokyakuTel1",
+      "data_type": "String",
+      "description": "Customer telephone number 1",
+      "group_prefix": "J0001_",
+      "group_name": "Customer Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:J0001_kokyakuTel2",
+      "type": "form_field",
+      "name": "J0001_kokyakuTel2",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "J0001_kokyakuTel2",
+      "data_type": "String",
+      "description": "Customer telephone number 2",
+      "group_prefix": "J0001_",
+      "group_name": "Customer Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:J0001_kokyakuTel3",
+      "type": "form_field",
+      "name": "J0001_kokyakuTel3",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "J0001_kokyakuTel3",
+      "data_type": "String",
+      "description": "Customer telephone number 3",
+      "group_prefix": "J0001_",
+      "group_name": "Customer Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:J0001_kokyakuNenrei",
+      "type": "form_field",
+      "name": "J0001_kokyakuNenrei",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "J0001_kokyakuNenrei",
+      "data_type": "String",
+      "description": "Customer age",
+      "group_prefix": "J0001_",
+      "group_name": "Customer Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:J0001_address",
+      "type": "form_field",
+      "name": "J0001_address",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "J0001_address",
+      "data_type": "String",
+      "description": "Customer address",
+      "group_prefix": "J0001_",
+      "group_name": "Customer Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:J0001_hKokyakuTodoufuken",
+      "type": "form_field",
+      "name": "J0001_hKokyakuTodoufuken",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "J0001_hKokyakuTodoufuken",
+      "data_type": "String",
+      "description": "Customer prefecture",
+      "group_prefix": "J0001_",
+      "group_name": "Customer Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:J0001_hKokyakuShikutyouson",
+      "type": "form_field",
+      "name": "J0001_hKokyakuShikutyouson",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "J0001_hKokyakuShikutyouson",
+      "data_type": "String",
+      "description": "Customer city/town/village",
+      "group_prefix": "J0001_",
+      "group_name": "Customer Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:J0001_hKokyakuOaza",
+      "type": "form_field",
+      "name": "J0001_hKokyakuOaza",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "J0001_hKokyakuOaza",
+      "data_type": "String",
+      "description": "Customer district",
+      "group_prefix": "J0001_",
+      "group_name": "Customer Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:J0001_hKokyakuTyoume",
+      "type": "form_field",
+      "name": "J0001_hKokyakuTyoume",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "J0001_hKokyakuTyoume",
+      "data_type": "String",
+      "description": "Customer block",
+      "group_prefix": "J0001_",
+      "group_name": "Customer Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:J0001_hKokyakuBanchi",
+      "type": "form_field",
+      "name": "J0001_hKokyakuBanchi",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "J0001_hKokyakuBanchi",
+      "data_type": "String",
+      "description": "Customer house number",
+      "group_prefix": "J0001_",
+      "group_name": "Customer Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:J0001_hKokyakuBuilMansionName",
+      "type": "form_field",
+      "name": "J0001_hKokyakuBuilMansionName",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "J0001_hKokyakuBuilMansionName",
+      "data_type": "String",
+      "description": "Customer building/mansion name",
+      "group_prefix": "J0001_",
+      "group_name": "Customer Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:J0001_hSyufukuKbn",
+      "type": "form_field",
+      "name": "J0001_hSyufukuKbn",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "J0001_hSyufukuKbn",
+      "data_type": "String",
+      "description": "Restoration classification",
+      "group_prefix": "J0001_",
+      "group_name": "Customer Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:J0001_keiyakuKokyakuName",
+      "type": "form_field",
+      "name": "J0001_keiyakuKokyakuName",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "J0001_keiyakuKokyakuName",
+      "data_type": "String",
+      "description": "Contract customer name",
+      "group_prefix": "J0001_",
+      "group_name": "Customer Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:J0001_hKokyakuNo",
+      "type": "form_field",
+      "name": "J0001_hKokyakuNo",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "J0001_hKokyakuNo",
+      "data_type": "String",
+      "description": "Customer number",
+      "group_prefix": "J0001_",
+      "group_name": "Customer Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:J0001_kyokaNo",
+      "type": "form_field",
+      "name": "J0001_kyokaNo",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "J0001_kyokaNo",
+      "data_type": "String",
+      "description": "Permission number",
+      "group_prefix": "J0001_",
+      "group_name": "Customer Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:J0002_hUniqueId",
+      "type": "form_field",
+      "name": "J0002_hUniqueId",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "J0002_hUniqueId",
+      "data_type": "String",
+      "description": "Building owner unique ID",
+      "group_prefix": "J0002_",
+      "group_name": "Building Owner Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:J0002_kokyakuNameKana",
+      "type": "form_field",
+      "name": "J0002_kokyakuNameKana",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "J0002_kokyakuNameKana",
+      "data_type": "String",
+      "description": "Building owner name (kana)",
+      "group_prefix": "J0002_",
+      "group_name": "Building Owner Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:J0002_kokyakuName",
+      "type": "form_field",
+      "name": "J0002_kokyakuName",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "J0002_kokyakuName",
+      "data_type": "String",
+      "description": "Building owner name",
+      "group_prefix": "J0002_",
+      "group_name": "Building Owner Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:J0002_kokyakuTel1",
+      "type": "form_field",
+      "name": "J0002_kokyakuTel1",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "J0002_kokyakuTel1",
+      "data_type": "String",
+      "description": "Building owner telephone number 1",
+      "group_prefix": "J0002_",
+      "group_name": "Building Owner Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:J0002_kokyakuTel2",
+      "type": "form_field",
+      "name": "J0002_kokyakuTel2",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "J0002_kokyakuTel2",
+      "data_type": "String",
+      "description": "Building owner telephone number 2",
+      "group_prefix": "J0002_",
+      "group_name": "Building Owner Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:J0002_kokyakuTel3",
+      "type": "form_field",
+      "name": "J0002_kokyakuTel3",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "J0002_kokyakuTel3",
+      "data_type": "String",
+      "description": "Building owner telephone number 3",
+      "group_prefix": "J0002_",
+      "group_name": "Building Owner Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:J0002_kokyakuNenrei",
+      "type": "form_field",
+      "name": "J0002_kokyakuNenrei",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "J0002_kokyakuNenrei",
+      "data_type": "String",
+      "description": "Building owner age",
+      "group_prefix": "J0002_",
+      "group_name": "Building Owner Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:J0002_address",
+      "type": "form_field",
+      "name": "J0002_address",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "J0002_address",
+      "data_type": "String",
+      "description": "Building owner address",
+      "group_prefix": "J0002_",
+      "group_name": "Building Owner Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:J0002_hKokyakuTodoufuken",
+      "type": "form_field",
+      "name": "J0002_hKokyakuTodoufuken",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "J0002_hKokyakuTodoufuken",
+      "data_type": "String",
+      "description": "Building owner prefecture",
+      "group_prefix": "J0002_",
+      "group_name": "Building Owner Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:J0002_hKokyakuShikutyouson",
+      "type": "form_field",
+      "name": "J0002_hKokyakuShikutyouson",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "J0002_hKokyakuShikutyouson",
+      "data_type": "String",
+      "description": "Building owner city/town/village",
+      "group_prefix": "J0002_",
+      "group_name": "Building Owner Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:J0002_hKokyakuOaza",
+      "type": "form_field",
+      "name": "J0002_hKokyakuOaza",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "J0002_hKokyakuOaza",
+      "data_type": "String",
+      "description": "Building owner district",
+      "group_prefix": "J0002_",
+      "group_name": "Building Owner Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:J0002_hKokyakuTyoume",
+      "type": "form_field",
+      "name": "J0002_hKokyakuTyoume",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "J0002_hKokyakuTyoume",
+      "data_type": "String",
+      "description": "Building owner block",
+      "group_prefix": "J0002_",
+      "group_name": "Building Owner Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:J0002_hKokyakuBanchi",
+      "type": "form_field",
+      "name": "J0002_hKokyakuBanchi",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "J0002_hKokyakuBanchi",
+      "data_type": "String",
+      "description": "Building owner house number",
+      "group_prefix": "J0002_",
+      "group_name": "Building Owner Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:J0002_hKokyakuBuilMansionName",
+      "type": "form_field",
+      "name": "J0002_hKokyakuBuilMansionName",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "J0002_hKokyakuBuilMansionName",
+      "data_type": "String",
+      "description": "Building owner building/mansion name",
+      "group_prefix": "J0002_",
+      "group_name": "Building Owner Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:J0002_hSyufukuKbn",
+      "type": "form_field",
+      "name": "J0002_hSyufukuKbn",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "J0002_hSyufukuKbn",
+      "data_type": "String",
+      "description": "Restoration classification",
+      "group_prefix": "J0002_",
+      "group_name": "Building Owner Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:J0002_sesyuKokyakuName",
+      "type": "form_field",
+      "name": "J0002_sesyuKokyakuName",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "J0002_sesyuKokyakuName",
+      "data_type": "String",
+      "description": "Owner name",
+      "group_prefix": "J0002_",
+      "group_name": "Building Owner Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:J0002_hKokyakuNo",
+      "type": "form_field",
+      "name": "J0002_hKokyakuNo",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "J0002_hKokyakuNo",
+      "data_type": "String",
+      "description": "Building owner number",
+      "group_prefix": "J0002_",
+      "group_name": "Building Owner Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:C0001_koujiBukkenNameKana",
+      "type": "form_field",
+      "name": "C0001_koujiBukkenNameKana",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "C0001_koujiBukkenNameKana",
+      "data_type": "String",
+      "description": "Construction property name (kana)",
+      "group_prefix": "C0001_",
+      "group_name": "Construction Case Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:C0001_koujiBukkenName",
+      "type": "form_field",
+      "name": "C0001_koujiBukkenName",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "C0001_koujiBukkenName",
+      "data_type": "String",
+      "description": "Construction property name",
+      "group_prefix": "C0001_",
+      "group_name": "Construction Case Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:C0001_jyukyoZip",
+      "type": "form_field",
+      "name": "C0001_jyukyoZip",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "C0001_jyukyoZip",
+      "data_type": "String",
+      "description": "Residence postal code",
+      "group_prefix": "C0001_",
+      "group_name": "Construction Case Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:C0001_jyukyoAddress",
+      "type": "form_field",
+      "name": "C0001_jyukyoAddress",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "C0001_jyukyoAddress",
+      "data_type": "String",
+      "description": "Address",
+      "group_prefix": "C0001_",
+      "group_name": "Construction Case Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:C0001_hJyukyoTodoufuken",
+      "type": "form_field",
+      "name": "C0001_hJyukyoTodoufuken",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "C0001_hJyukyoTodoufuken",
+      "data_type": "String",
+      "description": "Residence prefecture",
+      "group_prefix": "C0001_",
+      "group_name": "Construction Case Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:C0001_hJyukyoShikutyouson",
+      "type": "form_field",
+      "name": "C0001_hJyukyoShikutyouson",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "C0001_hJyukyoShikutyouson",
+      "data_type": "String",
+      "description": "Residence city/town/village",
+      "group_prefix": "C0001_",
+      "group_name": "Construction Case Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:C0001_hJyukyoOaza",
+      "type": "form_field",
+      "name": "C0001_hJyukyoOaza",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "C0001_hJyukyoOaza",
+      "data_type": "String",
+      "description": "Residence district",
+      "group_prefix": "C0001_",
+      "group_name": "Construction Case Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:C0001_hJyukyoTyoumoku",
+      "type": "form_field",
+      "name": "C0001_hJyukyoTyoumoku",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "C0001_hJyukyoTyoumoku",
+      "data_type": "String",
+      "description": "Residence block",
+      "group_prefix": "C0001_",
+      "group_name": "Construction Case Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:C0001_jyukyoBanchi",
+      "type": "form_field",
+      "name": "C0001_jyukyoBanchi",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "C0001_jyukyoBanchi",
+      "data_type": "String",
+      "description": "Residence house number",
+      "group_prefix": "C0001_",
+      "group_name": "Construction Case Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:C0001_hTochiNo",
+      "type": "form_field",
+      "name": "C0001_hTochiNo",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "C0001_hTochiNo",
+      "data_type": "String",
+      "description": "Land number",
+      "group_prefix": "C0001_",
+      "group_name": "Construction Case Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:B0031_tyumonsyoSyutokuYoteiDate",
+      "type": "form_field",
+      "name": "B0031_tyumonsyoSyutokuYoteiDate",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "B0031_tyumonsyoSyutokuYoteiDate",
+      "data_type": "String",
+      "description": "Order form acquisition planned date",
+      "group_prefix": "B0031_",
+      "group_name": "Date Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:B0031_tyumonsyoSyutokuDate",
+      "type": "form_field",
+      "name": "B0031_tyumonsyoSyutokuDate",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "B0031_tyumonsyoSyutokuDate",
+      "data_type": "String",
+      "description": "Order form acquisition date",
+      "group_prefix": "B0031_",
+      "group_name": "Date Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:B0031_keiyakuTeiketsuYoteiDate",
+      "type": "form_field",
+      "name": "B0031_keiyakuTeiketsuYoteiDate",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "B0031_keiyakuTeiketsuYoteiDate",
+      "data_type": "String",
+      "description": "Contract conclusion planned date",
+      "group_prefix": "B0031_",
+      "group_name": "Date Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:B0031_keiyakuTeiketsuDate",
+      "type": "form_field",
+      "name": "B0031_keiyakuTeiketsuDate",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "B0031_keiyakuTeiketsuDate",
+      "data_type": "String",
+      "description": "Contract conclusion date",
+      "group_prefix": "B0031_",
+      "group_name": "Date Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:B0031_keiyakuKeijyouYoteiDate",
+      "type": "form_field",
+      "name": "B0031_keiyakuKeijyouYoteiDate",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "B0031_keiyakuKeijyouYoteiDate",
+      "data_type": "String",
+      "description": "Contract recording planned date",
+      "group_prefix": "B0031_",
+      "group_name": "Date Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:B0031_jyutyuKeijyouYoteiDate",
+      "type": "form_field",
+      "name": "B0031_jyutyuKeijyouYoteiDate",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "B0031_jyutyuKeijyouYoteiDate",
+      "data_type": "String",
+      "description": "Order recording planned date",
+      "group_prefix": "B0031_",
+      "group_name": "Date Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    },
+    {
+      "id": "form_field:E0001_memo",
+      "type": "form_field",
+      "name": "E0001_memo",
+      "parent_module": "module:simple",
+      "form_id": "yuusyou_keiyakuNewtmp_kihonForm",
+      "field_name": "E0001_memo",
+      "data_type": "String",
+      "description": "Memo",
+      "group_prefix": "E0001_",
+      "group_name": "Memo Group",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/components/form-fields-en.md"
+    }
+  ],
+  "relationships": [
+    {
+      "source": "form:yuusyou_keiyakuNewtmp_kihonForm",
+      "target": "form_group:yuusyou_keiyakuNewtmp_kihonForm:COMMON",
+      "relationship_type": "HAS_GROUP"
+    },
+    {
+      "source": "form:yuusyou_keiyakuNewtmp_kihonForm",
+      "target": "form_group:yuusyou_keiyakuNewtmp_kihonForm:CH01_",
+      "relationship_type": "HAS_GROUP"
+    },
+    {
+      "source": "form:yuusyou_keiyakuNewtmp_kihonForm",
+      "target": "form_group:yuusyou_keiyakuNewtmp_kihonForm:J0001_",
+      "relationship_type": "HAS_GROUP"
+    },
+    {
+      "source": "form:yuusyou_keiyakuNewtmp_kihonForm",
+      "target": "form_group:yuusyou_keiyakuNewtmp_kihonForm:J0002_",
+      "relationship_type": "HAS_GROUP"
+    },
+    {
+      "source": "form:yuusyou_keiyakuNewtmp_kihonForm",
+      "target": "form_group:yuusyou_keiyakuNewtmp_kihonForm:C0001_",
+      "relationship_type": "HAS_GROUP"
+    },
+    {
+      "source": "form:yuusyou_keiyakuNewtmp_kihonForm",
+      "target": "form_group:yuusyou_keiyakuNewtmp_kihonForm:B0031_",
+      "relationship_type": "HAS_GROUP"
+    },
+    {
+      "source": "form:yuusyou_keiyakuNewtmp_kihonForm",
+      "target": "form_group:yuusyou_keiyakuNewtmp_kihonForm:E0001_",
+      "relationship_type": "HAS_GROUP"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:COMMON",
+      "target": "form_field:actionType",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:COMMON",
+      "target": "form_field:uniqueId",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:COMMON",
+      "target": "form_field:ankenBunruiCd",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:COMMON",
+      "target": "form_field:keiyakuCardSyubetsuCd",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:COMMON",
+      "target": "form_field:tabCd",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:COMMON",
+      "target": "form_field:sinkiSakuseiKbn",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:COMMON",
+      "target": "form_field:afterShijisyoNo",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:COMMON",
+      "target": "form_field:seigouseiCheckSuccessFlg",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:COMMON",
+      "target": "form_field:keiriNorRegistFlg",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:COMMON",
+      "target": "form_field:keiriNoSetIsDoneFlg",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:CH01_",
+      "target": "form_field:CH01_keiyakuKbnCd",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:CH01_",
+      "target": "form_field:CH01_keiyakuKbnName",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:CH01_",
+      "target": "form_field:CH01_hToriatsukaiKbnCd",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:CH01_",
+      "target": "form_field:CH01_toriatsukaiKbnName",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:CH01_",
+      "target": "form_field:CH01_hJyutyuEigyousyoCd",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:CH01_",
+      "target": "form_field:CH01_jyutyuEigyousyoName",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:CH01_",
+      "target": "form_field:CH01_hUriageEigyousyoCd",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:CH01_",
+      "target": "form_field:CH01_uriageEigyousyoName",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:CH01_",
+      "target": "form_field:CH01_eigyouUserName",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:CH01_",
+      "target": "form_field:CH01_hEigyouUseId",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:CH01_",
+      "target": "form_field:CH01_hEigyouJyugyouinKbn",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:CH01_",
+      "target": "form_field:CH01_hEigyouSyozokuEigyousyoCd",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:CH01_",
+      "target": "form_field:CH01_hEigyouJinjiSeihinKbnCd",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:CH01_",
+      "target": "form_field:CH01_kyotenName",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:CH01_",
+      "target": "form_field:CH01_hSyozokuKyotenCd",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:CH01_",
+      "target": "form_field:CH01_kigyouName",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:CH01_",
+      "target": "form_field:CH01_hTokuyakuDairiKigyouCd",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:CH01_",
+      "target": "form_field:CH01_tokuyakuUserName",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:CH01_",
+      "target": "form_field:CH01_hTokuyakuUserId",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:CH01_",
+      "target": "form_field:CH01_hTokuyakuSyozokuEigyousyoCd",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:CH01_",
+      "target": "form_field:CH01_hTokuyakuTantouUserId",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:CH01_",
+      "target": "form_field:CH01_hTokuyakuJyugyouinKbn",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:CH01_",
+      "target": "form_field:CH01_hTokuyakuJinjiSeihinKbnCd",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:CH01_",
+      "target": "form_field:CH01_sekkeiUserName",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:CH01_",
+      "target": "form_field:CH01_hSekkeiUserId",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:CH01_",
+      "target": "form_field:CH01_hSekkeiSyozokuEigyousyoCd",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:CH01_",
+      "target": "form_field:CH01_hSekkeiTantouUserId",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:CH01_",
+      "target": "form_field:CH01_hSekkeiJyugyouinKbn",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:CH01_",
+      "target": "form_field:CH01_hSekkeiJinjiSeihinKbnCd",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:CH01_",
+      "target": "form_field:CH01_hTokuyakuKyotenCd",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:CH01_",
+      "target": "form_field:CH01_hSekkeiKyotenCd",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:CH01_",
+      "target": "form_field:CH01_koujiKeitaiCd",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:J0001_",
+      "target": "form_field:J0001_hUniqueId",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:J0001_",
+      "target": "form_field:J0001_kokyakuNameKana",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:J0001_",
+      "target": "form_field:J0001_kokyakuName",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:J0001_",
+      "target": "form_field:J0001_kokyakuTel1",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:J0001_",
+      "target": "form_field:J0001_kokyakuTel2",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:J0001_",
+      "target": "form_field:J0001_kokyakuTel3",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:J0001_",
+      "target": "form_field:J0001_kokyakuNenrei",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:J0001_",
+      "target": "form_field:J0001_address",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:J0001_",
+      "target": "form_field:J0001_hKokyakuTodoufuken",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:J0001_",
+      "target": "form_field:J0001_hKokyakuShikutyouson",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:J0001_",
+      "target": "form_field:J0001_hKokyakuOaza",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:J0001_",
+      "target": "form_field:J0001_hKokyakuTyoume",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:J0001_",
+      "target": "form_field:J0001_hKokyakuBanchi",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:J0001_",
+      "target": "form_field:J0001_hKokyakuBuilMansionName",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:J0001_",
+      "target": "form_field:J0001_hSyufukuKbn",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:J0001_",
+      "target": "form_field:J0001_keiyakuKokyakuName",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:J0001_",
+      "target": "form_field:J0001_hKokyakuNo",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:J0001_",
+      "target": "form_field:J0001_kyokaNo",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:J0002_",
+      "target": "form_field:J0002_hUniqueId",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:J0002_",
+      "target": "form_field:J0002_kokyakuNameKana",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:J0002_",
+      "target": "form_field:J0002_kokyakuName",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:J0002_",
+      "target": "form_field:J0002_kokyakuTel1",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:J0002_",
+      "target": "form_field:J0002_kokyakuTel2",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:J0002_",
+      "target": "form_field:J0002_kokyakuTel3",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:J0002_",
+      "target": "form_field:J0002_kokyakuNenrei",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:J0002_",
+      "target": "form_field:J0002_address",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:J0002_",
+      "target": "form_field:J0002_hKokyakuTodoufuken",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:J0002_",
+      "target": "form_field:J0002_hKokyakuShikutyouson",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:J0002_",
+      "target": "form_field:J0002_hKokyakuOaza",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:J0002_",
+      "target": "form_field:J0002_hKokyakuTyoume",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:J0002_",
+      "target": "form_field:J0002_hKokyakuBanchi",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:J0002_",
+      "target": "form_field:J0002_hKokyakuBuilMansionName",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:J0002_",
+      "target": "form_field:J0002_hSyufukuKbn",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:J0002_",
+      "target": "form_field:J0002_sesyuKokyakuName",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:J0002_",
+      "target": "form_field:J0002_hKokyakuNo",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:C0001_",
+      "target": "form_field:C0001_koujiBukkenNameKana",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:C0001_",
+      "target": "form_field:C0001_koujiBukkenName",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:C0001_",
+      "target": "form_field:C0001_jyukyoZip",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:C0001_",
+      "target": "form_field:C0001_jyukyoAddress",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:C0001_",
+      "target": "form_field:C0001_hJyukyoTodoufuken",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:C0001_",
+      "target": "form_field:C0001_hJyukyoShikutyouson",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:C0001_",
+      "target": "form_field:C0001_hJyukyoOaza",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:C0001_",
+      "target": "form_field:C0001_hJyukyoTyoumoku",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:C0001_",
+      "target": "form_field:C0001_jyukyoBanchi",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:C0001_",
+      "target": "form_field:C0001_hTochiNo",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:B0031_",
+      "target": "form_field:B0031_tyumonsyoSyutokuYoteiDate",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:B0031_",
+      "target": "form_field:B0031_tyumonsyoSyutokuDate",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:B0031_",
+      "target": "form_field:B0031_keiyakuTeiketsuYoteiDate",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:B0031_",
+      "target": "form_field:B0031_keiyakuTeiketsuDate",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:B0031_",
+      "target": "form_field:B0031_keiyakuKeijyouYoteiDate",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:B0031_",
+      "target": "form_field:B0031_jyutyuKeijyouYoteiDate",
+      "relationship_type": "CONTAINS_FIELD"
+    },
+    {
+      "source": "form_group:yuusyou_keiyakuNewtmp_kihonForm:E0001_",
+      "target": "form_field:E0001_memo",
+      "relationship_type": "CONTAINS_FIELD"
+    }
+  ]
+}

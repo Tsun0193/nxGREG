@@ -23,7 +23,7 @@ class DatabaseRelationshipExtractor:
     Extracts database table relationships from function overview files.
     """
     
-    def __init__(self, base_path: str, module_name: str = "simple"):
+    def __init__(self, base_path: str, module_name: str = "simple", screen: str = "yuusyou-kihon"):
         """
         Initialize the extractor.
         
@@ -33,8 +33,10 @@ class DatabaseRelationshipExtractor:
         """
         self.base_path = Path(base_path)
         self.module_name = module_name
-        self.module_path = self.base_path / module_name / "yuusyou-kihon" / "functions"
+        self.module_path = self.base_path / module_name / screen / "functions"
         self.relationships = []
+        self.entities = []  # Store database table entities
+        self.seen_tables = set()  # Track unique tables
     
 
     def extract_database_tables(self, file_path: Path) -> List[Dict[str, Any]]:
@@ -146,6 +148,79 @@ class DatabaseRelationshipExtractor:
         
         return tables
     
+    def determine_table_type(self, table_name: str) -> str:
+        """
+        Determine table type based on prefix.
+        
+        Args:
+            table_name: Name of the database table
+            
+        Returns:
+            Table type (master, transaction, view, sequence, index, or unknown)
+        """
+        table_upper = table_name.upper()
+        
+        if table_upper.startswith('M_'):
+            return 'master'
+        elif table_upper.startswith('T_'):
+            return 'transaction'
+        elif table_upper.startswith('V_'):
+            return 'view'
+        elif table_upper.startswith('S_'):
+            return 'sequence'
+        elif table_upper.startswith('IDX_'):
+            return 'index'
+        else:
+            return 'unknown'
+    
+    def create_database_entity(self, table_name: str, description: str, source_file: str) -> Dict[str, Any]:
+        """
+        Create a database table entity.
+        
+        Args:
+            table_name: Name of the database table
+            description: Description of the table
+            source_file: Source file path where the table was found
+            
+        Returns:
+            Database entity dictionary
+        """
+        table_type = self.determine_table_type(table_name)
+        
+        # Generate a readable name from table name
+        # Remove prefix and convert underscores to spaces, then title case
+        name_without_prefix = table_name
+        for prefix in ['m_', 't_', 'v_', 's_', 'idx_']:
+            if table_name.lower().startswith(prefix):
+                name_without_prefix = table_name[len(prefix):]
+                break
+        
+        readable_name = ' '.join(word.capitalize() for word in name_without_prefix.split('_'))
+        if table_type == 'master':
+            readable_name += ' Master Table'
+        elif table_type == 'transaction':
+            readable_name += ' Transaction Table'
+        elif table_type == 'view':
+            readable_name += ' View'
+        elif table_type == 'sequence':
+            readable_name += ' Sequence'
+        elif table_type == 'index':
+            readable_name += ' Index'
+        else:
+            readable_name += ' Table'
+        
+        entity = {
+            'id': f'database_table:{table_name}',
+            'type': 'database_table',
+            'name': readable_name,
+            'table_name': table_name,
+            'table_type': table_type,
+            'description': description if description else f'{readable_name}',
+            'source_file': source_file
+        }
+        
+        return entity
+    
     def create_relationships(self, function_name: str, tables: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         """
         Create relationships between function and database tables.
@@ -186,11 +261,27 @@ class DatabaseRelationshipExtractor:
         Returns:
             List of relationships extracted from the file
         """
+        # Convert function name from hyphen-separated to underscore-separated
+        function_name_normalized = function_name.replace('-', '_')
+        
         # Extract database tables
         tables = self.extract_database_tables(file_path)
         
+        # Create database entities for unique tables
+        relative_path = str(file_path.relative_to(self.base_path.parent))
+        for table_info in tables:
+            table_name = table_info['table_name']
+            if table_name not in self.seen_tables:
+                entity = self.create_database_entity(
+                    table_name=table_name,
+                    description=table_info['description'],
+                    source_file=relative_path
+                )
+                self.entities.append(entity)
+                self.seen_tables.add(table_name)
+        
         # Create relationships
-        relationships = self.create_relationships(function_name, tables)
+        relationships = self.create_relationships(function_name_normalized, tables)
         
         return relationships
     
@@ -221,19 +312,28 @@ class DatabaseRelationshipExtractor:
         Get the processed results.
         
         Returns:
-            Dictionary containing relationships and metadata
+            Dictionary containing entities, relationships and metadata
         """
         # Get unique tables and functions
         unique_tables = set(r['target'] for r in self.relationships)
         unique_functions = set(r['source'] for r in self.relationships)
         
+        # Count entities by type
+        entity_type_counts = {}
+        for entity in self.entities:
+            table_type = entity['table_type']
+            entity_type_counts[table_type] = entity_type_counts.get(table_type, 0) + 1
+        
         return {
+            'entities': self.entities,
             'relationships': self.relationships,
             'metadata': {
                 'module': self.module_name,
+                'total_entities': len(self.entities),
                 'total_relationships': len(self.relationships),
                 'unique_functions': len(unique_functions),
-                'unique_tables': len(unique_tables)
+                'unique_tables': len(unique_tables),
+                'entity_type_counts': entity_type_counts
             }
         }
     
@@ -250,9 +350,13 @@ class DatabaseRelationshipExtractor:
             json.dump(results, f, indent=2, ensure_ascii=False)
         
         print(f"\nResults saved to: {output_path}")
+        print(f"Total entities: {results['metadata']['total_entities']}")
         print(f"Total relationships: {results['metadata']['total_relationships']}")
         print(f"Unique functions: {results['metadata']['unique_functions']}")
         print(f"Unique tables: {results['metadata']['unique_tables']}")
+        print(f"\nEntity breakdown by type:")
+        for table_type, count in results['metadata']['entity_type_counts'].items():
+            print(f"  - {table_type}: {count}")
 
 
 def main():
@@ -261,7 +365,7 @@ def main():
     """
     # Set up paths
     base_path = "/data_hdd_16t/vuongchu/nxGREG/ctc-data-en"
-    output_path = "/data_hdd_16t/vuongchu/nxGREG/json/simple-database-relationships.json"
+    output_path = "/data_hdd_16t/vuongchu/nxGREG/json/simple/simple-database-relationships.json"
     
     # Create extractor
     extractor = DatabaseRelationshipExtractor(base_path, module_name="simple")
@@ -273,8 +377,13 @@ def main():
     # Save results
     extractor.save_to_json(output_path)
     
-    # Print sample relationships
+    # Print sample entities and relationships
     results = extractor.get_results()
+    if results['entities']:
+        print("\n--- Sample Entities ---")
+        for entity in results['entities'][:3]:
+            print(json.dumps(entity, indent=2))
+    
     if results['relationships']:
         print("\n--- Sample Relationships ---")
         for rel in results['relationships'][:3]:

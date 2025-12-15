@@ -14,7 +14,7 @@ def main():
     neo4j_password = os.getenv("NEO4J_PASSWORD", "password")
     
     # Path to JSON directory
-    json_dir = Path("json/housing")
+    json_dir = Path("json/simple")
     
     # Create the pipeline
     pipeline = JSONToGraphPipeline(

@@ -1,889 +1,1638 @@
 {
+  "entities": [
+    {
+      "id": "database_table:t_keiyaku",
+      "type": "database_table",
+      "name": "Keiyaku Transaction Table",
+      "table_name": "t_keiyaku",
+      "table_type": "transaction",
+      "description": "Main contract table - System core",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_keiyaku_kaikeitani_kankei",
+      "type": "database_table",
+      "name": "Keiyaku Kaikeitani Kankei Transaction Table",
+      "table_name": "t_keiyaku_kaikeitani_kankei",
+      "table_type": "transaction",
+      "description": "Contract accounting unit relationship (parent/source)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_anken",
+      "type": "database_table",
+      "name": "Anken Transaction Table",
+      "table_name": "t_anken",
+      "table_type": "transaction",
+      "description": "Case table linked to contract",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_tochi",
+      "type": "database_table",
+      "name": "Tochi Transaction Table",
+      "table_name": "t_tochi",
+      "table_type": "transaction",
+      "description": "Land table linked to case",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_jyutyu",
+      "type": "database_table",
+      "name": "Jyutyu Transaction Table",
+      "table_name": "t_jyutyu",
+      "table_type": "transaction",
+      "description": "Order table linked to contract",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_keiyaku_kokyaku_kankei",
+      "type": "database_table",
+      "name": "Keiyaku Kokyaku Kankei Transaction Table",
+      "table_name": "t_keiyaku_kokyaku_kankei",
+      "table_type": "transaction",
+      "description": "Contract customer relationship",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_keiyaku_tochi",
+      "type": "database_table",
+      "name": "Keiyaku Tochi Transaction Table",
+      "table_name": "t_keiyaku_tochi",
+      "table_type": "transaction",
+      "description": "Contract land relationship",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_keiyaku_koutei",
+      "type": "database_table",
+      "name": "Keiyaku Koutei Transaction Table",
+      "table_name": "t_keiyaku_koutei",
+      "table_type": "transaction",
+      "description": "Contract building relationship",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_keiyaku_hosoku_jyouhou",
+      "type": "database_table",
+      "name": "Keiyaku Hosoku Jyouhou Transaction Table",
+      "table_name": "t_keiyaku_hosoku_jyouhou",
+      "table_type": "transaction",
+      "description": "Contract supplementary information",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_kyoudou_jyutyu",
+      "type": "database_table",
+      "name": "Kyoudou Jyutyu Transaction Table",
+      "table_name": "t_kyoudou_jyutyu",
+      "table_type": "transaction",
+      "description": "Joint order information",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_visit_info",
+      "type": "database_table",
+      "name": "Visit Info Transaction Table",
+      "table_name": "t_visit_info",
+      "table_type": "transaction",
+      "description": "Visit information",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_keijyou_rireki",
+      "type": "database_table",
+      "name": "Keijyou Rireki Transaction Table",
+      "table_name": "t_keijyou_rireki",
+      "table_type": "transaction",
+      "description": "Accounting history",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_hansya_check",
+      "type": "database_table",
+      "name": "Hansya Check Transaction Table",
+      "table_name": "t_hansya_check",
+      "table_type": "transaction",
+      "description": "Organization reflection check",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "database_table:m_keiyaku_kbn",
+      "type": "database_table",
+      "name": "Keiyaku Kbn Master Table",
+      "table_name": "m_keiyaku_kbn",
+      "table_type": "master",
+      "description": "Contract type (master)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "database_table:m_toriatsukai_kbn",
+      "type": "database_table",
+      "name": "Toriatsukai Kbn Master Table",
+      "table_name": "m_toriatsukai_kbn",
+      "table_type": "master",
+      "description": "Handling type (master)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "database_table:m_kouji_keitai",
+      "type": "database_table",
+      "name": "Kouji Keitai Master Table",
+      "table_name": "m_kouji_keitai",
+      "table_type": "master",
+      "description": "Construction format (master)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "database_table:m_kouji_kbn",
+      "type": "database_table",
+      "name": "Kouji Kbn Master Table",
+      "table_name": "m_kouji_kbn",
+      "table_type": "master",
+      "description": "Construction type (master)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "database_table:m_eigyousyo",
+      "type": "database_table",
+      "name": "Eigyousyo Master Table",
+      "table_name": "m_eigyousyo",
+      "table_type": "master",
+      "description": "Sales office (master)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "database_table:m_tousya_hanbai_keitai",
+      "type": "database_table",
+      "name": "Tousya Hanbai Keitai Master Table",
+      "table_name": "m_tousya_hanbai_keitai",
+      "table_type": "master",
+      "description": "Sales format (master)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "database_table:m_tochi_riyou_kbn",
+      "type": "database_table",
+      "name": "Tochi Riyou Kbn Master Table",
+      "table_name": "m_tochi_riyou_kbn",
+      "table_type": "master",
+      "description": "Land use type (master)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "database_table:m_tochi_youto_kbn",
+      "type": "database_table",
+      "name": "Tochi Youto Kbn Master Table",
+      "table_name": "m_tochi_youto_kbn",
+      "table_type": "master",
+      "description": "Land purpose (master)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "database_table:m_user",
+      "type": "database_table",
+      "name": "User Master Table",
+      "table_name": "m_user",
+      "table_type": "master",
+      "description": "User (master)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "database_table:m_anken_bunrui",
+      "type": "database_table",
+      "name": "Anken Bunrui Master Table",
+      "table_name": "m_anken_bunrui",
+      "table_type": "master",
+      "description": "Case type (master)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "database_table:m_kokyaku",
+      "type": "database_table",
+      "name": "Kokyaku Master Table",
+      "table_name": "m_kokyaku",
+      "table_type": "master",
+      "description": "Customer (master)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "database_table:m_koutei_kbn",
+      "type": "database_table",
+      "name": "Koutei Kbn Master Table",
+      "table_name": "m_koutei_kbn",
+      "table_type": "master",
+      "description": "Building type (master)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "database_table:m_soshiki",
+      "type": "database_table",
+      "name": "Soshiki Master Table",
+      "table_name": "m_soshiki",
+      "table_type": "master",
+      "description": "Organization (master)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "database_table:m_gijyutsusya_haichi",
+      "type": "database_table",
+      "name": "Gijyutsusya Haichi Master Table",
+      "table_name": "m_gijyutsusya_haichi",
+      "table_type": "master",
+      "description": "Technician placement (master)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "database_table:v_m_keiyaku_status",
+      "type": "database_table",
+      "name": "M Keiyaku Status View",
+      "table_name": "v_m_keiyaku_status",
+      "table_type": "view",
+      "description": "Contract status (view)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "database_table:v_m_keiyaku_sakusei_kbn",
+      "type": "database_table",
+      "name": "M Keiyaku Sakusei Kbn View",
+      "table_name": "v_m_keiyaku_sakusei_kbn",
+      "table_type": "view",
+      "description": "Contract creation type (view)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "database_table:v_m_keiyaku_bunrui_s",
+      "type": "database_table",
+      "name": "M Keiyaku Bunrui S View",
+      "table_name": "v_m_keiyaku_bunrui_s",
+      "table_type": "view",
+      "description": "Contract classification (view)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "database_table:v_m_kainushi_moushide_kbn_s",
+      "type": "database_table",
+      "name": "M Kainushi Moushide Kbn S View",
+      "table_name": "v_m_kainushi_moushide_kbn_s",
+      "table_type": "view",
+      "description": "Landlord application type (view)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "database_table:v_m_keiyakusyo_syurui",
+      "type": "database_table",
+      "name": "M Keiyakusyo Syurui View",
+      "table_name": "v_m_keiyakusyo_syurui",
+      "table_type": "view",
+      "description": "Contract document type (view)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "database_table:v_m_kouji_keitai_yuusyou",
+      "type": "database_table",
+      "name": "M Kouji Keitai Yuusyou View",
+      "table_name": "v_m_kouji_keitai_yuusyou",
+      "table_type": "view",
+      "description": "Priority construction format (view)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/init-screen/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_c_keiyaku",
+      "type": "database_table",
+      "name": "C Keiyaku Transaction Table",
+      "table_name": "t_c_keiyaku",
+      "table_type": "transaction",
+      "description": "Contract cache (edit mode)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/update-customer/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_c_keiyaku_kokyaku_kankei",
+      "type": "database_table",
+      "name": "C Keiyaku Kokyaku Kankei Transaction Table",
+      "table_name": "t_c_keiyaku_kokyaku_kankei",
+      "table_type": "transaction",
+      "description": "Contract-customer cache (edit mode)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/update-customer/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_kokyaku_kojin",
+      "type": "database_table",
+      "name": "Kokyaku Kojin Transaction Table",
+      "table_name": "t_kokyaku_kojin",
+      "table_type": "transaction",
+      "description": "Individual customer information",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/update-customer/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_keiyaku_hosoku_jouhou",
+      "type": "database_table",
+      "name": "Keiyaku Hosoku Jouhou Transaction Table",
+      "table_name": "t_keiyaku_hosoku_jouhou",
+      "table_type": "transaction",
+      "description": "Contract supplementary information",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/update-customer/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_c_keiyaku_hosoku_jouhou",
+      "type": "database_table",
+      "name": "C Keiyaku Hosoku Jouhou Transaction Table",
+      "table_name": "t_c_keiyaku_hosoku_jouhou",
+      "table_type": "transaction",
+      "description": "Contract supplementary cache (edit mode)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/update-customer/function-overview-en.md"
+    },
+    {
+      "id": "database_table:v_m_kokyaku_kbn",
+      "type": "database_table",
+      "name": "M Kokyaku Kbn View",
+      "table_name": "v_m_kokyaku_kbn",
+      "table_type": "view",
+      "description": "Customer type (master view)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/update-customer/function-overview-en.md"
+    },
+    {
+      "id": "database_table:m_kazoku_kousei",
+      "type": "database_table",
+      "name": "Kazoku Kousei Master Table",
+      "table_name": "m_kazoku_kousei",
+      "table_type": "master",
+      "description": "Family composition (master)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/update-customer/function-overview-en.md"
+    },
+    {
+      "id": "database_table:v_m_tsudukigara",
+      "type": "database_table",
+      "name": "M Tsudukigara View",
+      "table_name": "v_m_tsudukigara",
+      "table_type": "view",
+      "description": "Relationship (master view)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/update-customer/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_kokyaku_soshiki",
+      "type": "database_table",
+      "name": "Kokyaku Soshiki Transaction Table",
+      "table_name": "t_kokyaku_soshiki",
+      "table_type": "transaction",
+      "description": "Organization customer information",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/update-customer/function-overview-en.md"
+    },
+    {
+      "id": "database_table:m_tkn_menkyo_gyouseicho",
+      "type": "database_table",
+      "name": "Tkn Menkyo Gyouseicho Master Table",
+      "table_name": "m_tkn_menkyo_gyouseicho",
+      "table_type": "master",
+      "description": "License administrative agency (master)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/update-customer/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_f_honnin_kakunin_kiroku_wk",
+      "type": "database_table",
+      "name": "F Honnin Kakunin Kiroku Wk Transaction Table",
+      "table_name": "t_f_honnin_kakunin_kiroku_wk",
+      "table_type": "transaction",
+      "description": "Identity verification record (work table)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/update-customer/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_c_jyutyu",
+      "type": "database_table",
+      "name": "C Jyutyu Transaction Table",
+      "table_name": "t_c_jyutyu",
+      "table_type": "transaction",
+      "description": "Order change table",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/validation-contract/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_c_anken",
+      "type": "database_table",
+      "name": "C Anken Transaction Table",
+      "table_name": "t_c_anken",
+      "table_type": "transaction",
+      "description": "Case change table",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/validation-contract/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_kouji",
+      "type": "database_table",
+      "name": "Kouji Transaction Table",
+      "table_name": "t_kouji",
+      "table_type": "transaction",
+      "description": "Construction table linked to contract",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/validation-contract/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_c_kouji",
+      "type": "database_table",
+      "name": "C Kouji Transaction Table",
+      "table_name": "t_c_kouji",
+      "table_type": "transaction",
+      "description": "Construction change table",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/validation-contract/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_c_keiyaku_koutei",
+      "type": "database_table",
+      "name": "C Keiyaku Koutei Transaction Table",
+      "table_name": "t_c_keiyaku_koutei",
+      "table_type": "transaction",
+      "description": "Contract progress change table",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/validation-contract/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_c_keiyaku_tochi",
+      "type": "database_table",
+      "name": "C Keiyaku Tochi Transaction Table",
+      "table_name": "t_c_keiyaku_tochi",
+      "table_type": "transaction",
+      "description": "Contract land change table",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/validation-contract/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_jyutyu_tatemono",
+      "type": "database_table",
+      "name": "Jyutyu Tatemono Transaction Table",
+      "table_name": "t_jyutyu_tatemono",
+      "table_type": "transaction",
+      "description": "Order building table",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/validation-contract/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_c_jyutyu_tatemono",
+      "type": "database_table",
+      "name": "C Jyutyu Tatemono Transaction Table",
+      "table_name": "t_c_jyutyu_tatemono",
+      "table_type": "transaction",
+      "description": "Order building change table",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/validation-contract/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_kaisyu_jyouken",
+      "type": "database_table",
+      "name": "Kaisyu Jyouken Transaction Table",
+      "table_name": "t_kaisyu_jyouken",
+      "table_type": "transaction",
+      "description": "Collection conditions table",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/validation-contract/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_mitsumori",
+      "type": "database_table",
+      "name": "Mitsumori Transaction Table",
+      "table_name": "t_mitsumori",
+      "table_type": "transaction",
+      "description": "Estimate table",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/validation-contract/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_syoukai_tyukai",
+      "type": "database_table",
+      "name": "Syoukai Tyukai Transaction Table",
+      "table_name": "t_syoukai_tyukai",
+      "table_type": "transaction",
+      "description": "Introduction brokerage table",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/validation-contract/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_kessai_jyouken_syousai",
+      "type": "database_table",
+      "name": "Kessai Jyouken Syousai Transaction Table",
+      "table_name": "t_kessai_jyouken_syousai",
+      "table_type": "transaction",
+      "description": "Payment condition details table",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/validation-contract/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_keiyaku_keiri_jigyousyo_chk",
+      "type": "database_table",
+      "name": "Keiyaku Keiri Jigyousyo Chk Transaction Table",
+      "table_name": "t_keiyaku_keiri_jigyousyo_chk",
+      "table_type": "transaction",
+      "description": "Contract accounting office check",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/validation-contract/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_gijyutsusya_haichi_bukken",
+      "type": "database_table",
+      "name": "Gijyutsusya Haichi Bukken Transaction Table",
+      "table_name": "t_gijyutsusya_haichi_bukken",
+      "table_type": "transaction",
+      "description": "Technical staff allocation property",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/validation-contract/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_gijyutsusya_haichi_bukken_keiyaku",
+      "type": "database_table",
+      "name": "Gijyutsusya Haichi Bukken Keiyaku Transaction Table",
+      "table_name": "t_gijyutsusya_haichi_bukken_keiyaku",
+      "table_type": "transaction",
+      "description": "Technical staff allocation contract",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/validation-contract/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_fudousan_daicho_ctl",
+      "type": "database_table",
+      "name": "Fudousan Daicho Ctl Transaction Table",
+      "table_name": "t_fudousan_daicho_ctl",
+      "table_type": "transaction",
+      "description": "Real estate register control",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/validation-contract/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_keiyaku_shijisyo_kankei",
+      "type": "database_table",
+      "name": "Keiyaku Shijisyo Kankei Transaction Table",
+      "table_name": "t_keiyaku_shijisyo_kankei",
+      "table_type": "transaction",
+      "description": "Contract instruction relationship",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/validation-contract/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_f_honnin_kakunin_kiroku",
+      "type": "database_table",
+      "name": "F Honnin Kakunin Kiroku Transaction Table",
+      "table_name": "t_f_honnin_kakunin_kiroku",
+      "table_type": "transaction",
+      "description": "Identity verification record",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/validation-contract/function-overview-en.md"
+    },
+    {
+      "id": "database_table:m_syouhin",
+      "type": "database_table",
+      "name": "Syouhin Master Table",
+      "table_name": "m_syouhin",
+      "table_type": "master",
+      "description": "Product (Master)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/validation-contract/function-overview-en.md"
+    },
+    {
+      "id": "database_table:m_jigyousyo",
+      "type": "database_table",
+      "name": "Jigyousyo Master Table",
+      "table_name": "m_jigyousyo",
+      "table_type": "master",
+      "description": "Business office (Master)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/validation-contract/function-overview-en.md"
+    },
+    {
+      "id": "database_table:m_kyoten",
+      "type": "database_table",
+      "name": "Kyoten Master Table",
+      "table_name": "m_kyoten",
+      "table_type": "master",
+      "description": "Base (Master)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/validation-contract/function-overview-en.md"
+    },
+    {
+      "id": "database_table:m_seihin_bunrui",
+      "type": "database_table",
+      "name": "Seihin Bunrui Master Table",
+      "table_name": "m_seihin_bunrui",
+      "table_type": "master",
+      "description": "Product classification (Master)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/validation-contract/function-overview-en.md"
+    },
+    {
+      "id": "database_table:m_seihin_kbn",
+      "type": "database_table",
+      "name": "Seihin Kbn Master Table",
+      "table_name": "m_seihin_kbn",
+      "table_type": "master",
+      "description": "Product type (Master)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/validation-contract/function-overview-en.md"
+    },
+    {
+      "id": "database_table:m_consumption_tax_kbn",
+      "type": "database_table",
+      "name": "Consumption Tax Kbn Master Table",
+      "table_name": "m_consumption_tax_kbn",
+      "table_type": "master",
+      "description": "Consumption tax classification (Master)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/validation-contract/function-overview-en.md"
+    },
+    {
+      "id": "database_table:m_consumption_tax_rate",
+      "type": "database_table",
+      "name": "Consumption Tax Rate Master Table",
+      "table_name": "m_consumption_tax_rate",
+      "table_type": "master",
+      "description": "Consumption tax rate (Master)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/validation-contract/function-overview-en.md"
+    },
+    {
+      "id": "database_table:m_syutoku_kbn",
+      "type": "database_table",
+      "name": "Syutoku Kbn Master Table",
+      "table_name": "m_syutoku_kbn",
+      "table_type": "master",
+      "description": "Acquisition type (Master)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/validation-contract/function-overview-en.md"
+    },
+    {
+      "id": "database_table:m_sogai_youin_check_list",
+      "type": "database_table",
+      "name": "Sogai Youin Check List Master Table",
+      "table_name": "m_sogai_youin_check_list",
+      "table_type": "master",
+      "description": "Obstacle factor checklist (Master)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/validation-contract/function-overview-en.md"
+    },
+    {
+      "id": "database_table:m_yakuwari_jyouken",
+      "type": "database_table",
+      "name": "Yakuwari Jyouken Master Table",
+      "table_name": "m_yakuwari_jyouken",
+      "table_type": "master",
+      "description": "Role conditions (Master)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/validation-contract/function-overview-en.md"
+    },
+    {
+      "id": "database_table:v_m_anken_bunrui",
+      "type": "database_table",
+      "name": "M Anken Bunrui View",
+      "table_name": "v_m_anken_bunrui",
+      "table_type": "view",
+      "description": "Case type (View)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/validation-contract/function-overview-en.md"
+    },
+    {
+      "id": "database_table:v_m_kyoutsu_rank",
+      "type": "database_table",
+      "name": "M Kyoutsu Rank View",
+      "table_name": "v_m_kyoutsu_rank",
+      "table_type": "view",
+      "description": "Common rank (View)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/validation-contract/function-overview-en.md"
+    },
+    {
+      "id": "database_table:v_m_syutoku_keitai",
+      "type": "database_table",
+      "name": "M Syutoku Keitai View",
+      "table_name": "v_m_syutoku_keitai",
+      "table_type": "view",
+      "description": "Acquisition form (View)",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/validation-contract/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_tou_kouji",
+      "type": "database_table",
+      "name": "Tou Kouji Transaction Table",
+      "table_name": "t_tou_kouji",
+      "table_type": "transaction",
+      "description": "Child construction table",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/register-contract/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_c_tou_kouji",
+      "type": "database_table",
+      "name": "C Tou Kouji Transaction Table",
+      "table_name": "t_c_tou_kouji",
+      "table_type": "transaction",
+      "description": "Child construction change table",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/register-contract/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_keiyaku_syain_kankei",
+      "type": "database_table",
+      "name": "Keiyaku Syain Kankei Transaction Table",
+      "table_name": "t_keiyaku_syain_kankei",
+      "table_type": "transaction",
+      "description": "Contract employee relationship",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/register-contract/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_c_keiyaku_syain_kankei",
+      "type": "database_table",
+      "name": "C Keiyaku Syain Kankei Transaction Table",
+      "table_name": "t_c_keiyaku_syain_kankei",
+      "table_type": "transaction",
+      "description": "Contract employee change table",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/register-contract/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_anken_syain_kankei",
+      "type": "database_table",
+      "name": "Anken Syain Kankei Transaction Table",
+      "table_name": "t_anken_syain_kankei",
+      "table_type": "transaction",
+      "description": "Case employee relationship",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/register-contract/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_c_anken_syain_kankei",
+      "type": "database_table",
+      "name": "C Anken Syain Kankei Transaction Table",
+      "table_name": "t_c_anken_syain_kankei",
+      "table_type": "transaction",
+      "description": "Case employee change table",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/register-contract/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_c_keiyaku_shijisyo_kankei",
+      "type": "database_table",
+      "name": "C Keiyaku Shijisyo Kankei Transaction Table",
+      "table_name": "t_c_keiyaku_shijisyo_kankei",
+      "table_type": "transaction",
+      "description": "Contract instruction sheet change table",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/register-contract/function-overview-en.md"
+    },
+    {
+      "id": "database_table:t_c_kyoudou_jyutyu",
+      "type": "database_table",
+      "name": "C Kyoudou Jyutyu Transaction Table",
+      "table_name": "t_c_kyoudou_jyutyu",
+      "table_type": "transaction",
+      "description": "Joint order change table",
+      "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/register-contract/function-overview-en.md"
+    }
+  ],
   "relationships": [
     {
-      "source": "function:init-screen",
+      "source": "function:init_screen",
       "target": "database_table:t_keiyaku",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Main contract table - System core"
     },
     {
-      "source": "function:init-screen",
+      "source": "function:init_screen",
       "target": "database_table:t_keiyaku_kaikeitani_kankei",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Contract accounting unit relationship (parent/source)"
     },
     {
-      "source": "function:init-screen",
+      "source": "function:init_screen",
       "target": "database_table:t_anken",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Case table linked to contract"
     },
     {
-      "source": "function:init-screen",
+      "source": "function:init_screen",
       "target": "database_table:t_tochi",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Land table linked to case"
     },
     {
-      "source": "function:init-screen",
+      "source": "function:init_screen",
       "target": "database_table:t_jyutyu",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Order table linked to contract"
     },
     {
-      "source": "function:init-screen",
+      "source": "function:init_screen",
       "target": "database_table:t_keiyaku_kokyaku_kankei",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Contract customer relationship"
     },
     {
-      "source": "function:init-screen",
+      "source": "function:init_screen",
       "target": "database_table:t_keiyaku_tochi",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Contract land relationship"
     },
     {
-      "source": "function:init-screen",
+      "source": "function:init_screen",
       "target": "database_table:t_keiyaku_koutei",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Contract building relationship"
     },
     {
-      "source": "function:init-screen",
+      "source": "function:init_screen",
       "target": "database_table:t_keiyaku_hosoku_jyouhou",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Contract supplementary information"
     },
     {
-      "source": "function:init-screen",
+      "source": "function:init_screen",
       "target": "database_table:t_kyoudou_jyutyu",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Joint order information"
     },
     {
-      "source": "function:init-screen",
+      "source": "function:init_screen",
       "target": "database_table:t_visit_info",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Visit information"
     },
     {
-      "source": "function:init-screen",
+      "source": "function:init_screen",
       "target": "database_table:t_keijyou_rireki",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Accounting history"
     },
     {
-      "source": "function:init-screen",
+      "source": "function:init_screen",
       "target": "database_table:t_hansya_check",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Organization reflection check"
     },
     {
-      "source": "function:init-screen",
+      "source": "function:init_screen",
       "target": "database_table:m_keiyaku_kbn",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Contract type (master)"
     },
     {
-      "source": "function:init-screen",
+      "source": "function:init_screen",
       "target": "database_table:m_toriatsukai_kbn",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Handling type (master)"
     },
     {
-      "source": "function:init-screen",
+      "source": "function:init_screen",
       "target": "database_table:m_kouji_keitai",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Construction format (master)"
     },
     {
-      "source": "function:init-screen",
+      "source": "function:init_screen",
       "target": "database_table:m_kouji_kbn",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Construction type (master)"
     },
     {
-      "source": "function:init-screen",
+      "source": "function:init_screen",
       "target": "database_table:m_eigyousyo",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Sales office (master)"
     },
     {
-      "source": "function:init-screen",
+      "source": "function:init_screen",
       "target": "database_table:m_tousya_hanbai_keitai",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Sales format (master)"
     },
     {
-      "source": "function:init-screen",
+      "source": "function:init_screen",
       "target": "database_table:m_tochi_riyou_kbn",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Land use type (master)"
     },
     {
-      "source": "function:init-screen",
+      "source": "function:init_screen",
       "target": "database_table:m_tochi_youto_kbn",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Land purpose (master)"
     },
     {
-      "source": "function:init-screen",
+      "source": "function:init_screen",
       "target": "database_table:m_user",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "User (master)"
     },
     {
-      "source": "function:init-screen",
+      "source": "function:init_screen",
       "target": "database_table:m_anken_bunrui",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Case type (master)"
     },
     {
-      "source": "function:init-screen",
+      "source": "function:init_screen",
       "target": "database_table:m_kokyaku",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Customer (master)"
     },
     {
-      "source": "function:init-screen",
+      "source": "function:init_screen",
       "target": "database_table:m_koutei_kbn",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Building type (master)"
     },
     {
-      "source": "function:init-screen",
+      "source": "function:init_screen",
       "target": "database_table:m_soshiki",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Organization (master)"
     },
     {
-      "source": "function:init-screen",
+      "source": "function:init_screen",
       "target": "database_table:m_gijyutsusya_haichi",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Technician placement (master)"
     },
     {
-      "source": "function:init-screen",
+      "source": "function:init_screen",
       "target": "database_table:v_m_keiyaku_status",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Contract status (view)"
     },
     {
-      "source": "function:init-screen",
+      "source": "function:init_screen",
       "target": "database_table:v_m_keiyaku_sakusei_kbn",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Contract creation type (view)"
     },
     {
-      "source": "function:init-screen",
+      "source": "function:init_screen",
       "target": "database_table:v_m_keiyaku_bunrui_s",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Contract classification (view)"
     },
     {
-      "source": "function:init-screen",
+      "source": "function:init_screen",
       "target": "database_table:v_m_kainushi_moushide_kbn_s",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Landlord application type (view)"
     },
     {
-      "source": "function:init-screen",
+      "source": "function:init_screen",
       "target": "database_table:v_m_keiyakusyo_syurui",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Contract document type (view)"
     },
     {
-      "source": "function:init-screen",
+      "source": "function:init_screen",
       "target": "database_table:v_m_kouji_keitai_yuusyou",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Priority construction format (view)"
     },
     {
-      "source": "function:update-customer",
+      "source": "function:update_customer",
       "target": "database_table:t_keiyaku",
       "relationship_type": "uses_table",
       "operation_type": "read,update",
       "table_description": "Main contract table - center of the system"
     },
     {
-      "source": "function:update-customer",
+      "source": "function:update_customer",
       "target": "database_table:t_c_keiyaku",
       "relationship_type": "uses_table",
       "operation_type": "update",
       "table_description": "Contract cache (edit mode)"
     },
     {
-      "source": "function:update-customer",
+      "source": "function:update_customer",
       "target": "database_table:t_keiyaku_kokyaku_kankei",
       "relationship_type": "uses_table",
       "operation_type": "create,read,update",
       "table_description": "Contract-customer relationship"
     },
     {
-      "source": "function:update-customer",
+      "source": "function:update_customer",
       "target": "database_table:t_c_keiyaku_kokyaku_kankei",
       "relationship_type": "uses_table",
       "operation_type": "create,update",
       "table_description": "Contract-customer cache (edit mode)"
     },
     {
-      "source": "function:update-customer",
+      "source": "function:update_customer",
       "target": "database_table:t_kokyaku_kojin",
       "relationship_type": "uses_table",
       "operation_type": "read,update",
       "table_description": "Individual customer information"
     },
     {
-      "source": "function:update-customer",
+      "source": "function:update_customer",
       "target": "database_table:t_keiyaku_hosoku_jouhou",
       "relationship_type": "uses_table",
       "operation_type": "update",
       "table_description": "Contract supplementary information"
     },
     {
-      "source": "function:update-customer",
+      "source": "function:update_customer",
       "target": "database_table:t_c_keiyaku_hosoku_jouhou",
       "relationship_type": "uses_table",
       "operation_type": "update",
       "table_description": "Contract supplementary cache (edit mode)"
     },
     {
-      "source": "function:update-customer",
+      "source": "function:update_customer",
       "target": "database_table:v_m_kokyaku_kbn",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Customer type (master view)"
     },
     {
-      "source": "function:update-customer",
+      "source": "function:update_customer",
       "target": "database_table:m_kazoku_kousei",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Family composition (master)"
     },
     {
-      "source": "function:update-customer",
+      "source": "function:update_customer",
       "target": "database_table:v_m_tsudukigara",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Relationship (master view)"
     },
     {
-      "source": "function:update-customer",
+      "source": "function:update_customer",
       "target": "database_table:t_kokyaku_soshiki",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Organization customer information"
     },
     {
-      "source": "function:update-customer",
+      "source": "function:update_customer",
       "target": "database_table:m_tkn_menkyo_gyouseicho",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "License administrative agency (master)"
     },
     {
-      "source": "function:update-customer",
+      "source": "function:update_customer",
       "target": "database_table:t_f_honnin_kakunin_kiroku_wk",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Identity verification record (work table)"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:t_keiyaku",
       "relationship_type": "uses_table",
       "operation_type": "read,update",
       "table_description": "Main contract table - center of the system"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:t_c_keiyaku",
       "relationship_type": "uses_table",
       "operation_type": "read,update",
       "table_description": "Contract change table"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:t_jyutyu",
       "relationship_type": "uses_table",
       "operation_type": "read,update",
       "table_description": "Order table linked to contract"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:t_c_jyutyu",
       "relationship_type": "uses_table",
       "operation_type": "read,update",
       "table_description": "Order change table"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:t_anken",
       "relationship_type": "uses_table",
       "operation_type": "read,update",
       "table_description": "Case table linked to contract"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:t_c_anken",
       "relationship_type": "uses_table",
       "operation_type": "read,update",
       "table_description": "Case change table"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:t_kouji",
       "relationship_type": "uses_table",
       "operation_type": "read,update",
       "table_description": "Construction table linked to contract"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:t_c_kouji",
       "relationship_type": "uses_table",
       "operation_type": "read,update",
       "table_description": "Construction change table"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:t_keiyaku_koutei",
       "relationship_type": "uses_table",
       "operation_type": "read,update",
       "table_description": "Contract progress table"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:t_c_keiyaku_koutei",
       "relationship_type": "uses_table",
       "operation_type": "read,update",
       "table_description": "Contract progress change table"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:t_keiyaku_kokyaku_kankei",
       "relationship_type": "uses_table",
       "operation_type": "read,update",
       "table_description": "Contract customer relationship"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:t_c_keiyaku_kokyaku_kankei",
       "relationship_type": "uses_table",
       "operation_type": "read,update",
       "table_description": "Contract customer relationship (change)"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:t_keiyaku_tochi",
       "relationship_type": "uses_table",
       "operation_type": "read,update",
       "table_description": "Contract land table"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:t_c_keiyaku_tochi",
       "relationship_type": "uses_table",
       "operation_type": "read,update",
       "table_description": "Contract land change table"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:t_jyutyu_tatemono",
       "relationship_type": "uses_table",
       "operation_type": "read,update",
       "table_description": "Order building table"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:t_c_jyutyu_tatemono",
       "relationship_type": "uses_table",
       "operation_type": "read,update",
       "table_description": "Order building change table"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:t_kaisyu_jyouken",
       "relationship_type": "uses_table",
       "operation_type": "read,update",
       "table_description": "Collection conditions table"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:t_kyoudou_jyutyu",
       "relationship_type": "uses_table",
       "operation_type": "read,update",
       "table_description": "Joint order table"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:t_mitsumori",
       "relationship_type": "uses_table",
       "operation_type": "read,update",
       "table_description": "Estimate table"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:t_syoukai_tyukai",
       "relationship_type": "uses_table",
       "operation_type": "read,update",
       "table_description": "Introduction brokerage table"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:t_kessai_jyouken_syousai",
       "relationship_type": "uses_table",
       "operation_type": "read,update",
       "table_description": "Payment condition details table"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:t_keiyaku_keiri_jigyousyo_chk",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Contract accounting office check"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:t_gijyutsusya_haichi_bukken",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Technical staff allocation property"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:t_gijyutsusya_haichi_bukken_keiyaku",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Technical staff allocation contract"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:t_fudousan_daicho_ctl",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Real estate register control"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:t_keiyaku_shijisyo_kankei",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Contract instruction relationship"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:t_f_honnin_kakunin_kiroku",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Identity verification record"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:t_f_honnin_kakunin_kiroku_wk",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Identity verification record work"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:m_syouhin",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Product (Master)"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:m_keiyaku_kbn",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Contract type (Master)"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:m_toriatsukai_kbn",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Handling type (Master)"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:m_kouji_keitai",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Construction form (Master)"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:m_kouji_kbn",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Construction type (Master)"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:m_eigyousyo",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Sales office (Master)"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:m_jigyousyo",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Business office (Master)"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:m_kyoten",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Base (Master)"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:m_user",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "User (Master)"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:m_seihin_bunrui",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Product classification (Master)"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:m_seihin_kbn",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Product type (Master)"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:m_consumption_tax_kbn",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Consumption tax classification (Master)"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:m_consumption_tax_rate",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Consumption tax rate (Master)"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:m_tousya_hanbai_keitai",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Sales form (Master)"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:m_tochi_riyou_kbn",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Land use type (Master)"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:m_tochi_youto_kbn",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Land purpose (Master)"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:m_syutoku_kbn",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Acquisition type (Master)"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:m_sogai_youin_check_list",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Obstacle factor checklist (Master)"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:m_yakuwari_jyouken",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Role conditions (Master)"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:v_m_keiyaku_status",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Contract status (View)"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:v_m_keiyaku_sakusei_kbn",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Contract creation type (View)"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:v_m_keiyaku_bunrui_s",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Contract classification (View)"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:v_m_kainushi_moushide_kbn_s",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Owner application type (View)"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:v_m_keiyakusyo_syurui",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Contract document type (View)"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:v_m_anken_bunrui",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Case type (View)"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:v_m_kyoutsu_rank",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Common rank (View)"
     },
     {
-      "source": "function:validation-contract",
+      "source": "function:validation_contract",
       "target": "database_table:v_m_syutoku_keitai",
       "relationship_type": "uses_table",
       "operation_type": "read",
       "table_description": "Acquisition form (View)"
     },
     {
-      "source": "function:register-contract",
+      "source": "function:register_contract",
       "target": "database_table:t_keiyaku",
       "relationship_type": "uses_table",
       "operation_type": "update",
       "table_description": "Main contract table - Center of the system"
     },
     {
-      "source": "function:register-contract",
+      "source": "function:register_contract",
       "target": "database_table:t_c_keiyaku",
       "relationship_type": "uses_table",
       "operation_type": "update",
       "table_description": "Contract change table"
     },
     {
-      "source": "function:register-contract",
+      "source": "function:register_contract",
       "target": "database_table:t_jyutyu",
       "relationship_type": "uses_table",
       "operation_type": "update",
       "table_description": "Order table linked to contract"
     },
     {
-      "source": "function:register-contract",
+      "source": "function:register_contract",
       "target": "database_table:t_c_jyutyu",
       "relationship_type": "uses_table",
       "operation_type": "update",
       "table_description": "Order change table"
     },
     {
-      "source": "function:register-contract",
+      "source": "function:register_contract",
       "target": "database_table:t_kouji",
       "relationship_type": "uses_table",
       "operation_type": "create,update",
       "table_description": "Construction table"
     },
     {
-      "source": "function:register-contract",
+      "source": "function:register_contract",
       "target": "database_table:t_c_kouji",
       "relationship_type": "uses_table",
       "operation_type": "create",
       "table_description": "Construction change table"
     },
     {
-      "source": "function:register-contract",
+      "source": "function:register_contract",
       "target": "database_table:t_tou_kouji",
       "relationship_type": "uses_table",
       "operation_type": "create,update",
       "table_description": "Child construction table"
     },
     {
-      "source": "function:register-contract",
+      "source": "function:register_contract",
       "target": "database_table:t_c_tou_kouji",
       "relationship_type": "uses_table",
       "operation_type": "create",
       "table_description": "Child construction change table"
     },
     {
-      "source": "function:register-contract",
+      "source": "function:register_contract",
       "target": "database_table:t_keiyaku_tochi",
       "relationship_type": "uses_table",
       "operation_type": "update",
       "table_description": "Contract land relationship"
     },
     {
-      "source": "function:register-contract",
+      "source": "function:register_contract",
       "target": "database_table:t_c_keiyaku_tochi",
       "relationship_type": "uses_table",
       "operation_type": "update",
       "table_description": "Contract land change table"
     },
     {
-      "source": "function:register-contract",
+      "source": "function:register_contract",
       "target": "database_table:t_keiyaku_koutei",
       "relationship_type": "uses_table",
       "operation_type": "update",
       "table_description": "Contract building relationship"
     },
     {
-      "source": "function:register-contract",
+      "source": "function:register_contract",
       "target": "database_table:t_c_keiyaku_koutei",
       "relationship_type": "uses_table",
       "operation_type": "update",
       "table_description": "Contract building change table"
     },
     {
-      "source": "function:register-contract",
+      "source": "function:register_contract",
       "target": "database_table:t_keiyaku_syain_kankei",
       "relationship_type": "uses_table",
       "operation_type": "update",
       "table_description": "Contract employee relationship"
     },
     {
-      "source": "function:register-contract",
+      "source": "function:register_contract",
       "target": "database_table:t_c_keiyaku_syain_kankei",
       "relationship_type": "uses_table",
       "operation_type": "update",
       "table_description": "Contract employee change table"
     },
     {
-      "source": "function:register-contract",
+      "source": "function:register_contract",
       "target": "database_table:t_keiyaku_hosoku_jouhou",
       "relationship_type": "uses_table",
       "operation_type": "update",
       "table_description": "Contract supplementary information"
     },
     {
-      "source": "function:register-contract",
+      "source": "function:register_contract",
       "target": "database_table:t_c_keiyaku_hosoku_jouhou",
       "relationship_type": "uses_table",
       "operation_type": "update",
       "table_description": "Contract supplementary change table"
     },
     {
-      "source": "function:register-contract",
+      "source": "function:register_contract",
       "target": "database_table:t_anken_syain_kankei",
       "relationship_type": "uses_table",
       "operation_type": "create",
       "table_description": "Case employee relationship"
     },
     {
-      "source": "function:register-contract",
+      "source": "function:register_contract",
       "target": "database_table:t_c_anken_syain_kankei",
       "relationship_type": "uses_table",
       "operation_type": "create",
       "table_description": "Case employee change table"
     },
     {
-      "source": "function:register-contract",
+      "source": "function:register_contract",
       "target": "database_table:t_anken",
       "relationship_type": "uses_table",
       "operation_type": "update",
       "table_description": "Case table linked to contract"
     },
     {
-      "source": "function:register-contract",
+      "source": "function:register_contract",
       "target": "database_table:t_c_anken",
       "relationship_type": "uses_table",
       "operation_type": "update",
       "table_description": "Case change table"
     },
     {
-      "source": "function:register-contract",
+      "source": "function:register_contract",
       "target": "database_table:t_keiyaku_kokyaku_kankei",
       "relationship_type": "uses_table",
       "operation_type": "create,update",
       "table_description": "Contract customer relationship"
     },
     {
-      "source": "function:register-contract",
+      "source": "function:register_contract",
       "target": "database_table:t_c_keiyaku_kokyaku_kankei",
       "relationship_type": "uses_table",
       "operation_type": "create",
       "table_description": "Contract customer change table"
     },
     {
-      "source": "function:register-contract",
+      "source": "function:register_contract",
       "target": "database_table:t_keiyaku_shijisyo_kankei",
       "relationship_type": "uses_table",
       "operation_type": "delete",
       "table_description": "Contract instruction sheet relationship"
     },
     {
-      "source": "function:register-contract",
+      "source": "function:register_contract",
       "target": "database_table:t_c_keiyaku_shijisyo_kankei",
       "relationship_type": "uses_table",
       "operation_type": "delete",
       "table_description": "Contract instruction sheet change table"
     },
     {
-      "source": "function:register-contract",
+      "source": "function:register_contract",
       "target": "database_table:t_kyoudou_jyutyu",
       "relationship_type": "uses_table",
       "operation_type": "update",
       "table_description": "Joint order information"
     },
     {
-      "source": "function:register-contract",
+      "source": "function:register_contract",
       "target": "database_table:t_c_kyoudou_jyutyu",
       "relationship_type": "uses_table",
       "operation_type": "update",
@@ -892,8 +1641,14 @@
   ],
   "metadata": {
     "module": "simple",
+    "total_entities": 83,
     "total_relationships": 127,
     "unique_functions": 4,
-    "unique_tables": 83
+    "unique_tables": 83,
+    "entity_type_counts": {
+      "transaction": 46,
+      "master": 26,
+      "view": 11
+    }
   }
 }

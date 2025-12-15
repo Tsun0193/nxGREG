@@ -1,8 +1,8 @@
 {
   "module": "housing",
   "total_files": 10,
-  "total_entities": 65,
-  "total_relationships": 75,
+  "total_entities": 75,
+  "total_relationships": 111,
   "entities": [
     {
       "id": "tab-desc:housing:accounting-registration:overview",
@@ -26,6 +26,21 @@
       "source_file": "housing/accounting-registration/description_keiri_init_screen-en.md",
       "section_title": "Tab Click Processing from Basic to Accounting",
       "mermaid_diagram": "flowchart TD\n    A[User clicks Accounting tab] --> B[Get sinkiSakuseiKbn from Basic]\n    B --> C{sinkiSakuseiKbn<br/>Allow tab switching?}\n    C -->|No| D[Do not allow tab switching]\n    C -->|Yes| E[Get KeiyakuStatusCd and hensyuMode from Basic]\n    E --> F[Status analysis]\n    F --> G[KeiyakuStatusCd = 00/99<br/>hensyuMode = 0]\n    F --> H[KeiyakuStatusCd ≠ 00/99<br/>hensyuMode = 0]\n    F --> I[hensyuMode = 1]\n    G --> J[KeiriInitAction<br/>keiyakuNewtmp/keiri.jsp]\n    H --> K[KeiriLockInitAction<br/>keiyakuLock/keiri.jsp]\n    I --> L[KeiriHenkouInitAction<br/>keiyakuHenkou/keiri.jsp]\n    \n    style A fill:#e1f5fe\n    style D fill:#ffcdd2    style J fill:#f3e5f5    style K fill:#f3e5f5    style L fill:#f3e5f5"
+    },
+    {
+      "id": "tab-desc:housing:accounting-registration:data-display",
+      "type": "TabDataDisplay",
+      "name": "Data displayed in the Accounting Tab:",
+      "module": "housing",
+      "tab_name": "accounting-registration",
+      "source_file": "housing/accounting-registration/description_keiri_init_screen-en.md",
+      "section_title": "Data displayed in the Accounting Tab:",
+      "jsp_files": [
+        "B0003.jsp"
+      ],
+      "jsp_descriptions": [
+        "B0003.jsp: Accounting Registration"
+      ]
     },
     {
       "id": "tab-desc:housing:accounting-registration:impact:contractor-editing-j0001",
@@ -116,6 +131,25 @@
       "mermaid_diagram": "flowchart TD\n    A[User clicks Cancellation Information tab] --> B[Get sinkiSakuseiKbn from Basic]\n    B --> C{sinkiSakuseiKbn<br/>Allow tab switching?}\n    C -->|No| D[Do not allow tab switching]\n    C -->|Yes| E[Get KeiyakuStatusCd and hensyuMode from Basic]\n    E --> F[Status analysis]\n    F --> G[KeiyakuStatusCd = 00/99<br/>hensyuMode = 0]\n    F --> H[KeiyakuStatusCd ≠ 00/99<br/>hensyuMode = 0]\n    F --> I[hensyuMode = 1]\n    G --> J[CanceljyouhouInitAction<br/>keiyakuNewtmp/canceljyouhou.jsp]\n    H --> K[CanceljyouhouLockInitAction<br/>keiyakuLock/canceljyouhou.jsp]\n    I --> L[CanceljyouhouHenkouInitAction<br/>keiyakuHenkou/canceljyouhou.jsp]\n    \n    style A fill:#e1f5fe\n    style D fill:#ffcdd2    style J fill:#f3e5f5    style K fill:#f3e5f5    style L fill:#f3e5f5"
     },
     {
+      "id": "tab-desc:housing:cancellation-info:data-display",
+      "type": "TabDataDisplay",
+      "name": "Data displayed in the Cancellation Information tab:",
+      "module": "housing",
+      "tab_name": "cancellation-info",
+      "source_file": "housing/cancellation-info/description_canceljyouhou_init_screen-en.md",
+      "section_title": "Data displayed in the Cancellation Information tab:",
+      "jsp_files": [
+        "E0003.jsp",
+        "E0010.jsp",
+        "E0005.jsp"
+      ],
+      "jsp_descriptions": [
+        "E0003.jsp: Cancellation Information",
+        "E0010.jsp: Order Information (Contractor/Co-contractor)",
+        "E0005.jsp: Cancellation/Change Reasons"
+      ]
+    },
+    {
       "id": "tab-desc:housing:cancellation-info:impact:contractor-editing-j0001",
       "type": "TabImpact",
       "name": "**Contractor Editing (J0001)**",
@@ -204,6 +238,21 @@
       "mermaid_diagram": "flowchart TD\n    A[User clicks Change Information tab] --> B[Get sinkiSakuseiKbn from Basic]\n    B --> C{sinkiSakuseiKbn<br/>Allow tab switch?}\n    C -->|No| D[Do not allow tab switch]\n    C -->|Yes| E[Get KeiyakuStatusCd and hensyuMode from Basic]\n    E --> F[Status analysis]\n    F --> G[KeiyakuStatusCd = 00/99<br/>hensyuMode = 0]\n    F --> H[KeiyakuStatusCd ≠ 00/99<br/>hensyuMode = 0]\n    F --> I[hensyuMode = 1]\n    G --> J[HenkoujyouhouInitAction<br/>keiyakuHenkou/henkoujyouhou.jsp]\n    H --> K[HenkoujyouhouLockInitAction<br/>keiyakuLock/henkoujyouhou.jsp]\n    I --> L[HenkoujyouhouHenkouInitAction<br/>keiyakuHenkou/henkoujyouhou.jsp]\n    \n    style A fill:#e1f5fe\n    style D fill:#ffcdd2    style J fill:#f3e5f5    style K fill:#f3e5f5    style L fill:#f3e5f5"
     },
     {
+      "id": "tab-desc:housing:change-info:data-display",
+      "type": "TabDataDisplay",
+      "name": "Data displayed in the Change Information tab:",
+      "module": "housing",
+      "tab_name": "change-info",
+      "source_file": "housing/change-info/description_henkoujyouhou_init_screen-en.md",
+      "section_title": "Data displayed in the Change Information tab:",
+      "jsp_files": [
+        "E0012.jsp"
+      ],
+      "jsp_descriptions": [
+        "E0012.jsp: Change Information"
+      ]
+    },
+    {
       "id": "tab-desc:housing:collection-conditions:overview",
       "type": "TabOverview",
       "name": "Tab Collection (Collection Information)",
@@ -225,6 +274,25 @@
       "source_file": "housing/collection-conditions/description_kaisyu_init_screen-en.md",
       "section_title": "Tab Click Processing from Basic to Collection",
       "mermaid_diagram": "flowchart TD\n    A[User clicks Collection tab] --> B[Get sinkiSakuseiKbn from Basic]\n    B --> C{sinkiSakuseiKbn<br/>Allow tab switch?}\n    C -->|No| D[Tab switch not allowed]\n    C -->|Yes| E[Get KeiyakuStatusCd and hensyuMode from Basic]\n    E --> F[Status analysis]\n    F --> G[KeiyakuStatusCd = 00/99<br/>hensyuMode = 0]\n    F --> H[KeiyakuStatusCd ≠ 00/99<br/>hensyuMode = 0]\n    F --> I[hensyuMode = 1]\n    G --> J[KaisyuInitAction<br/>keiyakuNewtmp/kaisyu.jsp]\n    H --> K[KaisyuLockInitAction<br/>keiyakuLock/kaisyu.jsp]\n    I --> L[KaisyuHenkouInitAction<br/>keiyakuHenkou/kaisyu.jsp]\n    \n    style A fill:#e1f5fe\n    style D fill:#ffcdd2    style J fill:#f3e5f5    style K fill:#f3e5f5    style L fill:#f3e5f5"
+    },
+    {
+      "id": "tab-desc:housing:collection-conditions:data-display",
+      "type": "TabDataDisplay",
+      "name": "Data displayed in the Collection Tab:",
+      "module": "housing",
+      "tab_name": "collection-conditions",
+      "source_file": "housing/collection-conditions/description_kaisyu_init_screen-en.md",
+      "section_title": "Data displayed in the Collection Tab:",
+      "jsp_files": [
+        "A0020.jsp",
+        "A0002.jsp",
+        "A0033.jsp"
+      ],
+      "jsp_descriptions": [
+        "A0020.jsp: Collection Information",
+        "A0002.jsp: Collection Conditions",
+        "A0033.jsp: Collection Condition Details"
+      ]
     },
     {
       "id": "tab-desc:housing:collection-conditions:impact:contractor-editing-j0001",
@@ -315,6 +383,23 @@
       "mermaid_diagram": "flowchart TD\n    A[User clicks on Construction Process tab] --> B[Get sinkiSakuseiKbn from Basic tab]\n    B --> C{sinkiSakuseiKbn<br/>Allow tab switch?}\n    C -->|No| D[Do not allow tab switch]\n    C -->|Yes| E[Get KeiyakuStatusCd and hensyuMode from Basic tab]\n    E --> F[Status analysis]\n    F --> G[KeiyakuStatusCd = 00/99<br/>hensyuMode = 0]\n    F --> H[KeiyakuStatusCd ≠ 00/99<br/>hensyuMode = 0]\n    F --> I[hensyuMode = 1]\n    G --> J[KouteiInitAction<br/>keiyakuNewtmp/koutei.jsp]\n    H --> K[KouteiLockInitAction<br/>keiyakuLock/koutei.jsp]\n    I --> L[KouteiHenkouInitAction<br/>keiyakuHenkou/koutei.jsp]\n    \n    style A fill:#e1f5fe\n    style D fill:#ffcdd2    style J fill:#f3e5f5    style K fill:#f3e5f5    style L fill:#f3e5f5"
     },
     {
+      "id": "tab-desc:housing:contruction-planning:data-display",
+      "type": "TabDataDisplay",
+      "name": "Data displayed in the Construction Process tab:",
+      "module": "housing",
+      "tab_name": "contruction-planning",
+      "source_file": "housing/contruction-planning/description_koutei_init_screen-en.md",
+      "section_title": "Data displayed in the Construction Process tab:",
+      "jsp_files": [
+        "B0022.jsp",
+        "J0052.jsp"
+      ],
+      "jsp_descriptions": [
+        "B0022.jsp: Construction planning order process checkboxes",
+        "J0052.jsp: Construction planning table (displays construction items, departments, and schedule)"
+      ]
+    },
+    {
       "id": "tab-desc:housing:contruction-planning:impact:contractor-edit-j0001",
       "type": "TabImpact",
       "name": "**Contractor Edit (J0001)**",
@@ -401,6 +486,21 @@
       "source_file": "housing/loan-info/description_loan_init_screen-en.md",
       "section_title": "Tab Click Processing from Basic to Loan",
       "mermaid_diagram": "flowchart TD\n    A[User clicks Loan tab] --> B[Get sinkiSakuseiKbn from Basic tab]\n    B --> C{sinkiSakuseiKbn<br/>Allow tab switching?}\n    C -->|No| D[Tab switching not allowed]\n    C -->|Yes| E[Get KeiyakuStatusCd and hensyuMode from Basic tab]\n    E --> F[Status analysis]\n    F --> G[KeiyakuStatusCd = 00/99<br/>hensyuMode = 0]\n    F --> H[KeiyakuStatusCd ≠ 00/99<br/>hensyuMode = 0]\n    F --> I[hensyuMode = 1]\n    G --> J[LoanInitAction<br/>keiyakuNewtmp/loan.jsp]\n    H --> K[LoanLockInitAction<br/>keiyakuLock/loan.jsp]\n    I --> L[LoanHenkouInitAction<br/>keiyakuHenkou/loan.jsp]\n    \n    style A fill:#e1f5fe\n    style D fill:#ffcdd2    style J fill:#f3e5f5    style K fill:#f3e5f5    style L fill:#f3e5f5"
+    },
+    {
+      "id": "tab-desc:housing:loan-info:data-display",
+      "type": "TabDataDisplay",
+      "name": "Data displayed in Loan Tab:",
+      "module": "housing",
+      "tab_name": "loan-info",
+      "source_file": "housing/loan-info/description_loan_init_screen-en.md",
+      "section_title": "Data displayed in Loan Tab:",
+      "jsp_files": [
+        "A0019.jsp"
+      ],
+      "jsp_descriptions": [
+        "A0019.jsp: Loan information"
+      ]
     },
     {
       "id": "tab-desc:housing:loan-info:impact:contractor-editing-j0001",
@@ -491,6 +591,23 @@
       "mermaid_diagram": "flowchart TD\n    A[User clicks Obstacle Factors tab] --> B[Retrieve sinkiSakuseiKbn from Basic]\n    B --> C{sinkiSakuseiKbn<br/>Allow tab switching?}\n    C -->|No| D[Do not allow tab switching]\n    C -->|Yes| E[Retrieve KeiyakuStatusCd and hensyuMode from Basic]\n    E --> F[Status analysis]\n    F --> G[KeiyakuStatusCd = 00/99<br/>hensyuMode = 0]\n    F --> H[KeiyakuStatusCd ≠ 00/99<br/>hensyuMode = 0]\n    F --> I[hensyuMode = 1]\n    G --> J[SogaiyouinInitAction<br/>keiyakuNewtmp/sogaiyouin.jsp]\n    H --> K[SogaiyouinLockInitAction<br/>keiyakuLock/sogaiyouin.jsp]\n    I --> L[SogaiyouinHenkouInitAction<br/>keiyakuHenkou/sogaiyouin.jsp]\n    \n    style A fill:#e1f5fe\n    style D fill:#ffcdd2    style J fill:#f3e5f5    style K fill:#f3e5f5    style L fill:#f3e5f5"
     },
     {
+      "id": "tab-desc:housing:obstacle-factors:data-display",
+      "type": "TabDataDisplay",
+      "name": "Data displayed in the Obstacle Factors tab:",
+      "module": "housing",
+      "tab_name": "obstacle-factors",
+      "source_file": "housing/obstacle-factors/description_sogaiyouin_init_screen-en.md",
+      "section_title": "Data displayed in the Obstacle Factors tab:",
+      "jsp_files": [
+        "J0013.jsp",
+        "J0014.jsp"
+      ],
+      "jsp_descriptions": [
+        "J0013.jsp: Obstacle Factors",
+        "J0014.jsp: Obstacle Factors"
+      ]
+    },
+    {
       "id": "tab-desc:housing:obstacle-factors:impact:contractor-editing-j0001",
       "type": "TabImpact",
       "name": "**Contractor Editing (J0001)**",
@@ -577,6 +694,31 @@
       "source_file": "housing/order-info/description_jyutyu_init_screen-en.md",
       "section_title": "Tab Click Processing from Basic to Order",
       "mermaid_diagram": "flowchart TD\n    A[User clicks Order tab] --> B[Get sinkiSakuseiKbn from Basic tab]\n    B --> C{sinkiSakuseiKbn<br/>Allow tab switching?}\n    C -->|No| D[Do not allow tab switching]\n    C -->|Yes| E[Get KeiyakuStatusCd and hensyuMode from Basic tab]\n    E --> F[Status analysis]\n    F --> G[KeiyakuStatusCd = 00/99<br/>hensyuMode = 0]\n    F --> H[KeiyakuStatusCd ≠ 00/99<br/>hensyuMode = 0]\n    F --> I[hensyuMode = 1]\n    G --> J[JyutyuInitAction<br/>keiyakuNewtmp/jyutyu.jsp]\n    H --> K[JyutyuLockInitAction<br/>keiyakuLock/jyutyu.jsp]\n    I --> L[JyutyuHenkouInitAction<br/>keiyakuHenkou/jyutyu.jsp]\n    \n    style A fill:#e1f5fe\n    style D fill:#ffcdd2    style J fill:#f3e5f5    style K fill:#f3e5f5    style L fill:#f3e5f5"
+    },
+    {
+      "id": "tab-desc:housing:order-info:data-display",
+      "type": "TabDataDisplay",
+      "name": "Data displayed in the Order Tab:",
+      "module": "housing",
+      "tab_name": "order-info",
+      "source_file": "housing/order-info/description_jyutyu_init_screen-en.md",
+      "section_title": "Data displayed in the Order Tab:",
+      "jsp_files": [
+        "J0081.jsp",
+        "J0082.jsp",
+        "J0005.jsp",
+        "J0093.jsp",
+        "J0006.jsp",
+        "J0007.jsp"
+      ],
+      "jsp_descriptions": [
+        "J0081.jsp: Primary order (constructor name when the contract includes multiple construction companies)",
+        "J0082.jsp: Primary order (insurance company name when enrolled in housing defect liability insurance)",
+        "J0005.jsp: Contract construction period (construction period information)",
+        "J0093.jsp: Site supervisor assignment (site supervisor deployment information)",
+        "J0006.jsp: Order details (order details information)",
+        "J0007.jsp: Profit calculation (profit calculation information)"
+      ]
     },
     {
       "id": "tab-desc:housing:order-info:impact:contractor-editing-j0001",
@@ -667,6 +809,27 @@
       "mermaid_diagram": "flowchart TD\n    A[User clicks Supplementary tab] --> B[Obtain sinkiSakuseiKbn from Basic]\n    B --> C{sinkiSakuseiKbn<br/>Allow tab switching?}\n    C -->|No| D[Do not allow tab switching]\n    C -->|Yes| E[Obtain KeiyakuStatusCd and hensyuMode from Basic]\n    E --> F[Status analysis]\n    F --> G[KeiyakuStatusCd = 00/99<br/>hensyuMode = 0]\n    F --> H[KeiyakuStatusCd ≠ 00/99<br/>hensyuMode = 0]\n    F --> I[hensyuMode = 1]\n    G --> J[HosokuInitAction<br/>keiyakuNewtmp/hosoku.jsp]\n    H --> K[HosokuLockInitAction<br/>keiyakuLock/hosoku.jsp]\n    I --> L[HosokuHenkouInitAction<br/>keiyakuHenkou/hosoku.jsp]\n    \n    style A fill:#e1f5fe\n    style D fill:#ffcdd2    style J fill:#f3e5f5    style K fill:#f3e5f5    style L fill:#f3e5f5"
     },
     {
+      "id": "tab-desc:housing:supplementary-contract-info:data-display",
+      "type": "TabDataDisplay",
+      "name": "Data displayed in Supplementary tab:",
+      "module": "housing",
+      "tab_name": "supplementary-contract-info",
+      "source_file": "housing/supplementary-contract-info/description_hosoku_init_screen-en.md",
+      "section_title": "Data displayed in Supplementary tab:",
+      "jsp_files": [
+        "J0075.jsp",
+        "J0015.jsp",
+        "J0074.jsp",
+        "E0001.jsp"
+      ],
+      "jsp_descriptions": [
+        "J0075.jsp: Contractor supplementary items (housing case condition display)",
+        "J0015.jsp: Contractor supplementary items",
+        "J0074.jsp: Contractor supplementary items (housing case condition display)",
+        "E0001.jsp: Contractor supplementary items"
+      ]
+    },
+    {
       "id": "tab-desc:housing:supplementary-contract-info:impact:contractor-edit-j0001",
       "type": "TabImpact",
       "name": "**Contractor Edit (J0001)**",
@@ -755,6 +918,25 @@
       "mermaid_diagram": "flowchart TD\n    A[User clicks Consumption Tax tab] --> B[Get sinkiSakuseiKbn from Basic]\n    B --> C{sinkiSakuseiKbn<br/>Allow tab switch?}\n    C -->|No| D[Do not allow tab switch]\n    C -->|Yes| E[Get KeiyakuStatusCd and hensyuMode from Basic]\n    E --> F[Status analysis]\n    F --> G[KeiyakuStatusCd = 00/99<br/>hensyuMode = 0]\n    F --> H[KeiyakuStatusCd ≠ 00/99<br/>hensyuMode = 0]\n    F --> I[hensyuMode = 1]\n    G --> J[SyohiyouInitAction<br/>keiyakuNewtmp/syohiyou.jsp]\n    H --> K[SyohiyouLockInitAction<br/>keiyakuLock/syohiyou.jsp]\n    I --> L[SyohiyouHenkouInitAction<br/>keiyakuHenkou/syohiyou.jsp]\n    \n    style A fill:#e1f5fe\n    style D fill:#ffcdd2    style J fill:#f3e5f5    style K fill:#f3e5f5    style L fill:#f3e5f5"
     },
     {
+      "id": "tab-desc:housing:various-expenses-&-special-terms:data-display",
+      "type": "TabDataDisplay",
+      "name": "Data displayed in Consumption Tax tab:",
+      "module": "housing",
+      "tab_name": "various-expenses-&-special-terms",
+      "source_file": "housing/various-expenses-&-special-terms/description_syohiyou_init_screen-en.md",
+      "section_title": "Data displayed in Consumption Tax tab:",
+      "jsp_files": [
+        "A0005.jsp",
+        "J0083.jsp",
+        "A0007.jsp"
+      ],
+      "jsp_descriptions": [
+        "A0005.jsp: Consumption Tax (Consumption Tax and Reduced Tax Rate Consumption Tax)",
+        "J0083.jsp: Consumption Tax (Consumption Tax and Reduced Tax Rate Consumption Tax - Reduced Tax Rate)",
+        "A0007.jsp: Consumption Tax (Consumption Tax and Reduced Tax Rate Consumption Tax - Reduced Tax Rate)"
+      ]
+    },
+    {
       "id": "tab-desc:housing:various-expenses-&-special-terms:impact:contractor-editing-j0001",
       "type": "TabImpact",
       "name": "**Contractor Editing (J0001)**",
@@ -834,6 +1016,18 @@
       "description": "Processing flow describes navigation to tab:accounting_registration"
     },
     {
+      "source": "tab-desc:housing:accounting-registration:data-display",
+      "target": "tab:accounting_registration",
+      "relationship_type": "DISPLAYS_DATA",
+      "description": "Data display section describes JSP files shown in tab:accounting_registration"
+    },
+    {
+      "source": "tab-desc:housing:accounting-registration:data-display",
+      "target": "jsp:b0003",
+      "relationship_type": "REFERENCES_JSP",
+      "description": "References JSP file B0003.jsp"
+    },
+    {
       "source": "tab-desc:housing:accounting-registration:impact:contractor-editing-j0001",
       "target": "tab:accounting_registration",
       "relationship_type": "IMPACTS",
@@ -874,6 +1068,30 @@
       "target": "tab:cancellation_information_housing",
       "relationship_type": "DESCRIBES_FLOW",
       "description": "Processing flow describes navigation to tab:cancellation_information_housing"
+    },
+    {
+      "source": "tab-desc:housing:cancellation-info:data-display",
+      "target": "tab:cancellation_information_housing",
+      "relationship_type": "DISPLAYS_DATA",
+      "description": "Data display section describes JSP files shown in tab:cancellation_information_housing"
+    },
+    {
+      "source": "tab-desc:housing:cancellation-info:data-display",
+      "target": "jsp:e0003",
+      "relationship_type": "REFERENCES_JSP",
+      "description": "References JSP file E0003.jsp"
+    },
+    {
+      "source": "tab-desc:housing:cancellation-info:data-display",
+      "target": "jsp:e0010",
+      "relationship_type": "REFERENCES_JSP",
+      "description": "References JSP file E0010.jsp"
+    },
+    {
+      "source": "tab-desc:housing:cancellation-info:data-display",
+      "target": "jsp:e0005",
+      "relationship_type": "REFERENCES_JSP",
+      "description": "References JSP file E0005.jsp"
     },
     {
       "source": "tab-desc:housing:cancellation-info:impact:contractor-editing-j0001",
@@ -918,6 +1136,18 @@
       "description": "Processing flow describes navigation to tab:change_information"
     },
     {
+      "source": "tab-desc:housing:change-info:data-display",
+      "target": "tab:change_information",
+      "relationship_type": "DISPLAYS_DATA",
+      "description": "Data display section describes JSP files shown in tab:change_information"
+    },
+    {
+      "source": "tab-desc:housing:change-info:data-display",
+      "target": "jsp:e0012",
+      "relationship_type": "REFERENCES_JSP",
+      "description": "References JSP file E0012.jsp"
+    },
+    {
       "source": "tab-desc:housing:collection-conditions:overview",
       "target": "tab:collection_conditions",
       "relationship_type": "DESCRIBES",
@@ -928,6 +1158,30 @@
       "target": "tab:collection_conditions",
       "relationship_type": "DESCRIBES_FLOW",
       "description": "Processing flow describes navigation to tab:collection_conditions"
+    },
+    {
+      "source": "tab-desc:housing:collection-conditions:data-display",
+      "target": "tab:collection_conditions",
+      "relationship_type": "DISPLAYS_DATA",
+      "description": "Data display section describes JSP files shown in tab:collection_conditions"
+    },
+    {
+      "source": "tab-desc:housing:collection-conditions:data-display",
+      "target": "jsp:a0020",
+      "relationship_type": "REFERENCES_JSP",
+      "description": "References JSP file A0020.jsp"
+    },
+    {
+      "source": "tab-desc:housing:collection-conditions:data-display",
+      "target": "jsp:a0002",
+      "relationship_type": "REFERENCES_JSP",
+      "description": "References JSP file A0002.jsp"
+    },
+    {
+      "source": "tab-desc:housing:collection-conditions:data-display",
+      "target": "jsp:a0033",
+      "relationship_type": "REFERENCES_JSP",
+      "description": "References JSP file A0033.jsp"
     },
     {
       "source": "tab-desc:housing:collection-conditions:impact:contractor-editing-j0001",
@@ -972,6 +1226,24 @@
       "description": "Processing flow describes navigation to tab:construction_planning"
     },
     {
+      "source": "tab-desc:housing:contruction-planning:data-display",
+      "target": "tab:construction_planning",
+      "relationship_type": "DISPLAYS_DATA",
+      "description": "Data display section describes JSP files shown in tab:construction_planning"
+    },
+    {
+      "source": "tab-desc:housing:contruction-planning:data-display",
+      "target": "jsp:b0022",
+      "relationship_type": "REFERENCES_JSP",
+      "description": "References JSP file B0022.jsp"
+    },
+    {
+      "source": "tab-desc:housing:contruction-planning:data-display",
+      "target": "jsp:j0052",
+      "relationship_type": "REFERENCES_JSP",
+      "description": "References JSP file J0052.jsp"
+    },
+    {
       "source": "tab-desc:housing:contruction-planning:impact:contractor-edit-j0001",
       "target": "tab:construction_planning",
       "relationship_type": "IMPACTS",
@@ -1012,6 +1284,18 @@
       "target": "tab:loan_information",
       "relationship_type": "DESCRIBES_FLOW",
       "description": "Processing flow describes navigation to tab:loan_information"
+    },
+    {
+      "source": "tab-desc:housing:loan-info:data-display",
+      "target": "tab:loan_information",
+      "relationship_type": "DISPLAYS_DATA",
+      "description": "Data display section describes JSP files shown in tab:loan_information"
+    },
+    {
+      "source": "tab-desc:housing:loan-info:data-display",
+      "target": "jsp:a0019",
+      "relationship_type": "REFERENCES_JSP",
+      "description": "References JSP file A0019.jsp"
     },
     {
       "source": "tab-desc:housing:loan-info:impact:contractor-editing-j0001",
@@ -1056,6 +1340,24 @@
       "description": "Processing flow describes navigation to tab:obstacle_factors"
     },
     {
+      "source": "tab-desc:housing:obstacle-factors:data-display",
+      "target": "tab:obstacle_factors",
+      "relationship_type": "DISPLAYS_DATA",
+      "description": "Data display section describes JSP files shown in tab:obstacle_factors"
+    },
+    {
+      "source": "tab-desc:housing:obstacle-factors:data-display",
+      "target": "jsp:j0013",
+      "relationship_type": "REFERENCES_JSP",
+      "description": "References JSP file J0013.jsp"
+    },
+    {
+      "source": "tab-desc:housing:obstacle-factors:data-display",
+      "target": "jsp:j0014",
+      "relationship_type": "REFERENCES_JSP",
+      "description": "References JSP file J0014.jsp"
+    },
+    {
       "source": "tab-desc:housing:obstacle-factors:impact:contractor-editing-j0001",
       "target": "tab:obstacle_factors",
       "relationship_type": "IMPACTS",
@@ -1096,6 +1398,48 @@
       "target": "tab:order_information_housing",
       "relationship_type": "DESCRIBES_FLOW",
       "description": "Processing flow describes navigation to tab:order_information_housing"
+    },
+    {
+      "source": "tab-desc:housing:order-info:data-display",
+      "target": "tab:order_information_housing",
+      "relationship_type": "DISPLAYS_DATA",
+      "description": "Data display section describes JSP files shown in tab:order_information_housing"
+    },
+    {
+      "source": "tab-desc:housing:order-info:data-display",
+      "target": "jsp:j0081",
+      "relationship_type": "REFERENCES_JSP",
+      "description": "References JSP file J0081.jsp"
+    },
+    {
+      "source": "tab-desc:housing:order-info:data-display",
+      "target": "jsp:j0082",
+      "relationship_type": "REFERENCES_JSP",
+      "description": "References JSP file J0082.jsp"
+    },
+    {
+      "source": "tab-desc:housing:order-info:data-display",
+      "target": "jsp:j0005",
+      "relationship_type": "REFERENCES_JSP",
+      "description": "References JSP file J0005.jsp"
+    },
+    {
+      "source": "tab-desc:housing:order-info:data-display",
+      "target": "jsp:j0093",
+      "relationship_type": "REFERENCES_JSP",
+      "description": "References JSP file J0093.jsp"
+    },
+    {
+      "source": "tab-desc:housing:order-info:data-display",
+      "target": "jsp:j0006",
+      "relationship_type": "REFERENCES_JSP",
+      "description": "References JSP file J0006.jsp"
+    },
+    {
+      "source": "tab-desc:housing:order-info:data-display",
+      "target": "jsp:j0007",
+      "relationship_type": "REFERENCES_JSP",
+      "description": "References JSP file J0007.jsp"
     },
     {
       "source": "tab-desc:housing:order-info:impact:contractor-editing-j0001",
@@ -1140,6 +1484,36 @@
       "description": "Processing flow describes navigation to tab:supplementary_contract_info"
     },
     {
+      "source": "tab-desc:housing:supplementary-contract-info:data-display",
+      "target": "tab:supplementary_contract_info",
+      "relationship_type": "DISPLAYS_DATA",
+      "description": "Data display section describes JSP files shown in tab:supplementary_contract_info"
+    },
+    {
+      "source": "tab-desc:housing:supplementary-contract-info:data-display",
+      "target": "jsp:j0075",
+      "relationship_type": "REFERENCES_JSP",
+      "description": "References JSP file J0075.jsp"
+    },
+    {
+      "source": "tab-desc:housing:supplementary-contract-info:data-display",
+      "target": "jsp:j0015",
+      "relationship_type": "REFERENCES_JSP",
+      "description": "References JSP file J0015.jsp"
+    },
+    {
+      "source": "tab-desc:housing:supplementary-contract-info:data-display",
+      "target": "jsp:j0074",
+      "relationship_type": "REFERENCES_JSP",
+      "description": "References JSP file J0074.jsp"
+    },
+    {
+      "source": "tab-desc:housing:supplementary-contract-info:data-display",
+      "target": "jsp:e0001",
+      "relationship_type": "REFERENCES_JSP",
+      "description": "References JSP file E0001.jsp"
+    },
+    {
       "source": "tab-desc:housing:supplementary-contract-info:impact:contractor-edit-j0001",
       "target": "tab:supplementary_contract_info",
       "relationship_type": "IMPACTS",
@@ -1180,6 +1554,30 @@
       "target": "tab:various_expenses_special_terms",
       "relationship_type": "DESCRIBES_FLOW",
       "description": "Processing flow describes navigation to tab:various_expenses_special_terms"
+    },
+    {
+      "source": "tab-desc:housing:various-expenses-&-special-terms:data-display",
+      "target": "tab:various_expenses_special_terms",
+      "relationship_type": "DISPLAYS_DATA",
+      "description": "Data display section describes JSP files shown in tab:various_expenses_special_terms"
+    },
+    {
+      "source": "tab-desc:housing:various-expenses-&-special-terms:data-display",
+      "target": "jsp:a0005",
+      "relationship_type": "REFERENCES_JSP",
+      "description": "References JSP file A0005.jsp"
+    },
+    {
+      "source": "tab-desc:housing:various-expenses-&-special-terms:data-display",
+      "target": "jsp:j0083",
+      "relationship_type": "REFERENCES_JSP",
+      "description": "References JSP file J0083.jsp"
+    },
+    {
+      "source": "tab-desc:housing:various-expenses-&-special-terms:data-display",
+      "target": "jsp:a0007",
+      "relationship_type": "REFERENCES_JSP",
+      "description": "References JSP file A0007.jsp"
     },
     {
       "source": "tab-desc:housing:various-expenses-&-special-terms:impact:contractor-editing-j0001",

@@ -1,236 +1,340 @@
-"""Entity deduplication module for merging duplicate entities based on ID and properties."""
+"""Module for deduplicating and merging entities from multiple JSON sources."""
 
 from __future__ import annotations
 
-from typing import Dict, List, Any, Set
+import json
 from pathlib import Path
+from typing import Dict, List, Any, Set, Tuple
+from collections import defaultdict
 
 
 class EntityDeduplicator:
-    """
-    Handles deduplication of entities by merging duplicates based on entity ID.
-    
-    When multiple entities with the same ID are encountered, this class will:
-    - Merge their properties intelligently
-    - Track which source files contributed to the merged entity
-    - Maintain a history of merge operations
-    """
+    """Handles deduplication and merging of entities from multiple JSON files."""
 
     def __init__(self):
         """Initialize the deduplicator."""
-        self.entities: Dict[str, Dict[str, Any]] = {}  # Maps entity ID to merged entity
-        self.merge_history: List[Dict[str, Any]] = []  # Track all merge operations
-        self.source_tracking: Dict[str, Set[str]] = {}  # Maps entity ID to source files
+        self.entities_by_id: Dict[str, Dict[str, Any]] = {}
+        self.entities_by_table_name: Dict[str, List[str]] = defaultdict(list)  # For database_table entities
+        self.entities_by_name: Dict[str, List[str]] = defaultdict(list)  # Generic name-based lookup
+        self.merge_history: List[Dict[str, Any]] = []
 
-    def add_entity(self, entity: Dict[str, Any], source_file: str) -> None:
+    def add_entity(
+        self, entity: Dict[str, Any], source_file: str = "unknown"
+    ) -> Tuple[str, bool]:
         """
-        Add an entity to the deduplicator, merging if duplicate ID exists.
+        Add an entity to the deduplicator.
 
         Args:
             entity: Entity dictionary with 'id', 'type', and other properties
-            source_file: Name of the source file this entity came from
+            source_file: Source file for tracking purposes
+
+        Returns:
+            Tuple of (entity_id, is_new) where is_new indicates if it's a new entity or a merge
         """
         entity_id = entity.get("id")
-        if not entity_id:
-            return
+        entity_type = entity.get("type")
+        
+        if not entity_id or not entity_type:
+            raise ValueError(f"Entity missing 'id' or 'type': {entity}")
+        
+        # Check if entity already exists by exact ID
+        if entity_id in self.entities_by_id:
+            # Merge properties with existing entity
+            self._merge_entity(entity_id, entity, source_file)
+            return entity_id, False
+        
+        # For database_table type, check for duplicates by table_name
+        if entity_type == "database_table":
+            table_name = entity.get("table_name")
+            if table_name:
+                # Check if this table already exists under a different ID
+                duplicate_id = self._find_duplicate_by_table_name(table_name, entity_id)
+                if duplicate_id:
+                    # Merge into existing entity
+                    self._merge_entity(duplicate_id, entity, source_file)
+                    return duplicate_id, False
+                
+                # Track this table name
+                self.entities_by_table_name[table_name].append(entity_id)
+        
+        # New entity - add it
+        self.entities_by_id[entity_id] = entity.copy()
+        self.entities_by_id[entity_id]["_source_files"] = [source_file]
+        self.entities_by_id[entity_id]["_is_merged"] = False
+        
+        # Track by name for general lookup
+        name = entity.get("name")
+        if name:
+            self.entities_by_name[name].append(entity_id)
+        
+        return entity_id, True
 
-        # Track source file
-        if entity_id not in self.source_tracking:
-            self.source_tracking[entity_id] = set()
-        self.source_tracking[entity_id].add(source_file)
+    def _find_duplicate_by_table_name(self, table_name: str, current_id: str) -> str | None:
+        """
+        Find if a table with the same table_name already exists.
+        
+        Args:
+            table_name: The table name to search for
+            current_id: The current entity ID (to exclude from search)
+            
+        Returns:
+            The ID of the duplicate entity if found, None otherwise
+        """
+        if table_name in self.entities_by_table_name:
+            existing_ids = self.entities_by_table_name[table_name]
+            # Return the first existing ID (they should all point to the same logical table)
+            if existing_ids:
+                return existing_ids[0]
+        return None
 
-        # If this is the first time seeing this entity, store it
-        if entity_id not in self.entities:
-            self.entities[entity_id] = entity.copy()
-            return
-
-        # Entity exists - merge properties
-        existing = self.entities[entity_id]
-        merged = self._merge_entities(existing, entity)
-
-        # Track the merge operation
-        self.merge_history.append({
-            "entity_id": entity_id,
+    def _merge_entity(
+        self, 
+        existing_id: str, 
+        new_entity: Dict[str, Any], 
+        source_file: str
+    ) -> None:
+        """
+        Merge new entity properties into existing entity.
+        
+        Strategy:
+        1. Keep existing ID
+        2. For each property in new_entity:
+           - If property is missing in existing: add it
+           - If property exists and values differ: keep existing but log the difference
+           - If property exists and values are the same: no change
+        3. Merge special fields like source_files and parent_module
+        
+        Args:
+            existing_id: ID of the existing entity to merge into
+            new_entity: New entity with properties to merge
+            source_file: Source file of the new entity
+        """
+        existing = self.entities_by_id[existing_id]
+        
+        # Track merge history
+        merge_record = {
+            "target_id": existing_id,
             "source_file": source_file,
-            "existing_sources": list(self.source_tracking[entity_id]),
-            "merged_properties": list(merged.keys()),
-        })
-
-        self.entities[entity_id] = merged
-
-    def _merge_entities(
-        self,
-        existing: Dict[str, Any],
-        new: Dict[str, Any],
-    ) -> Dict[str, Any]:
-        """
-        Merge two entities with the same ID, combining their properties.
-
-        Merge strategy:
-        - Keep all non-empty values
-        - For conflicts, prefer non-empty new values over existing
-        - For lists, combine and deduplicate
-        - For strings, prefer longer/more detailed version
-
-        Args:
-            existing: The existing entity
-            new: The new entity to merge in
-
-        Returns:
-            Merged entity dictionary
-        """
-        merged = existing.copy()
-
-        for key, new_value in new.items():
-            if key not in merged or not merged[key]:
-                # Key doesn't exist or is empty in existing - use new value
-                merged[key] = new_value
-            elif not new_value:
-                # New value is empty - keep existing
+            "properties_added": [],
+            "properties_updated": [],
+            "properties_skipped": [],
+        }
+        
+        for key, new_value in new_entity.items():
+            if key in ["id", "_source_files", "_is_merged"]:
                 continue
-            elif key == "id":
-                # ID should always be the same
+            
+            if key not in existing:
+                # New property - add it
+                existing[key] = new_value
+                merge_record["properties_added"].append(key)
+            else:
+                existing_value = existing[key]
+                
+                # Compare values
+                if existing_value != new_value:
+                    # Values differ - decide which to keep
+                    # Strategy: keep existing value for core properties, but update if existing is empty/None
+                    if not existing_value and new_value:
+                        existing[key] = new_value
+                        merge_record["properties_updated"].append(f"{key}: {existing_value} → {new_value}")
+                    else:
+                        merge_record["properties_skipped"].append(
+                            f"{key}: existing={existing_value}, new={new_value}"
+                        )
+                # If values are the same, do nothing
+        
+        # Update source files tracking
+        if "_source_files" not in existing:
+            existing["_source_files"] = []
+        if source_file not in existing["_source_files"]:
+            existing["_source_files"].append(source_file)
+        
+        existing["_is_merged"] = True
+        self.merge_history.append(merge_record)
+
+    def load_from_file(self, file_path: Path, source_label: str = None) -> int:
+        """
+        Load entities from a JSON file.
+        
+        Args:
+            file_path: Path to the JSON file
+            source_label: Optional label for the source (defaults to filename)
+            
+        Returns:
+            Number of entities loaded
+        """
+        source_label = source_label or file_path.name
+        
+        print(f"Loading entities from: {file_path.name}")
+        with open(file_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        
+        # Extract entities based on JSON structure
+        entities = []
+        if isinstance(data, dict):
+            if "entities" in data:
+                entities = data["entities"]
+            elif "id" in data and "type" in data:
+                # Single entity
+                entities = [data]
+        elif isinstance(data, list):
+            entities = data
+        
+        entity_count = 0
+        for entity in entities:
+            if not isinstance(entity, dict):
                 continue
-            elif key == "type":
-                # Type should be consistent, but prefer new if different
-                if merged[key] != new_value:
-                    print(f"Warning: Type mismatch for entity {merged.get('id')}: "
-                          f"{merged[key]} vs {new_value}. Keeping existing.")
-            elif isinstance(new_value, list) and isinstance(merged[key], list):
-                # Merge lists and deduplicate
-                merged[key] = self._merge_lists(merged[key], new_value)
-            elif isinstance(new_value, str) and isinstance(merged[key], str):
-                # For strings, prefer longer/more detailed version
-                if len(new_value) > len(merged[key]):
-                    merged[key] = new_value
-            elif isinstance(new_value, dict) and isinstance(merged[key], dict):
-                # Recursively merge nested dictionaries
-                merged[key] = self._merge_dicts(merged[key], new_value)
-            else:
-                # For other types, prefer new value if different
-                if merged[key] != new_value:
-                    merged[key] = new_value
+            try:
+                entity_id, is_new = self.add_entity(entity, source_label)
+                if is_new:
+                    entity_count += 1
+            except ValueError as e:
+                print(f"  Warning: {e}")
+        
+        print(f"  → {entity_count} new entities, {len(entities) - entity_count} merged")
+        return entity_count
 
-        return merged
-
-    @staticmethod
-    def _merge_lists(list1: List[Any], list2: List[Any]) -> List[Any]:
+    def load_from_multiple_files(
+        self, 
+        file_paths: List[Path],
+        priority_order: List[str] = None
+    ) -> Dict[str, int]:
         """
-        Merge two lists, removing duplicates while preserving order.
-
+        Load entities from multiple files, with optional priority ordering.
+        
         Args:
-            list1: First list
-            list2: Second list
-
+            file_paths: List of paths to JSON files
+            priority_order: Optional list of file patterns in priority order
+                          Files matching earlier patterns are loaded first
+                          
         Returns:
-            Merged list with duplicates removed
+            Dictionary with stats: {filename: count_added}
         """
-        # Use dict to maintain order while removing duplicates
-        seen = {}
-        for item in list1 + list2:
-            # Use JSON representation for complex types
-            if isinstance(item, (dict, list)):
-                key = str(item)
-            else:
-                key = item
-            if key not in seen:
-                seen[key] = item
-
-        return list(seen.values())
-
-    @staticmethod
-    def _merge_dicts(dict1: Dict[str, Any], dict2: Dict[str, Any]) -> Dict[str, Any]:
-        """
-        Recursively merge two dictionaries.
-
-        Args:
-            dict1: First dictionary
-            dict2: Second dictionary
-
-        Returns:
-            Merged dictionary
-        """
-        merged = dict1.copy()
-
-        for key, value in dict2.items():
-            if key not in merged:
-                merged[key] = value
-            elif isinstance(value, dict) and isinstance(merged[key], dict):
-                merged[key] = EntityDeduplicator._merge_dicts(merged[key], value)
-            elif isinstance(value, list) and isinstance(merged[key], list):
-                merged[key] = EntityDeduplicator._merge_lists(merged[key], value)
-            else:
-                # Prefer non-empty new values
-                if value:
-                    merged[key] = value
-
-        return merged
-
-    def get_entity(self, entity_id: str) -> Dict[str, Any] | None:
-        """
-        Get a deduplicated entity by ID.
-
-        Args:
-            entity_id: The entity ID
-
-        Returns:
-            The merged entity, or None if not found
-        """
-        return self.entities.get(entity_id)
+        # Sort files by priority if specified
+        if priority_order:
+            def get_priority(path: Path) -> int:
+                filename = path.name.lower()
+                for i, pattern in enumerate(priority_order):
+                    if pattern.lower() in filename:
+                        return i
+                return len(priority_order)
+            
+            sorted_paths = sorted(file_paths, key=get_priority)
+        else:
+            sorted_paths = sorted(file_paths)
+        
+        stats = {}
+        total_new = 0
+        total_merged = 0
+        
+        print("\n=== Loading Entities from Multiple Files ===")
+        for file_path in sorted_paths:
+            before_count = len(self.entities_by_id)
+            self.load_from_file(file_path)
+            after_count = len(self.entities_by_id)
+            new_count = after_count - before_count
+            stats[file_path.name] = new_count
+            total_new += new_count
+        
+        return stats
 
     def get_all_entities(self) -> List[Dict[str, Any]]:
         """
-        Get all deduplicated entities.
-
+        Get all deduplicated entities as a list.
+        
         Returns:
-            List of all merged entities
+            List of entity dictionaries
         """
-        return list(self.entities.values())
+        return list(self.entities_by_id.values())
+
+    def get_entity_by_id(self, entity_id: str) -> Dict[str, Any] | None:
+        """Get a specific entity by ID."""
+        return self.entities_by_id.get(entity_id)
+
+    def find_duplicates_by_type(self, entity_type: str) -> List[Tuple[str, List[str]]]:
+        """
+        Find potential duplicate entities by type and similarity.
+        
+        Args:
+            entity_type: Type of entities to check
+            
+        Returns:
+            List of (field, [entity_ids]) tuples for entities with same field value
+        """
+        type_entities = {
+            eid: entity for eid, entity in self.entities_by_id.items()
+            if entity.get("type") == entity_type
+        }
+        
+        # Group by name
+        by_name = defaultdict(list)
+        for eid, entity in type_entities.items():
+            name = entity.get("name", "")
+            if name:
+                by_name[name].append(eid)
+        
+        # Return only those with duplicates
+        return [(name, ids) for name, ids in by_name.items() if len(ids) > 1]
 
     def get_merge_report(self) -> Dict[str, Any]:
         """
-        Generate a report on deduplication operations.
-
+        Get a report of all merge operations performed.
+        
         Returns:
-            Dictionary containing merge statistics
+            Dictionary with merge statistics and history
         """
+        merged_count = sum(1 for e in self.entities_by_id.values() if e.get("_is_merged", False))
+        
         return {
-            "total_entities": len(self.entities),
-            "merged_entities": len(self.merge_history),
-            "new_entities": len(self.entities) - len(self.merge_history),
+            "total_entities": len(self.entities_by_id),
+            "merged_entities": merged_count,
+            "new_entities": len(self.entities_by_id) - merged_count,
             "merge_operations": len(self.merge_history),
-            "entities_with_multiple_sources": sum(
-                1 for sources in self.source_tracking.values() if len(sources) > 1
-            ),
+            "merge_history": self.merge_history,
         }
 
-    def get_source_files(self, entity_id: str) -> Set[str]:
+    def export_deduplicated_entities(self, output_file: Path) -> None:
         """
-        Get all source files that contributed to an entity.
-
+        Export deduplicated entities to a JSON file.
+        
         Args:
-            entity_id: The entity ID
-
-        Returns:
-            Set of source file names
+            output_file: Path where to save the deduplicated entities
         """
-        return self.source_tracking.get(entity_id, set())
+        entities = []
+        for entity in self.entities_by_id.values():
+            # Remove internal tracking fields
+            clean_entity = {k: v for k, v in entity.items() if not k.startswith("_")}
+            entities.append(clean_entity)
+        
+        output_data = {
+            "entities": entities,
+            "metadata": {
+                "total_entities": len(entities),
+                "deduplication_performed": True,
+            }
+        }
+        
+        with open(output_file, "w", encoding="utf-8") as f:
+            json.dump(output_data, f, indent=2, ensure_ascii=False)
+        
+        print(f"Exported {len(entities)} deduplicated entities to {output_file}")
 
-    def print_merge_report(self) -> None:
-        """Print a detailed merge report."""
+    def export_merge_report(self, output_file: Path) -> None:
+        """
+        Export merge report to a JSON file.
+        
+        Args:
+            output_file: Path where to save the merge report
+        """
         report = self.get_merge_report()
-
-        print("\n=== Entity Deduplication Report ===")
-        print(f"Total Unique Entities: {report['total_entities']}")
-        print(f"New Entities: {report['new_entities']}")
-        print(f"Merged Entities: {report['merged_entities']}")
-        print(f"Merge Operations: {report['merge_operations']}")
-        print(f"Entities from Multiple Sources: {report['entities_with_multiple_sources']}")
-
-        if self.merge_history:
-            print("\n=== Recent Merge Operations ===")
-            for i, merge in enumerate(self.merge_history[-5:], 1):
-                print(f"{i}. Entity: {merge['entity_id']}")
-                print(f"   Source: {merge['source_file']}")
-                print(f"   Previous Sources: {', '.join(merge['existing_sources'])}")
-                print(f"   Merged Properties: {len(merge['merged_properties'])}")
+        
+        with open(output_file, "w", encoding="utf-8") as f:
+            json.dump(report, f, indent=2, ensure_ascii=False)
+        
+        print(f"Exported merge report to {output_file}")
+        print(f"\nMerge Summary:")
+        print(f"  Total Entities: {report['total_entities']}")
+        print(f"  Merged Entities: {report['merged_entities']}")
+        print(f"  New Entities: {report['new_entities']}")
+        print(f"  Merge Operations: {report['merge_operations']}")
