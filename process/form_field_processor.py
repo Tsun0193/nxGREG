@@ -38,7 +38,11 @@ class FormFieldProcessor:
         self.base_path = Path(base_path)
         self.module_name = module_name
         self.screen = screen
-        self.components_path = self.base_path / module_name / screen / "components"
+        if self.module_name == "contract-list":
+            self.components_path = self.base_path / module_name / "components"
+        else:
+            self.components_path = self.base_path / module_name / screen / "components"
+        
         
         # Storage for extracted data
         self.form_groups = []
@@ -89,20 +93,24 @@ class FormFieldProcessor:
             form_id: Form identifier (e.g., yuusyou_keiyakuNewtmp_kihonForm)
             form_content: Content of the form section
         """
-        # First, extract Common Properties section (no prefix pattern)
-        common_props_pattern = r'###\s+[\d\.]+\s+Common Properties(.*?)(?=\n###|\Z)'
-        common_props_match = re.search(common_props_pattern, form_content, re.DOTALL | re.IGNORECASE)
+        # Extract ALL ### subsections (level 3 headers)
+        # Pattern matches: ### X.Y. Section Name or ### X.Y. Section Name (PREFIX_)
+        all_sections_pattern = r'###\s+[\d\.]+\s+([^(\n]+)(?:\(([^)]+)\))?(.*?)(?=\n###|\Z)'
+        section_matches = re.findall(all_sections_pattern, form_content, re.DOTALL)
         
-        if common_props_match:
-            self._process_common_properties(form_id, common_props_match.group(1))
-        
-        # Extract group sections (### 1.1. Group Name (PREFIX_), etc.)
-        group_pattern = r'###\s+[\d\.]+\s+([^(]+)\s*\(([^)]+)\)(.*?)(?=\n###|\Z)'
-        group_matches = re.findall(group_pattern, form_content, re.DOTALL)
-        
-        for group_name, group_prefix, group_content in group_matches:
-            group_name = group_name.strip()
-            group_prefix = group_prefix.strip()
+        for section_name, optional_prefix, section_content in section_matches:
+            section_name = section_name.strip()
+            optional_prefix = optional_prefix.strip() if optional_prefix else None
+            
+            # Determine the group prefix
+            if optional_prefix:
+                # Use explicit prefix from parentheses
+                group_prefix = optional_prefix
+            else:
+                # Generate prefix from section name (e.g., "Common Properties" -> "COMMON", "Search Properties" -> "SEARCH")
+                group_prefix = section_name.upper().replace(' ', '_').replace('PROPERTIES', '').strip('_')
+                if not group_prefix:
+                    group_prefix = "COMMON"
             
             # Create unique group identifier
             group_id = f"form_group:{form_id}:{group_prefix}"
@@ -111,8 +119,9 @@ class FormFieldProcessor:
             if group_id in self.seen_groups:
                 continue
             
-            # Extract fields from markdown table
-            fields = self._extract_fields_from_table(group_content, group_prefix)
+            # Extract fields from markdown table (no prefix filtering for sections without explicit prefix)
+            filter_by_prefix = optional_prefix if optional_prefix else None
+            fields = self._extract_fields_from_table(section_content, filter_by_prefix)
             
             if not fields:
                 continue
@@ -121,12 +130,12 @@ class FormFieldProcessor:
             form_group = {
                 'id': group_id,
                 'type': 'form_group',
-                'name': group_name,
+                'name': section_name,
                 'parent_module': f"module:{self.module_name}",
                 'form_id': form_id,
                 'prefix': group_prefix,
                 'field_count': len(fields),
-                'description': f"{group_name} - Fields with prefix {group_prefix}",
+                'description': f"{section_name} - Fields with prefix {group_prefix}" if optional_prefix else f"{section_name}",
                 'source_file': f"ctc-data-en/{self.module_name}/{self.screen}/components/form-fields-en.md"
             }
             
@@ -159,7 +168,7 @@ class FormFieldProcessor:
                     'data_type': field.get('data_type', ''),
                     'description': field.get('description', ''),
                     'group_prefix': group_prefix,
-                    'group_name': group_name,
+                    'group_name': section_name,
                     'source_file': f"ctc-data-en/{self.module_name}/{self.screen}/components/form-fields-en.md"
                 }
                 
@@ -172,85 +181,6 @@ class FormFieldProcessor:
                     'to': field_id,
                     'relationship': 'CONTAINS_FIELD'
                 })
-    
-    def _process_common_properties(self, form_id: str, content: str) -> None:
-        """
-        Process Common Properties section (fields without prefix grouping).
-        
-        Args:
-            form_id: Form identifier
-            content: Content of the Common Properties section
-        """
-        group_name = "Common Properties"
-        group_prefix = "COMMON"
-        group_id = f"form_group:{form_id}:{group_prefix}"
-        
-        # Skip if already processed
-        if group_id in self.seen_groups:
-            return
-        
-        # Extract fields without prefix filtering
-        fields = self._extract_fields_from_table(content, prefix=None)
-        
-        if not fields:
-            return
-        
-        # Create FormGroup entity for Common Properties
-        form_group = {
-            'id': group_id,
-            'type': 'form_group',
-            'name': group_name,
-            'parent_module': f"module:{self.module_name}",
-            'form_id': form_id,
-            'prefix': group_prefix,
-            'field_count': len(fields),
-            'description': f"{group_name} - Form-level common fields",
-            'source_file': f"ctc-data-en/{self.module_name}/{self.screen}/components/form-fields-en.md"
-        }
-        
-        self.form_groups.append(form_group)
-        self.seen_groups.add(group_id)
-        
-        # Create relationship: Form -> FormGroup
-        self.form_to_group_relationships.append({
-            'from': f"form:{form_id}",
-            'to': group_id,
-            'relationship': 'HAS_GROUP'
-        })
-        
-        # Create individual field entities and relationships
-        for field in fields:
-            field_id = f"form_field:{field['field_name']}"
-            
-            # Skip if field already processed
-            if field_id in self.seen_fields:
-                continue
-            
-            # Create FormField entity
-            form_field = {
-                'id': field_id,
-                'type': 'form_field',
-                'name': field['field_name'],
-                'parent_module': f"module:{self.module_name}",
-                'form_id': form_id,
-                'field_name': field['field_name'],
-                'data_type': field.get('data_type', ''),
-                'description': field.get('description', ''),
-                'group_prefix': group_prefix,
-                'group_name': group_name,
-                'is_common': True,
-                'source_file': f"ctc-data-en/{self.module_name}/{self.screen}/components/form-fields-en.md"
-            }
-            
-            self.form_fields.append(form_field)
-            self.seen_fields.add(field_id)
-            
-            # Create relationship: FormGroup -> FormField
-            self.field_to_group_relationships.append({
-                'from': group_id,
-                'to': field_id,
-                'relationship': 'CONTAINS_FIELD'
-            })
     
     def _extract_fields_from_table(self, content: str, prefix: str = None) -> List[Dict[str, str]]:
         """
@@ -292,7 +222,8 @@ class FormFieldProcessor:
             
             # Extract fields
             for _, row in df.iterrows():
-                field_name = row.get('Field Name', '')
+                # Try both 'Field Name' and 'Item Name' column headers
+                field_name = row.get('Field Name', row.get('Item Name', ''))
                 
                 # Skip empty, placeholder, or separator rows
                 if not field_name or field_name == '...' or field_name.strip('-') == '':
@@ -393,8 +324,8 @@ def main():
     
     # Get base path from command line or use default
     base_path = sys.argv[1] if len(sys.argv) > 1 else "ctc-data-en"
-    module_name = sys.argv[2] if len(sys.argv) > 2 else "housing"
-    screen = sys.argv[3] if len(sys.argv) > 3 else "basic-info-housing-contract"
+    module_name = sys.argv[2] if len(sys.argv) > 2 else "contract-list"
+    screen = sys.argv[3] if len(sys.argv) > 3 else None
     
     # Initialize processor
     processor = FormFieldProcessor(base_path, module_name, screen)

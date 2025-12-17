@@ -183,14 +183,14 @@ class FlowEntityProcessor:
                 
                 entity = {
                     "id": flow_id,
-                    "type": "process_flow",
-                    "name": clean_title,
+                    "type": "sequence_flow",
+                    "name": f"{function_name_normalized} - {clean_title}",
                     "function_name": function_name_normalized,
                     "parent_function": f"function:{function_name_normalized}",
                     "source_file": str(relative_path).replace('\\', '/'),
                     "section_title": clean_title,
                     "content": section['mermaid'],
-                    "description": f"Process flow for {clean_title} in {function_name_normalized} function"
+                    "description": f"Sequence flow for {clean_title} in {function_name_normalized} function"
                 }
                 
                 flow_entities.append(entity)
@@ -230,7 +230,7 @@ class FlowEntityProcessor:
                     
                     entity = {
                         "id": flow_id,
-                        "type": "process_flow_overview",
+                        "type": "process_flow",
                         "name": f"{function_name_normalized} - Process Flow Overview",
                         "function_name": function_name_normalized,
                         "parent_function": f"function:{function_name_normalized}",
@@ -351,24 +351,26 @@ def main():
     """
     # Set up paths
     base_path = "/data_hdd_16t/vuongchu/nxGREG/ctc-data-en"
-    module = "housing"
-    output_path = f"/data_hdd_16t/vuongchu/nxGREG/json/{module}/{module}-flow-entities.json"
+    modules = ["housing", "simple"]
     
-    # Create processor
-    processor = FlowEntityProcessor(base_path, module_name=module)
+    for module in modules:
+        output_path = f"/data_hdd_16t/vuongchu/nxGREG/json/{module}/{module}-flow-entities.json"
+        
+        # Create processor
+        processor = FlowEntityProcessor(base_path, module_name=module)
+        
+        # Process all functions
+        print("Starting flow entity extraction...\n")
+        processor.process_all_functions()
+        
+        # Save results
+        processor.save_to_json(output_path)
     
-    # Process all functions
-    print("Starting flow entity extraction...\n")
-    processor.process_all_functions()
-    
-    # Save results
-    processor.save_to_json(output_path)
-    
-    # Print sample entity
-    results = processor.get_results()
-    if results['entities']:
-        print("\n--- Sample Entity ---")
-        print(json.dumps(results['entities'][0], indent=2))
+    # # Print sample entity
+    # results = processor.get_results()
+    # if results['entities']:
+    #     print("\n--- Sample Entity ---")
+    #     print(json.dumps(results['entities'][0], indent=2))
 
 
 if __name__ == "__main__":

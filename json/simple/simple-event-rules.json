@@ -1,0 +1,243 @@
+{
+  "module": "simple",
+  "tab_name": "yuusyou-kihon",
+  "source_file": "simple/yuusyou-kihon/screen-specification/event_handling_rules-en.md",
+  "entities": [
+    {
+      "id": "event_processing_rules:simple:yuusyou-kihon",
+      "type": "event_processing_rules",
+      "name": "Event Processing Rules",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/screen-specification/event_handling_rules-en.md"
+    },
+    {
+      "id": "event_processing_rules_section:simple:yuusyou-kihon:main_events_list",
+      "type": "event_processing_rules_section",
+      "name": "Main Events List",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/screen-specification/event_handling_rules-en.md",
+      "heading_level": 2,
+      "heading_raw": "1. Main Events List",
+      "content": ""
+    },
+    {
+      "id": "event_processing_rules_section:simple:yuusyou-kihon:crud_events",
+      "type": "event_processing_rules_section",
+      "name": "CRUD Events (Create, Read, Update, Delete)",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/screen-specification/event_handling_rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "1.1 CRUD Events (Create, Read, Update, Delete)",
+      "content": "| No. | Button | JavaScript Function | Action Type | Description |\n|-----|--------|-------------------|-------------|-------------|\n| 1 | Edit | `cntSubmitBlockAction()` | `keiyakusakiEdit` | Edit customer information in contract |\n| 2 | Delete | `cntSubmitBlockAction()` | `keiyakusakiDelete` | Delete customer information from contract |\n| 3 | Register | `cntChkGijyutsusyaHaichi();cntClickRegister()` | `register` | Save contract information to database |"
+    },
+    {
+      "id": "event_processing_rules_section:simple:yuusyou-kihon:search_events",
+      "type": "event_processing_rules_section",
+      "name": "Search Events (Search/Support)",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/screen-specification/event_handling_rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "1.2 Search Events (Search/Support)",
+      "content": "| No. | Button | JavaScript Function | Action Type | Description |\n|-----|--------|-------------------|-------------|-------------|\n| 1 | Support | `cntComOpenCustomerTransitionSearch()` | `customerSearch` | Open popup for customer information search |\n| 2 | Support | `cntDoKoujisyuruibui()` | `constructionTypeSearch` | Search for construction type and components |\n| 3 | ... (Company Search) | `cntCoprationOpenCustomerSearch()` | `managementCompanySearch` | Search for management company |"
+    },
+    {
+      "id": "event_processing_rules_section:simple:yuusyou-kihon:print_events",
+      "type": "event_processing_rules_section",
+      "name": "Print Events",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/screen-specification/event_handling_rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "1.3 Print Events",
+      "content": "| No. | Button | JavaScript Function | Action Type | Description |\n|-----|--------|-------------------|-------------|-------------|\n| 1 | Contract Print | `cntOutputExcel()` | `printContract` | Generate and print contract |\n| 2 | Order Print | `syugouTyumonsyoOutputExcel()` | `printOrder` | Generate and print order form |\n| 3 | Kitai Information Print | `doHalPrintOut()`, `doParoPrintOut()`, `doSpPrintOut()` | `printKitaiInfo` | Print expectation information from partner system |"
+    },
+    {
+      "id": "event_processing_rules_section:simple:yuusyou-kihon:navigation_events",
+      "type": "event_processing_rules_section",
+      "name": "Navigation Events",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/screen-specification/event_handling_rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "1.4 Navigation Events",
+      "content": "| No. | Button | JavaScript Function | Action Type | Description |\n|-----|--------|-------------------|-------------|-------------|\n| 1 | Return | `cntSubmit()` | `returnAnken` | Return to contract list screen |\n| 2 | Close | `javascript:window.close()` | `closeWindow` | Close current window |\n| 3 | Cancel Update | `cntCancelUpdateSubmit()` | `cancelUpdate` | Cancel changes and restore original data |"
+    },
+    {
+      "id": "event_processing_rules_section:simple:yuusyou-kihon:event_processing_flow",
+      "type": "event_processing_rules_section",
+      "name": "Event Processing Flow",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/screen-specification/event_handling_rules-en.md",
+      "heading_level": 2,
+      "heading_raw": "2. Event Processing Flow",
+      "content": ""
+    },
+    {
+      "id": "event_processing_rules_section:simple:yuusyou-kihon:overall_processing_workflow",
+      "type": "event_processing_rules_section",
+      "name": "Overall Processing Workflow",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/screen-specification/event_handling_rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "2.1 Overall Processing Workflow",
+      "content": "```mermaid\nsequenceDiagram\n    participant User as User\n    participant JSP as JSP Screen\n    participant JS as JavaScript\n    participant Form as HTML Form\n    participant Action as Struts Action\n    participant Service as Business Service\n    participant DB as Database\n    \n    User->>JSP: Click button\n    JSP->>JS: Trigger onClick event\n    JS->>JS: Validate data\n    JS->>Form: Submit form data\n    Form->>Action: Send HTTP request\n    Action->>Service: Process business logic\n    Service->>DB: Execute database operation\n    DB-->>Service: Return results\n    Service-->>Action: Return processed data\n    Action-->>JSP: Forward to next screen\n    JSP-->>User: Display updated screen\n```"
+    },
+    {
+      "id": "event_processing_rules_section:simple:yuusyou-kihon:crud_processing_flow",
+      "type": "event_processing_rules_section",
+      "name": "CRUD Processing Flow",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/screen-specification/event_handling_rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "2.2 CRUD Processing Flow",
+      "content": "```mermaid\nflowchart TD\n    A[Click Edit/Delete/Register] --> B{Validation}\n    B -->|Pass| C[Submit Form]\n    B -->|Fail| D[Display Error Message]\n    C --> E[Action Processing]\n    E --> F[Business Logic]\n    F --> G[Database Operation]\n    G --> H{Success?}\n    H -->|Yes| I[Update Screen]\n    H -->|No| J[Display Error]\n    I --> K[Complete]\n    J --> K\n    D --> K\n```"
+    },
+    {
+      "id": "event_processing_rules_section:simple:yuusyou-kihon:search_processing_flow",
+      "type": "event_processing_rules_section",
+      "name": "Search Processing Flow",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/screen-specification/event_handling_rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "2.3 Search Processing Flow",
+      "content": "```mermaid\nflowchart TD\n    A[Click Support Button] --> B[Open Popup Window]\n    B --> C[Display Search Form]\n    C --> D[User Inputs Conditions]\n    D --> E[Execute Search]\n    E --> F[Display Results]\n    F --> G[User Selects]\n    G --> H[Update Main Form]\n    H --> I[Close Popup]\n    I --> J[Complete]\n```"
+    },
+    {
+      "id": "event_processing_rules_section:simple:yuusyou-kihon:event_flow_mapping",
+      "type": "event_processing_rules_section",
+      "name": "Event Flow Mapping",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/screen-specification/event_handling_rules-en.md",
+      "heading_level": 2,
+      "heading_raw": "3. Event Flow Mapping",
+      "content": "| Event Type | Trigger | Process | Result |\n|------------|---------|------------|--------|\n| CRUD | Button Click | Form Submission → Action → Service → DB | Screen Update |\n| Search | Button Click | Popup Window → Search → Selection | Form Update |\n| Print | Button Click | Print Request → Document Generation → Download | File Download |\n| Navigation | Button Click | Form Submission → Action → Screen Transition | New Screen |"
+    },
+    {
+      "id": "event_flow:simple:yuusyou-kihon:overall_processing_workflow:1",
+      "type": "event_processing_flow",
+      "name": "Overall Processing Workflow",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/screen-specification/event_handling_rules-en.md",
+      "mermaid_kind": "sequenceDiagram",
+      "mermaid": "sequenceDiagram\n    participant User as User\n    participant JSP as JSP Screen\n    participant JS as JavaScript\n    participant Form as HTML Form\n    participant Action as Struts Action\n    participant Service as Business Service\n    participant DB as Database\n    \n    User->>JSP: Click button\n    JSP->>JS: Trigger onClick event\n    JS->>JS: Validate data\n    JS->>Form: Submit form data\n    Form->>Action: Send HTTP request\n    Action->>Service: Process business logic\n    Service->>DB: Execute database operation\n    DB-->>Service: Return results\n    Service-->>Action: Return processed data\n    Action-->>JSP: Forward to next screen\n    JSP-->>User: Display updated screen"
+    },
+    {
+      "id": "event_flow:simple:yuusyou-kihon:crud_processing_flow:1",
+      "type": "event_processing_flow",
+      "name": "CRUD Processing Flow",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/screen-specification/event_handling_rules-en.md",
+      "mermaid_kind": "flowchart",
+      "mermaid": "flowchart TD\n    A[Click Edit/Delete/Register] --> B{Validation}\n    B -->|Pass| C[Submit Form]\n    B -->|Fail| D[Display Error Message]\n    C --> E[Action Processing]\n    E --> F[Business Logic]\n    F --> G[Database Operation]\n    G --> H{Success?}\n    H -->|Yes| I[Update Screen]\n    H -->|No| J[Display Error]\n    I --> K[Complete]\n    J --> K\n    D --> K"
+    },
+    {
+      "id": "event_flow:simple:yuusyou-kihon:search_processing_flow:1",
+      "type": "event_processing_flow",
+      "name": "Search Processing Flow",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/screen-specification/event_handling_rules-en.md",
+      "mermaid_kind": "flowchart",
+      "mermaid": "flowchart TD\n    A[Click Support Button] --> B[Open Popup Window]\n    B --> C[Display Search Form]\n    C --> D[User Inputs Conditions]\n    D --> E[Execute Search]\n    E --> F[Display Results]\n    F --> G[User Selects]\n    G --> H[Update Main Form]\n    H --> I[Close Popup]\n    I --> J[Complete]"
+    }
+  ],
+  "relationships": [
+    {
+      "source": "event_processing_rules:simple:yuusyou-kihon",
+      "target": "tab:basic_information",
+      "relationship_type": "DESCRIBES",
+      "description": "Event processing rules describe tab:basic_information"
+    },
+    {
+      "source": "event_processing_rules:simple:yuusyou-kihon",
+      "target": "event_processing_rules_section:simple:yuusyou-kihon:main_events_list",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "event_processing_rules_section:simple:yuusyou-kihon:main_events_list",
+      "target": "event_processing_rules_section:simple:yuusyou-kihon:crud_events",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "event_processing_rules_section:simple:yuusyou-kihon:main_events_list",
+      "target": "event_processing_rules_section:simple:yuusyou-kihon:search_events",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "event_processing_rules_section:simple:yuusyou-kihon:main_events_list",
+      "target": "event_processing_rules_section:simple:yuusyou-kihon:print_events",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "event_processing_rules_section:simple:yuusyou-kihon:main_events_list",
+      "target": "event_processing_rules_section:simple:yuusyou-kihon:navigation_events",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "event_processing_rules:simple:yuusyou-kihon",
+      "target": "event_processing_rules_section:simple:yuusyou-kihon:event_processing_flow",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "event_processing_rules_section:simple:yuusyou-kihon:event_processing_flow",
+      "target": "event_processing_rules_section:simple:yuusyou-kihon:overall_processing_workflow",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "event_processing_rules_section:simple:yuusyou-kihon:event_processing_flow",
+      "target": "event_processing_rules_section:simple:yuusyou-kihon:crud_processing_flow",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "event_processing_rules_section:simple:yuusyou-kihon:event_processing_flow",
+      "target": "event_processing_rules_section:simple:yuusyou-kihon:search_processing_flow",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "event_processing_rules:simple:yuusyou-kihon",
+      "target": "event_processing_rules_section:simple:yuusyou-kihon:event_flow_mapping",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "event_processing_rules:simple:yuusyou-kihon",
+      "target": "event_flow:simple:yuusyou-kihon:overall_processing_workflow:1",
+      "relationship_type": "HAS_FLOW"
+    },
+    {
+      "source": "event_processing_rules_section:simple:yuusyou-kihon:overall_processing_workflow",
+      "target": "event_flow:simple:yuusyou-kihon:overall_processing_workflow:1",
+      "relationship_type": "HAS_DIAGRAM"
+    },
+    {
+      "source": "event_processing_rules:simple:yuusyou-kihon",
+      "target": "event_flow:simple:yuusyou-kihon:crud_processing_flow:1",
+      "relationship_type": "HAS_FLOW"
+    },
+    {
+      "source": "event_processing_rules_section:simple:yuusyou-kihon:crud_processing_flow",
+      "target": "event_flow:simple:yuusyou-kihon:crud_processing_flow:1",
+      "relationship_type": "HAS_DIAGRAM"
+    },
+    {
+      "source": "event_processing_rules:simple:yuusyou-kihon",
+      "target": "event_flow:simple:yuusyou-kihon:search_processing_flow:1",
+      "relationship_type": "HAS_FLOW"
+    },
+    {
+      "source": "event_processing_rules_section:simple:yuusyou-kihon:search_processing_flow",
+      "target": "event_flow:simple:yuusyou-kihon:search_processing_flow:1",
+      "relationship_type": "HAS_DIAGRAM"
+    }
+  ]
+}

@@ -1,0 +1,256 @@
+{
+  "module": "simple",
+  "tab_name": "yuusyou-kihon",
+  "source_file": "simple/yuusyou-kihon/screen-specification/display_conditions-en.md",
+  "entities": [
+    {
+      "id": "display_conditions:simple:yuusyou-kihon",
+      "type": "display_conditions",
+      "name": "Display Conditions",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/screen-specification/display_conditions-en.md",
+      "target_screen": "Simple Contract (Paid Basic)",
+      "main_jsp": "kihon.jsp",
+      "body_jsp": "body.jsp",
+      "primary_action": "KihonInitAction",
+      "form_bean": "yuusyou_keiyakuNewtmp_kihonForm"
+    },
+    {
+      "id": "display_conditions_section:simple:yuusyou-kihon:display_rule_summary",
+      "type": "display_conditions_section",
+      "name": "Display Rule Summary",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/screen-specification/display_conditions-en.md",
+      "heading_level": 2,
+      "heading_raw": "Display Rule Summary",
+      "content": ""
+    },
+    {
+      "id": "display_conditions_section:simple:yuusyou-kihon:components_always_displayed",
+      "type": "display_conditions_section",
+      "name": "Components Always Displayed",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/screen-specification/display_conditions-en.md",
+      "heading_level": 3,
+      "heading_raw": "Components Always Displayed",
+      "content": "- Error display block\n- Project information (EH003)\n- Contract header (CH01)\n- Function buttons (JH08)\n- Tab navigation\n- Contract customer information (J0001)\n- Construction details (C0001)\n- Date information (B0031)\n- Address details (C0007)\n- Reference data (C0004)\n- Memo field (E0001)"
+    },
+    {
+      "id": "display_conditions_section:simple:yuusyou-kihon:conditional_components_based_on_project_type",
+      "type": "display_conditions_section",
+      "name": "Conditional Components Based on Project Type",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/screen-specification/display_conditions-en.md",
+      "heading_level": 3,
+      "heading_raw": "Conditional Components Based on Project Type",
+      "content": ""
+    },
+    {
+      "id": "display_conditions_section:simple:yuusyou-kihon:j0002_block",
+      "type": "display_conditions_section",
+      "name": "J0002 Block (Customer information based on project type)",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/screen-specification/display_conditions-en.md",
+      "heading_level": 4,
+      "heading_raw": "J0002 Block (Customer information based on project type)",
+      "content": "| **Project Type** | **Display Condition** | **Block Status** |\n|------------------|---------------------|-----------------|\n| **Residential** | `ankenBunruiCd = JYUUTAKU` | Display |\n| **Apartment** | `ankenBunruiCd = APARTMENT` | Display |\n| **Condominium** | `ankenBunruiCd = MANSION` | Display |\n| **Expanded Area** | `ankenBunruiCd = ZOUKAICHIKU` | Display |\n| **Forest** | `ankenBunruiCd = SHINRIN` | Display |\n| **Multipurpose** | `ankenBunruiCd = HANYOU` | Display |\n| **Other Types** | `ankenBunruiCd ≠ Listed types` | Hide |"
+    },
+    {
+      "id": "display_conditions_section:simple:yuusyou-kihon:conditional_components_based_on_user_permissions",
+      "type": "display_conditions_section",
+      "name": "Conditional Components Based on User Permissions",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/screen-specification/display_conditions-en.md",
+      "heading_level": 3,
+      "heading_raw": "Conditional Components Based on User Permissions",
+      "content": ""
+    },
+    {
+      "id": "display_conditions_section:simple:yuusyou-kihon:j0084_block",
+      "type": "display_conditions_section",
+      "name": "J0084 Block (Business Entity Information)",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/screen-specification/display_conditions-en.md",
+      "heading_level": 4,
+      "heading_raw": "J0084 Block (Business Entity Information)",
+      "content": "| **Display Condition** | **Control Flag** | **Flag Value** | **Form Type** | **User Impact** |\n|----------------------|------------------|-----------------|---------------|-----------------|\n| **Display Edit Form** | `jigyoutaiHyoujiKbn` AND `jigyoutaiEditKahiKbn` | `HYOUJI` AND `KA` | Edit Form | Administrator Users |\n| **Display Read-only Form** | `jigyoutaiHyoujiKbn` AND `jigyoutaiEditKahiKbn` | `HYOUJI` AND `HI` | Read-only Form | General Users |\n| **Hide Block** | `jigyoutaiHyoujiKbn` | `Not HYOUJI` | Hide | Users without access |"
+    },
+    {
+      "id": "display_conditions_section:simple:yuusyou-kihon:conditional_components_based_on_contract_status",
+      "type": "display_conditions_section",
+      "name": "Conditional Components Based on Contract Status",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/screen-specification/display_conditions-en.md",
+      "heading_level": 3,
+      "heading_raw": "Conditional Components Based on Contract Status",
+      "content": ""
+    },
+    {
+      "id": "display_conditions_section:simple:yuusyou-kihon:j0088_block",
+      "type": "display_conditions_section",
+      "name": "J0088 Block (After-service Information)",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/screen-specification/display_conditions-en.md",
+      "heading_level": 4,
+      "heading_raw": "J0088 Block (After-service Information)",
+      "content": "| **Display Condition** | **Control Flag** | **Flag Value** | **Block Status** |\n|----------------------|------------------|----------------|-----------------|\n| **Show Block** | `renewKbn` | `≠ RENEW_KBN_RENEW` | Display |\n| **Hide Block** | `renewKbn` | `= RENEW_KBN_RENEW` | Hide |"
+    },
+    {
+      "id": "display_conditions_section:simple:yuusyou-kihon:j0092_block",
+      "type": "display_conditions_section",
+      "name": "J0092 Block (Technical Staff Placement)",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/screen-specification/display_conditions-en.md",
+      "heading_level": 4,
+      "heading_raw": "J0092 Block (Technical Staff Placement)",
+      "content": "| **Display Condition** | **Control Flag** | **Flag Value** | **Block Status** |\n|----------------------|------------------|----------------|-----------------|\n| **Show Block** | `renewKbn` AND `gijyutsusyaHaichiYouhiTsuikaFlg` | `≠ RENEW` AND `= true` | Display |\n| **Hide Block** | `renewKbn` OR `gijyutsusyaHaichiYouhiTsuikaFlg` | `= RENEW` OR `≠ true` | Hide |\n\n---"
+    },
+    {
+      "id": "display_conditions_section:simple:yuusyou-kihon:action_button_display_rules",
+      "type": "display_conditions_section",
+      "name": "Action Button Display Rules",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/screen-specification/display_conditions-en.md",
+      "heading_level": 2,
+      "heading_raw": "Action Button Display Rules",
+      "content": ""
+    },
+    {
+      "id": "display_conditions_section:simple:yuusyou-kihon:button_display_matrix",
+      "type": "display_conditions_section",
+      "name": "Button Display Matrix",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/screen-specification/display_conditions-en.md",
+      "heading_level": 3,
+      "heading_raw": "Button Display Matrix",
+      "content": "| **Button** | **Display Condition** | **Control Flag** | **Flag Value** | **User Role Impact** |\n|------------|---------------------|------------------|----------------|---------------------|\n| **Cancel Button** | Edit mode only | `hensyuMode` | `HENSYU_MODE_HENKOU` | Admin/User - Same logic |\n| **Expectation Info Button** | HAL projects only | `ankenBunruiSyousaiCd` | `ANKEN_BUNRUI_SYOUSAI_CD_HAL` | Admin/User - Same logic |\n| **Expectation Info State** | Existing contract | `sinkiSakuseiKbn` | `SHINKI_SAKUSEI_KBN_KIZON` | Enabled for existing |\n| **Expectation Info State** | New contract | `sinkiSakuseiKbn` | `SHINKI_SAKUSEI_KBN_SHINKI` | Disabled for new |\n| **Register Button** | Always display | None | Always | Admin/User - Same logic |"
+    },
+    {
+      "id": "display_conditions_section:simple:yuusyou-kihon:button_state_flowchart",
+      "type": "display_conditions_section",
+      "name": "Button State Flowchart",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/screen-specification/display_conditions-en.md",
+      "heading_level": 3,
+      "heading_raw": "Button State Flowchart",
+      "content": "```mermaid\nflowchart TD\n    A[Button Load] --> B{Edit Mode Check}\n    B -->|Edit| C[Show Cancel Button]\n    B -->|Normal| D[Hide Cancel Button]\n    \n    A --> E{Project Type Check}\n    E -->|HAL| F{Contract Type Check}\n    E -->|Not HAL| G[Hide Expectation Button]\n    \n    F -->|Existing Contract| H[Enable Expectation Button]\n    F -->|New Contract| I[Disable Expectation Button]\n    \n    A --> J[Always Show Register Button]\n    \n    C --> K[Button Display Complete]\n    D --> K\n    H --> K\n    I --> K\n    G --> K\n    J --> K\n```\n\n---"
+    },
+    {
+      "id": "display_conditions_section:simple:yuusyou-kihon:key_control_flag_summary",
+      "type": "display_conditions_section",
+      "name": "Key Control Flag Summary",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/screen-specification/display_conditions-en.md",
+      "heading_level": 2,
+      "heading_raw": "Key Control Flag Summary",
+      "content": "| **Flag Name** | **Purpose** | **Values** | **Impact** |\n|---------------|-------------|------------|------------|\n| `hensyuMode` | Edit mode control | `HENSYU_MODE_NORMAL` / `HENSYU_MODE_HENKOU` | Cancel button display |\n| `ankenBunruiCd` | Project type | Various project codes | J0002 block display |\n| `jigyoutaiHyoujiKbn` | Business entity display permission | `JIGYOUTAI_HYOUJI_KBN_HYOUJI` / `JIGYOUTAI_HYOUJI_KBN_HIHYOUJI` | J0084 block display |\n| `jigyoutaiEditKahiKbn` | Business entity edit permission | `JIGYOUTAI_EDIT_KAHI_KBN_KA` / `JIGYOUTAI_EDIT_KAHI_KBN_HI` | J0084 form type |\n| `renewKbn` | Renewal contract flag | `RENEW_KBN_RENEW` / `RENEW_KBN_NOT_RENEW` | J0088, J0092 display |\n| `gijyutsusyaHaichiYouhiTsuikaFlg` | Technical staff placement | `true` / `false` | J0092 block display |\n| `ankenBunruiSyousaiCd` | Project subtype | `ANKEN_BUNRUI_SYOUSAI_CD_HAL` / Others | Expectation button display |\n| `sinkiSakuseiKbn` | Contract creation type | `SHINKI_SAKUSEI_KBN_KIZON` / `SHINKI_SAKUSEI_KBN_SHINKI` | Expectation button state |\n| `seigouseiCheckSuccessFlg` | Validation success | `true` / `false` | Modal dialog display |\n| `keiriNorRegistFlg` | Accounting registration | `true` / `false` | Modal dialog type |\n| `keiriNoSetIsDoneFlg` | Accounting setting | `true` / `false` | Modal dialog type |\n\n---"
+    },
+    {
+      "id": "display_flow:simple:yuusyou-kihon:button_state_flowchart:1",
+      "type": "display_flow_diagram",
+      "name": "Button State Flowchart",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/screen-specification/display_conditions-en.md",
+      "mermaid_kind": "flowchart",
+      "mermaid": "flowchart TD\n    A[Button Load] --> B{Edit Mode Check}\n    B -->|Edit| C[Show Cancel Button]\n    B -->|Normal| D[Hide Cancel Button]\n    \n    A --> E{Project Type Check}\n    E -->|HAL| F{Contract Type Check}\n    E -->|Not HAL| G[Hide Expectation Button]\n    \n    F -->|Existing Contract| H[Enable Expectation Button]\n    F -->|New Contract| I[Disable Expectation Button]\n    \n    A --> J[Always Show Register Button]\n    \n    C --> K[Button Display Complete]\n    D --> K\n    H --> K\n    I --> K\n    G --> K\n    J --> K"
+    }
+  ],
+  "relationships": [
+    {
+      "source": "display_conditions:simple:yuusyou-kihon",
+      "target": "tab:basic_information",
+      "relationship_type": "DESCRIBES",
+      "description": "Display conditions describe tab:basic_information"
+    },
+    {
+      "source": "display_conditions:simple:yuusyou-kihon",
+      "target": "display_conditions_section:simple:yuusyou-kihon:display_rule_summary",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions_section:simple:yuusyou-kihon:display_rule_summary",
+      "target": "display_conditions_section:simple:yuusyou-kihon:components_always_displayed",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions_section:simple:yuusyou-kihon:display_rule_summary",
+      "target": "display_conditions_section:simple:yuusyou-kihon:conditional_components_based_on_project_type",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions_section:simple:yuusyou-kihon:conditional_components_based_on_project_type",
+      "target": "display_conditions_section:simple:yuusyou-kihon:j0002_block",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions_section:simple:yuusyou-kihon:display_rule_summary",
+      "target": "display_conditions_section:simple:yuusyou-kihon:conditional_components_based_on_user_permissions",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions_section:simple:yuusyou-kihon:conditional_components_based_on_user_permissions",
+      "target": "display_conditions_section:simple:yuusyou-kihon:j0084_block",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions_section:simple:yuusyou-kihon:display_rule_summary",
+      "target": "display_conditions_section:simple:yuusyou-kihon:conditional_components_based_on_contract_status",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions_section:simple:yuusyou-kihon:conditional_components_based_on_contract_status",
+      "target": "display_conditions_section:simple:yuusyou-kihon:j0088_block",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions_section:simple:yuusyou-kihon:conditional_components_based_on_contract_status",
+      "target": "display_conditions_section:simple:yuusyou-kihon:j0092_block",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions:simple:yuusyou-kihon",
+      "target": "display_conditions_section:simple:yuusyou-kihon:action_button_display_rules",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions_section:simple:yuusyou-kihon:action_button_display_rules",
+      "target": "display_conditions_section:simple:yuusyou-kihon:button_display_matrix",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions_section:simple:yuusyou-kihon:action_button_display_rules",
+      "target": "display_conditions_section:simple:yuusyou-kihon:button_state_flowchart",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions:simple:yuusyou-kihon",
+      "target": "display_conditions_section:simple:yuusyou-kihon:key_control_flag_summary",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions:simple:yuusyou-kihon",
+      "target": "display_flow:simple:yuusyou-kihon:button_state_flowchart:1",
+      "relationship_type": "HAS_FLOW"
+    },
+    {
+      "source": "display_conditions_section:simple:yuusyou-kihon:button_state_flowchart",
+      "target": "display_flow:simple:yuusyou-kihon:button_state_flowchart:1",
+      "relationship_type": "HAS_DIAGRAM"
+    }
+  ]
+}

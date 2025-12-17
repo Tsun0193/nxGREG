@@ -1,0 +1,172 @@
+{
+  "module": "housing",
+  "tab_name": "basic-info-housing-contract",
+  "source_file": "housing/basic-info-housing-contract/screen-specification/validation_form-en.md",
+  "entities": [
+    {
+      "id": "form_validation:ukeoi_keiyakuNewtmp_kihonForm",
+      "type": "form_validation",
+      "name": "ukeoi_keiyakuNewtmp_kihonForm",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/validation_form-en.md",
+      "content": "# Validation Form\n\n## 1. Form Configuration\n\n- **Form name**: `ukeoi_keiyakuNewtmp_kihonForm`\n- **Action mapping**: `/kihonTabDispatch`\n- **Action class**: `jp.co.daiwahouse.dsmart.application.contract.ukeoi.keiyakuNewtmp.kihon.KihonTabDispatchAction`\n- **Validation file**: `src/webapp/dsmart/WEB-INF/config/contract/ukeoi/validation.xml`\n- **Struts config**: `src/webapp/dsmart/WEB-INF/config/contract/ukeoi/struts-config.xml`\n\n## 2. Field-Specific Validation Rules\n\n| Screen Block | Label | Property | Validation Rules | Error Message Key |\n|--------------|-------|----------|------------------|-------------------|\n| **JH03 Header Screen** | Order Sales Office | `JH03_jyutyuEigyousyoName` | **Required Field**: Required, cannot be empty | **Required**:<br />• arg0: `contract.common.param.jyutyuEigyousyo`<br />• message: `contract.error.requiredInput` |\n| | Sales Office | `JH03_uriageEigyousyoName` | **Required Field**: Required, cannot be empty | **Required**:<br />• arg0: `contract.common.param.uriageEigyousyo`<br />• message: `contract.error.requiredInput` |\n| | Sales Representative | `JH03_eigyouUserName` | **Required Field**: Required, cannot be empty | **Required**:<br />• arg0: `contract.common.param.eigyouTantousya`<br />• message: `contract.error.requiredInput` |\n| | Contract Category | `JH03_keiyakuKbnCd` | **Required Field**: Required, cannot be empty | **Required**:<br />• arg0: `contract.common.param.keiyakuKubun`<br />• message: `contract.error.requiredInput` |\n| **Contract Customer Block** | Joint Name Edit | `J0001_keiyakuKokyakuName` | **Max Byte Size (200)**: Max 200 bytes<br />**Non Hankaku Kana**: No half-width kana allowed | **MaxByteSize**:<br />• arg0: `＜Contract Party＞Joint Name Edit`<br />• message: `common.error.maxByteSize`<br />• arg1: `200`<br /><br />**NonHankakuKana**:<br />• arg0: `＜Contract Party＞Joint Name Edit`<br />• message: `common.error.nonHankakuKana` |\n| **Building Owner Block** | Joint Name Edit | `J0002_sesyuKokyakuName` | **Max Byte Size (200)**: Max 200 bytes<br />**Non Hankaku Kana**: No half-width kana allowed | **MaxByteSize**:<br />• arg0: `＜Building Owner＞Joint Name Edit`<br />• message: `common.error.maxByteSize`<br />• arg1: `200`<br /><br />**NonHankakuKana**:<br />• arg0: `＜Building Owner＞Joint Name Edit`<br />• message: `common.error.nonHankakuKana` |\n| **Land Owner Block** | Joint Name Edit | `J0003_sikichiSyoyusyaName` | **Max Byte Size (200)**: Max 200 bytes<br />**Non Hankaku Kana**: No half-width kana allowed | **MaxByteSize**:<br />• arg0: `＜Land Owner＞Joint Name Edit`<br />• message: `common.error.maxByteSize`<br />• arg1: `200`<br /><br />**NonHankakuKana**:<br />• arg0: `＜Land Owner＞Joint Name Edit`<br />• message: `common.error.nonHankakuKana` |\n| **J0004 Construction Name Screen** | Name | `J0004_koujiBukkenName` | **Required Field**: Required<br />**Zenkaku**: Only full-width characters allowed | **Required**:<br />• arg0: `contract.common.param.meisyou`<br />• message: `contract.error.requiredInput`<br /><br />**Zenkaku**:<br />• arg0: `contract.common.param.meisyou`<br />• message: `common.error.zenkaku` |\n| | Name Kana | `J0004_koujiBukkenNameKana` | **Required Field**: Required<br />**Zenkaku**: Only full-width characters allowed<br />**Mask Pattern**: Must match predefined pattern | **Required**:<br />• arg0: `contract.common.param.meisyouKana`<br />• message: `contract.error.requiredInput`<br /><br />**Zenkaku**:<br />• arg0: `contract.common.param.meisyouKana`<br />• message: `common.error.zenkaku`<br /><br />**Mask**:<br />• message: `contract.error.nameKanaCheck`<br />• pattern: `^[!-@　！-＠ァ-ーＡ-Ｚａ-ｚ]+$` |\n| | Building Coverage Ratio | `J0004_kenpeiRitsu` | **Float**: Numeric<br />**Max Byte Size (6)**: 6 bytes limit<br />**Integer Size (3)**: Integer part max 3 digits<br />**Float Dec Size (2)**: Decimal part max 2 digits | **Float**:<br />• message: `common.error.numeric`<br />• arg0: `contract.common.param.kenpeiRitsu`<br /><br />**IntegerSize**:<br />• arg1: `3`<br />• message: `common.error.numericSize`<br /><br />**FloatDecSize**:<br />• arg1: `2`<br />• message: `common.error.numericSize`<br /><br />**MaxByteSize**:<br />• arg1: `6`<br />• message: `common.error.maxByteSize` |\n| | Floor Area Ratio | `J0004_yousekiRitsu` | **Float**: Numeric<br />**Max Byte Size (7)**: 7 bytes limit<br />**Integer Size (4)**: Integer part max 4 digits<br />**Float Dec Size (2)**: Decimal part max 2 digits | **Float**:<br />• message: `common.error.numeric`<br />• arg0: `contract.common.param.yousekiRitsu`<br /><br />**IntegerSize**:<br />• arg1: `4`<br />• message: `common.error.numericSize`<br /><br />**FloatDecSize**:<br />• arg1: `2`<br />• message: `common.error.numericSize`<br /><br />**MaxByteSize**:<br />• arg1: `7`<br />• message: `common.error.maxByteSize` |\n| | Land Price (Market Price) | `J0004_jisseiTochiKakaku` | **Integer**: Integer<br />**Integer Size (13)**: Max 13 digits<br />**Long Range**: 0 to 9999999999999 | **Integer**:<br />• arg0: `contract.common.param.tochitsubotanka`<br /><br />**IntegerSize**:<br />• arg1: `13`<br />• message: `common.error.numericSize`<br /><br />**LongRange**:<br />• min: `0`<br />• max: `9999999999999`<br />• message: `contract.common.error.rangeNoneFromTo` |\n\n### 2.1 Message Reference Table\n\n#### 2.1.1 Field Name Messages (arg values)\n| Argument Key | Argument Message |\n|-------------|----------------|\n| `contract.common.param.jyutyuEigyousyo` | Order Sales Office |\n| `contract.common.param.uriageEigyousyo` | Sales Office |\n| `contract.common.param.eigyouTantousya` | Sales Representative |\n| `contract.common.param.keiyakuKubun` | Contract Category |\n| `contract.common.param.meisyou` | Name |\n| `contract.common.param.meisyouKana` | Name Kana |\n| `contract.common.param.kenpeiRitsu` | Building Coverage Ratio |\n| `contract.common.param.yousekiRitsu` | Floor Area Ratio |\n| `contract.common.param.tochitsubotanka` | Land Price per Tsubo |\n\n#### 2.1.2 Validation Error Messages\n| Message Key | Actual Message |\n|-------------|----------------|\n| `contract.error.requiredInput` | {0} must be entered. |\n| `common.error.zenkaku` | Please enter {0} in full-width characters. |\n| `common.error.maxByteSize` | Please enter {0} within {1} bytes. (Full-width/line break=2 bytes, half-width=1 byte) |\n| `common.error.nonHankakuKana` | For {0}, please enter characters other than half-width kana. |\n| `contract.error.nameKanaCheck` | For Name Kana, please enter full-width kana, symbols, or numbers. |\n| `common.error.numeric` | Please enter {0} as a numeric value. |\n| `common.error.numericSize` | Please enter {0} with {1} digits or less. |\n| `contract.common.error.rangeNoneFromTo` | Please enter {0} in the range from {1} to {2}. |\n\n## 3. Validation Process Flow\n\n### 3.1 Overall Validation Flow\n\n```mermaid\ngraph TD\n    A[Form Submission] --> B[comIsFirstSubmit Check]\n    B --> C{First submission?}\n    C -->|No| D[Cancel submission]\n    C -->|Yes| E[KihonTabDispatchAction]\n    E --> F[Validation.xml Check]\n    F --> G{Required fields OK?}\n    G -->|No| H[Display error message]\n    G -->|Yes| I[Format validation]\n    I -->|No| J[Display format error]\n    I -->|Yes| K[Business rule validation]\n    K --> L{Business rules OK?}\n    L -->|No| M[Display business error]\n    L -->|Yes| N[Action processing]\n```\n\n### 3.2 JavaScript Validation Flow\n\n```mermaid\nflowchart TD\n    A[User Input] --> B[Field validation function]\n    B --> C{Data type OK?}\n    C -->|No| D[Display field error]\n    C -->|Yes| E[Format validation]\n    E --> F{Format OK?}\n    F -->|No| G[Display format error]\n    F -->|Yes| H[Business logic check]\n    H --> I{Business rules OK?}\n    I -->|No| J[Display business error]\n    I -->|Yes| K[Allow form submission]\n```\n\n### 3.3 Error Handling Flow\n\n```mermaid\nsequenceDiagram\n    participant User as User\n    participant JS as JavaScript\n    participant Form as HTML Form\n    participant Action as Struts Action\n    participant Validation as Validation.xml\n    participant Service as Business Service\n    \n    User->>JS: Form submission\n    JS->>JS: comIsFirstSubmit()\n    JS->>JS: Field validation\n    JS->>Form: Submit if OK\n    Form->>Action: HTTP Request\n    Action->>Validation: Check validation rules\n    Validation-->>Action: Validation result\n    Action->>Service: Process if OK\n    Service-->>Action: Business process result\n    Action-->>Form: Forward/Redirect\n    Form-->>User: Display result\n```\n\n## 4. JavaScript Validation Functions\n\n| No. | Function Name | Validation Type | Error Message | Trigger Condition |\n|-----|---------------|-----------------|---------------|-------------------|\n| 1 | `comIsFirstSubmit()` | Prevent multiple submissions | \"Already submitted\" | Prevent multiple submissions |\n| 2 | `cntCheckIntegerPositive(obj)` | Positive integer validation | \"Please enter a numeric value\" | Non-numeric input in positive integer field |\n| 3 | `cntCheckInteger(obj)` | Integer validation | \"Please enter a numeric value\" | Non-numeric input in integer field |\n| 4 | `cntCheckNumber(obj)` | Numeric validation | \"Please enter a numeric value\" | Non-numeric input in numeric field |\n| 5 | `cntCheckIntegerPositiveRequired(obj)` | Required positive integer | \"Must be entered\" | Required positive integer is empty |\n| 6 | `cntCheckIntegerRequired(obj)` | Required integer | \"Must be entered\" | Required integer is empty |\n| 7 | `cntCheckNumberRequired(obj)` | Required numeric | \"Must be entered\" | Required numeric is empty |\n| 8 | `cntChkLeaveKhnTab(form)` | Tab exit validation | \"For new creation, please press the register button\" | Attempting to leave tab without registering |\n| 9 | `cntChkLeaveTCTab(form)` | Tab exit validation | \"For new creation, please press the register button\" | Attempting to leave tab without registering |\n| 10 | `cntChkGijyutsusyaHaichi(form)` | Technical staff placement check | \"Building Standards Act application: Target has been selected. Please register the 'This Contract' technical staff placement button.\" | Insufficient technical staff placement |\n| 11 | `printKeiyakuInsatsuChk(msgFlg,mode)` | Contract printing check | Print confirmation dialog | Contract print request |\n| 12 | `cntDfcGokeiyakusyaCardOutputKakunin()` | DFC card output confirmation | DFC output successful | DFC output request |",
+      "form_name": "ukeoi_keiyakuNewtmp_kihonForm",
+      "action_mapping": "/kihonTabDispatch",
+      "action_class": "jp.co.daiwahouse.dsmart.application.contract.ukeoi.keiyakuNewtmp.kihon.KihonTabDispatchAction",
+      "validation_file": "src/webapp/dsmart/WEB-INF/config/contract/ukeoi/validation.xml",
+      "struts_configuration": "src/webapp/dsmart/WEB-INF/config/contract/ukeoi/struts-config.xml"
+    },
+    {
+      "id": "form_validation_section:ukeoi_keiyakuNewtmp_kihonForm:field_specific_validation_rules",
+      "type": "form_validation_section",
+      "name": "Field-Specific Validation Rules",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/validation_form-en.md",
+      "heading_level": 2,
+      "heading_raw": "2. Field-Specific Validation Rules",
+      "content": "| Screen Block | Label | Property | Validation Rules | Error Message Key |\n|--------------|-------|----------|------------------|-------------------|\n| **JH03 Header Screen** | Order Sales Office | `JH03_jyutyuEigyousyoName` | **Required Field**: Required, cannot be empty | **Required**:<br />• arg0: `contract.common.param.jyutyuEigyousyo`<br />• message: `contract.error.requiredInput` |\n| | Sales Office | `JH03_uriageEigyousyoName` | **Required Field**: Required, cannot be empty | **Required**:<br />• arg0: `contract.common.param.uriageEigyousyo`<br />• message: `contract.error.requiredInput` |\n| | Sales Representative | `JH03_eigyouUserName` | **Required Field**: Required, cannot be empty | **Required**:<br />• arg0: `contract.common.param.eigyouTantousya`<br />• message: `contract.error.requiredInput` |\n| | Contract Category | `JH03_keiyakuKbnCd` | **Required Field**: Required, cannot be empty | **Required**:<br />• arg0: `contract.common.param.keiyakuKubun`<br />• message: `contract.error.requiredInput` |\n| **Contract Customer Block** | Joint Name Edit | `J0001_keiyakuKokyakuName` | **Max Byte Size (200)**: Max 200 bytes<br />**Non Hankaku Kana**: No half-width kana allowed | **MaxByteSize**:<br />• arg0: `＜Contract Party＞Joint Name Edit`<br />• message: `common.error.maxByteSize`<br />• arg1: `200`<br /><br />**NonHankakuKana**:<br />• arg0: `＜Contract Party＞Joint Name Edit`<br />• message: `common.error.nonHankakuKana` |\n| **Building Owner Block** | Joint Name Edit | `J0002_sesyuKokyakuName` | **Max Byte Size (200)**: Max 200 bytes<br />**Non Hankaku Kana**: No half-width kana allowed | **MaxByteSize**:<br />• arg0: `＜Building Owner＞Joint Name Edit`<br />• message: `common.error.maxByteSize`<br />• arg1: `200`<br /><br />**NonHankakuKana**:<br />• arg0: `＜Building Owner＞Joint Name Edit`<br />• message: `common.error.nonHankakuKana` |\n| **Land Owner Block** | Joint Name Edit | `J0003_sikichiSyoyusyaName` | **Max Byte Size (200)**: Max 200 bytes<br />**Non Hankaku Kana**: No half-width kana allowed | **MaxByteSize**:<br />• arg0: `＜Land Owner＞Joint Name Edit`<br />• message: `common.error.maxByteSize`<br />• arg1: `200`<br /><br />**NonHankakuKana**:<br />• arg0: `＜Land Owner＞Joint Name Edit`<br />• message: `common.error.nonHankakuKana` |\n| **J0004 Construction Name Screen** | Name | `J0004_koujiBukkenName` | **Required Field**: Required<br />**Zenkaku**: Only full-width characters allowed | **Required**:<br />• arg0: `contract.common.param.meisyou`<br />• message: `contract.error.requiredInput`<br /><br />**Zenkaku**:<br />• arg0: `contract.common.param.meisyou`<br />• message: `common.error.zenkaku` |\n| | Name Kana | `J0004_koujiBukkenNameKana` | **Required Field**: Required<br />**Zenkaku**: Only full-width characters allowed<br />**Mask Pattern**: Must match predefined pattern | **Required**:<br />• arg0: `contract.common.param.meisyouKana`<br />• message: `contract.error.requiredInput`<br /><br />**Zenkaku**:<br />• arg0: `contract.common.param.meisyouKana`<br />• message: `common.error.zenkaku`<br /><br />**Mask**:<br />• message: `contract.error.nameKanaCheck`<br />• pattern: `^[!-@　！-＠ァ-ーＡ-Ｚａ-ｚ]+$` |\n| | Building Coverage Ratio | `J0004_kenpeiRitsu` | **Float**: Numeric<br />**Max Byte Size (6)**: 6 bytes limit<br />**Integer Size (3)**: Integer part max 3 digits<br />**Float Dec Size (2)**: Decimal part max 2 digits | **Float**:<br />• message: `common.error.numeric`<br />• arg0: `contract.common.param.kenpeiRitsu`<br /><br />**IntegerSize**:<br />• arg1: `3`<br />• message: `common.error.numericSize`<br /><br />**FloatDecSize**:<br />• arg1: `2`<br />• message: `common.error.numericSize`<br /><br />**MaxByteSize**:<br />• arg1: `6`<br />• message: `common.error.maxByteSize` |\n| | Floor Area Ratio | `J0004_yousekiRitsu` | **Float**: Numeric<br />**Max Byte Size (7)**: 7 bytes limit<br />**Integer Size (4)**: Integer part max 4 digits<br />**Float Dec Size (2)**: Decimal part max 2 digits | **Float**:<br />• message: `common.error.numeric`<br />• arg0: `contract.common.param.yousekiRitsu`<br /><br />**IntegerSize**:<br />• arg1: `4`<br />• message: `common.error.numericSize`<br /><br />**FloatDecSize**:<br />• arg1: `2`<br />• message: `common.error.numericSize`<br /><br />**MaxByteSize**:<br />• arg1: `7`<br />• message: `common.error.maxByteSize` |\n| | Land Price (Market Price) | `J0004_jisseiTochiKakaku` | **Integer**: Integer<br />**Integer Size (13)**: Max 13 digits<br />**Long Range**: 0 to 9999999999999 | **Integer**:<br />• arg0: `contract.common.param.tochitsubotanka`<br /><br />**IntegerSize**:<br />• arg1: `13`<br />• message: `common.error.numericSize`<br /><br />**LongRange**:<br />• min: `0`<br />• max: `9999999999999`<br />• message: `contract.common.error.rangeNoneFromTo` |"
+    },
+    {
+      "id": "form_validation_section:ukeoi_keiyakuNewtmp_kihonForm:message_reference_table",
+      "type": "form_validation_section",
+      "name": "Message Reference Table",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/validation_form-en.md",
+      "heading_level": 3,
+      "heading_raw": "2.1 Message Reference Table",
+      "content": ""
+    },
+    {
+      "id": "form_validation_section:ukeoi_keiyakuNewtmp_kihonForm:field_name_messages_arg_values",
+      "type": "form_validation_section",
+      "name": "Field Name Messages (arg values)",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/validation_form-en.md",
+      "heading_level": 4,
+      "heading_raw": "2.1.1 Field Name Messages (arg values)",
+      "content": "| Argument Key | Argument Message |\n|-------------|----------------|\n| `contract.common.param.jyutyuEigyousyo` | Order Sales Office |\n| `contract.common.param.uriageEigyousyo` | Sales Office |\n| `contract.common.param.eigyouTantousya` | Sales Representative |\n| `contract.common.param.keiyakuKubun` | Contract Category |\n| `contract.common.param.meisyou` | Name |\n| `contract.common.param.meisyouKana` | Name Kana |\n| `contract.common.param.kenpeiRitsu` | Building Coverage Ratio |\n| `contract.common.param.yousekiRitsu` | Floor Area Ratio |\n| `contract.common.param.tochitsubotanka` | Land Price per Tsubo |"
+    },
+    {
+      "id": "form_validation_section:ukeoi_keiyakuNewtmp_kihonForm:validation_error_messages",
+      "type": "form_validation_section",
+      "name": "Validation Error Messages",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/validation_form-en.md",
+      "heading_level": 4,
+      "heading_raw": "2.1.2 Validation Error Messages",
+      "content": "| Message Key | Actual Message |\n|-------------|----------------|\n| `contract.error.requiredInput` | {0} must be entered. |\n| `common.error.zenkaku` | Please enter {0} in full-width characters. |\n| `common.error.maxByteSize` | Please enter {0} within {1} bytes. (Full-width/line break=2 bytes, half-width=1 byte) |\n| `common.error.nonHankakuKana` | For {0}, please enter characters other than half-width kana. |\n| `contract.error.nameKanaCheck` | For Name Kana, please enter full-width kana, symbols, or numbers. |\n| `common.error.numeric` | Please enter {0} as a numeric value. |\n| `common.error.numericSize` | Please enter {0} with {1} digits or less. |\n| `contract.common.error.rangeNoneFromTo` | Please enter {0} in the range from {1} to {2}. |"
+    },
+    {
+      "id": "form_validation_section:ukeoi_keiyakuNewtmp_kihonForm:validation_process_flow",
+      "type": "form_validation_section",
+      "name": "Validation Process Flow",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/validation_form-en.md",
+      "heading_level": 2,
+      "heading_raw": "3. Validation Process Flow",
+      "content": ""
+    },
+    {
+      "id": "form_validation_section:ukeoi_keiyakuNewtmp_kihonForm:overall_validation_flow",
+      "type": "form_validation_section",
+      "name": "Overall Validation Flow",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/validation_form-en.md",
+      "heading_level": 3,
+      "heading_raw": "3.1 Overall Validation Flow",
+      "content": "```mermaid\ngraph TD\n    A[Form Submission] --> B[comIsFirstSubmit Check]\n    B --> C{First submission?}\n    C -->|No| D[Cancel submission]\n    C -->|Yes| E[KihonTabDispatchAction]\n    E --> F[Validation.xml Check]\n    F --> G{Required fields OK?}\n    G -->|No| H[Display error message]\n    G -->|Yes| I[Format validation]\n    I -->|No| J[Display format error]\n    I -->|Yes| K[Business rule validation]\n    K --> L{Business rules OK?}\n    L -->|No| M[Display business error]\n    L -->|Yes| N[Action processing]\n```"
+    },
+    {
+      "id": "form_validation_section:ukeoi_keiyakuNewtmp_kihonForm:javascript_validation_flow",
+      "type": "form_validation_section",
+      "name": "JavaScript Validation Flow",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/validation_form-en.md",
+      "heading_level": 3,
+      "heading_raw": "3.2 JavaScript Validation Flow",
+      "content": "```mermaid\nflowchart TD\n    A[User Input] --> B[Field validation function]\n    B --> C{Data type OK?}\n    C -->|No| D[Display field error]\n    C -->|Yes| E[Format validation]\n    E --> F{Format OK?}\n    F -->|No| G[Display format error]\n    F -->|Yes| H[Business logic check]\n    H --> I{Business rules OK?}\n    I -->|No| J[Display business error]\n    I -->|Yes| K[Allow form submission]\n```"
+    },
+    {
+      "id": "form_validation_section:ukeoi_keiyakuNewtmp_kihonForm:error_handling_flow",
+      "type": "form_validation_section",
+      "name": "Error Handling Flow",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/validation_form-en.md",
+      "heading_level": 3,
+      "heading_raw": "3.3 Error Handling Flow",
+      "content": "```mermaid\nsequenceDiagram\n    participant User as User\n    participant JS as JavaScript\n    participant Form as HTML Form\n    participant Action as Struts Action\n    participant Validation as Validation.xml\n    participant Service as Business Service\n    \n    User->>JS: Form submission\n    JS->>JS: comIsFirstSubmit()\n    JS->>JS: Field validation\n    JS->>Form: Submit if OK\n    Form->>Action: HTTP Request\n    Action->>Validation: Check validation rules\n    Validation-->>Action: Validation result\n    Action->>Service: Process if OK\n    Service-->>Action: Business process result\n    Action-->>Form: Forward/Redirect\n    Form-->>User: Display result\n```"
+    },
+    {
+      "id": "form_validation_section:ukeoi_keiyakuNewtmp_kihonForm:javascript_validation_functions",
+      "type": "form_validation_section",
+      "name": "JavaScript Validation Functions",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/validation_form-en.md",
+      "heading_level": 2,
+      "heading_raw": "4. JavaScript Validation Functions",
+      "content": "| No. | Function Name | Validation Type | Error Message | Trigger Condition |\n|-----|---------------|-----------------|---------------|-------------------|\n| 1 | `comIsFirstSubmit()` | Prevent multiple submissions | \"Already submitted\" | Prevent multiple submissions |\n| 2 | `cntCheckIntegerPositive(obj)` | Positive integer validation | \"Please enter a numeric value\" | Non-numeric input in positive integer field |\n| 3 | `cntCheckInteger(obj)` | Integer validation | \"Please enter a numeric value\" | Non-numeric input in integer field |\n| 4 | `cntCheckNumber(obj)` | Numeric validation | \"Please enter a numeric value\" | Non-numeric input in numeric field |\n| 5 | `cntCheckIntegerPositiveRequired(obj)` | Required positive integer | \"Must be entered\" | Required positive integer is empty |\n| 6 | `cntCheckIntegerRequired(obj)` | Required integer | \"Must be entered\" | Required integer is empty |\n| 7 | `cntCheckNumberRequired(obj)` | Required numeric | \"Must be entered\" | Required numeric is empty |\n| 8 | `cntChkLeaveKhnTab(form)` | Tab exit validation | \"For new creation, please press the register button\" | Attempting to leave tab without registering |\n| 9 | `cntChkLeaveTCTab(form)` | Tab exit validation | \"For new creation, please press the register button\" | Attempting to leave tab without registering |\n| 10 | `cntChkGijyutsusyaHaichi(form)` | Technical staff placement check | \"Building Standards Act application: Target has been selected. Please register the 'This Contract' technical staff placement button.\" | Insufficient technical staff placement |\n| 11 | `printKeiyakuInsatsuChk(msgFlg,mode)` | Contract printing check | Print confirmation dialog | Contract print request |\n| 12 | `cntDfcGokeiyakusyaCardOutputKakunin()` | DFC card output confirmation | DFC output successful | DFC output request |"
+    }
+  ],
+  "relationships": [
+    {
+      "source": "form_validation:ukeoi_keiyakuNewtmp_kihonForm",
+      "target": "form:ukeoi_keiyakuNewtmp_kihonForm",
+      "relationship_type": "APPLIES_TO_FORM"
+    },
+    {
+      "source": "form_validation:ukeoi_keiyakuNewtmp_kihonForm",
+      "target": "form_validation_section:ukeoi_keiyakuNewtmp_kihonForm:field_specific_validation_rules",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "form_validation_section:ukeoi_keiyakuNewtmp_kihonForm:field_specific_validation_rules",
+      "target": "form_validation_section:ukeoi_keiyakuNewtmp_kihonForm:message_reference_table",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "form_validation_section:ukeoi_keiyakuNewtmp_kihonForm:message_reference_table",
+      "target": "form_validation_section:ukeoi_keiyakuNewtmp_kihonForm:field_name_messages_arg_values",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "form_validation_section:ukeoi_keiyakuNewtmp_kihonForm:message_reference_table",
+      "target": "form_validation_section:ukeoi_keiyakuNewtmp_kihonForm:validation_error_messages",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "form_validation:ukeoi_keiyakuNewtmp_kihonForm",
+      "target": "form_validation_section:ukeoi_keiyakuNewtmp_kihonForm:validation_process_flow",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "form_validation_section:ukeoi_keiyakuNewtmp_kihonForm:validation_process_flow",
+      "target": "form_validation_section:ukeoi_keiyakuNewtmp_kihonForm:overall_validation_flow",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "form_validation_section:ukeoi_keiyakuNewtmp_kihonForm:validation_process_flow",
+      "target": "form_validation_section:ukeoi_keiyakuNewtmp_kihonForm:javascript_validation_flow",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "form_validation_section:ukeoi_keiyakuNewtmp_kihonForm:validation_process_flow",
+      "target": "form_validation_section:ukeoi_keiyakuNewtmp_kihonForm:error_handling_flow",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "form_validation:ukeoi_keiyakuNewtmp_kihonForm",
+      "target": "form_validation_section:ukeoi_keiyakuNewtmp_kihonForm:javascript_validation_functions",
+      "relationship_type": "HAS_SECTION"
+    }
+  ]
+}

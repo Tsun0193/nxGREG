@@ -1,0 +1,256 @@
+{
+  "module": "housing",
+  "tab_name": "basic-info-housing-contract",
+  "source_file": "housing/basic-info-housing-contract/screen-specification/display_conditions-en.md",
+  "entities": [
+    {
+      "id": "display_conditions:housing:basic-info-housing-contract",
+      "type": "display_conditions",
+      "name": "Display Conditions",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/display_conditions-en.md",
+      "target_screen": "Housing Contract (Ukeoi Kihon)",
+      "main_jsp": "src/webapp/dsmart/docroot/contract/ukeoi/keiyakuNewtmp/kihon.jsp",
+      "body_jsp": "src/webapp/dsmart/docroot/contract/ukeoi/keiyakuNewtmp/kihon/body.jsp",
+      "primary_action": "KihonTabDispatchAction",
+      "form_bean": "ukeoi_keiyakuNewtmp_kihonForm"
+    },
+    {
+      "id": "display_conditions_section:housing:basic-info-housing-contract:display_rule_summary",
+      "type": "display_conditions_section",
+      "name": "Display Rule Summary",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/display_conditions-en.md",
+      "heading_level": 2,
+      "heading_raw": "Display Rule Summary",
+      "content": ""
+    },
+    {
+      "id": "display_conditions_section:housing:basic-info-housing-contract:components_always_displayed",
+      "type": "display_conditions_section",
+      "name": "Components Always Displayed",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/display_conditions-en.md",
+      "heading_level": 3,
+      "heading_raw": "Components Always Displayed",
+      "content": "- Error display block (`/common/error.txt`)\n- Project information (EH003_1 block)\n- Contract header (JH02 block)\n- Business header (JH03 block)\n- Function buttons (JH13_1 block)\n- Tab navigation (kihon, koutei, hosoku, keiri, jyutyu, loan, kaisyu, syohiyou, sogaiyouin)\n- Contract customer information (J0001_2 block)\n- Building owner information (J0002 block)\n- Land owner information (J0003 block)\n- Construction information (J0004 block)\n- Contract details (B0001 block)\n- Special notes (J0087 block)\n- Yamazumi button control"
+    },
+    {
+      "id": "display_conditions_section:housing:basic-info-housing-contract:conditional_components_based_on_user_permissions",
+      "type": "display_conditions_section",
+      "name": "Conditional Components Based on User Permissions",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/display_conditions-en.md",
+      "heading_level": 3,
+      "heading_raw": "Conditional Components Based on User Permissions",
+      "content": ""
+    },
+    {
+      "id": "display_conditions_section:housing:basic-info-housing-contract:j0084_block",
+      "type": "display_conditions_section",
+      "name": "J0084 Block (Business Information)",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/display_conditions-en.md",
+      "heading_level": 4,
+      "heading_raw": "J0084 Block (Business Information)",
+      "content": "| **Display Condition** | **Control Flags** | **Flag Values** | **Form Type** | **User Impact** |\n|----------------------|------------------|-----------------|---------------|-----------------|\n| **Display Edit Form** | `jigyoutaiHyoujiKbn` AND `jigyoutaiEditKahiKbn` | `JIGYOUTAI_HYOUJI_KBN_HYOUJI` AND `JIGYOUTAI_EDIT_KAHI_KBN_KA` | Edit form (`/contract/blockList/register/J0084.jsp`) | Administrator users |\n| **Display Read-only Form** | `jigyoutaiHyoujiKbn` AND `jigyoutaiEditKahiKbn` | `JIGYOUTAI_HYOUJI_KBN_HYOUJI` AND `JIGYOUTAI_EDIT_KAHI_KBN_HI` | Read-only form (`/contract/blockList/refer/J0084.jsp`) | General users |\n| **Hide Block** | `jigyoutaiHyoujiKbn` | `≠ JIGYOUTAI_HYOUJI_KBN_HYOUJI` | Hidden | No access |"
+    },
+    {
+      "id": "display_conditions_section:housing:basic-info-housing-contract:conditional_components_based_on_contract_status",
+      "type": "display_conditions_section",
+      "name": "Conditional Components Based on Contract Status",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/display_conditions-en.md",
+      "heading_level": 3,
+      "heading_raw": "Conditional Components Based on Contract Status",
+      "content": ""
+    },
+    {
+      "id": "display_conditions_section:housing:basic-info-housing-contract:j0088_block",
+      "type": "display_conditions_section",
+      "name": "J0088 Block (After-service Information)",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/display_conditions-en.md",
+      "heading_level": 4,
+      "heading_raw": "J0088 Block (After-service Information)",
+      "content": "| **Display Condition** | **Control Flag** | **Flag Value** | **Block State** |\n|----------------------|------------------|----------------|-----------------|\n| **Show Block** | `renewKbn` | `≠ RENEW_KBN_RENEW` | Visible (`/contract/blockList/register/J0088.jsp`) |\n| **Hide Block** | `renewKbn` | `= RENEW_KBN_RENEW` | Hidden |"
+    },
+    {
+      "id": "display_conditions_section:housing:basic-info-housing-contract:j0092_block",
+      "type": "display_conditions_section",
+      "name": "J0092 Block (Technical Staff Placement)",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/display_conditions-en.md",
+      "heading_level": 4,
+      "heading_raw": "J0092 Block (Technical Staff Placement)",
+      "content": "| **Display Condition** | **Control Flag** | **Flag Value** | **Block State** |\n|----------------------|------------------|----------------|-----------------|\n| **Show Block** | `renewKbn` | `≠ RENEW_KBN_RENEW` | Visible (`/contract/blockList/register/J0092.jsp`) |\n| **Hide Block** | `renewKbn` | `= RENEW_KBN_RENEW` | Hidden |\n\n---"
+    },
+    {
+      "id": "display_conditions_section:housing:basic-info-housing-contract:action_button_display_rules",
+      "type": "display_conditions_section",
+      "name": "Action Button Display Rules",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/display_conditions-en.md",
+      "heading_level": 2,
+      "heading_raw": "Action Button Display Rules",
+      "content": ""
+    },
+    {
+      "id": "display_conditions_section:housing:basic-info-housing-contract:button_display_matrix",
+      "type": "display_conditions_section",
+      "name": "Button Display Matrix",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/display_conditions-en.md",
+      "heading_level": 3,
+      "heading_raw": "Button Display Matrix",
+      "content": "| **Button** | **Display Condition** | **Control Flag** | **Flag Value** | **User Role Impact** |\n|------------|---------------------|------------------|----------------|---------------------|\n| **Cancel** | Always display | None | Always | Same for Admin/User |\n| **Yamazumi** | Always display | None | Always | Same for Admin/User |\n| **Register** | Always display | None | Always | Same for Admin/User |\n| **Expectation Info** | Conditionally displayed | `ankenBunruiSyousaiCd` AND `sinkiSakuseiKbn` | Multiple values | Differs by contract type |"
+    },
+    {
+      "id": "display_conditions_section:housing:basic-info-housing-contract:button_state_flowchart",
+      "type": "display_conditions_section",
+      "name": "Button State Flowchart",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/display_conditions-en.md",
+      "heading_level": 3,
+      "heading_raw": "Button State Flowchart",
+      "content": "```mermaid\nflowchart TD\n\tA[Initialize Buttons] --> B[Show Cancel]\n\tA --> C[Show Yamazumi]\n\tA --> D[Show Register]\n\tA --> E{Determine Contract Type}\n\tE -->|HAL| F[Show HAL Expectation Button]\n\tE -->|PARO| G[Show PARO Expectation Button]\n\tE -->|Senior Pose| H[Show Senior Pose Expectation Button]\n\tE -->|Other| I[No Expectation Button]\n\n\tB --> J[Button Display Complete]\n\tC --> J\n\tD --> J\n\tF --> J\n\tG --> J\n\tH --> J\n\tI --> J\n```\n\n---"
+    },
+    {
+      "id": "display_conditions_section:housing:basic-info-housing-contract:modal_dialog_display_rules",
+      "type": "display_conditions_section",
+      "name": "Modal Dialog Display Rules",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/display_conditions-en.md",
+      "heading_level": 2,
+      "heading_raw": "Modal Dialog Display Rules",
+      "content": ""
+    },
+    {
+      "id": "display_conditions_section:housing:basic-info-housing-contract:dialog_display_conditions",
+      "type": "display_conditions_section",
+      "name": "Dialog Display Conditions",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/display_conditions-en.md",
+      "heading_level": 3,
+      "heading_raw": "Dialog Display Conditions",
+      "content": "| **Dialog Type** | **Trigger Flag** | **Flag Value** | **Dialog Action** |\n|-----------------|------------------|----------------|-------------------|\n| **DFC Card Output** | `printDfcGokeiyakusyaCardSuccessFlg` | `true` | `cntDfcGokeiyakusyaCardOutputKakunin()` |\n| **DFC URL** | `aftDfcUrlFlg` | `true` | `openDfcAnnai()` |\n| **Contract Print Check** | `printKeiyakuInsatsuSuccessFlg` | `false` | `printKeiyakuInsatsuChk()` |\n| **Contract Print Download** | `printKeiyakuInsatsuSuccessFlg` | `true` | `printKeiyakuInsatsuDownload()` |\n| **Print Check** | `printCheckSuccessFlg` | `true` | `showModalDialog('/dsmart/contract/keiyakusyoKagamiPrint.jsp')` |\n| **Reflection Check** | `printHanshaCheckSuccessFlg` | `true` | `showModalDialog('/dsmart/contract/keiyakusyoHanshaKagamiPrint.jsp')` |\n| **Accounting Registration** | `seigouseiCheckSuccessFlg` AND `keiriNorRegistFlg` | `true` AND `true` | `showModalDialog('/dsmart/contract/ukeoi/keiyakuNewtmp/keiriRegisterKakuninFrame.jsp')` |\n| **Consistency Check** | `seigouseiCheckSuccessFlg` AND `keiriNorRegistFlg` | `true` AND `false` | `cntSeigouseiCheckMessage()` |\n| **Accounting Settings** | `keiriNoSetIsDoneFlg` | `true` | `showModalDialog('/dsmart/contract/ukeoi/keiyakuNewtmp/keiriNoSet.jsp')` |\n\n---"
+    },
+    {
+      "id": "display_conditions_section:housing:basic-info-housing-contract:key_control_flag_summary",
+      "type": "display_conditions_section",
+      "name": "Key Control Flag Summary",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/display_conditions-en.md",
+      "heading_level": 2,
+      "heading_raw": "Key Control Flag Summary",
+      "content": "| **Flag Name** | **Purpose** | **Values** | **Impact** |\n|---------------|-------------|------------|------------|\n| `jigyoutaiHyoujiKbn` | Business information display permission | `JIGYOUTAI_HYOUJI_KBN_HYOUJI` / `JIGYOUTAI_HYOUJI_KBN_HIHYOUJI` | Controls whether the J0084 block is shown |\n| `jigyoutaiEditKahiKbn` | Business information edit permission | `JIGYOUTAI_EDIT_KAHI_KBN_KA` / `JIGYOUTAI_EDIT_KAHI_KBN_HI` | Determines J0084 form type (edit vs read-only) |\n| `renewKbn` | Renewal contract flag | `RENEW_KBN_RENEW` / `RENEW_KBN_NOT_RENEW` | Controls visibility of J0088 and J0092 |\n| `printDfcGokeiyakusyaCardSuccessFlg` | DFC card output succeeded | `true` / `false` | Triggers DFC card dialog |\n| `aftDfcUrlFlg` | DFC URL flag | `true` / `false` | Triggers DFC URL dialog |\n| `printKeiyakuInsatsuSuccessFlg` | Contract printing succeeded | `true` / `false` | Controls contract print check/download dialogs |\n| `printCheckSuccessFlg` | Print check succeeded | `true` / `false` | Triggers print check dialog |\n| `printHanshaCheckSuccessFlg` | Reflection check succeeded | `true` / `false` | Triggers reflection check dialog |\n| `seigouseiCheckSuccessFlg` | Consistency check succeeded | `true` / `false` | Triggers accounting registration / consistency check flow |\n| `keiriNorRegistFlg` | Accounting registration flag | `true` / `false` | Selects accounting registration dialog vs message |\n| `keiriNoSetIsDoneFlg` | Accounting settings completed | `true` / `false` | Triggers accounting settings dialog |"
+    },
+    {
+      "id": "display_flow:housing:basic-info-housing-contract:button_state_flowchart:1",
+      "type": "display_flow_diagram",
+      "name": "Button State Flowchart",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/display_conditions-en.md",
+      "mermaid_kind": "flowchart",
+      "mermaid": "flowchart TD\n\tA[Initialize Buttons] --> B[Show Cancel]\n\tA --> C[Show Yamazumi]\n\tA --> D[Show Register]\n\tA --> E{Determine Contract Type}\n\tE -->|HAL| F[Show HAL Expectation Button]\n\tE -->|PARO| G[Show PARO Expectation Button]\n\tE -->|Senior Pose| H[Show Senior Pose Expectation Button]\n\tE -->|Other| I[No Expectation Button]\n\n\tB --> J[Button Display Complete]\n\tC --> J\n\tD --> J\n\tF --> J\n\tG --> J\n\tH --> J\n\tI --> J"
+    }
+  ],
+  "relationships": [
+    {
+      "source": "display_conditions:housing:basic-info-housing-contract",
+      "target": "tab:basic_information_housing",
+      "relationship_type": "DESCRIBES",
+      "description": "Display conditions describe tab:basic_information_housing"
+    },
+    {
+      "source": "display_conditions:housing:basic-info-housing-contract",
+      "target": "display_conditions_section:housing:basic-info-housing-contract:display_rule_summary",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions_section:housing:basic-info-housing-contract:display_rule_summary",
+      "target": "display_conditions_section:housing:basic-info-housing-contract:components_always_displayed",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions_section:housing:basic-info-housing-contract:display_rule_summary",
+      "target": "display_conditions_section:housing:basic-info-housing-contract:conditional_components_based_on_user_permissions",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions_section:housing:basic-info-housing-contract:conditional_components_based_on_user_permissions",
+      "target": "display_conditions_section:housing:basic-info-housing-contract:j0084_block",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions_section:housing:basic-info-housing-contract:display_rule_summary",
+      "target": "display_conditions_section:housing:basic-info-housing-contract:conditional_components_based_on_contract_status",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions_section:housing:basic-info-housing-contract:conditional_components_based_on_contract_status",
+      "target": "display_conditions_section:housing:basic-info-housing-contract:j0088_block",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions_section:housing:basic-info-housing-contract:conditional_components_based_on_contract_status",
+      "target": "display_conditions_section:housing:basic-info-housing-contract:j0092_block",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions:housing:basic-info-housing-contract",
+      "target": "display_conditions_section:housing:basic-info-housing-contract:action_button_display_rules",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions_section:housing:basic-info-housing-contract:action_button_display_rules",
+      "target": "display_conditions_section:housing:basic-info-housing-contract:button_display_matrix",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions_section:housing:basic-info-housing-contract:action_button_display_rules",
+      "target": "display_conditions_section:housing:basic-info-housing-contract:button_state_flowchart",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions:housing:basic-info-housing-contract",
+      "target": "display_conditions_section:housing:basic-info-housing-contract:modal_dialog_display_rules",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions_section:housing:basic-info-housing-contract:modal_dialog_display_rules",
+      "target": "display_conditions_section:housing:basic-info-housing-contract:dialog_display_conditions",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions:housing:basic-info-housing-contract",
+      "target": "display_conditions_section:housing:basic-info-housing-contract:key_control_flag_summary",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions:housing:basic-info-housing-contract",
+      "target": "display_flow:housing:basic-info-housing-contract:button_state_flowchart:1",
+      "relationship_type": "HAS_FLOW"
+    },
+    {
+      "source": "display_conditions_section:housing:basic-info-housing-contract:button_state_flowchart",
+      "target": "display_flow:housing:basic-info-housing-contract:button_state_flowchart:1",
+      "relationship_type": "HAS_DIAGRAM"
+    }
+  ]
+}

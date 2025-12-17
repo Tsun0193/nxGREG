@@ -1,0 +1,243 @@
+{
+  "module": "contract-list",
+  "tab_name": "contract-list",
+  "source_file": "contract-list/screen-specification/event_handling_rules-en.md",
+  "entities": [
+    {
+      "id": "event_processing_rules:contract-list:contract-list",
+      "type": "event_processing_rules",
+      "name": "Event Processing Rules",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/screen-specification/event_handling_rules-en.md"
+    },
+    {
+      "id": "event_processing_rules_section:contract-list:contract-list:main_event_list",
+      "type": "event_processing_rules_section",
+      "name": "Main Event List",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/screen-specification/event_handling_rules-en.md",
+      "heading_level": 2,
+      "heading_raw": "1. Main Event List",
+      "content": ""
+    },
+    {
+      "id": "event_processing_rules_section:contract-list:contract-list:crud_events",
+      "type": "event_processing_rules_section",
+      "name": "CRUD Events (Create, Read, Update, Delete)",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/screen-specification/event_handling_rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "1.1 CRUD Events (Create, Read, Update, Delete)",
+      "content": "| No. | Button | JavaScript Function | Action Type | Description |\n|-----|--------|----------------|-------------|------|\n| 1 | New Contract | `keiyakuList_submit(1)` | `new_contract` | Create a new contract for a project |\n| 2 | Add Contract | `keiyakuList_submit(3)` | `add_contract` | Create an additional contract for an existing project |\n| 3 | Update Contract | `keiyakuList_submit(2)` | `update_contract` | Update existing contract information |\n| 4 | Delete Contract | `keiyakuList_submit(4)` | `delete_contract` | Remove a contract from a project |"
+    },
+    {
+      "id": "event_processing_rules_section:contract-list:contract-list:special_contract_events",
+      "type": "event_processing_rules_section",
+      "name": "Special Contract Events",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/screen-specification/event_handling_rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "1.2 Special Contract Events",
+      "content": "| No. | Button | JavaScript Function | Action Type | Description |\n|-----|--------|----------------|-------------|------|\n| 1 | Simple Construction Contract Card Creation | `keiyakuList_submit(5)` | `new_yuusyou_contract` | Create a simple construction contract card |\n| 2 | Multiple Order Creation | `doFukusujyutyuSakusei()` | `multipleOrder` | Create multiple orders for a project |"
+    },
+    {
+      "id": "event_processing_rules_section:contract-list:contract-list:screen_transition_events",
+      "type": "event_processing_rules_section",
+      "name": "Screen Transition Events",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/screen-specification/event_handling_rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "1.3 Screen Transition Events",
+      "content": "| No. | Button | JavaScript Function | Action Type | Description |\n|-----|--------|----------------|-------------|------|\n| 1 | Return | `javascript:window.close()` | `closeWindow` | Close the current window and return to the previous screen |"
+    },
+    {
+      "id": "event_processing_rules_section:contract-list:contract-list:contract_selection_events",
+      "type": "event_processing_rules_section",
+      "name": "Contract Selection Events",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/screen-specification/event_handling_rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "1.4 Contract Selection Events",
+      "content": "| No. | Element | JavaScript Function | Action Type | Description |\n|-----|------|----------------|-------------|------|\n| 1 | Contract Number Link | `keiyakuAnchor_submit()` | `keiyaku_card_anchor` | Open the selected contract for display/editing |"
+    },
+    {
+      "id": "event_processing_rules_section:contract-list:contract-list:event_processing_flow",
+      "type": "event_processing_rules_section",
+      "name": "Event Processing Flow",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/screen-specification/event_handling_rules-en.md",
+      "heading_level": 2,
+      "heading_raw": "2. Event Processing Flow",
+      "content": ""
+    },
+    {
+      "id": "event_processing_rules_section:contract-list:contract-list:overall_process_workflow",
+      "type": "event_processing_rules_section",
+      "name": "Overall Process Workflow",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/screen-specification/event_handling_rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "2.1 Overall Process Workflow",
+      "content": "```mermaid\nsequenceDiagram\n    participant User as User\n    participant JSP as keiyakuList.jsp\n    participant JS as JavaScript\n    participant Form as HTML Form\n    participant Dispatch as KeiyakuListDispatchAction\n    participant NextAction as Next Action Class\n    participant Service as Business Service\n    participant DB as Database\n    \n    User->>JSP: Click button\n    JSP->>JS: Trigger onClick event\n    JS->>JS: Validate radio selection\n    JS->>Form: Submit form data\n    Form->>Dispatch: Send HTTP request to /keiyakuListDispatch.do\n    Dispatch->>Dispatch: Process actionType parameter\n    Dispatch->>NextAction: Forward to specific action\n    NextAction->>Service: Process business logic\n    Service->>DB: Execute database operations\n    DB-->>Service: Return results\n    Service-->>NextAction: Return processed data\n    NextAction-->>JSP: Forward to next screen\n    JSP-->>User: Display updated screen\n```"
+    },
+    {
+      "id": "event_processing_rules_section:contract-list:contract-list:contract_selection_processing_flow",
+      "type": "event_processing_rules_section",
+      "name": "Contract Selection Processing Flow",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/screen-specification/event_handling_rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "2.2 Contract Selection Processing Flow",
+      "content": "```mermaid\nflowchart TD\n    A[Click Contract Number Link] --> B[Set keiyakuKey]\n    B --> C[Set actionType='keiyaku_card_anchor']\n    C --> D[Submit Form]\n    D --> E[KeiyakuListDispatchAction]\n    E --> F[AnchorKeiyakuDispatchAction]\n    F --> G[Determine Contract Type]\n    G --> H[Forward to appropriate contract screen]\n    H --> I[Display contract details]\n    I --> J[Complete]\n```"
+    },
+    {
+      "id": "event_processing_rules_section:contract-list:contract-list:contract_deletion_processing_flow",
+      "type": "event_processing_rules_section",
+      "name": "Contract Deletion Processing Flow",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/screen-specification/event_handling_rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "2.3 Contract Deletion Processing Flow",
+      "content": "```mermaid\nflowchart TD\n    A[Click Delete Button] --> B{Radio selection exists?}\n    B -->|No| C[Display alert]\n    B -->|Yes| D[comDeleteConfirm dialog]\n    D --> E{User confirms?}\n    E -->|No| F[Cancel operation]\n    E -->|Yes| G[Send deletion request]\n    G --> H[KeiyakuListDispatchAction]\n    H --> I[KeiyakuDeleteAction]\n    I --> J[Execute deletion logic]\n    J --> K[Update contract list]\n    K --> L[Complete]\n    F --> L\n    C --> L\n```"
+    },
+    {
+      "id": "event_processing_rules_section:contract-list:contract-list:event_flow_mapping_table",
+      "type": "event_processing_rules_section",
+      "name": "Event Flow Mapping Table",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/screen-specification/event_handling_rules-en.md",
+      "heading_level": 2,
+      "heading_raw": "3. Event Flow Mapping Table",
+      "content": "| Event Type | Trigger | Processing | Result |\n|------------|---------|------------|--------|\n| **Create** | New Contract Button | Form Submission → KeiyakuListDispatchAction → KeiyakuListAssignAction → Contract Type Selection | Contract Creation Screen |\n| **Create** | Add Contract Button | Form Submission → KeiyakuListDispatchAction → TsuikaKeiyakuDispatchAction → Additional Contract Creation | Additional Contract Screen |\n| **Read** | Contract Number Link | Link Click → KeiyakuListDispatchAction → AnchorKeiyakuDispatchAction → Contract Detail Screen | Contract Detail Display |\n| **Update** | Update Contract Button | Form Submission → KeiyakuListDispatchAction → HenkoKeiyakuDispatchAction → Contract Update Screen | Contract Update Screen |\n| **Delete** | Delete Contract Button | Form Submission → Confirmation → KeiyakuListDispatchAction → KeiyakuDeleteAction → Database Delete | Contract List Update |\n| **Special** | Simple Construction Contract Card Creation Button | Form Submission → KeiyakuListDispatchAction → YuusyouKeiyakuListAssignAction → Simple Contract Creation | Simple Contract Screen |\n| **Navigation** | Return Button | Button Click → Window Close | Return to Previous Screen |"
+    },
+    {
+      "id": "event_flow:contract-list:contract-list:overall_process_workflow:1",
+      "type": "event_processing_flow",
+      "name": "Overall Process Workflow",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/screen-specification/event_handling_rules-en.md",
+      "mermaid_kind": "sequenceDiagram",
+      "mermaid": "sequenceDiagram\n    participant User as User\n    participant JSP as keiyakuList.jsp\n    participant JS as JavaScript\n    participant Form as HTML Form\n    participant Dispatch as KeiyakuListDispatchAction\n    participant NextAction as Next Action Class\n    participant Service as Business Service\n    participant DB as Database\n    \n    User->>JSP: Click button\n    JSP->>JS: Trigger onClick event\n    JS->>JS: Validate radio selection\n    JS->>Form: Submit form data\n    Form->>Dispatch: Send HTTP request to /keiyakuListDispatch.do\n    Dispatch->>Dispatch: Process actionType parameter\n    Dispatch->>NextAction: Forward to specific action\n    NextAction->>Service: Process business logic\n    Service->>DB: Execute database operations\n    DB-->>Service: Return results\n    Service-->>NextAction: Return processed data\n    NextAction-->>JSP: Forward to next screen\n    JSP-->>User: Display updated screen"
+    },
+    {
+      "id": "event_flow:contract-list:contract-list:contract_selection_processing_flow:1",
+      "type": "event_processing_flow",
+      "name": "Contract Selection Processing Flow",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/screen-specification/event_handling_rules-en.md",
+      "mermaid_kind": "flowchart",
+      "mermaid": "flowchart TD\n    A[Click Contract Number Link] --> B[Set keiyakuKey]\n    B --> C[Set actionType='keiyaku_card_anchor']\n    C --> D[Submit Form]\n    D --> E[KeiyakuListDispatchAction]\n    E --> F[AnchorKeiyakuDispatchAction]\n    F --> G[Determine Contract Type]\n    G --> H[Forward to appropriate contract screen]\n    H --> I[Display contract details]\n    I --> J[Complete]"
+    },
+    {
+      "id": "event_flow:contract-list:contract-list:contract_deletion_processing_flow:1",
+      "type": "event_processing_flow",
+      "name": "Contract Deletion Processing Flow",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/screen-specification/event_handling_rules-en.md",
+      "mermaid_kind": "flowchart",
+      "mermaid": "flowchart TD\n    A[Click Delete Button] --> B{Radio selection exists?}\n    B -->|No| C[Display alert]\n    B -->|Yes| D[comDeleteConfirm dialog]\n    D --> E{User confirms?}\n    E -->|No| F[Cancel operation]\n    E -->|Yes| G[Send deletion request]\n    G --> H[KeiyakuListDispatchAction]\n    H --> I[KeiyakuDeleteAction]\n    I --> J[Execute deletion logic]\n    J --> K[Update contract list]\n    K --> L[Complete]\n    F --> L\n    C --> L"
+    }
+  ],
+  "relationships": [
+    {
+      "source": "event_processing_rules:contract-list:contract-list",
+      "target": "module:contract-list",
+      "relationship_type": "DESCRIBES",
+      "description": "Event processing rules describe module:contract-list"
+    },
+    {
+      "source": "event_processing_rules:contract-list:contract-list",
+      "target": "event_processing_rules_section:contract-list:contract-list:main_event_list",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "event_processing_rules_section:contract-list:contract-list:main_event_list",
+      "target": "event_processing_rules_section:contract-list:contract-list:crud_events",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "event_processing_rules_section:contract-list:contract-list:main_event_list",
+      "target": "event_processing_rules_section:contract-list:contract-list:special_contract_events",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "event_processing_rules_section:contract-list:contract-list:main_event_list",
+      "target": "event_processing_rules_section:contract-list:contract-list:screen_transition_events",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "event_processing_rules_section:contract-list:contract-list:main_event_list",
+      "target": "event_processing_rules_section:contract-list:contract-list:contract_selection_events",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "event_processing_rules:contract-list:contract-list",
+      "target": "event_processing_rules_section:contract-list:contract-list:event_processing_flow",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "event_processing_rules_section:contract-list:contract-list:event_processing_flow",
+      "target": "event_processing_rules_section:contract-list:contract-list:overall_process_workflow",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "event_processing_rules_section:contract-list:contract-list:event_processing_flow",
+      "target": "event_processing_rules_section:contract-list:contract-list:contract_selection_processing_flow",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "event_processing_rules_section:contract-list:contract-list:event_processing_flow",
+      "target": "event_processing_rules_section:contract-list:contract-list:contract_deletion_processing_flow",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "event_processing_rules:contract-list:contract-list",
+      "target": "event_processing_rules_section:contract-list:contract-list:event_flow_mapping_table",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "event_processing_rules:contract-list:contract-list",
+      "target": "event_flow:contract-list:contract-list:overall_process_workflow:1",
+      "relationship_type": "HAS_FLOW"
+    },
+    {
+      "source": "event_processing_rules_section:contract-list:contract-list:overall_process_workflow",
+      "target": "event_flow:contract-list:contract-list:overall_process_workflow:1",
+      "relationship_type": "HAS_DIAGRAM"
+    },
+    {
+      "source": "event_processing_rules:contract-list:contract-list",
+      "target": "event_flow:contract-list:contract-list:contract_selection_processing_flow:1",
+      "relationship_type": "HAS_FLOW"
+    },
+    {
+      "source": "event_processing_rules_section:contract-list:contract-list:contract_selection_processing_flow",
+      "target": "event_flow:contract-list:contract-list:contract_selection_processing_flow:1",
+      "relationship_type": "HAS_DIAGRAM"
+    },
+    {
+      "source": "event_processing_rules:contract-list:contract-list",
+      "target": "event_flow:contract-list:contract-list:contract_deletion_processing_flow:1",
+      "relationship_type": "HAS_FLOW"
+    },
+    {
+      "source": "event_processing_rules_section:contract-list:contract-list:contract_deletion_processing_flow",
+      "target": "event_flow:contract-list:contract-list:contract_deletion_processing_flow:1",
+      "relationship_type": "HAS_DIAGRAM"
+    }
+  ]
+}

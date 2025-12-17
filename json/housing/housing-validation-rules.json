@@ -1,0 +1,545 @@
+{
+  "module": "housing",
+  "tab_name": "basic-info-housing-contract",
+  "source_file": "housing/basic-info-housing-contract/components/validation-rules-en.md",
+  "entities": [
+    {
+      "id": "validation_rules:housing:basic-info-housing-contract",
+      "type": "validation_rules",
+      "name": "Validation Rules",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/validation-rules-en.md"
+    },
+    {
+      "id": "validation_rules_section:housing:basic-info-housing-contract:field_level_validation",
+      "type": "validation_rules_section",
+      "name": "Field Level Validation",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/validation-rules-en.md",
+      "heading_level": 2,
+      "heading_raw": "1. Field Level Validation",
+      "content": ""
+    },
+    {
+      "id": "validation_rules_section:housing:basic-info-housing-contract:required_field_rules",
+      "type": "validation_rules_section",
+      "name": "Required Field Rules",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/validation-rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "1.1 Required Field Rules",
+      "content": "From the validation settings for `ukeoi_keiyakuNewtmp_kihonForm`:\n\n| Field | Rule | Error Message Key | Evidence File |\n|-------|------|------------------|---------------|\n| `JH03_jyutyuEigyousyoName` | Required | `error.required.jyutyuEigyousyoName` | validation.xml lines 168-400 |\n| `JH03_uriageEigyousyoName` | Required | `error.required.uriageEigyousyoName` | validation.xml lines 168-400 |\n| `JH03_eigyouUserName` | Required | `error.required.eigyouUserName` | validation.xml lines 168-400 |\n| `JH03_keiyakuKbnCd` | Required | `error.required.keiyakuKbnCd` | validation.xml lines 168-400 |\n| `J0004_koujiBukkenName` | Required + zenkaku | `error.required.koujiBukkenName` | validation.xml, J0004.jsp |\n| `J0004_koujiBukkenNameKana` | Required + zenkaku + mask | `error.required.koujiBukkenNameKana` | validation.xml, J0004.jsp |\n| `B0001_keiyakuTeiketsuYoteiDate` | Required | `error.required.keiyakuTeiketsuYoteiDate` | validation.xml, B0001.jsp |"
+    },
+    {
+      "id": "validation_rules_section:housing:basic-info-housing-contract:format_validation",
+      "type": "validation_rules_section",
+      "name": "Format Validation",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/validation-rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "1.2 Format Validation",
+      "content": "Based on detailed screen analysis and XML validation settings:\n\n| Field Type | Pattern/Format | Max Length | Rule Description | Evidence File |\n|------------|----------------|------------|------------------|---------------|\n| `J0001_keiyakuKokyakuName` | Joint name editing | 200 bytes | Contractor name maxByteSize=200, nonHankakuKana | J0001_2.jsp, validation.xml |\n| `J0001_kyokaNo` | Joint permission | 200 bytes | License number maxByteSize=200, nonHankakuKana | J0001_2.jsp |\n| `J0002_sesyuKokyakuName` | Building owner | 200 bytes | Building owner name maxByteSize=200, nonHankakuKana | J0002.jsp, validation.xml |\n| `J0003_sikichiSyoyusyaName` | Land owner | 200 bytes | Land owner name maxByteSize=200, nonHankakuKana | J0003.jsp, validation.xml |\n| `J0004_koujiBukkenNameKana` | Full-width kana | - | Pattern: `^[!-@　！-＠ァ-ーＡ-Ｚａ-ｚ]+$` | J0004.jsp, validation.xml |\n| `J0004_kenpeiRitsu` | Floating point 3.2 digits | 6 bytes | Building coverage ratio validation | J0004.jsp, validation.xml |\n| `J0004_yousekiRitsu` | Floating point 4.2 digits | 7 bytes | Floor area ratio validation | J0004.jsp, validation.xml |\n| `J0004_jisseiTochiKakaku` | Integer 13 digits | - | Range: 0-9,999,999,999,999 | J0004.jsp, validation.xml |\n| `J0087_hlpTourokuNo` | Half-width alphanumeric | 20 bytes | HLP registration number validation | J0087.jsp, validation.xml |"
+    },
+    {
+      "id": "validation_rules_section:housing:basic-info-housing-contract:phone_number_validation",
+      "type": "validation_rules_section",
+      "name": "Phone Number Validation",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/validation-rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "1.3 Phone Number Validation",
+      "content": "Based on detailed JSP analysis (J0001_2.jsp, J0002.jsp, J0003.jsp):\n\n| Field Pattern | Format | Validation | Evidence |\n|---------------|--------|------------|----------|\n| `kokyakuTel1-kokyakuTel2-kokyakuTel3` | XXX-XXXX-XXXX | 3-part phone number | JSP field structure |\n| Individual parts | Each 35px width | Numeric input validation | JSP style attributes |"
+    },
+    {
+      "id": "validation_rules_section:housing:basic-info-housing-contract:business_rule_validation",
+      "type": "validation_rules_section",
+      "name": "Business Rule Validation",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/validation-rules-en.md",
+      "heading_level": 2,
+      "heading_raw": "2. Business Rule Validation",
+      "content": ""
+    },
+    {
+      "id": "validation_rules_section:housing:basic-info-housing-contract:customer_relationship_rules",
+      "type": "validation_rules_section",
+      "name": "Customer (Relationship) Rules",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/validation-rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "2.1 Customer (Relationship) Rules",
+      "content": "Based on detailed logic analysis of J0001_2.jsp:\n\n| Rule Name | Description | Validation Logic | Evidence Code |\n|-----------|-------------|------------------|---------------|\n| Main Customer Required | At least 1 main customer required | Count of `keiyakusyaKbn = 'SYU'` ≥ 1 | J0001_2.jsp logic |\n| Single Main Customer | Only 1 main customer allowed | Count of `keiyakusyaKbn = 'SYU'` = 1 | ConstantsKbnCode.SYUFUKU_KBN_SYU |\n| Delete Protection | Cannot delete the last customer | `keiyakusyaSize = 1` → delete disabled | `<logic:equal name=\"keiyakusyaSize\" value=\"1\">` |\n| License Display Rule | License number shown only for main customer | Display `kyokaNo` when `keiyakusyaKbn = 'SYU'` | JSP conditional display logic |\n| Age Field Rule | Age required for main customer in renovation area | `keiyakuCardSyubetsuCd = ZOUKAICHIKU && keiyakusyaKbn = SYU` | JSP required mark control |\n\n**Customer delete button logic (evidence):**\n```jsp\n<logic:equal name=\"keiyakusyaSize\" value=\"1\" scope=\"page\">\n    <!-- Delete disabled for single customer -->\n    <html:button disabled=\"true\" onClick=\"cntSubmitBlockAction(this.form,'keiyakusakiDelete', ...)\">\n</logic:equal>\n<logic:notEqual name=\"keiyakusyaSize\" value=\"1\" scope=\"page\">\n    <!-- Delete enabled for multiple customers -->\n    <html:button disabled=\"false\" onClick=\"cntSubmitBlockAction(this.form,'keiyakusakiDelete', ...)\">\n</logic:notEqual>\n```"
+    },
+    {
+      "id": "validation_rules_section:housing:basic-info-housing-contract:building_owner_rules",
+      "type": "validation_rules_section",
+      "name": "Building Owner Rules",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/validation-rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "2.2 Building Owner Rules",
+      "content": "Based on analysis of J0002.jsp:\n\n| Rule Name | Description | Validation Logic | Evidence Code |\n|-----------|-------------|------------------|---------------|\n| Building Owner Management | Building owner management (CRUD) | Same logic as customer, different relationship type | J0002.jsp structure |\n| Main Building Owner | Only 1 main building owner | Logic for `sesyuKenchikunushiKbn = 'SYU'` | JSP property check |\n| Building Owner Type | Validity of building owner type | Checked against `v_m_kokyaku_kbn` | Master data validation |\n\n**Building owner button control (evidence):**\n```jsp\n<logic:equal name=\"KeiyakuKokyakuKankeiVO\" property=\"sesyuKenchikunushiKbn\" value=\"<%=ConstantsKbnCode.SYUFUKU_KBN_SYU %>\">\n    <!-- Main owner: Edit disabled -->\n    <html:button disabled=\"true\" onclick=\"cntSubmitBlockAction(this.form,'kenchikunushiEdit', ...)\">\n</logic:equal>\n```"
+    },
+    {
+      "id": "validation_rules_section:housing:basic-info-housing-contract:land_owner_rules",
+      "type": "validation_rules_section",
+      "name": "Land Owner Rules",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/validation-rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "2.3 Land Owner Rules",
+      "content": "Based on analysis of J0003.jsp:\n\n| Rule Name | Description | Validation Logic | Evidence Code |\n|-----------|-------------|------------------|---------------|\n| Land Owner Management | Land owner management (CRUD) | Same as customer logic (relationship: land owner) | J0003.jsp structure |\n| Main Land Owner | Only 1 main land owner | Count of `main_kbn = '1'` in land owner list = 1 | JSP logic pattern |\n| Land Owner Type | Validity of land owner type | Checked against master data | Data validation |"
+    },
+    {
+      "id": "validation_rules_section:housing:basic-info-housing-contract:construction_information_rules",
+      "type": "validation_rules_section",
+      "name": "Construction Information Rules",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/validation-rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "2.4 Construction Information Rules",
+      "content": "Based on detailed analysis of J0004.jsp:\n\n| Rule Name | Description | Validation Logic | Evidence Code |\n|-----------|-------------|------------------|---------------|\n| Construction Name Required | Property/construction name required | `koujiBukkenName` must be full-width characters | Required control in JSP |\n| Construction Kana Required | Property/construction name (kana) required | `koujiBukkenNameKana` must follow kana pattern | Mask pattern validation |\n| Address Selection Required | Either residential or land address required | Required input for the corresponding address fields | Form field requirements |\n| Address Search Integration | Address popup search validation | Validated using `cntBukkenTochiSelect()` function | JavaScript function |\n\n**Address selection (evidence):**\n```jsp\n<html:button property=\"button\" styleClass=\"comOtherButton\" \n             onClick=\"cntBukkenTochiSelect(this.form, '', ...)\">\n    <bean:message key=\"contract.button.kensetsuchiSentaku\"/>\n</html:button>\n```"
+    },
+    {
+      "id": "validation_rules_section:housing:basic-info-housing-contract:cross_field_validation",
+      "type": "validation_rules_section",
+      "name": "Cross-Field Validation",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/validation-rules-en.md",
+      "heading_level": 2,
+      "heading_raw": "3. Cross-Field Validation",
+      "content": ""
+    },
+    {
+      "id": "validation_rules_section:housing:basic-info-housing-contract:customer_consistency",
+      "type": "validation_rules_section",
+      "name": "Customer Consistency",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/validation-rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "3.1 Customer Consistency",
+      "content": "Based on comprehensive JSP analysis:\n\n```mermaid\ngraph TD\n    A[Customer Validation] --> B[Main Customer Check]\n    A --> C[Customer Count Check]\n    A --> D[License Number Check]\n    A --> E[Age Field Check]\n\n    B --> F{Is Main Customer?}\n    F -->|Yes| G[Only 1 Main Rule]\n    F -->|No| H[Sub Customer Rule]\n\n    C --> I{Customer Count > 1?}\n    I -->|Yes| J[Delete Allowed]\n    I -->|No| K[Delete Blocked]\n\n    D --> L{Is Main Customer?}\n    L -->|Yes| M[Show License Number]\n    L -->|No| N[Hide License Number]\n\n    E --> O{Renovation Area + Main?}\n    O -->|Yes| P[Age Required]\n    O -->|No| Q[Age Optional]\n```\n\n| Validation Name | Fields Involved | Rule | Evidence File |\n|-----------------|-----------------|------|---------------|\n| Customer Main/Sub Consistency | `keiyakusyaKbn`, customer count | Only 1 main customer allowed | J0001_2.jsp logic |\n| Customer Delete Protection | Customer list, `sakujyo_kbn` | Cannot delete when only 1 customer exists | JSP button disable logic |\n| License Display Logic | `keiyakusyaKbn`, `kyokaNo` | License shown only for main customer | JSP conditional display |\n| Age Field Logic | `keiyakuCardSyubetsuCd`, `keiyakusyaKbn`, age field | Age required for main customer in renovation area | JSP required mark control |"
+    },
+    {
+      "id": "validation_rules_section:housing:basic-info-housing-contract:permission_based_validation",
+      "type": "validation_rules_section",
+      "name": "Permission-Based Validation",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/validation-rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "3.2 Permission-Based Validation",
+      "content": "Based on comprehensive permission analysis:\n\n| Validation Name | Fields Involved | Rule | Evidence File |\n|-----------------|-----------------|------|---------------|\n| Approval Permission | `syouninFlg`, acceptance actions | Approval button shown only with permission | AuthorityVO analysis |\n| Mode-Based Access | `hensyuMode`, form fields | Different validation based on mode (Normal/Lock/Change) | Contract status flags |\n| iPad Constraints | Device type, function buttons | Some buttons hidden on iPad | Device detection logic |"
+    },
+    {
+      "id": "validation_rules_section:housing:basic-info-housing-contract:address_validation",
+      "type": "validation_rules_section",
+      "name": "Address Validation",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/validation-rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "3.3 Address Validation",
+      "content": "Based on J0004.jsp analysis:\n\n| Validation Name | Fields Involved | Rule | Evidence |\n|-----------------|-----------------|------|----------|\n| Residential Address Completeness | `jyukyoZip`, `jyukyoAddress`, `jyukyoBanchi` | All residential address items required together | Form field structure |\n| Land Address Completeness | `chibanZip`, `chibanAddress`, `chibanBanchi` | All land address items required together | Form field structure |\n| Address Format Consistency | Postal code, address fields | Postal code consistent with address format | Address validation logic |"
+    },
+    {
+      "id": "validation_rules_section:housing:basic-info-housing-contract:conditional_validation",
+      "type": "validation_rules_section",
+      "name": "Conditional Validation",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/validation-rules-en.md",
+      "heading_level": 2,
+      "heading_raw": "4. Conditional Validation",
+      "content": ""
+    },
+    {
+      "id": "validation_rules_section:housing:basic-info-housing-contract:screen_mode_based",
+      "type": "validation_rules_section",
+      "name": "Screen Mode-Based",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/validation-rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "4.1 Screen Mode-Based",
+      "content": "Based on action flow analysis:\n\n| Mode | Validation Scope | Special Rules | Evidence |\n|------|------------------|---------------|----------|\n| Normal Mode (`isNewtmp()`) | Full validation | All business rules applied | Contract status methods |\n| Lock Mode (`isLock()`) | Display only | No edit validation needed | Lock mode impact analysis |\n| Change Mode (`isHenkou()`) | Changed fields only | Change-specific validation applied | Change mode logic |"
+    },
+    {
+      "id": "validation_rules_section:housing:basic-info-housing-contract:permission_level_based",
+      "type": "validation_rules_section",
+      "name": "Permission Level-Based",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/validation-rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "4.2 Permission Level-Based",
+      "content": "Based on permission analysis:\n\n| Authority Level | Special Rules | Evidence |\n|-----------------|---------------|----------|\n| `syouninFlg = true` | Can execute approval functions | Acceptance permission check |\n| Standard User | Limited to consistency checks | Permission validation logic |\n| iPad Users | Some function buttons hidden | Device constraints |"
+    },
+    {
+      "id": "validation_rules_section:housing:basic-info-housing-contract:project_type_based",
+      "type": "validation_rules_section",
+      "name": "Project Type-Based",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/validation-rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "4.3 Project Type-Based",
+      "content": "Based on business flag analysis:\n\n| Project Type | Special Rules | Evidence |\n|--------------|---------------|----------|\n| `ankenBunruiCd = APARTMENT` | Apartment order printing available | Conditional button display |\n| `ankenBunruiCd = ZOUKAICHIKU` | Main customer's age required | Age field conditional control |\n| Other Types | Standard validation applied | Default behavior |"
+    },
+    {
+      "id": "validation_rules_section:housing:basic-info-housing-contract:feature_flag_based",
+      "type": "validation_rules_section",
+      "name": "Feature Flag-Based",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/validation-rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "4.4 Feature Flag-Based",
+      "content": "Based on detailed screen analysis:\n\n| Flag | Special Rules | Evidence |\n|------|---------------|----------|\n| `shinsyouhinGamenSeigyoFlag = \"0\"` | Excel export enabled | Normal print functionality |\n| `shinsyouhinGamenSeigyoFlag = \"1\"` | Excel export disabled | Alternative alert display |\n| `convenienceSeikyuEnableKbn = ENABLE` | Convenience store billing button enabled | Button active state |\n| `convenienceSeikyuEnableKbn = DISABLE` | Convenience store billing button disabled | Button inactive state |\n| `renewKbn != RENEW` | After-sales/technical blocks displayed | Block conditional display |\n| `renewKbn = RENEW` | After-sales/technical blocks hidden | Block hide control |"
+    },
+    {
+      "id": "validation_rules_section:housing:basic-info-housing-contract:validation_execution_timing",
+      "type": "validation_rules_section",
+      "name": "Validation Execution Timing",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/validation-rules-en.md",
+      "heading_level": 2,
+      "heading_raw": "5. Validation Execution Timing",
+      "content": ""
+    },
+    {
+      "id": "validation_rules_section:housing:basic-info-housing-contract:client_side_validation",
+      "type": "validation_rules_section",
+      "name": "Client-Side Validation",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/validation-rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "5.1 Client-Side Validation",
+      "content": ""
+    },
+    {
+      "id": "validation_rules_section:housing:basic-info-housing-contract:javascript_function_evidence",
+      "type": "validation_rules_section",
+      "name": "JavaScript Function Evidence",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/validation-rules-en.md",
+      "heading_level": 4,
+      "heading_raw": "JavaScript Function Evidence",
+      "content": "Based on action flow analysis:\n\n**Customer search validation:**\n```javascript\ncntComOpenCustomerSearch(this.form, '', \n    this.form.J0001_kokyakuNameKana, \n    this.form.J0001_kokyakuName, \n    this.form.J0001_kokyakuTel1, \n    this.form.J0001_kokyakuTel2, \n    this.form.J0001_kokyakuTel3, ...)\n```\n\n**Address selection validation:**\n```javascript\ncntBukkenTochiSelect(this.form, '', \n    this.form.J0004_jyukyoAddress,\n    this.form.J0004_jyukyoZip, ...)\n```\n\n**Block action validation:**\n```javascript\ncntSubmitBlockAction(this.form, 'keiyakusakiEdit', uniqueId, this.form.J0001_hUniqueId)\n```"
+    },
+    {
+      "id": "validation_rules_section:housing:basic-info-housing-contract:on_blur",
+      "type": "validation_rules_section",
+      "name": "On Blur",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/validation-rules-en.md",
+      "heading_level": 4,
+      "heading_raw": "On Blur",
+      "content": "- Format validation: Validates format when leaving the field\n- Required check: Confirms required field input\n- Pattern validation: Applies regular expression format checks"
+    },
+    {
+      "id": "validation_rules_section:housing:basic-info-housing-contract:on_change",
+      "type": "validation_rules_section",
+      "name": "On Change",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/validation-rules-en.md",
+      "heading_level": 4,
+      "heading_raw": "On Change",
+      "content": "- Real-time validation: Immediate feedback during input\n- Character count: Displays byte count for 200-byte limited fields\n- Format preview: Shows format hints for complex fields"
+    },
+    {
+      "id": "validation_rules_section:housing:basic-info-housing-contract:on_submit",
+      "type": "validation_rules_section",
+      "name": "On Submit",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/validation-rules-en.md",
+      "heading_level": 4,
+      "heading_raw": "On Submit",
+      "content": "- Full form validation: Validated by `KihonTabDispatchAction` before submission\n- Cross-field validation: Validates relationships between fields\n- Business rule validation: Applies all business rules"
+    },
+    {
+      "id": "validation_rules_section:housing:basic-info-housing-contract:server_side_validation",
+      "type": "validation_rules_section",
+      "name": "Server-Side Validation",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/validation-rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "5.2 Server-Side Validation",
+      "content": ""
+    },
+    {
+      "id": "validation_rules_section:housing:basic-info-housing-contract:security_validation",
+      "type": "validation_rules_section",
+      "name": "Security Validation",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/validation-rules-en.md",
+      "heading_level": 4,
+      "heading_raw": "Security Validation",
+      "content": "- Input sanitization: Sanitizes all input data\n- Session validation: Validates user session and permissions\n- Permission validation: Confirms action permissions via `AuthorityVO.syouninFlg`"
+    },
+    {
+      "id": "validation_rules_section:housing:basic-info-housing-contract:business_rules",
+      "type": "validation_rules_section",
+      "name": "Business Rules",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/validation-rules-en.md",
+      "heading_level": 4,
+      "heading_raw": "Business Rules",
+      "content": "- Master data validation: Validates against 60+ master tables\n- Participant validation: Applies participant management rules based on JSP logic\n- Permission-based validation: Applies rules based on permission level"
+    },
+    {
+      "id": "validation_rules_section:housing:basic-info-housing-contract:transaction_validation",
+      "type": "validation_rules_section",
+      "name": "Transaction Validation",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/validation-rules-en.md",
+      "heading_level": 4,
+      "heading_raw": "Transaction Validation",
+      "content": "- Database constraint validation: Validates DB constraints\n- Foreign key validation: Validates relationships across 12 tables\n- Data consistency validation: Ensures consistency within a single transaction"
+    },
+    {
+      "id": "validation_rules_section:housing:basic-info-housing-contract:special_notes_validation",
+      "type": "validation_rules_section",
+      "name": "Special Notes (Validation)",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/validation-rules-en.md",
+      "heading_level": 2,
+      "heading_raw": "6. Special Notes (Validation)",
+      "content": ""
+    },
+    {
+      "id": "validation_rules_section:housing:basic-info-housing-contract:multiple_participant_management",
+      "type": "validation_rules_section",
+      "name": "Multiple Participant Management",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/validation-rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "6.1 Multiple Participant Management",
+      "content": "Based on detailed JSP analysis:\n\n| Scenario | Standard Rule | Special Rule | Evidence File |\n|----------|---------------|--------------|---------------|\n| Customer Edit | Form validation only | Additional participant relationship validation | J0001_2.jsp edit logic |\n| Customer Main/Sub | Type validation | Only 1 main customer allowed | ConstantsKbnCode.SYUFUKU_KBN_SYU |\n| Customer Delete | Delete validation | Cannot delete last customer | keiyakusyaSize = 1 check |\n| Building Owner Management | Same as customer | Specific relationship validation | J0002.jsp structure |\n| Land Owner Management | Same as customer | Land-specific relationship validation | J0003.jsp structure |"
+    },
+    {
+      "id": "validation_rules_section:housing:basic-info-housing-contract:approval_workflow",
+      "type": "validation_rules_section",
+      "name": "Approval Workflow",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/validation-rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "6.2 Approval Workflow",
+      "content": "Based on action flow analysis:\n\n| Scenario | Standard Rule | Special Rule | Evidence |\n|----------|---------------|--------------|----------|\n| Acceptance | Permission check | `syouninFlg = true` required | KihonRegisterAction.acceptance |\n| Consistency Check | No permission required | Available to all users | seigousei_check action |\n| Status Update | Standard validation | Approval workflow validation | delegate.renkeiShinkaikei |\n| Accounting Integration | Data validation | External system integration validation | Accounting integration logic |"
+    },
+    {
+      "id": "validation_rules_section:housing:basic-info-housing-contract:13_block_components",
+      "type": "validation_rules_section",
+      "name": "13 Block Components",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/validation-rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "6.3 13 Block Components",
+      "content": "Based on comprehensive view analysis:\n\n| Block | Validation Focus | Evidence File |\n|-------|------------------|---------------|\n| **EH003/EH003_1** | Permission validation for button display | Button display conditions |\n| **JH02** | Header information display | Card header validation |\n| **JH03** | Required validation for header registration | Required field validation |\n| **JH13/JH13_1** | Function button availability | Print/export validation |\n| **J0001_2** | Customer management validation | Customer CRUD validation |\n| **J0002** | Building owner validation | Building owner CRUD validation |\n| **J0003** | Land owner validation | Land owner CRUD validation |\n| **J0004** | Construction information validation | Construction data validation |\n| **B0001** | Date information validation | Date field validation |\n| **J0087** | JTI information validation | HLP registration validation |\n| **J0084** | Business information (conditional) | `jigyoutaiHyoujiKbn = HYOUJI` |\n| **J0088** | After-sales information (conditional) | `renewKbn != RENEW` |\n| **J0092** | Technician information (conditional) | `renewKbn != RENEW` |"
+    },
+    {
+      "id": "validation_rules_section:housing:basic-info-housing-contract:form_field_structure",
+      "type": "validation_rules_section",
+      "name": "Form Field Structure",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/validation-rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "6.4 Form Field Structure",
+      "content": "Based on action flow form analysis:\n\n| Block | Field Count | Key Fields | Evidence |\n|-------|-------------|------------|----------|\n| **J0001 (Customer)** | 15 fields | hUniqueId, kokyakuName, kokyakuNameKana, Tel1-3, address | Form bean structure |\n| **J0002 (Building Owner)** | 14 fields | hUniqueId, kokyakuName, kokyakuNameKana, sesyuKokyakuName | Form bean structure |\n| **J0003 (Land Owner)** | 14 fields | hUniqueId, kokyakuName, kokyakuNameKana, sikichiSyoyusyaName | Form bean structure |\n| **J0004 (Construction)** | 10 fields | koujiBukkenName, jyukyoAddress, chibanAddress | Form bean structure |"
+    }
+  ],
+  "relationships": [
+    {
+      "source": "validation_rules:housing:basic-info-housing-contract",
+      "target": "validation_rules_section:housing:basic-info-housing-contract:field_level_validation",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:housing:basic-info-housing-contract:field_level_validation",
+      "target": "validation_rules_section:housing:basic-info-housing-contract:required_field_rules",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:housing:basic-info-housing-contract:field_level_validation",
+      "target": "validation_rules_section:housing:basic-info-housing-contract:format_validation",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:housing:basic-info-housing-contract:field_level_validation",
+      "target": "validation_rules_section:housing:basic-info-housing-contract:phone_number_validation",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules:housing:basic-info-housing-contract",
+      "target": "validation_rules_section:housing:basic-info-housing-contract:business_rule_validation",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:housing:basic-info-housing-contract:business_rule_validation",
+      "target": "validation_rules_section:housing:basic-info-housing-contract:customer_relationship_rules",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:housing:basic-info-housing-contract:business_rule_validation",
+      "target": "validation_rules_section:housing:basic-info-housing-contract:building_owner_rules",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:housing:basic-info-housing-contract:business_rule_validation",
+      "target": "validation_rules_section:housing:basic-info-housing-contract:land_owner_rules",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:housing:basic-info-housing-contract:business_rule_validation",
+      "target": "validation_rules_section:housing:basic-info-housing-contract:construction_information_rules",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules:housing:basic-info-housing-contract",
+      "target": "validation_rules_section:housing:basic-info-housing-contract:cross_field_validation",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:housing:basic-info-housing-contract:cross_field_validation",
+      "target": "validation_rules_section:housing:basic-info-housing-contract:customer_consistency",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:housing:basic-info-housing-contract:cross_field_validation",
+      "target": "validation_rules_section:housing:basic-info-housing-contract:permission_based_validation",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:housing:basic-info-housing-contract:cross_field_validation",
+      "target": "validation_rules_section:housing:basic-info-housing-contract:address_validation",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules:housing:basic-info-housing-contract",
+      "target": "validation_rules_section:housing:basic-info-housing-contract:conditional_validation",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:housing:basic-info-housing-contract:conditional_validation",
+      "target": "validation_rules_section:housing:basic-info-housing-contract:screen_mode_based",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:housing:basic-info-housing-contract:conditional_validation",
+      "target": "validation_rules_section:housing:basic-info-housing-contract:permission_level_based",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:housing:basic-info-housing-contract:conditional_validation",
+      "target": "validation_rules_section:housing:basic-info-housing-contract:project_type_based",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:housing:basic-info-housing-contract:conditional_validation",
+      "target": "validation_rules_section:housing:basic-info-housing-contract:feature_flag_based",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules:housing:basic-info-housing-contract",
+      "target": "validation_rules_section:housing:basic-info-housing-contract:validation_execution_timing",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:housing:basic-info-housing-contract:validation_execution_timing",
+      "target": "validation_rules_section:housing:basic-info-housing-contract:client_side_validation",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:housing:basic-info-housing-contract:client_side_validation",
+      "target": "validation_rules_section:housing:basic-info-housing-contract:javascript_function_evidence",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:housing:basic-info-housing-contract:client_side_validation",
+      "target": "validation_rules_section:housing:basic-info-housing-contract:on_blur",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:housing:basic-info-housing-contract:client_side_validation",
+      "target": "validation_rules_section:housing:basic-info-housing-contract:on_change",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:housing:basic-info-housing-contract:client_side_validation",
+      "target": "validation_rules_section:housing:basic-info-housing-contract:on_submit",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:housing:basic-info-housing-contract:validation_execution_timing",
+      "target": "validation_rules_section:housing:basic-info-housing-contract:server_side_validation",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:housing:basic-info-housing-contract:server_side_validation",
+      "target": "validation_rules_section:housing:basic-info-housing-contract:security_validation",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:housing:basic-info-housing-contract:server_side_validation",
+      "target": "validation_rules_section:housing:basic-info-housing-contract:business_rules",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:housing:basic-info-housing-contract:server_side_validation",
+      "target": "validation_rules_section:housing:basic-info-housing-contract:transaction_validation",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules:housing:basic-info-housing-contract",
+      "target": "validation_rules_section:housing:basic-info-housing-contract:special_notes_validation",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:housing:basic-info-housing-contract:special_notes_validation",
+      "target": "validation_rules_section:housing:basic-info-housing-contract:multiple_participant_management",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:housing:basic-info-housing-contract:special_notes_validation",
+      "target": "validation_rules_section:housing:basic-info-housing-contract:approval_workflow",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:housing:basic-info-housing-contract:special_notes_validation",
+      "target": "validation_rules_section:housing:basic-info-housing-contract:13_block_components",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:housing:basic-info-housing-contract:special_notes_validation",
+      "target": "validation_rules_section:housing:basic-info-housing-contract:form_field_structure",
+      "relationship_type": "HAS_SECTION"
+    }
+  ]
+}

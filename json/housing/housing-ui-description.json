@@ -1,0 +1,130 @@
+{
+  "module": "housing",
+  "tab_name": "basic-info-housing-contract",
+  "source_file": "housing/basic-info-housing-contract/components/description-ui-en.md",
+  "entities": [
+    {
+      "id": "ui_description:housing:basic-info-housing-contract",
+      "type": "ui_description",
+      "name": "UI Analysis",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/description-ui-en.md",
+      "original_file_location": "src/webapp/dsmart/docroot/contract/ukeoi/keiyakuNewtmp/kihon.jsp"
+    },
+    {
+      "id": "ui_description_section:housing:basic-info-housing-contract:included_files_list",
+      "type": "ui_description_section",
+      "name": "Included Files List",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/description-ui-en.md",
+      "heading_level": 2,
+      "heading_raw": "Included Files List",
+      "content": "Path | Function/Description |\n-----|-----------|\n`/common/page.txt` | Basic page settings |\n`/common/taglib.txt` | Tag library declarations |\n`/common/doctype.txt` | DOCTYPE declarations |\n`/common/meta.txt` | Meta tags/SEO |\n`/contract/script.txt` | Contract module common JavaScript |\n`/contract/style.txt` | Contract module common CSS |\n`/contract/ukeoi/keiyakuNewtmp/kihon/body.jsp` | Main screen body |\n\n---"
+    },
+    {
+      "id": "ui_description_section:housing:basic-info-housing-contract:modal_dialogs",
+      "type": "ui_description_section",
+      "name": "Modal Dialogs",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/description-ui-en.md",
+      "heading_level": 2,
+      "heading_raw": "Modal Dialogs",
+      "content": "| File/URL | Function |\n|----------|------|\n| `/dsmart/contract/ukeoi/keiyakuNewtmp/keiriRegisterKakuninFrame.jsp` | Accounting registration confirmation |\n| `/dsmart/contract/ukeoi/keiyakuNewtmp/keiriNoSet.jsp` | Accounting number settings |\n| `/dsmart/contract/keiyakusyoKagamiPrint.jsp` | Contract mirror print |\n| `/dsmart/contract/keiyakusyoHanshaKagamiPrint.jsp` | Contract reflection mirror print |\n\n---"
+    },
+    {
+      "id": "ui_description_section:housing:basic-info-housing-contract:block_overview_screen_components",
+      "type": "ui_description_section",
+      "name": "Block Overview (Screen Components)",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/description-ui-en.md",
+      "heading_level": 2,
+      "heading_raw": "Block Overview (Screen Components)",
+      "content": "| Block | Path (if any) | Function/Content |\n|-------|----------------|-----------|\n| EH003_1 | `/contract/blockList/refer/EH003_1.jsp` | Error message display |\n| JH02 | `/contract/blockList/refer/JH02.jsp` | Header card (Contract basic information) |\n| JH03 | `/contract/blockList/register/JH03.jsp` | Contract basic information |\n| JH13_1 | `/contract/blockList/register/JH13_1.jsp` | Function buttons (Print, DFC card, etc.) |\n| J0001_2 | `/contract/blockList/register/J0001_2.jsp` | Contractor information (Contractor) |\n| J0002 | `/contract/blockList/register/J0002.jsp` | Builder information (Building owner) |\n| J0003 | `/contract/blockList/register/J0003.jsp` | Land owner information (Land owner) |\n| J0004 | `/contract/blockList/register/J0004.jsp` | Construction information (Construction/Land information) |\n| B0001 | `/contract/blockList/register/B0001.jsp` | Date information & Contract amount |\n| J0087 | `/contract/blockList/register/J0087.jsp` | JTI information (Residence/Land purchase applicant) |\n| J0084 | `/contract/blockList/register/J0084.jsp`<br/>`/contract/blockList/refer/J0084.jsp` | Business status (Business entity) |\n| J0088 | `/contract/blockList/register/J0088.jsp` | After-sales information (After-service) |\n| J0092 | `/contract/blockList/register/J0092.jsp` | Technical staff assignment (Technical staff assignment) |\n| Cancel/Update | `/contract/cancelUpdateButton.txt` | Cancel/Update buttons at the end of the form |\n\n---"
+    },
+    {
+      "id": "ui_description_section:housing:basic-info-housing-contract:hidden_fields",
+      "type": "ui_description_section",
+      "name": "Hidden Fields",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/description-ui-en.md",
+      "heading_level": 2,
+      "heading_raw": "Hidden Fields",
+      "content": ""
+    },
+    {
+      "id": "ui_description_section:housing:basic-info-housing-contract:form_hidden_fields",
+      "type": "ui_description_section",
+      "name": "Form Hidden Fields",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/description-ui-en.md",
+      "heading_level": 3,
+      "heading_raw": "Form Hidden Fields",
+      "content": "- `printCheckSuccessFlg` − Print check success flag\n- `printHanshaCheckSuccessFlg` − Reflection print check success flag\n- `seigouseiCheckSuccessFlg` − Consistency check success flag\n- `keiriNorRegistFlg` − Accounting number registration flag\n- `keiriNoSetIsDoneFlg` − Accounting number setting completion flag\n- `printDfcGokeiyakusyaCardSuccessFlg` − DFC customer card printing success flag\n- `aftDfcUrlFlg` − After DFC URL flag\n- `printKeiyakuInsatsuSuccessFlg` − Contract printing success flag\n- `keiyakusyoYoushikiCd` − Contract form code\n- `keiyakusyoYoushikiCdHikae` − Contract form code copy"
+    },
+    {
+      "id": "ui_description_section:housing:basic-info-housing-contract:contractor_information_j0001_hidden_fields",
+      "type": "ui_description_section",
+      "name": "Contractor Information (J0001) Hidden Fields",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/description-ui-en.md",
+      "heading_level": 3,
+      "heading_raw": "Contractor Information (J0001) Hidden Fields",
+      "content": "- `J0001_hUniqueId` − Contractor unique ID for editing\n- `J0001_hKokyakuTodoufuken` − Prefecture (hidden)\n- `J0001_hKokyakuShikutyouson` − City/Ward/Town/Village (hidden)\n- `J0001_hKokyakuOaza` − District (hidden)\n- `J0001_hKokyakuTyoume` − Block number (hidden)\n- `J0001_hKokyakuBanchi` − House number (hidden)\n- `J0001_hKokyakuBuilMansionName` − Building/Apartment name (hidden)\n- `J0001_hSyufukuKbn` − Primary/Secondary classification (hidden)\n- `J0001_hKokyakuNo` − Customer number (hidden)"
+    },
+    {
+      "id": "ui_description_section:housing:basic-info-housing-contract:construction_information_j0004_hidden_fields",
+      "type": "ui_description_section",
+      "name": "Construction Information (J0004) Hidden Fields",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/components/description-ui-en.md",
+      "heading_level": 3,
+      "heading_raw": "Construction Information (J0004) Hidden Fields",
+      "content": "- `J0004_hJyukyoTodoufuken` − Residence prefecture (hidden)\n- `J0004_hJyukyoShikutyouson` − Residence city/ward/town/village (hidden)\n- `J0004_hJyukyoOaza` − Residence district (hidden)\n- `J0004_hJyukyoTyoumoku` − Residence block number (hidden)\n- `J0004_hChibanTodoufuken` − Land registry prefecture (hidden)\n- `J0004_hChibanShikutyouson` − Land registry city/ward/town/village (hidden)\n- `J0004_hChibanOaza` − Land registry district (hidden)\n- `J0004_hChibanTyoumoku` − Land registry block number (hidden)\n- `J0004_hTochiNo` − Land number (hidden)\n- `J0004_hHanbaiBukkenNo` − Property sale number (hidden)\n\n---"
+    }
+  ],
+  "relationships": [
+    {
+      "source": "ui_description:housing:basic-info-housing-contract",
+      "target": "ui_description_section:housing:basic-info-housing-contract:included_files_list",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "ui_description:housing:basic-info-housing-contract",
+      "target": "ui_description_section:housing:basic-info-housing-contract:modal_dialogs",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "ui_description:housing:basic-info-housing-contract",
+      "target": "ui_description_section:housing:basic-info-housing-contract:block_overview_screen_components",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "ui_description:housing:basic-info-housing-contract",
+      "target": "ui_description_section:housing:basic-info-housing-contract:hidden_fields",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "ui_description_section:housing:basic-info-housing-contract:hidden_fields",
+      "target": "ui_description_section:housing:basic-info-housing-contract:form_hidden_fields",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "ui_description_section:housing:basic-info-housing-contract:hidden_fields",
+      "target": "ui_description_section:housing:basic-info-housing-contract:contractor_information_j0001_hidden_fields",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "ui_description_section:housing:basic-info-housing-contract:hidden_fields",
+      "target": "ui_description_section:housing:basic-info-housing-contract:construction_information_j0004_hidden_fields",
+      "relationship_type": "HAS_SECTION"
+    }
+  ]
+}

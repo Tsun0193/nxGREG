@@ -14,7 +14,7 @@ def main():
     neo4j_password = os.getenv("NEO4J_PASSWORD", "password")
     
     # Path to JSON directory
-    json_dir = Path("json/simple")
+    json_dir = Path("json/contract-list")
     
     # Create the pipeline
     pipeline = JSONToGraphPipeline(
@@ -68,7 +68,7 @@ def main():
             pipeline._finalize_deduplication()
         
         # Then load to Neo4j
-        pipeline.load_to_neo4j(wipe=True)
+        pipeline.load_to_neo4j(wipe=False)
         
         print("\n✓ Pipeline completed successfully!")
         

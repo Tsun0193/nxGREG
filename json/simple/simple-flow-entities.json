@@ -2,18 +2,18 @@
   "entities": [
     {
       "id": "flow:init_screen:sequence_flow",
-      "type": "process_flow",
-      "name": "Sequence Flow",
+      "type": "sequence_flow",
+      "name": "init_screen - Sequence Flow",
       "function_name": "init_screen",
       "parent_function": "function:init_screen",
       "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/init-screen/sequence-diagram-en.md",
       "section_title": "Sequence Flow",
       "content": "sequenceDiagram\n    participant Action as KihonInitAction\n    participant Delegate as BaseDelegate\n    participant Facade as CommonFacadeBean\n    participant ProductFactory as ProductFactory\n    participant Product as YuusyouKihonProduct\n    participant DB as Database\n\n    Note over Action,DB: Process Flow: vo = delegate.find(formMap, vo)\n\n    Action->>Delegate: find(formMap, vo)\n    \n    Note over Delegate: 1. Data Repackaging\n    Delegate->>Delegate: repack(form, vo)\n    Note over Delegate: - Get tabCd from form\n    Note over Delegate: - Create RepackFactory with 6 parameters\n    Note over Delegate: - Call doRepack(form, vo)\n    \n    Note over Delegate: 2. Create CommonFacade\n    Delegate->>Facade: find(vo)\n    \n    Note over Facade: 3. Create Product\n    Facade->>ProductFactory: createProduct(ankenBunruiCd, keiyakuCardSyubetsuCd, tabCd, keiyakuStatusCd, hensyuMode, keiyakuKbnCd)\n    ProductFactory-->>Facade: YuusyouKihonProduct\n    Facade->>Product: doFind(vo)\n    \n    Note over Product: 4. Logic processing in YuusyouKihonProduct\n    Product->>Product: spExcuteKbn = vo.getSpExcuteKbn()\n    Product->>Product: findAnkenForExistence(vo)\n    Product->>DB: ANKEN_SQL_01\n    DB-->>Product: AnkenVO data\n    \n    Product->>Product: hansyaCheckSoshiki(ds, vo.getAnkenNo())\n    Product->>DB: HANSYA_CHECK_SQL_01\n    DB-->>Product: Check results\n    \n    Product->>Product: findMain(vo)\n    Product->>DB: KEIYAKU_SQL_01\n    DB-->>Product: KeiyakuVO data\n    \n    Product->>Product: findAnken(vo)\n    Product->>DB: ANKEN_SQL_01\n    DB-->>Product: AnkenVO data\n    \n    Product->>Product: findTochi(vo)\n    Product->>DB: TOCHI_SQL_01\n    DB-->>Product: TochiVO data\n    \n    Product->>Product: findKokyakuKankei(vo)\n    Product->>DB: KEIYAKU_KOKYAKU_KANKEI_SQL_01\n    DB-->>Product: KeiyakuKokyakuKankeiList data\n    \n    Product->>Product: editControlFind(vo)\n    \n    Product-->>Facade: KeiyakuVO (fully populated data)\n    Facade-->>Delegate: KeiyakuVO\n    Delegate-->>Action: KeiyakuVO",
-      "description": "Process flow for Sequence Flow in init_screen function"
+      "description": "Sequence flow for Sequence Flow in init_screen function"
     },
     {
       "id": "flow:init_screen:overview_process_flow",
-      "type": "process_flow_overview",
+      "type": "process_flow",
       "name": "init_screen - Process Flow Overview",
       "function_name": "init_screen",
       "parent_function": "function:init_screen",
@@ -24,29 +24,29 @@
     },
     {
       "id": "flow:update_customer:edit_operation_no_database_update",
-      "type": "process_flow",
-      "name": "Edit Operation (No Database Update)",
+      "type": "sequence_flow",
+      "name": "update_customer - Edit Operation (No Database Update)",
       "function_name": "update_customer",
       "parent_function": "function:update_customer",
       "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/update-customer/sequence-diagram-en.md",
       "section_title": "Edit Operation (No Database Update)",
       "content": "sequenceDiagram\n    participant Browser as Browser (kihon.jsp)\n    participant JS as JavaScript\n    participant Action as Edit Action\n    participant Session as HttpSession\n\n    Browser->>JS: cntSubmitBlockAction(form, 'edit', uniqueId, hUniqueId)\n    JS->>JS: Set hUniqueId = uniqueId, actionType = 'keiyakusakiEdit'\n    JS->>Action: Submit form (actionType=edit)\n\n    Note over Action: Edit Action - Form input only\n    Action->>Action: Get DynaActionForm, session data\n    Action->>Session: Extract customer data (CONTRACT_KEIYAKU_VO, CONTRACT_ANKEN_VO, CONTRACT_JYUTYU_VO)\n    Action->>Action: Find customer using hUniqueId\n    Action->>Action: Fill form fields with customer data\n    Action->>Action: Set edit mode flags (edit/delete disabled, main/sub enabled)\n    Note over Browser: After edit is clicked, main/sub buttons are displayed for this item. In normal view, only edit and delete are shown.\n    Action-->>Browser: Forward to kihon.jsp (no database update)",
-      "description": "Process flow for Edit Operation (No Database Update) in update_customer function"
+      "description": "Sequence flow for Edit Operation (No Database Update) in update_customer function"
     },
     {
       "id": "flow:update_customer:update_operation_mainsubdelete",
-      "type": "process_flow",
-      "name": "Update Operation (Main/Sub/Delete)",
+      "type": "sequence_flow",
+      "name": "update_customer - Update Operation (Main/Sub/Delete)",
       "function_name": "update_customer",
       "parent_function": "function:update_customer",
       "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/update-customer/sequence-diagram-en.md",
       "section_title": "Update Operation (Main/Sub/Delete)",
       "content": "sequenceDiagram\n    participant View as Browser\n    participant Action as Action Class\n    participant Delegate as BaseDelegate\n    participant Facade as CommonFacadeBean\n    participant Factory as ProductFactory\n    participant CommonProduct as CommonProduct\n    participant Product as YuusyouKihonProduct\n    participant MansionKihonEdit as MansionKihonEdit\n    participant Ukeoi as UkeoiKihonProduct\n    participant UkeoiKihonEdit as UkeoiKihonEdit\n    participant KojinTasya as KojinTasyaKeiyakuKbnProduct\n    participant DAO as KeiyakuKokyakuKankeiDAO\n    participant KojinDAO as KokyakuKojinTasyaKeiyakuKbnDAO\n    participant DB as Database\n\n    Note over View: User clicks edit/main/sub/delete/register button\n    alt Edit Mode\n        View->>View: Process JavaScript (cntSubmitBlockAction, set hUniqueId, set actionType=\"edit\")\n        View->>Action: Submit form (actionType=edit, uniqueId, hUniqueId)\n        Note over Action: Edit Action (no database update)\n        Action->>Action: Get DynaActionForm, session data\n        Action->>Action: Extract customer data from session\n        Action->>Action: Find customer using hUniqueId\n        Action->>Action: Fill form fields with customer data\n        Action->>Action: Set edit mode flags (edit/delete disabled, main/sub enabled)\n        Action-->>View: Forward to kihon.jsp (no database update)\n    else Main/Sub/Delete Mode\n        alt Delete Mode\n            View->>View: Confirm deletion (comDeleteLineConfirm())\n            View->>View: Set form.uniqueId = uniqueId\n            View->>View: Set actionType = \"keiyakusakiDelete\"\n            View->>Action: Submit form (actionType=delete, uniqueId)\n            Note over Action: Delete Action (database update)\n            Action->>Action: checkKeiyakusakiDelete()\n        else Main/Sub Mode\n            View->>View: Set form.uniqueId = uniqueId\n            View->>View: Set actionType = \"keiyakusakiMain\" / \"keiyakusakiSub\"\n            View->>Action: Submit form (actionType=main/sub, uniqueId)\n            Note over Action: Main/Sub Action (database update)\n            Action->>Action: checkKokyakuDuplication()\n            Action->>Action: checkRecordCount()\n        end\n        Action->>Delegate: update(dform.getMap(), vo)\n\n        Note over Delegate: Update process begins\n        Delegate->>Delegate: repack(form, vo) - Convert form data to VO\n        Delegate->>Facade: createCommonFacade()\n        Delegate->>Facade: update(vo)\n\n        Note over Facade: Create product via factory\n        Facade->>Factory: createProduct(parameters)\n        Factory->>Product: Create YuusyouKihonProduct\n        Facade->>Facade: updatePrepare(vo)\n        Facade->>CommonProduct: doUpdate(vo)\n\n        Note over CommonProduct: Template method pattern\n        CommonProduct->>CommonProduct: findAnkenForExistence(vo)\n        CommonProduct->>CommonProduct: checkStatusChanged(vo)\n        CommonProduct->>Product: update(vo)\n\n        Note over Product: Concrete update implementation\n        alt Special Contract (Mansion)\n            Product->>MansionKihonEdit: editControlKeiyakusyaAll(vo)\n            MansionKihonEdit->>MansionKihonEdit: editKeiyakuKokyakuKankeiFlg(vo, KEIYAKUSYA)\n            MansionKihonEdit->>MansionKihonEdit: editSyufuku(vo, KEIYAKUSYA) - Process duplications\n            MansionKihonEdit->>MansionKihonEdit: editKeiyakuKokyakuKankei(vo, KEIYAKUSYA) - Copy data\n            MansionKihonEdit->>MansionKihonEdit: editSortKeiyakuKokyakuKankei(vo, KEIYAKUSYA) - Sort\n            MansionKihonEdit->>MansionKihonEdit: editRenmei(vo, KEIYAKUSYA) - Set relationships\n            MansionKihonEdit->>MansionKihonEdit: editDaihyouKokyakuNo(vo) - Set representative\n            MansionKihonEdit-->>Product: Return value\n            Product->>DAO: updateKeiyakuKokyakuKankei(vo, KEIYAKUSYA)\n            Note over DAO,DB: --- DAO interacts with database (Mansion) ---\n            DAO->>DB: Lock table t_keiyaku (checkMasterForUpdateNowait)\n            DAO->>DB: Lock table t_keiyaku_kokyaku_kankei\n            DAO->>DB: doInsertLogical() / doUpdate() / doUpdate() (logical delete)\n            DAO->>DB: Update supplementary info (KeiyakuHosokuJouhouDAO.update)\n            DAO->>DB: Update main contract (KeiyakuDAO.update)\n            DAO->>DB: Commit/rollback transaction\n            DAO-->>Product: Return value (success/exception)\n        else Normal Contract (Contractor)\n            Product->>Ukeoi: update(vo)\n            alt isUpdateKeiyakusya\n                Ukeoi->>UkeoiKihonEdit: editControlKeiyakusyaAll(vo)\n                UkeoiKihonEdit->>UkeoiKihonEdit: editKeiyakuKokyakuKankeiFlg(vo, KEIYAKUSYA)\n                UkeoiKihonEdit->>UkeoiKihonEdit: editSyufuku(vo, KEIYAKUSYA)\n                UkeoiKihonEdit->>UkeoiKihonEdit: editKeiyakuKokyakuKankei(vo, KEIYAKUSYA)\n                UkeoiKihonEdit->>UkeoiKihonEdit: editSortKeiyakuKokyakuKankei(vo, KEIYAKUSYA)\n                UkeoiKihonEdit->>UkeoiKihonEdit: editRenmei(vo, KEIYAKUSYA)\n                UkeoiKihonEdit->>UkeoiKihonEdit: editDaihyouKokyakuNo(vo)\n                UkeoiKihonEdit-->>Ukeoi: Return value\n                Ukeoi->>DAO: updateKeiyakuKokyakuKankei(vo, KEIYAKUSYA)\n                Note over DAO,DB: --- DAO interacts with database (Contractor) ---\n                DAO->>DB: Lock table t_keiyaku (checkMasterForUpdateNowait)\n                DAO->>DB: Lock table t_keiyaku_kokyaku_kankei\n                DAO->>DB: doInsertLogical() / doUpdate() / doUpdate() (logical delete)\n                DAO->>DB: Update supplementary info (KeiyakuHosokuJouhouDAO.update)\n                DAO->>DB: Update main contract (KeiyakuDAO.update)\n                DAO->>DB: Commit/rollback transaction\n                DAO-->>Ukeoi: Return value (success/exception)\n                alt sinkiSakuseiKbn = KIZON && isNewtmp()\n                    Ukeoi->>KojinTasya: updateKojinTasyaKeiyakuKbn(vo)\n                    KojinTasya->>KojinTasya: Process individual customers (filter, check, update)\n                    KojinTasya->>KojinDAO: updateKokyakuKojin()\n                    KojinDAO->>DB: Update t_kokyaku_kojin (tasya_keiyaku_kbn)\n                    KojinDAO-->>KojinTasya: Return value\n                    KojinTasya-->>Ukeoi: Return value\n                end\n            else isUpdateKenchikuNushi\n                Ukeoi->>UkeoiKihonEdit: editControlKenchikuNushiAll(vo)\n                UkeoiKihonEdit-->>Ukeoi: Return value\n                Ukeoi->>DAO: updateKeiyakuKokyakuKankei(vo, KENCHIKU_NUSHI)\n                Note over DAO,DB: --- DAO interacts with database (Contractor - Building Owner) ---\n                DAO->>DB: Lock table t_keiyaku (checkMasterForUpdateNowait)\n                DAO->>DB: Lock table t_keiyaku_kokyaku_kankei\n                DAO->>DB: doInsertLogical() / doUpdate() / doUpdate() (logical delete)\n                DAO->>DB: Commit/rollback transaction\n                DAO-->>Ukeoi: Return value\n            else isUpdateJinushi\n                Ukeoi->>UkeoiKihonEdit: editControlJinushiAll(vo)\n                UkeoiKihonEdit-->>Ukeoi: Return value\n                Ukeoi->>DAO: updateKeiyakuKokyakuKankei(vo, JINUSHI)\n                Note over DAO,DB: --- DAO interacts with database (Contractor - Landowner) ---\n                DAO->>DB: Lock table t_keiyaku (checkMasterForUpdateNowait)\n                DAO->>DB: Lock table t_keiyaku_kokyaku_kankei\n                DAO->>DB: doInsertLogical() / doUpdate() / doUpdate() (logical delete)\n                DAO->>DB: Commit/rollback transaction\n                DAO-->>Ukeoi: Return value\n            else No object update\n                Ukeoi->>UkeoiKihonEdit: editControlRegister(vo)\n                UkeoiKihonEdit-->>Ukeoi: Return value\n                Ukeoi->>Product: updateMain(vo)\n            end\n        end\n\n    DAO-->>Product: Return value (success/exception)\n    Product-->>CommonProduct: Return value\n    CommonProduct-->>Facade: Return value\n    Facade-->>Delegate: Return value\n    Delegate-->>Action: Return value\n    Action-->>View: Forward to kihon.jsp or redirect to /kihonInit.do\nend",
-      "description": "Process flow for Update Operation (Main/Sub/Delete) in update_customer function"
+      "description": "Sequence flow for Update Operation (Main/Sub/Delete) in update_customer function"
     },
     {
       "id": "flow:update_customer:overview_process_flow",
-      "type": "process_flow_overview",
+      "type": "process_flow",
       "name": "update_customer - Process Flow Overview",
       "function_name": "update_customer",
       "parent_function": "function:update_customer",
@@ -57,18 +57,18 @@
     },
     {
       "id": "flow:validation_contract:detailed_sequence_diagram",
-      "type": "process_flow",
-      "name": "Detailed Sequence Diagram",
+      "type": "sequence_flow",
+      "name": "validation_contract - Detailed Sequence Diagram",
       "function_name": "validation_contract",
       "parent_function": "function:validation_contract",
       "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/validation-contract/sequence-diagram-en.md",
       "section_title": "Detailed Sequence Diagram",
       "content": "sequenceDiagram\n    participant User as \"User\"\n    participant JSP as \"kihon.jsp (View)\"\n    participant Action as \"KihonRegisterAction (Action)\"\n    participant Delegate as \"BaseDelegate (Delegate)\"\n    participant Facade as \"ShinkaikeiFacadeBean (Facade)\"\n    participant Product as \"AbstractAcceptanceProduct (Product)\"\n    participant Check as \"Check Layer (CheckAcceptance, CheckCommon, ...)\"\n    participant DAO as \"DAO/DB\"\n    Note over User: User clicks \"Approval\" (acceptance) or \"Consistency Check\" (seigousei_check)\n    User->>JSP: Clicks button (acceptance/seigousei_check)\n    JSP->>Action: Submits form (actionType)\n    Action->>Delegate: Reads actionType, calls delegate.renkeiShinkaikei/consistencyChecker\n    Delegate->>Facade: Prepares data, calls facade.prepareAcceptance(vo)\n    Facade->>Product: Determines contract type, calls product.prepareAcceptance(vo)\n    Product->>Check: Calls checkBeforeShinkaikei(vo) and sub-checks\n    loop Multiple business check functions\n        Check->>DAO: Query (SELECT)\n        DAO-->>Check: Check results\n    end\n    Check-->>Product: Aggregates check results\n    alt actionType == \"acceptance\"\n        Product->>Product: Calls registKihon(vo) (data update)\n        Product->>Product: Calls makeSnapShot(vo, userId) (create snapshot)\n        Product->>DAO: Writes data (UPDATE/INSERT), snapshot, log\n        DAO-->>Product: Update results\n        Product->>Facade: Returns update, log, and status results\n    else actionType == \"seigousei_check\"\n        Product->>Facade: Returns only check results, no DB writing\n    end\n    Facade-->>Delegate: Processing results\n    Delegate-->>Action: Processing results\n    Action-->>JSP: Displays results (success/error)",
-      "description": "Process flow for Detailed Sequence Diagram in validation_contract function"
+      "description": "Sequence flow for Detailed Sequence Diagram in validation_contract function"
     },
     {
       "id": "flow:validation_contract:overview_process_flow",
-      "type": "process_flow_overview",
+      "type": "process_flow",
       "name": "validation_contract - Process Flow Overview",
       "function_name": "validation_contract",
       "parent_function": "function:validation_contract",
@@ -79,29 +79,29 @@
     },
     {
       "id": "flow:register_contract:visual_sequence_flow",
-      "type": "process_flow",
-      "name": "Visual Sequence Flow",
+      "type": "sequence_flow",
+      "name": "register_contract - Visual Sequence Flow",
       "function_name": "register_contract",
       "parent_function": "function:register_contract",
       "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/register-contract/sequence-diagram-en.md",
       "section_title": "Visual Sequence Flow",
       "content": "sequenceDiagram\n    participant Action as KihonRegisterAction\n    participant Delegate as BaseDelegate\n    participant Facade as CommonFacadeBean\n    participant Factory as ProductFactory\n    participant Product as YuusyouKihonProduct\n    participant Edit as YuusyouKihonEdit\n    participant Ukeoi as UkeoiKihonProduct\n    participant DB as Database\n\n    Note over Action: actionType = \"register\"\n    \n    Action->>Action: Check if actionType equals \"register\"\n    Action->>Delegate: update(dform.getMap(), vo)\n    \n    Note over Delegate: Start update process\n    Delegate->>Delegate: repack(form, vo)\n    Delegate->>Facade: createCommonFacade()\n    Delegate->>Facade: update(vo)\n    \n    Note over Facade: Create product via factory\n    Facade->>Factory: createProduct(parameters)\n    Factory->>Factory: Determine product class name\n    Factory->>Product: Create YuusyouKihonProduct\n    Facade->>Facade: updatePrepare(vo)\n    Facade->>Product: doUpdate(vo)\n    \n    Note over Product: Template method pattern\n    Product->>Product: findAnkenForExistence(vo)\n    Product->>Product: checkStatusChanged(vo)\n    Product->>Product: update(vo)\n    \n    Note over Product: Specific update implementation\n    alt Update flag is set\n        Product->>Ukeoi: update(vo)\n        Product->>Edit: editControlKeiyakusyaAll(vo)\n        Product->>Product: updateKeiyakuKokyakuKankei(vo)\n    else Register button was pressed\n        Product->>Product: checkJissekiDate(vo)\n        Product->>Product: findTochi(vo)\n        Product->>Edit: editControlRegister(vo)\n        Product->>Product: updateMain(vo)\n        \n        Note over Product: Main update orchestration\n        Product->>Product: Set lock table names\n        Product->>DB: Lock check (t_keiyaku, t_jyutyu, t_kouji)\n        Product->>Product: updateTochi(vo)\n        Product->>Product: updateJyutyu(vo)\n        Product->>Product: updateKeiyakuSyainKankei(vo)\n        Product->>Product: updateKeiyakuHosokuJyouhou(vo)\n        Product->>Product: updateAnkenSyainKankei(vo)\n        Product->>Product: updateKoutei(vo)\n        \n        Note over DB: Database update\n        Product->>DB: Update land data\n        Product->>DB: Update order/construction data\n        Product->>DB: Update contract-employee relationships\n        Product->>DB: Update contract supplementary information\n        Product->>DB: Update case-employee relationships\n        Product->>DB: Update contract conditions\n    end\n    \n    Product-->>Facade: Return value (success/exception)\n    Facade-->>Delegate: Return value\n    Delegate-->>Action: Return value\n    \n    Note over Action: Process afterJyutyuNo\n    Action->>Action: Set afterJyutyuNo to null if isJyutyuNoNull",
-      "description": "Process flow for Visual Sequence Flow in register_contract function"
+      "description": "Sequence flow for Visual Sequence Flow in register_contract function"
     },
     {
       "id": "flow:register_contract:detailed_flow_of_updatemain_method",
-      "type": "process_flow",
-      "name": "Detailed Flow of updateMain() Method",
+      "type": "sequence_flow",
+      "name": "register_contract - Detailed Flow of updateMain() Method",
       "function_name": "register_contract",
       "parent_function": "function:register_contract",
       "source_file": "ctc-data-en/simple/yuusyou-kihon/functions/register-contract/sequence-diagram-en.md",
       "section_title": "Detailed Flow of updateMain() Method",
       "content": "sequenceDiagram\n    participant Product as YuusyouKihonProduct\n    participant JyutyuVO as JyutyuVO\n    participant Lock as LockManager\n    participant CommonEdit as CommonEdit\n    participant UkeoiProduct as UkeoiKihonProduct\n    participant CheckCommon as CheckCommon\n    participant DB as Database\n\n    Note over Product: updateMain(KeiyakuVO vo) - Start\n    \n    Product->>Product: Get JyutyuVO from vo.getJyutyuList().get(0)\n    Product->>Product: Determine lock table names based on hensyuMode\n    \n    alt Normal edit mode (HENSYU_MODE_NORMAL)\n        Product->>Product: lockKeiyakuTableName = \"t_keiyaku\"\n        Product->>Product: lockJyutyuTableName = \"t_jyutyu\"\n    else Other edit mode\n        Product->>Product: lockKeiyakuTableName = \"t_c_keiyaku\"\n        Product->>Product: lockJyutyuTableName = \"t_c_jyutyu\"\n    end\n    \n    Note over Product: Lock contract data\n    Product->>Product: Create keiyakuCondition (keiyaku_key, sakujyo_kbn)\n    Product->>Lock: checkMasterForUpdateNowait(lockKeiyakuTableName, keiyakuCondition)\n    Lock->>DB: SELECT FOR UPDATE NOWAIT on t_keiyaku\n    DB-->>Lock: Lock acquired or exception\n    \n    alt JyutyuVO exists and has jyutyuKey\n        Product->>Product: Create jyutyuCondition (jyutyu_key, sakujyo_kbn)\n        Product->>Lock: checkMasterForUpdateNowait(lockJyutyuTableName, jyutyuCondition)\n        Lock->>DB: SELECT FOR UPDATE NOWAIT on t_jyutyu\n        DB-->>Lock: Lock acquired or exception\n    end\n    \n    alt JyutyuVO.kouji exists and isUpdate() is true\n        Product->>Product: Create koujiCondition (kouji_key, sakujyo_kbn)\n        Product->>Product: lockKoujiTableName = \"t_kouji\"\n        Product->>Lock: checkMasterForUpdateNowait(lockKoujiTableName, koujiCondition)\n        Lock->>DB: SELECT FOR UPDATE NOWAIT on t_kouji\n        DB-->>Lock: Lock acquired or exception\n    end\n    \n    Note over Product: Start database updates\n    Product->>Product: updateTochi(vo)\n    Product->>DB: UPDATE t_tochi, t_keiyaku_tochi (land data)\n    \n    Product->>Product: updateJyutyu(vo)\n    Product->>DB: UPDATE t_jyutyu, t_jyutyu_tatemono (order/construction data)\n    \n    Product->>Product: updateKeiyakuSyainKankei(vo)\n    Product->>DB: UPDATE t_keiyaku_syain_kankei (contract-employee relationships)\n    \n    Product->>Product: updateKeiyakuHosokuJyouhou(vo)\n    Product->>DB: UPDATE t_keiyaku_hosoku (contract supplementary info)\n    \n    Product->>Product: updateAnkenSyainKankei(vo)\n    Product->>DB: UPDATE t_anken_syain_kankei (case-employee relationships)\n    \n    Product->>Product: updateKoutei(vo)\n    Product->>DB: UPDATE t_keiyaku_koutei (contract conditions)\n    \n    Note over Product: Business entity editing (if applicable)\n    alt vo.isNewtmp() && JIGYOUTAI_EDIT_KAHI_KBN_KA.equals(vo.getJigyoutaiEditKahiKbn())\n        Product->>CommonEdit: editKeiyakuJigyoutaiFind(vo, false)\n        CommonEdit->>DB: Search business entity data\n        \n        alt JIGYOUTAI_EDIT_KAHI_KBN_KA.equals(vo.getJigyoutaiEditKahiKbn()) && RENEW_KBN_NOT_RENEW.equals(vo.getRenewKbn())\n            Product->>CommonEdit: editUkeoiJigyoutaiKankei(vo)\n            CommonEdit->>DB: UPDATE t_ukeoi_jigyoutai_kankei (business entity relationships)\n            \n            Product->>UkeoiProduct: updateUkeoiJigyoutaiKankei(vo)\n            UkeoiProduct->>DB: UPDATE t_ukeoi_jigyoutai_kankei (subcontractor business entity relationships)\n        end\n    end\n    \n    Note over Product: Update shared order data\n    Product->>CommonEdit: updateKihonKyoudouJyutyuMinashi(vo)\n    CommonEdit->>DB: UPDATE t_kyoudou_jyutyu (shared order data)\n    \n    Note over Product: Delete contract instruction relationships\n    alt vo.isNewtmp()\n        Product->>Product: Get deleteKeiyakuShijisyoKankeiList\n        loop For each item in delete list\n            Product->>Product: deleteKeiyakuShijisyoKankei(keiyakuShijisyoKankeiVO)\n            Product->>DB: DELETE from t_keiyaku_shijisyo_kankei (contract instruction relationships)\n        end\n    end\n    \n    Note over Product: Technical staff placement check\n    Product->>CheckCommon: isGenbaGijyutsusya(vo)\n    CheckCommon-->>Product: true/false\n    \n    alt isGenbaGijyutsusya returns true\n        Product->>CheckCommon: checkGijyutsusyaHaichiYouhiTouroku(vo)\n        CheckCommon->>DB: Check technical staff placement requirements\n    end\n    \n    Note over Product: Final contract update\n    Product->>Product: updateKeiyaku(vo)\n    Product->>DB: UPDATE t_keiyaku (main contract data)\n    \n    Note over Product: updateMain(KeiyakuVO vo) - End",
-      "description": "Process flow for Detailed Flow of updateMain() Method in register_contract function"
+      "description": "Sequence flow for Detailed Flow of updateMain() Method in register_contract function"
     },
     {
       "id": "flow:register_contract:overview_process_flow",
-      "type": "process_flow_overview",
+      "type": "process_flow",
       "name": "register_contract - Process Flow Overview",
       "function_name": "register_contract",
       "parent_function": "function:register_contract",
@@ -116,7 +116,7 @@
       "source": "flow:init_screen:sequence_flow",
       "target": "function:init_screen",
       "relationship_type": "BELONGS_TO",
-      "description": "Sequence Flow belongs to init-screen function"
+      "description": "init_screen - Sequence Flow belongs to init-screen function"
     },
     {
       "source": "flow:init_screen:overview_process_flow",
@@ -128,13 +128,13 @@
       "source": "flow:update_customer:edit_operation_no_database_update",
       "target": "function:update_customer",
       "relationship_type": "BELONGS_TO",
-      "description": "Edit Operation (No Database Update) belongs to update-customer function"
+      "description": "update_customer - Edit Operation (No Database Update) belongs to update-customer function"
     },
     {
       "source": "flow:update_customer:update_operation_mainsubdelete",
       "target": "function:update_customer",
       "relationship_type": "BELONGS_TO",
-      "description": "Update Operation (Main/Sub/Delete) belongs to update-customer function"
+      "description": "update_customer - Update Operation (Main/Sub/Delete) belongs to update-customer function"
     },
     {
       "source": "flow:update_customer:overview_process_flow",
@@ -146,7 +146,7 @@
       "source": "flow:validation_contract:detailed_sequence_diagram",
       "target": "function:validation_contract",
       "relationship_type": "BELONGS_TO",
-      "description": "Detailed Sequence Diagram belongs to validation-contract function"
+      "description": "validation_contract - Detailed Sequence Diagram belongs to validation-contract function"
     },
     {
       "source": "flow:validation_contract:overview_process_flow",
@@ -158,13 +158,13 @@
       "source": "flow:register_contract:visual_sequence_flow",
       "target": "function:register_contract",
       "relationship_type": "BELONGS_TO",
-      "description": "Visual Sequence Flow belongs to register-contract function"
+      "description": "register_contract - Visual Sequence Flow belongs to register-contract function"
     },
     {
       "source": "flow:register_contract:detailed_flow_of_updatemain_method",
       "target": "function:register_contract",
       "relationship_type": "BELONGS_TO",
-      "description": "Detailed Flow of updateMain() Method belongs to register-contract function"
+      "description": "register_contract - Detailed Flow of updateMain() Method belongs to register-contract function"
     },
     {
       "source": "flow:register_contract:overview_process_flow",

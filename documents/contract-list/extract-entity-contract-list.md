@@ -48,29 +48,46 @@ ctc-data-en/contract-list/
 ## Output Specification
 
 ### Format
-Output must be a valid JSON file containing an array of entity objects.
+Output must be a valid JSON file with TWO top-level arrays: `entities` and `relationships`.
 
-### Entity Schema
-Each entity must follow this structure:
-
+### JSON Structure (Neo4j Compatible)
 ```json
 {
-  "id": "<type>:<unique_name>",
-  "type": "<entity_type>",
-  "name": "<human_readable_name>",
-  "parent_module": "module:contract-list",
-  "<property_name>": "<property_value>",
-  "source_file": "<relative_path_to_source_file>"
+  "entities": [
+    {
+      "id": "<type>:<unique_name>",
+      "type": "<entity_type>",
+      "name": "<human_readable_name>",
+      "parent_module": "module:contract-list",
+      "property_name": "property_value",
+      "source_file_0": "<relative_path_to_source_file>"
+    }
+  ],
+  "relationships": [
+    {
+      "source": "<source_entity_id>",
+      "target": "<target_entity_id>",
+      "relationship_type": "<RELATIONSHIP_TYPE>",
+      "property_name": "property_value"
+    }
+  ]
 }
 ```
 
-### Required Fields
+### Entity Schema Requirements
 - **id**: Unique identifier in format `<type>:<name>` (e.g., `screen:contract_list_main`)
 - **type**: Entity type from the taxonomy below
-- **name**: The extracted name
+- **name**: Human-readable name
 - **parent_module**: Always `"module:contract-list"` for this extraction
-- **source_file**: Source file path for traceability
-- **Additional fields**: Type-specific properties (see entity taxonomy) as direct fields
+- **source_file_0**: Primary source file path (use `source_file_0`, `source_file_1` for multiple sources)
+- **All properties at top level**: No nested `properties` or `metadata` objects
+- **DO NOT include relationship fields**: No `parent_screen_id`, `parent_module_id` - use relationships array instead
+
+### Relationship Schema Requirements
+- **source**: Entity ID that initiates the relationship
+- **target**: Entity ID that receives the relationship
+- **relationship_type**: Type of relationship (see taxonomy below)
+- **All properties at top level**: No nested objects
 
 ---
 
@@ -95,25 +112,143 @@ Extract the following entity types (included but not limited to):
 
 ### 4. Form Entities
 - **Type ID:** `form`
-- **Fields:** form_id, form_bean_class, scope, submission_action
-- **Notes:** Struts form beans used for request/response handling. Form fields should be extracted as separate `form_field` entities.
+- **Fields:** form_id, form_bean_class, scope, submission_action, description, fields (semicolon-separated list of field names)
+- **Notes:** Struts form beans used for request/response handling. Include all form fields as a semicolon-separated list in the `fields` property. Keep the original form bean class name in the ID (e.g., `form:anken_cardForm`).
+- **DO NOT include:** `parent_module_id` - use BELONGS_TO relationship instead
 
-### 5. Form Field Entities
-- **Type ID:** `form_field`
-- **Fields:** field_name, field_type, required, validation_rules, form_id
-- **Notes:** Individual form fields extracted separately from form entities for better relationship modeling.
-
-### 6. Session Entities
+### 5. Session Entities
 - **Type ID:** `session`
-- **Fields:** session_key, scope, lifecycle, stored_data
+- **Fields:** session_key, scope, lifecycle, stored_data, description
 - **Notes:** Session attributes used to maintain state across requests
 
-### 7. Function Entities
+### 6. Function Entities
 - **Type ID:** `function`
-- **Fields:** function_name, parameters (stringified JSON), return_type, business_logic, used_database_tables
+- **Fields:** function_name, parameters (stringified JSON), return_type, business_logic, url, validation_rules, output_success, output_failure
 - **Notes:** The function is mentioned in the "ctc-data-en/contract-list/overview-en.md" and listed in "ctc-data-en/contract-list/functions" as:
   + **1. List Initialization Feature**
   + **2. Contract Deletion Feature**
+- **DO NOT include:** `used_database_tables` - use ACCESSES relationship instead
+
+---
+
+## Relationship Taxonomy
+
+Extract the following relationship types between entities:
+
+### 1. BELONGS_TO Relationship
+- **Source:** Screen, Function, Form, Session
+- **Target:** Module
+- **Description:** Represents hierarchical ownership/containment
+- **Properties:**
+  - `relationship_type`: "BELONGS_TO"
+
+**Examples:**
+```json
+{
+  "source": "screen:contract_list_main",
+  "target": "module:contract-list",
+  "relationship_type": "BELONGS_TO"
+},
+{
+  "source": "function:init_screen",
+  "target": "module:contract-list",
+  "relationship_type": "BELONGS_TO"
+}
+```
+
+### 2. PROVIDES Relationship
+- **Source:** Screen
+- **Target:** Function
+- **Description:** Screen provides specific functionality
+- **Properties:**
+  - `relationship_type`: "PROVIDES"
+  - `function_category`: Type of function provided
+
+**Example:**
+```json
+{
+  "source": "screen:contract_list_main",
+  "target": "function:contract_deletion",
+  "relationship_type": "PROVIDES",
+  "function_category": "contract_management"
+}
+```
+
+### 3. USES_FORM Relationship
+- **Source:** Function, Screen
+- **Target:** Form
+- **Description:** Component uses a form for data input/submission
+- **Properties:**
+  - `relationship_type": "USES_FORM"
+  - `usage_context`: How the form is used
+
+**Example:**
+```json
+{
+  "source": "function:contract_deletion",
+  "target": "form:anken_cardForm",
+  "relationship_type": "USES_FORM",
+  "usage_context": "Contract context data"
+}
+```
+
+### 4. STORES Relationship
+- **Source:** Function, Screen
+- **Target:** Session
+- **Description:** Component stores data in session
+- **Properties:**
+  - `relationship_type`: "STORES"
+  - `storage_purpose`: Why data is stored
+
+**Example:**
+```json
+{
+  "source": "function:init_screen",
+  "target": "session:keiyakuListVO",
+  "relationship_type": "STORES",
+  "storage_purpose": "Preserve contract list data across requests"
+}
+```
+
+### 5. NAVIGATES_TO Relationship
+- **Source:** Screen, Function
+- **Target:** Screen
+- **Description:** Navigation flow between screens
+- **Properties:**
+  - `relationship_type`: "NAVIGATES_TO"
+  - `trigger`: What triggers navigation
+  - `condition`: Under what condition navigation occurs
+
+**Example:**
+```json
+{
+  "source": "screen:contract_list_main",
+  "target": "screen:housing_contract",
+  "relationship_type": "NAVIGATES_TO",
+  "trigger": "Housing contract selection",
+  "condition": "User selects housing contract type"
+}
+```
+
+### Relationship Extraction Rules
+
+1. **Hierarchy Pattern:** Extract BELONGS_TO relationships for all containment hierarchies:
+   - Screen → Module
+   - Function → Module
+   - Form → Module
+   - Session → Module
+
+2. **Functional Relationships:** Extract PROVIDES for Screen→Function to show which functions are available in which screens
+
+3. **Data Flow:** Use USES_FORM and STORES for functions that work with forms and sessions
+
+4. **Navigation Flow:** Use NAVIGATES_TO for all screen transitions mentioned in documentation
+
+5. **Completeness:** For each entity, extract:
+   - At least one BELONGS_TO relationship (except Module)
+   - All functional relationships (PROVIDES, USES_FORM, etc.)
+   - All navigation flows (NAVIGATES_TO)
+   - All data dependencies (STORES)
 
 ---
 
@@ -175,16 +310,19 @@ These UI and interaction entities have been moved to a separate instruction file
 
 ### 6. Database Table References
 - **DO NOT create separate database entities** - database tables will be maintained in a shared database schema file 
-- - **DO NOT reference database entities** - The relationship will be build later
+- **DO NOT reference database entities** - The relationship will be built later
+
 ---
 
 ## Specific Focus for This Task
 
-**Primary Objective:** Extract all **Entities** from the contract-list module.
+**Primary Objective:** Extract all **Entities and Relationships** from the contract-list module.
 
 ### Important Notes
 
-1. **Screen Extraction Source**: All screens navigable from this module are documented in `ctc-data-en/contract-list/screen-flow-en.md`. Extract each screen mentioned in the "Main Features" section as a separate screen entity, including:
+1. **Module Structure**: The contract-list module is a list/table-based module without tabs. It focuses on displaying and managing contracts in a tabular format with functions for initialization and deletion.
+
+2. **Screen Extraction Source**: All screens navigable from this module are documented in `ctc-data-en/contract-list/screen-flow-en.md`. Extract each screen mentioned in the "Main Features" section as a separate screen entity, including:
    - Contract List Screen (keiyakuListInit)
    - Contract Type Selection (keiyakuListAssign)
    - Additional Contract Creation (tsuikaKeiyakuDispatch)
@@ -194,9 +332,13 @@ These UI and interaction entities have been moved to a separate instruction file
    - Multiple Orders (moushideSelectInit)
    - Contract Details (anchorKeiyakuDispatch)
 
-2. **Database Tables**: DO NOT create separate database entities or reference tables in entity properties
+3. **Function Focus**: The contract-list module has two main functions:
+   - **List Initialization Feature**: Documented in `ctc-data-en/contract-list/functions/init-screen/`
+   - **Contract Deletion Feature**: Documented in `ctc-data-en/contract-list/functions/delete-contract/`
+   
+4. **Database Tables**: DO NOT create separate database entities or reference tables in entity properties
 
-3. **Layered Architecture**: Component entities (Action, Delegate, Facade, Product, DAO) are documented separately in `extract-component-entity-contract-list.md` and will not be listed in this task
+5. **Layered Architecture**: Component entities (Action, Delegate, Facade, Product, DAO) are documented separately in `extract-component-entity-contract-list.md` and will not be listed in this task
 
 ### Example Screen Entity
 ```json
@@ -215,7 +357,7 @@ These UI and interaction entities have been moved to a separate instruction file
   "pagination": false,
   "main_jsp": "keiyakuList.jsp",
   "action_class": "KeiyakuListInitAction",
-  "source_file": "ctc-data-en/contract-list/overview-en.md"
+  "source_file_0": "ctc-data-en/contract-list/overview-en.md"
 }
 ```
 
@@ -248,14 +390,14 @@ These UI and interaction entities have been moved to a separate instruction file
   "object_name": "KeiyakuVO",
   "fields": "keiyakuKey;keiyakuNo;keiyakuStatusCd;keiyakuCardSyubetsuCd;keiyakuUkagaiKbn",
   "purpose": "Transfer contract data between layers",
-  "source_file": "ctc-data-en/contract-list/overview-en.md"
+  "source_file_0": "ctc-data-en/contract-list/overview-en.md"
 }
 ```
 
 ### Example Form Entity
 ```json
 {
-  "id": "form:anken_card_form",
+  "id": "form:anken_cardForm",
   "type": "form",
   "name": "Project Card Form",
   "parent_module": "module:contract-list",
@@ -264,47 +406,136 @@ These UI and interaction entities have been moved to a separate instruction file
   "scope": "request",
   "submission_action": "/keiyakuListInit.do",
   "description": "Form for project context data used in screen initialization",
-  "source_file": "ctc-data-en/contract-list/components/form-fields-en.md"
+  "fields": "ankenNo;keiyakuKey;contractType",
+  "source_file_0": "ctc-data-en/contract-list/components/form-fields-en.md"
 }
 ```
 
-### Example Form Field Entity
+---
+
+## Example Entities and Relationships
+
+**Entities Array:**
 ```json
 {
-  "id": "form_field:anken_no",
-  "type": "form_field",
-  "name": "Project Number Field",
-  "parent_module": "module:contract-list",
-  "field_name": "ankenNo",
-  "field_type": "String",
-  "required": true,
-  "form_id": "anken_cardForm",
-  "validation_rules": "ankenNo is required for screen initialization",
-  "source_file": "ctc-data-en/contract-list/components/form-fields-en.md"
+  "entities": [
+    {
+      "id": "screen:contract_list_main",
+      "type": "screen",
+      "name": "Contract List Main Screen",
+      "parent_module": "module:contract-list",
+      "screen_id": "GCNT90001",
+      "title": "Contract List",
+      "url_pattern": "/dsmart/contract/keiyakuList/keiyakuListInit.do",
+      "layout_type": "data_table",
+      "main_jsp": "keiyakuList.jsp",
+      "action_class": "KeiyakuListInitAction",
+      "description": "Main contract list screen displaying all contracts in tabular format",
+      "source_file_0": "ctc-data-en/contract-list/overview-en.md"
+    },
+    {
+      "id": "function:contract_deletion",
+      "type": "function",
+      "name": "Contract Deletion Feature",
+      "parent_module": "module:contract-list",
+      "function_name": "delete-contract",
+      "url": "/dsmart/contract/keiyakuList/keiyakuListDispatch.do?actionType=delete_contract",
+      "parameters": "{\"actionType\":{\"name\":\"actionType\",\"type\":\"String\",\"value\":\"delete_contract\",\"required\":true},\"keiyakuKey\":{\"name\":\"keiyakuKey\",\"type\":\"Long\",\"description\":\"Selected contract key to delete\",\"required\":true}}",
+      "return_type": "Forward",
+      "output_success": "/keiyakuListInit.do",
+      "description": "Performs logical deletion of selected contract",
+      "source_file_0": "ctc-data-en/contract-list/functions/delete-contract/function-overview-en.md"
+    },
+    {
+      "id": "form:anken_cardForm",
+      "type": "form",
+      "name": "Project Card Form",
+      "parent_module": "module:contract-list",
+      "form_id": "anken_cardForm",
+      "form_bean_class": "AnkenCardForm",
+      "scope": "request",
+      "fields": "ankenNo;keiyakuKey;contractType",
+      "description": "Form for project context data",
+      "source_file_0": "ctc-data-en/contract-list/components/form-fields-en.md"
+    }
+  ],
+  "relationships": [
+    {
+      "source": "screen:contract_list_main",
+      "target": "module:contract-list",
+      "relationship_type": "BELONGS_TO"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "module:contract-list",
+      "relationship_type": "BELONGS_TO"
+    },
+    {
+      "source": "screen:contract_list_main",
+      "target": "function:contract_deletion",
+      "relationship_type": "PROVIDES",
+      "function_category": "contract_management"
+    },
+    {
+      "source": "function:contract_deletion",
+      "target": "form:anken_cardForm",
+      "relationship_type": "USES_FORM",
+      "usage_context": "Contract context data"
+    },
+    {
+      "source": "screen:contract_list_main",
+      "target": "screen:housing_contract",
+      "relationship_type": "NAVIGATES_TO",
+      "trigger": "Housing contract selection",
+      "condition": "User selects housing contract type"
+    }
+  ]
 }
 ```
+
+**Key Points:**
+- Entities have NO relationship fields (`parent_screen_id`, `parent_module_id`, etc.)
+- Relationships are stored in a separate array
+- All properties are at the top level (no nesting)
+- Form IDs use original bean class names (e.g., `form:anken_cardForm`)
+- Function names match folder names (e.g., `delete-contract`, `init-screen`)
+
 ---
 
 ## Task Execution
 
 1. **Read** all markdown files in the `ctc-data-en/contract-list/` directory
 2. **Identify** all entities according to the taxonomy (excluding database table entities and component entities)
-3. **Extract** entity information according to the schema
+3. **Extract** entity information according to the schema:
    - For screens: Use `ctc-data-en/contract-list/screen-flow-en.md` as the primary source
-   - For functions: Use `ctc-data-en/contract-list/functions` as the primary source
-   - For forms and form fields: Use `ctc-data-en/contract-list/components/form-fields-en.md` as the primary source
-   - **Create separate entities for form fields** with relationships to parent forms
-   - **Convert array fields to semicolon-separated strings** (e.g., fields, validation_rules)
-   - **Convert complex parameters to stringified JSON** for function entities
+   - For functions: Use `ctc-data-en/contract-list/functions/` as the primary source (init-screen and delete-contract)
+   - For forms: Use `ctc-data-en/contract-list/components/form-fields-en.md` as the primary source
+   - For sessions: Extract session attributes from function overviews and overview documents
+   - **DO NOT include relationship fields** like `parent_screen_id`, `parent_module_id`
 
-4. **Validate** JSON structure and required fields
-5. **Output** entities to appropriate JSON files:
-   - Main entities: `json/contract-list-entities.json`
+4. **Extract** relationships according to the relationship taxonomy:
+   - BELONGS_TO: For all hierarchical relationships (Screen→Module, Function→Module, etc.)
+   - PROVIDES: For Screen→Function relationships
+   - USES_FORM: For Function→Form relationships
+   - STORES: For Function/Screen→Session relationships
+   - NAVIGATES_TO: For Screen→Screen navigation flows
+
+5. **Validate** JSON structure and required fields
+6. **Output** to `json/contract-list/contract-list-entities.json` with structure:
+   ```json
+   {
+     "entities": [ /* array of entity objects */ ],
+     "relationships": [ /* array of relationship objects */ ]
+   }
+   ```
 
 **Format Guidelines:**
-- No nested properties - all fields at root level
-- Arrays converted to semicolon-separated strings
-- Complex objects (like function parameters) as stringified JSON
-- Forms and form fields as separate entities for better relationship modeling
+- **All properties at top level** - no nested `properties` or `metadata` objects
+- **Source files** use `source_file_0`, `source_file_1` naming
+- **Arrays** converted to semicolon-separated strings where appropriate
+- **Complex parameters** as stringified JSON for function entities
+- **NO relationship fields** in entities - use relationships array only
+- **Relationships are separate** from entities in the JSON structure
+- **Form IDs** use original bean class names (e.g., `form:anken_cardForm`)
 
 Focus on precision, completeness, and maintaining the semantic meaning from the source documentation. 

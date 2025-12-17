@@ -1,0 +1,145 @@
+{
+  "module": "contract-list",
+  "tab_name": "contract-list",
+  "source_file": "contract-list/components/validation-rules-en.md",
+  "entities": [
+    {
+      "id": "validation_rules:contract-list:contract-list",
+      "type": "validation_rules",
+      "name": "Validation Rules",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/components/validation-rules-en.md"
+    },
+    {
+      "id": "validation_rules_section:contract-list:contract-list:keiyakulistinit_list_initialization",
+      "type": "validation_rules_section",
+      "name": "keiyakuListInit (List Initialization)",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/components/validation-rules-en.md",
+      "heading_level": 2,
+      "heading_raw": "1. keiyakuListInit (List Initialization)",
+      "content": ""
+    },
+    {
+      "id": "validation_rules_section:contract-list:contract-list:field_level_validation",
+      "type": "validation_rules_section",
+      "name": "Field-Level Validation",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/components/validation-rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "Field-Level Validation",
+      "content": "- `keiyakuListKensakuForm` (Search Form) `validation.xml` definition:\n  - `keiyakuNo`: Integer check\n  - `koujiName`, `keiyakusyaName`: Full-width character check (zenkaku)\n  - `keiyakuTeiketsuDateFrom`/`keiyakuTeiketsuDateTo`: Period consistency check, format `yyyy/MM/dd`\n  - `keiyakuKeijyouDateFrom`/`keiyakuKeijyouDateTo`: Period consistency check, format `yyyy/MM/dd`\n- List UI validation is primarily performed by server-side business logic (client-side rules are minimal)"
+    },
+    {
+      "id": "validation_rules_section:contract-list:contract-list:format_and_business_rule_validation",
+      "type": "validation_rules_section",
+      "name": "Format and Business Rule Validation",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/components/validation-rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "Format and Business Rule Validation",
+      "content": "| Field | Rule | Reference |\n|------|------|------|\n| keiyakuNo | Integer (search), unique (business) | validation.xml, DB |\n| koujiName | Full-width characters | validation.xml |\n| keiyakusyaName | Full-width characters | validation.xml |\n| keiyakuTeiketsuDateFrom/To | Date, From-To logic | validation.xml |\n| keiyakuKeijyouDateFrom/To | Date, From-To logic | validation.xml |\n| ... | ... | ... |"
+    },
+    {
+      "id": "validation_rules_section:contract-list:contract-list:dynamicconditional_validation",
+      "type": "validation_rules_section",
+      "name": "Dynamic/Conditional Validation",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/components/validation-rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "Dynamic/Conditional Validation",
+      "content": "- Some validations are executed depending on the action (e.g., during search, submission, deletion)\n- Business rules such as contract uniqueness and status are implemented on the Java server side"
+    },
+    {
+      "id": "validation_rules_section:contract-list:contract-list:execution_timing",
+      "type": "validation_rules_section",
+      "name": "Execution Timing",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/components/validation-rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "Execution Timing",
+      "content": "- During search: Validation on both client and server sides (refer to JSP and Struts configuration)\n- During list operations: Server-side validation in action class and business logic\n---"
+    },
+    {
+      "id": "validation_rules_section:contract-list:contract-list:delete_contract_contract_deletion",
+      "type": "validation_rules_section",
+      "name": "delete_contract (Contract Deletion)",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/components/validation-rules-en.md",
+      "heading_level": 2,
+      "heading_raw": "2. delete_contract (Contract Deletion)",
+      "content": ""
+    },
+    {
+      "id": "validation_rules_section:contract-list:contract-list:business_rule_validation_deletion",
+      "type": "validation_rules_section",
+      "name": "Business Rule Validation (Deletion)",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/components/validation-rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "Business Rule Validation (Deletion)",
+      "content": "- No field-level definitions specific to deletion in `validation.xml`. All determined by server-side business logic:\n  - Must not be a primary contract, must not be linked to other data, etc.\n  - Checked in `KeiyakuDeleteAction` and related delegate/facade/product classes"
+    },
+    {
+      "id": "validation_rules_section:contract-list:contract-list:validation_flow",
+      "type": "validation_rules_section",
+      "name": "Validation Flow",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/components/validation-rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "Validation Flow",
+      "content": "- After confirmation dialog when delete button is clicked, submit with `actionType=delete_contract`\n- Execute deletion after confirming all business constraints are satisfied on the backend\n---"
+    }
+  ],
+  "relationships": [
+    {
+      "source": "validation_rules:contract-list:contract-list",
+      "target": "validation_rules_section:contract-list:contract-list:keiyakulistinit_list_initialization",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:contract-list:contract-list:keiyakulistinit_list_initialization",
+      "target": "validation_rules_section:contract-list:contract-list:field_level_validation",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:contract-list:contract-list:keiyakulistinit_list_initialization",
+      "target": "validation_rules_section:contract-list:contract-list:format_and_business_rule_validation",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:contract-list:contract-list:keiyakulistinit_list_initialization",
+      "target": "validation_rules_section:contract-list:contract-list:dynamicconditional_validation",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:contract-list:contract-list:keiyakulistinit_list_initialization",
+      "target": "validation_rules_section:contract-list:contract-list:execution_timing",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules:contract-list:contract-list",
+      "target": "validation_rules_section:contract-list:contract-list:delete_contract_contract_deletion",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:contract-list:contract-list:delete_contract_contract_deletion",
+      "target": "validation_rules_section:contract-list:contract-list:business_rule_validation_deletion",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:contract-list:contract-list:delete_contract_contract_deletion",
+      "target": "validation_rules_section:contract-list:contract-list:validation_flow",
+      "relationship_type": "HAS_SECTION"
+    }
+  ]
+}

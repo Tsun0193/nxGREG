@@ -1,0 +1,291 @@
+{
+  "module": "housing",
+  "tab_name": "basic-info-housing-contract",
+  "source_file": "housing/basic-info-housing-contract/screen-specification/event_handling_rules-en.md",
+  "entities": [
+    {
+      "id": "event_processing_rules:housing:basic-info-housing-contract",
+      "type": "event_processing_rules",
+      "name": "Event Processing Rules",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/event_handling_rules-en.md"
+    },
+    {
+      "id": "event_processing_rules_section:housing:basic-info-housing-contract:main_event_list",
+      "type": "event_processing_rules_section",
+      "name": "Main Event List",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/event_handling_rules-en.md",
+      "heading_level": 2,
+      "heading_raw": "1. Main Event List",
+      "content": ""
+    },
+    {
+      "id": "event_processing_rules_section:housing:basic-info-housing-contract:form_submission_events",
+      "type": "event_processing_rules_section",
+      "name": "Form Submission Events",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/event_handling_rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "1.1 Form Submission Events",
+      "content": "| No. | Event Type | JavaScript Function | Action Type | Description |\n|-----|------------|-------------------|-------------|-------------|\n| 1 | Form Submit | `comIsFirstSubmit()` | Form Validation | Prevention of multiple submissions |\n| 2 | Form Submit | `KihonTabDispatchAction` | Form Processing | Execution of form data and validation |"
+    },
+    {
+      "id": "event_processing_rules_section:housing:basic-info-housing-contract:page_load_events",
+      "type": "event_processing_rules_section",
+      "name": "Page Load Events",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/event_handling_rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "1.2 Page Load Events",
+      "content": "| No. | Event Type | JavaScript Function | Trigger Condition | Description |\n|-----|------------|-------------------|-------------------|-------------|\n| 1 | onLoad | `cntDfcGokeiyakusyaCardOutputKakunin()` | `printDfcGokeiyakusyaCardSuccessFlg = true` | DFC card output confirmation |\n| 2 | onLoad | `openDfcAnnai()` | `aftDfcUrlFlg = true` | DFC information dialog |\n| 3 | onLoad | `printKeiyakuInsatsuChk()` | `printKeiyakuInsatsuSuccessFlg = false` | Contract printing check |\n| 4 | onLoad | `printKeiyakuInsatsuDownload()` | `printKeiyakuInsatsuSuccessFlg = true` | Contract printing download |\n| 5 | onLoad | `showModalDialog()` | `printCheckSuccessFlg = true` | Print check modal |\n| 6 | onLoad | `showModalDialog()` | `printHanshaCheckSuccessFlg = true` | Reflection check modal |\n| 7 | onLoad | `showModalDialog()` | `seigouseiCheckSuccessFlg = true` AND `keiriNorRegistFlg = true` | Accounting registration modal |\n| 8 | onLoad | `cntSeigouseiCheckMessage()` | `seigouseiCheckSuccessFlg = true` AND `keiriNorRegistFlg = false` | Consistency check message |\n| 9 | onLoad | `showModalDialog()` | `keiriNoSetIsDoneFlg = true` | Accounting settings modal |"
+    },
+    {
+      "id": "event_processing_rules_section:housing:basic-info-housing-contract:button_events",
+      "type": "event_processing_rules_section",
+      "name": "Button Events",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/event_handling_rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "1.3 Button Events",
+      "content": ""
+    },
+    {
+      "id": "event_processing_rules_section:housing:basic-info-housing-contract:main_action_buttons",
+      "type": "event_processing_rules_section",
+      "name": "Main Action Buttons (derived from cancelUpdateButton.txt)",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/event_handling_rules-en.md",
+      "heading_level": 4,
+      "heading_raw": "Main Action Buttons (derived from cancelUpdateButton.txt)",
+      "content": "| No. | Button Type | JavaScript Function | Action Type | Display Condition | Description |\n|-----|-------------|-------------------|-------------|-------------------|-------------|\n| 1 | Cancel Changes | `cntCancelUpdateSubmit(this.form, 'cancelUpdate')` | Form Cancellation | `hensyuMode = HENSYU_MODE_HENKOU` | Cancel changes in edit mode |\n| 2 | Expected Information | `doHalKitaiSentakuButton()` | External System | `ankenBunruiSyousaiCd = ANKEN_BUNRUI_SYOUSAI_CD_HAL` AND `sinkiSakuseiKbn = SHINKI_SAKUSEI_KBN_KIZON` | To HAL system expected information |\n| 3 | Expected Information | `doParoDairiTenButton()` | External System | `ankenBunruiSyousaiCd = ANKEN_BUNRUI_SYOUSAI_CD_PARO` AND `roboParoToriatsukaiKbn = RBT_PARO_TORIATSUKAI_KBN_DAIRI` | To PARO system (agent) |\n| 4 | Expected Information | `doParoToritsugiTenButton()` | External System | `ankenBunruiSyousaiCd = ANKEN_BUNRUI_SYOUSAI_CD_PARO` AND `roboParoToriatsukaiKbn = RBT_PARO_TORIATSUKAI_KBN_TORITSUGI` | To PARO system (intermediary) |\n| 5 | Expected Information | `doSeniorPoseButton()` | External System | `ankenBunruiSyousaiCd = ANKEN_BUNRUI_SYOUSAI_CD_SP` AND `sinkiSakuseiKbn = SHINKI_SAKUSEI_KBN_KIZON` | To Senior Pose system |\n| 6 | Register | `cntChkGijyutsusyaHaichi(this.form);cntClickRegister(this.form, 'register')` | Submit | Always displayed | Submit after technician placement check |"
+    },
+    {
+      "id": "event_processing_rules_section:housing:basic-info-housing-contract:backclose_buttons",
+      "type": "event_processing_rules_section",
+      "name": "Back/Close Buttons (derived from closeReturnButton.txt)",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/event_handling_rules-en.md",
+      "heading_level": 4,
+      "heading_raw": "Back/Close Buttons (derived from closeReturnButton.txt)",
+      "content": "| No. | Button Type | JavaScript Function | Action Type | Display Condition | Description |\n|-----|-------------|-------------------|-------------|-------------------|-------------|\n| 7 | Back | `cntSubmit(this.form, 'returnAnken')` | Navigation | `pre_screan = CONTRACT_KEIYAKU_CARD_PRE_SCREAN_AFTER` | Return to previous screen after card display |\n| 8 | Close | `javascript:window.close()` | Window Close | `ankenBunruiCd = ANKENBUNRUICD_APARTMENT` AND `flg = CONTRACT_FROM_KEIYAKU_FIND` | Close window for apartment contracts from list |\n| 9 | Close | `cntParentScreanReload('/dsmart/contract/keiyakuList/kanryouAction.do')` | Parent Screen Reload | `ankenBunruiCd = ANKENBUNRUICD_APARTMENT` AND `nayoseFlg ≠ CONTRACT_FROM_NAYOSE` | Reload parent screen |\n| 10 | Back | `cntSubmit(this.form, 'returnAnken')` | Navigation | `pre_screan = CONTRACT_KEIYAKU_CARD_PRE_SCREAN_SEIKYU_NYUKIN_JYOUKYOU` | Return to billing/payment status screen |"
+    },
+    {
+      "id": "event_processing_rules_section:housing:basic-info-housing-contract:navigation_events",
+      "type": "event_processing_rules_section",
+      "name": "Navigation Events",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/event_handling_rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "1.4 Navigation Events",
+      "content": "| No. | Event Type | JavaScript Function | Action Type | Description |\n|-----|------------|-------------------|-------------|-------------|\n| 1 | Tab Transition | `cntSetTarget()` | Tab Switch | Navigation between contract tabs |\n| 2 | Yamazumi Button | `yamazumiHyoBtnControl.jsp` | Yamazumi Display | Display Yamazumi information |"
+    },
+    {
+      "id": "event_processing_rules_section:housing:basic-info-housing-contract:modal_dialog_events",
+      "type": "event_processing_rules_section",
+      "name": "Modal Dialog Events",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/event_handling_rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "1.5 Modal Dialog Events",
+      "content": "| No. | Dialog Type | Trigger Function | Dialog Content | Purpose |\n|-----|-------------|------------------|----------------|---------|\n| 1 | DFC Card Output | `cntDfcGokeiyakusyaCardOutputKakunin()` | DFC Card Output Confirmation | Confirmation of DFC card output |\n| 2 | DFC Information | `openDfcAnnai()` | DFC Information | Display DFC information |\n| 3 | Contract Print Check | `printKeiyakuInsatsuChk()` | Contract Print Check Dialog | Confirmation of print settings |\n| 4 | Print Check | `showModalDialog('/dsmart/contract/keiyakusyoKagamiPrint.jsp')` | Print Check Dialog | Confirmation of print check |\n| 5 | Reflection Check | `showModalDialog('/dsmart/contract/keiyakusyoHanshaKagamiPrint.jsp')` | Reflection Check Dialog | Confirmation of reflection check |\n| 6 | Accounting Registration | `showModalDialog('/dsmart/contract/ukeoi/keiyakuNewtmp/keiriRegisterKakuninFrame.jsp')` | Accounting Registration Dialog | Confirmation of accounting registration |\n| 7 | Accounting Settings | `showModalDialog('/dsmart/contract/ukeoi/keiyakuNewtmp/keiriNoSet.jsp')` | Accounting Settings Dialog | Confirmation of accounting settings |"
+    },
+    {
+      "id": "event_processing_rules_section:housing:basic-info-housing-contract:event_processing_flow",
+      "type": "event_processing_rules_section",
+      "name": "Event Processing Flow",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/event_handling_rules-en.md",
+      "heading_level": 2,
+      "heading_raw": "2. Event Processing Flow",
+      "content": ""
+    },
+    {
+      "id": "event_processing_rules_section:housing:basic-info-housing-contract:overall_processing_workflow",
+      "type": "event_processing_rules_section",
+      "name": "Overall Processing Workflow",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/event_handling_rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "2.1 Overall Processing Workflow",
+      "content": "```mermaid\nsequenceDiagram\n    participant User as User\n    participant JSP as JSP Screen\n    participant JS as JavaScript\n    participant Form as HTML Form\n    participant Action as Struts Action\n    participant Service as Business Service\n    participant DB as Database\n    \n    User->>JSP: Load page\n    JSP->>JS: Check onLoad conditions\n    JS->>JS: Execute condition logic\n    JS->>JSP: Display modal as needed\n    \n    User->>JSP: Submit form\n    JSP->>JS: Launch comIsFirstSubmit()\n    JS->>Form: Submit validation\n    Form->>Action: HTTP request\n    Action->>Service: Execute business logic\n    Service->>DB: DB processing\n    DB-->>Service: Return results\n    Service-->>Action: Processing results\n    Action-->>JSP: Forward to next screen\n    JSP-->>User: Display updated screen\n```"
+    },
+    {
+      "id": "event_processing_rules_section:housing:basic-info-housing-contract:page_load_event_flow",
+      "type": "event_processing_rules_section",
+      "name": "Page Load Event Flow",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/event_handling_rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "2.2 Page Load Event Flow",
+      "content": "```mermaid\nflowchart TD\n    A[Page Load] --> B{Check printDfcGokeiyakusyaCardSuccessFlg}\n    B -->|true| C[Execute cntDfcGokeiyakusyaCardOutputKakunin]\n    B -->|false| D{Check aftDfcUrlFlg}\n    D -->|true| E[Execute openDfcAnnai]\n    D -->|false| F{Check printKeiyakuInsatsuSuccessFlg}\n    F -->|true| G[Execute printKeiyakuInsatsuDownload]\n    F -->|false| H[Execute printKeiyakuInsatsuChk]\n    H --> I{Check printCheckSuccessFlg}\n    I -->|true| J[Print check dialog]\n    I -->|false| K{Check printHanshaCheckSuccessFlg}\n    K -->|true| L[Reflection check dialog]\n    K -->|false| M{Check seigouseiCheckSuccessFlg}\n    M -->|true| N{Check keiriNorRegistFlg}\n    N -->|true| O[Accounting registration dialog]\n    N -->|false| P[Execute cntSeigouseiCheckMessage]\n    M -->|false| Q{Check keiriNoSetIsDoneFlg}\n    Q -->|true| R[Accounting settings dialog]\n    Q -->|false| S[Load complete]\n```"
+    },
+    {
+      "id": "event_processing_rules_section:housing:basic-info-housing-contract:form_submission_flow",
+      "type": "event_processing_rules_section",
+      "name": "Form Submission Flow",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/event_handling_rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "2.3 Form Submission Flow",
+      "content": "```mermaid\nflowchart TD\n    A[Form Submission] --> B[Execute comIsFirstSubmit]\n    B --> C{First submission?}\n    C -->|No| D[Cancel submission]\n    C -->|Yes| E[Submit form]\n    E --> F[KihonTabDispatchAction]\n    F --> G[Validation check]\n    G --> H{Validation OK?}\n    H -->|No| I[Display error]\n    H -->|Yes| J[Action processing]\n    J --> K[Business logic]\n    K --> L[DB processing]\n    L --> M[Return results]\n```"
+    },
+    {
+      "id": "event_processing_rules_section:housing:basic-info-housing-contract:event_flow_mapping",
+      "type": "event_processing_rules_section",
+      "name": "Event Flow Mapping",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/event_handling_rules-en.md",
+      "heading_level": 2,
+      "heading_raw": "3. Event Flow Mapping",
+      "content": "| Event Type | Trigger | Processing | Result |\n|------------|---------|------------|--------|\n| Page Load | Browser load | Check control flags → Execute JavaScript | Display modal or complete loading |\n| Form Submit | User submit | Submit validation → Form processing → Execute action | Screen update or error display |\n| Tab Navigation | User click | Execute cntSetTarget → Tab transition | Tab switch |\n| Modal Dialog | Control flag | Execute showModalDialog → Display dialog | Modal display |\n| Cancel Update | User click | Execute cancellation logic → Initialize form | Form reset |"
+    },
+    {
+      "id": "event_flow:housing:basic-info-housing-contract:overall_processing_workflow:1",
+      "type": "event_processing_flow",
+      "name": "Overall Processing Workflow",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/event_handling_rules-en.md",
+      "mermaid_kind": "sequenceDiagram",
+      "mermaid": "sequenceDiagram\n    participant User as User\n    participant JSP as JSP Screen\n    participant JS as JavaScript\n    participant Form as HTML Form\n    participant Action as Struts Action\n    participant Service as Business Service\n    participant DB as Database\n    \n    User->>JSP: Load page\n    JSP->>JS: Check onLoad conditions\n    JS->>JS: Execute condition logic\n    JS->>JSP: Display modal as needed\n    \n    User->>JSP: Submit form\n    JSP->>JS: Launch comIsFirstSubmit()\n    JS->>Form: Submit validation\n    Form->>Action: HTTP request\n    Action->>Service: Execute business logic\n    Service->>DB: DB processing\n    DB-->>Service: Return results\n    Service-->>Action: Processing results\n    Action-->>JSP: Forward to next screen\n    JSP-->>User: Display updated screen"
+    },
+    {
+      "id": "event_flow:housing:basic-info-housing-contract:page_load_event_flow:1",
+      "type": "event_processing_flow",
+      "name": "Page Load Event Flow",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/event_handling_rules-en.md",
+      "mermaid_kind": "flowchart",
+      "mermaid": "flowchart TD\n    A[Page Load] --> B{Check printDfcGokeiyakusyaCardSuccessFlg}\n    B -->|true| C[Execute cntDfcGokeiyakusyaCardOutputKakunin]\n    B -->|false| D{Check aftDfcUrlFlg}\n    D -->|true| E[Execute openDfcAnnai]\n    D -->|false| F{Check printKeiyakuInsatsuSuccessFlg}\n    F -->|true| G[Execute printKeiyakuInsatsuDownload]\n    F -->|false| H[Execute printKeiyakuInsatsuChk]\n    H --> I{Check printCheckSuccessFlg}\n    I -->|true| J[Print check dialog]\n    I -->|false| K{Check printHanshaCheckSuccessFlg}\n    K -->|true| L[Reflection check dialog]\n    K -->|false| M{Check seigouseiCheckSuccessFlg}\n    M -->|true| N{Check keiriNorRegistFlg}\n    N -->|true| O[Accounting registration dialog]\n    N -->|false| P[Execute cntSeigouseiCheckMessage]\n    M -->|false| Q{Check keiriNoSetIsDoneFlg}\n    Q -->|true| R[Accounting settings dialog]\n    Q -->|false| S[Load complete]"
+    },
+    {
+      "id": "event_flow:housing:basic-info-housing-contract:form_submission_flow:1",
+      "type": "event_processing_flow",
+      "name": "Form Submission Flow",
+      "module": "housing",
+      "tab_name": "basic-info-housing-contract",
+      "source_file": "housing/basic-info-housing-contract/screen-specification/event_handling_rules-en.md",
+      "mermaid_kind": "flowchart",
+      "mermaid": "flowchart TD\n    A[Form Submission] --> B[Execute comIsFirstSubmit]\n    B --> C{First submission?}\n    C -->|No| D[Cancel submission]\n    C -->|Yes| E[Submit form]\n    E --> F[KihonTabDispatchAction]\n    F --> G[Validation check]\n    G --> H{Validation OK?}\n    H -->|No| I[Display error]\n    H -->|Yes| J[Action processing]\n    J --> K[Business logic]\n    K --> L[DB processing]\n    L --> M[Return results]"
+    }
+  ],
+  "relationships": [
+    {
+      "source": "event_processing_rules:housing:basic-info-housing-contract",
+      "target": "tab:basic_information_housing",
+      "relationship_type": "DESCRIBES",
+      "description": "Event processing rules describe tab:basic_information_housing"
+    },
+    {
+      "source": "event_processing_rules:housing:basic-info-housing-contract",
+      "target": "event_processing_rules_section:housing:basic-info-housing-contract:main_event_list",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "event_processing_rules_section:housing:basic-info-housing-contract:main_event_list",
+      "target": "event_processing_rules_section:housing:basic-info-housing-contract:form_submission_events",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "event_processing_rules_section:housing:basic-info-housing-contract:main_event_list",
+      "target": "event_processing_rules_section:housing:basic-info-housing-contract:page_load_events",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "event_processing_rules_section:housing:basic-info-housing-contract:main_event_list",
+      "target": "event_processing_rules_section:housing:basic-info-housing-contract:button_events",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "event_processing_rules_section:housing:basic-info-housing-contract:button_events",
+      "target": "event_processing_rules_section:housing:basic-info-housing-contract:main_action_buttons",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "event_processing_rules_section:housing:basic-info-housing-contract:button_events",
+      "target": "event_processing_rules_section:housing:basic-info-housing-contract:backclose_buttons",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "event_processing_rules_section:housing:basic-info-housing-contract:main_event_list",
+      "target": "event_processing_rules_section:housing:basic-info-housing-contract:navigation_events",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "event_processing_rules_section:housing:basic-info-housing-contract:main_event_list",
+      "target": "event_processing_rules_section:housing:basic-info-housing-contract:modal_dialog_events",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "event_processing_rules:housing:basic-info-housing-contract",
+      "target": "event_processing_rules_section:housing:basic-info-housing-contract:event_processing_flow",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "event_processing_rules_section:housing:basic-info-housing-contract:event_processing_flow",
+      "target": "event_processing_rules_section:housing:basic-info-housing-contract:overall_processing_workflow",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "event_processing_rules_section:housing:basic-info-housing-contract:event_processing_flow",
+      "target": "event_processing_rules_section:housing:basic-info-housing-contract:page_load_event_flow",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "event_processing_rules_section:housing:basic-info-housing-contract:event_processing_flow",
+      "target": "event_processing_rules_section:housing:basic-info-housing-contract:form_submission_flow",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "event_processing_rules:housing:basic-info-housing-contract",
+      "target": "event_processing_rules_section:housing:basic-info-housing-contract:event_flow_mapping",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "event_processing_rules:housing:basic-info-housing-contract",
+      "target": "event_flow:housing:basic-info-housing-contract:overall_processing_workflow:1",
+      "relationship_type": "HAS_FLOW"
+    },
+    {
+      "source": "event_processing_rules_section:housing:basic-info-housing-contract:overall_processing_workflow",
+      "target": "event_flow:housing:basic-info-housing-contract:overall_processing_workflow:1",
+      "relationship_type": "HAS_DIAGRAM"
+    },
+    {
+      "source": "event_processing_rules:housing:basic-info-housing-contract",
+      "target": "event_flow:housing:basic-info-housing-contract:page_load_event_flow:1",
+      "relationship_type": "HAS_FLOW"
+    },
+    {
+      "source": "event_processing_rules_section:housing:basic-info-housing-contract:page_load_event_flow",
+      "target": "event_flow:housing:basic-info-housing-contract:page_load_event_flow:1",
+      "relationship_type": "HAS_DIAGRAM"
+    },
+    {
+      "source": "event_processing_rules:housing:basic-info-housing-contract",
+      "target": "event_flow:housing:basic-info-housing-contract:form_submission_flow:1",
+      "relationship_type": "HAS_FLOW"
+    },
+    {
+      "source": "event_processing_rules_section:housing:basic-info-housing-contract:form_submission_flow",
+      "target": "event_flow:housing:basic-info-housing-contract:form_submission_flow:1",
+      "relationship_type": "HAS_DIAGRAM"
+    }
+  ]
+}

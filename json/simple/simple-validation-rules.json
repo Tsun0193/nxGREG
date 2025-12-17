@@ -1,0 +1,337 @@
+{
+  "module": "simple",
+  "tab_name": "yuusyou-kihon",
+  "source_file": "simple/yuusyou-kihon/components/validation-rules-en.md",
+  "entities": [
+    {
+      "id": "validation_rules:simple:yuusyou-kihon",
+      "type": "validation_rules",
+      "name": "Validation Rules",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/components/validation-rules-en.md"
+    },
+    {
+      "id": "validation_rules_section:simple:yuusyou-kihon:field_level_validation",
+      "type": "validation_rules_section",
+      "name": "Field-Level Validation",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/components/validation-rules-en.md",
+      "heading_level": 2,
+      "heading_raw": "Field-Level Validation",
+      "content": ""
+    },
+    {
+      "id": "validation_rules_section:simple:yuusyou-kihon:required_field_rules",
+      "type": "validation_rules_section",
+      "name": "Required Field Rules",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/components/validation-rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "Required Field Rules",
+      "content": "| Field | Rule | Error Message Key |\n|-------|------|------------------|\n| `keiyaku_no` | Cannot be null, cannot be empty | `error.keiyaku.no.required` |\n| `keiyaku_kokyaku_name` | Cannot be null, cannot be empty | `error.keiyaku.kokyaku.name.required` |\n| `keiyaku_kbn_cd` | Valid master code | `error.keiyaku.kbn.invalid` |\n| `kouji_keitai_cd` | Valid master code | `error.kouji.keitai.invalid` |\n| `keiyaku_teiketsu_date` | Valid date format | `error.keiyaku.date.invalid` |"
+    },
+    {
+      "id": "validation_rules_section:simple:yuusyou-kihon:format_validation",
+      "type": "validation_rules_section",
+      "name": "Format Validation",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/components/validation-rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "Format Validation",
+      "content": "| Field Type | Pattern | Maximum Length | Rule Description |\n|------------|---------|------------|------------------|\n| Contract Number | `^[A-Z0-9]{1,20}$` | 20 | Alphanumeric only |\n| Customer Number | `^[0-9]{1,10}$` | 10 | Numbers only |\n| Phone Number | `^[0-9\\-]{0,15}$` | 15 | Numbers and hyphens |\n| Postal Code | `^[0-9]{3}\\-[0-9]{4}$` | 8 | ###-#### format |\n| Date Field | `YYYY/MM/DD` | 10 | Standard date format |"
+    },
+    {
+      "id": "validation_rules_section:simple:yuusyou-kihon:business_rule_validation",
+      "type": "validation_rules_section",
+      "name": "Business Rule Validation",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/components/validation-rules-en.md",
+      "heading_level": 2,
+      "heading_raw": "Business Rule Validation",
+      "content": ""
+    },
+    {
+      "id": "validation_rules_section:simple:yuusyou-kihon:contract_rules",
+      "type": "validation_rules_section",
+      "name": "Contract Rules",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/components/validation-rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "Contract Rules",
+      "content": "| Rule | Description | Validation Logic |\n|------|-------------|------------------|\n| Contract Uniqueness | Contract number must be unique | Check `KEIYAKU.keiyaku_no` |\n| Contract Type Validity | Must be a valid contract type | Check `M_KEIYAKU_KBN.active_flg` |\n| Construction Form Required | Required for specific contract types | Based on `keiyaku_kbn_cd` |"
+    },
+    {
+      "id": "validation_rules_section:simple:yuusyou-kihon:customer_relationship_rules",
+      "type": "validation_rules_section",
+      "name": "Customer Relationship Rules",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/components/validation-rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "Customer Relationship Rules",
+      "content": "| Rule | Description | Validation Logic |\n|------|-------------|------------------|\n| Main Customer Required | At least one main customer is required | Count of `main_kbn = '1'` ≥ 1 |\n| Single Main Customer | Only one main customer allowed | Count of `main_kbn = '1'` ≤ 1 |\n| No Customer Duplication | Same customer cannot appear twice | `kokyaku_no` must be unique per contract |\n| Customer Classification | Must be a valid customer type | Check `M_KOKYAKU_KUBUN` |"
+    },
+    {
+      "id": "validation_rules_section:simple:yuusyou-kihon:date_consistency_rules",
+      "type": "validation_rules_section",
+      "name": "Date Consistency Rules",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/components/validation-rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "Date Consistency Rules",
+      "content": "```mermaid\ngraph LR\n    A[keiyaku_teiketsu_date] --> B[kouji_kaishi_date]\n    B --> C[kanryou_yotei_date]\n    \n    A -.->|must be before| B\n    B -.->|must be before| C\n    A -.->|must be before| C\n```\n\n| Rule | Description | Error Condition |\n|------|-------------|-----------------|\n| Contract-Start Sequence | Contract date must be before start date | `keiyaku_teiketsu_date > kouji_kaishi_date` |\n| Start-End Sequence | Start date must be before end date | `kouji_kaishi_date > kanryou_yotei_date` |\n| Reasonable Range | Date within reasonable range | Date exceeding 10 years in the future |"
+    },
+    {
+      "id": "validation_rules_section:simple:yuusyou-kihon:cross_field_validation_rules",
+      "type": "validation_rules_section",
+      "name": "Cross-Field Validation Rules",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/components/validation-rules-en.md",
+      "heading_level": 2,
+      "heading_raw": "Cross-Field Validation Rules",
+      "content": ""
+    },
+    {
+      "id": "validation_rules_section:simple:yuusyou-kihon:customer_address_consistency",
+      "type": "validation_rules_section",
+      "name": "Customer Address Consistency",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/components/validation-rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "Customer Address Consistency",
+      "content": "| Validation | Related Fields | Rule |\n|------------|----------------|------|\n| Prefecture-Municipality Match | `todouhuken_cd`, `shikuchouson_cd` | Municipality must belong to the prefecture |\n| Postal Code Match | `zip_code`, `todouhuken_cd` | Postal code must match the prefecture |\n| Address Completeness | Address fields | All required if any is entered |"
+    },
+    {
+      "id": "validation_rules_section:simple:yuusyou-kihon:construction_information",
+      "type": "validation_rules_section",
+      "name": "Construction Information",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/components/validation-rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "Construction Information",
+      "content": "| Validation | Related Fields | Rule |\n|------------|----------------|------|\n| Construction Form Required | `kouji_keitai_cd`, construction fields | Form required for specific types |\n| Construction Company | `sekou_kaisya`, `kouji_keitai_cd` | Required for external construction |\n| Construction Date Range | Date fields, `kouji_keitai_cd` | Valid range per construction type |"
+    },
+    {
+      "id": "validation_rules_section:simple:yuusyou-kihon:conditional_validation_rules",
+      "type": "validation_rules_section",
+      "name": "Conditional Validation Rules",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/components/validation-rules-en.md",
+      "heading_level": 2,
+      "heading_raw": "Conditional Validation Rules",
+      "content": ""
+    },
+    {
+      "id": "validation_rules_section:simple:yuusyou-kihon:employee_classification_based",
+      "type": "validation_rules_section",
+      "name": "Employee Classification Based",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/components/validation-rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "Employee Classification Based",
+      "content": "| Employee Type | Special Rules |\n|---------------|---------------|\n| Sales | Can modify customer information |\n| Construction | Can modify construction details |\n| Manager | Can override specific validations |\n| Administrator | Full access to all fields |"
+    },
+    {
+      "id": "validation_rules_section:simple:yuusyou-kihon:screen_mode_dependent",
+      "type": "validation_rules_section",
+      "name": "Screen Mode Dependent",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/components/validation-rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "Screen Mode Dependent",
+      "content": "| Mode | Validation Scope |\n|------|------------------|\n| View | No validation |\n| Edit | Field format validation only |\n| Registration | Full validation suite |\n| After-service | Limited field modifications |"
+    },
+    {
+      "id": "validation_rules_section:simple:yuusyou-kihon:validation_timing",
+      "type": "validation_rules_section",
+      "name": "Validation Timing",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/components/validation-rules-en.md",
+      "heading_level": 2,
+      "heading_raw": "Validation Timing",
+      "content": ""
+    },
+    {
+      "id": "validation_rules_section:simple:yuusyou-kihon:client_side_validation",
+      "type": "validation_rules_section",
+      "name": "Client-Side Validation",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/components/validation-rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "Client-Side Validation",
+      "content": "- **On Blur**: Format validation for immediate feedback\n- **On Change**: Cross-field dependencies\n- **On Submit**: Final validation before server call"
+    },
+    {
+      "id": "validation_rules_section:simple:yuusyou-kihon:server_side_validation",
+      "type": "validation_rules_section",
+      "name": "Server-Side Validation",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/components/validation-rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "Server-Side Validation",
+      "content": "- **Security Validation**: Re-check all client validations\n- **Business Rules**: Database-dependent validations\n- **Transaction Validation**: Consistency across multiple tables"
+    },
+    {
+      "id": "validation_rules_section:simple:yuusyou-kihon:special_validation_scenarios",
+      "type": "validation_rules_section",
+      "name": "Special Validation Scenarios",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/components/validation-rules-en.md",
+      "heading_level": 2,
+      "heading_raw": "Special Validation Scenarios",
+      "content": ""
+    },
+    {
+      "id": "validation_rules_section:simple:yuusyou-kihon:after_service_mode",
+      "type": "validation_rules_section",
+      "name": "After-Service Mode",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/components/validation-rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "After-Service Mode",
+      "content": "| Field | Standard Rule | After-Service Rule |\n|-------|---------------|------------------|\n| Contract Number | Editable | Read-only |\n| Customer Information | Full validation | Limited updates |\n| Construction Dates | Future dates allowed | Past date validation |"
+    },
+    {
+      "id": "validation_rules_section:simple:yuusyou-kihon:workflow_state_dependent",
+      "type": "validation_rules_section",
+      "name": "Workflow State Dependent",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/components/validation-rules-en.md",
+      "heading_level": 3,
+      "heading_raw": "Workflow State Dependent",
+      "content": "| Workflow State | Allowed Operations | Validation Changes |\n|----------------|-------------------|-------------------|\n| Draft | Full editing | Standard validation |\n| Submitted | Limited editing | More strict validation |\n| Approved | View only | No validation needed |\n| Cancelled | No editing | No validation needed |"
+    },
+    {
+      "id": "validation_rules_section:simple:yuusyou-kihon:performance_considerations",
+      "type": "validation_rules_section",
+      "name": "Performance Considerations",
+      "module": "simple",
+      "tab_name": "yuusyou-kihon",
+      "source_file": "simple/yuusyou-kihon/components/validation-rules-en.md",
+      "heading_level": 2,
+      "heading_raw": "Performance Considerations",
+      "content": "- **Batch Validation**: Group related checks\n- **Master Data Caching**: Avoid repeated lookups\n- **Lazy Validation**: Validate only changed fields\n- **Progressive Validation**: Stop on first critical error"
+    }
+  ],
+  "relationships": [
+    {
+      "source": "validation_rules:simple:yuusyou-kihon",
+      "target": "validation_rules_section:simple:yuusyou-kihon:field_level_validation",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:simple:yuusyou-kihon:field_level_validation",
+      "target": "validation_rules_section:simple:yuusyou-kihon:required_field_rules",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:simple:yuusyou-kihon:field_level_validation",
+      "target": "validation_rules_section:simple:yuusyou-kihon:format_validation",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules:simple:yuusyou-kihon",
+      "target": "validation_rules_section:simple:yuusyou-kihon:business_rule_validation",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:simple:yuusyou-kihon:business_rule_validation",
+      "target": "validation_rules_section:simple:yuusyou-kihon:contract_rules",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:simple:yuusyou-kihon:business_rule_validation",
+      "target": "validation_rules_section:simple:yuusyou-kihon:customer_relationship_rules",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:simple:yuusyou-kihon:business_rule_validation",
+      "target": "validation_rules_section:simple:yuusyou-kihon:date_consistency_rules",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules:simple:yuusyou-kihon",
+      "target": "validation_rules_section:simple:yuusyou-kihon:cross_field_validation_rules",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:simple:yuusyou-kihon:cross_field_validation_rules",
+      "target": "validation_rules_section:simple:yuusyou-kihon:customer_address_consistency",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:simple:yuusyou-kihon:cross_field_validation_rules",
+      "target": "validation_rules_section:simple:yuusyou-kihon:construction_information",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules:simple:yuusyou-kihon",
+      "target": "validation_rules_section:simple:yuusyou-kihon:conditional_validation_rules",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:simple:yuusyou-kihon:conditional_validation_rules",
+      "target": "validation_rules_section:simple:yuusyou-kihon:employee_classification_based",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:simple:yuusyou-kihon:conditional_validation_rules",
+      "target": "validation_rules_section:simple:yuusyou-kihon:screen_mode_dependent",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules:simple:yuusyou-kihon",
+      "target": "validation_rules_section:simple:yuusyou-kihon:validation_timing",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:simple:yuusyou-kihon:validation_timing",
+      "target": "validation_rules_section:simple:yuusyou-kihon:client_side_validation",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:simple:yuusyou-kihon:validation_timing",
+      "target": "validation_rules_section:simple:yuusyou-kihon:server_side_validation",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules:simple:yuusyou-kihon",
+      "target": "validation_rules_section:simple:yuusyou-kihon:special_validation_scenarios",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:simple:yuusyou-kihon:special_validation_scenarios",
+      "target": "validation_rules_section:simple:yuusyou-kihon:after_service_mode",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules_section:simple:yuusyou-kihon:special_validation_scenarios",
+      "target": "validation_rules_section:simple:yuusyou-kihon:workflow_state_dependent",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "validation_rules:simple:yuusyou-kihon",
+      "target": "validation_rules_section:simple:yuusyou-kihon:performance_considerations",
+      "relationship_type": "HAS_SECTION"
+    }
+  ]
+}

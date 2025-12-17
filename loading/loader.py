@@ -33,7 +33,11 @@ class Neo4jLoader:
             if wipe:
                 session.run("MATCH (n) DETACH DELETE n")
             for node in graph.nodes.values():
-                label_expr = ":" + ":".join(sorted(set(node.labels)))
+                # Important: MERGE should only match on the unique key.
+                # If we MERGE including a dynamic label set, Neo4j will not match
+                # an existing node missing one of those labels and will try to CREATE
+                # a new node with the same uid, violating the uniqueness constraint.
+                extra_labels = sorted(set(node.labels) - {"GraphNode"})
                 properties = dict(node.properties)
                 uid = properties.pop("uid")
                 
@@ -55,7 +59,12 @@ class Neo4jLoader:
                         return f'"{escaped}"'
                 
                 # Build query with literal values instead of parameters
-                query_parts = [f"MERGE (n{label_expr} {{uid: $uid}})"]
+                # Always MERGE on :GraphNode {uid} only, then add labels separately.
+                query_parts = ["MERGE (n:GraphNode {uid: $uid})"]
+
+                if extra_labels:
+                    # Add labels without removing existing labels
+                    query_parts.append("SET n:" + ":".join(extra_labels))
                 
                 if properties:
                     set_clauses = []

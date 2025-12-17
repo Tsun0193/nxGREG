@@ -1,739 +1,628 @@
-[
-    {
-        "id": "module:contract_list",
-        "type": "module",
-        "name": "Contract List Module",
-        "parent_module": null,
-        "module_name": "contract-list",
-        "description": "Manages the contract list screen in the DSmart system, providing display, management, and navigation to various operation screens for contracts related to each project (anken), comprehensively supporting the contract lifecycle including new creation, modification, deletion, and after-sales processing",
-        "main_jsp": "keiyakuList.jsp",
-        "main_action": "KeiyakuListInitAction",
-        "base_url": "/dsmart/contract/keiyakuList",
-        "dependencies": "housing;simple",
-        "child_modules": "housing;simple",
-        "source_file": "ctc-data-en/contract-list/overview-en.md"
-    },
-    {
-        "id": "screen:contract_list_main",
-        "type": "screen",
-        "name": "Contract List Main Screen",
-        "parent_module": "module:contract_list",
-        "screen_id": "GCNT90001",
-        "title": "Contract List",
-        "url_pattern": "/dsmart/contract/keiyakuList/keiyakuListInit.do",
-        "access_level": "authenticated_user",
-        "layout_type": "data_table",
-        "has_search": true,
-        "has_filter": true,
-        "pagination": false,
-        "main_jsp": "keiyakuList.jsp",
-        "action_class": "KeiyakuListInitAction",
-        "form_bean": "anken_cardForm",
-        "gamen_id_format": "GCNT + jigyou(90) + jyoutai(0) + tab(01)",
-        "description": "Main screen displaying list of contracts for a specific project with management and navigation capabilities",
-        "source_file": "ctc-data-en/contract-list/screen-flow-en.md"
-    },
-    {
-        "id": "screen:contract_type_selection",
-        "type": "screen",
-        "name": "Contract Type Selection Screen",
-        "parent_module": "module:contract_list",
-        "screen_id": "GCNT90xxx",
-        "title": "Contract Type Selection",
-        "url_pattern": "/dsmart/contract/keiyakuList/keiyakuListAssign.do",
-        "access_level": "authenticated_user",
-        "layout_type": "selection_form",
-        "main_jsp": "keiyakuListAssign.jsp",
-        "action_class": "KeiyakuListAssignAction",
-        "form_bean": "keiyaku_cardForm",
-        "description": "Screen for selecting contract type when creating a new contract",
-        "source_file": "ctc-data-en/contract-list/screen-flow-en.md"
-    },
-    {
-        "id": "screen:after_contract_creation",
-        "type": "screen",
-        "name": "After Contract Creation Screen",
-        "parent_module": "module:contract_list",
-        "screen_id": "GCNT19001",
-        "title": "After Contract Screen",
-        "url_pattern": "/dsmart/contract/keiyakuList/yuusyouKeiyakuListAssign.do",
-        "access_level": "authenticated_user",
-        "layout_type": "form",
-        "main_jsp": "yuusyouKeiyakuListAssign.jsp",
-        "action_class": "YuusyouKeiyakuListAssignAction",
-        "form_bean": "keiyaku_cardForm",
-        "description": "Screen for creating after-sales contracts",
-        "source_file": "ctc-data-en/contract-list/screen-flow-en.md"
-    },
-    {
-        "id": "screen:multiple_order_selection",
-        "type": "screen",
-        "name": "Multiple Order Selection Screen",
-        "parent_module": "module:contract_list",
-        "screen_id": "GCNT90014",
-        "title": "Multiple Order Selection",
-        "url_pattern": "/dsmart/contract/keiyakuList/moushideSelectInit.do",
-        "access_level": "authenticated_user",
-        "layout_type": "selection_form",
-        "main_jsp": "moushideSelect.jsp",
-        "action_class": "MoushideSelectInitAction",
-        "form_bean": "keiyaku_cardForm",
-        "description": "Screen for selecting and creating multiple orders",
-        "source_file": "ctc-data-en/contract-list/screen-flow-en.md"
-    },
-    {
-        "id": "screen:contract_modification",
-        "type": "screen",
-        "name": "Contract Modification Screen",
-        "parent_module": "module:contract_list",
-        "screen_id": "GCNT11xxx-19xxx",
-        "title": "Contract Modification",
-        "url_pattern": "/dsmart/contract/keiyakuList/henkoKeiyakuDispatch.do",
-        "access_level": "authenticated_user",
-        "layout_type": "form",
-        "action_class": "HenkoKeiyakuDispatchAction",
-        "form_bean": "keiyaku_cardForm",
-        "description": "Screen group for modifying existing contracts based on contract type",
-        "source_file": "ctc-data-en/contract-list/screen-flow-en.md"
-    },
-    {
-        "id": "screen:additional_contract_creation",
-        "type": "screen",
-        "name": "Additional Contract Creation Screen",
-        "parent_module": "module:contract_list",
-        "screen_id": "GCNT21xxx,27xxx,28xxx",
-        "title": "Additional Contract",
-        "url_pattern": "/dsmart/contract/keiyakuList/tsuikaKeiyakuDispatch.do",
-        "access_level": "authenticated_user",
-        "layout_type": "form",
-        "action_class": "TsuikaKeiyakuDispatchAction",
-        "form_bean": "keiyaku_cardForm",
-        "description": "Screen group for creating additional contracts linked to existing contracts",
-        "source_file": "ctc-data-en/contract-list/screen-flow-en.md"
-    },
-    {
-        "id": "screen:contract_details",
-        "type": "screen",
-        "name": "Contract Details Screen",
-        "parent_module": "module:contract_list",
-        "screen_id": "GCNT11xxx-19xxx",
-        "title": "Contract Details",
-        "url_pattern": "/dsmart/contract/keiyakuList/anchorKeiyakuDispatch.do",
-        "access_level": "authenticated_user",
-        "layout_type": "details_view",
-        "action_class": "AnchorKeiyakuDispatchAction",
-        "form_bean": "keiyaku_cardForm",
-        "description": "Screen group for displaying detailed contract information based on contract type",
-        "source_file": "ctc-data-en/contract-list/screen-flow-en.md"
-    },
-    {
-        "id": "screen:contract_deletion",
-        "type": "screen",
-        "name": "Contract Deletion Process",
-        "parent_module": "module:contract_list",
-        "screen_id": "GCNT90001",
-        "title": "Contract Deletion",
-        "url_pattern": "/dsmart/contract/keiyakuList/keiyakuDelete.do",
-        "access_level": "authenticated_user",
-        "layout_type": "process",
-        "action_class": "KeiyakuDeleteAction",
-        "form_bean": "keiyaku_cardForm",
-        "return_screen": "keiyakuListInit.do",
-        "description": "Deletion process screen that executes contract deletion and returns to contract list",
-        "source_file": "ctc-data-en/contract-list/functions/delete-contract/function-overview-en.md"
-    },
-    {
-        "id": "screen:contract_list_from_after_screen",
-        "type": "screen",
-        "name": "Contract List From After Screen",
-        "parent_module": "module:contract_list",
-        "screen_id": "GCNT90001",
-        "title": "Contract List",
-        "url_pattern": "/dsmart/contract/keiyakuList/keiyakuListFromAfterScreanInit.do",
-        "access_level": "authenticated_user",
-        "layout_type": "data_table",
-        "main_jsp": "keiyakuList.jsp",
-        "action_class": "KeiyakuListFromAfterScreanInitAction",
-        "form_bean": "anken_cardForm",
-        "description": "Special initialization flow when returning from after-sales contract screen",
-        "source_file": "ctc-data-en/contract-list/screen-flow-en.md"
-    },
-    {
-        "id": "value_object:keiyaku_vo",
-        "type": "value_object",
-        "name": "Contract Value Object",
-        "parent_module": "module:contract_list",
-        "object_name": "KeiyakuVO",
-        "fields": "keiyakuKey;keiyakuNo;keiyakuStatusCd;keiyakuCardSyubetsuCd;keiyakuUkagaiKbn;keiyakuTeiketsuDate;keiyakuKeijyouDate;ankenNo",
-        "purpose": "Transfer contract data between layers",
-        "description": "Main value object containing contract information",
-        "layer_usage": "Used across Action, Delegate, Facade, Product, and DAO layers",
-        "source_file": "ctc-data-en/contract-list/overview-en.md"
-    },
-    {
-        "id": "value_object:anken_vo",
-        "type": "value_object",
-        "name": "Project Value Object",
-        "parent_module": "module:contract_list",
-        "object_name": "AnkenVO",
-        "fields": "ankenNo;ankenBunruiCd;ankenName",
-        "purpose": "Transfer project data between layers",
-        "description": "Value object containing project information",
-        "layer_usage": "Used across Action, Delegate, Facade, Product, and DAO layers",
-        "source_file": "ctc-data-en/contract-list/overview-en.md"
-    },
-    {
-        "id": "value_object:authority_vo",
-        "type": "value_object",
-        "name": "Authority Value Object",
-        "parent_module": "module:contract_list",
-        "object_name": "AuthorityVO",
-        "fields": "userId;permissions;authorityLevel",
-        "purpose": "Transfer user authority data between layers",
-        "description": "Value object containing user permission information",
-        "layer_usage": "Used for permission checking across layers",
-        "source_file": "ctc-data-en/contract-list/data-architecture-en.md"
-    },
-    {
-        "id": "value_object:keiyaku_ichiran_vo",
-        "type": "value_object",
-        "name": "Contract List Value Object",
-        "parent_module": "module:contract_list",
-        "object_name": "KeiyakuIchiranVO",
-        "fields": "keiyakuKey;summaryInfo",
-        "purpose": "Transfer contract summary data for list display",
-        "description": "Value object containing contract summary information for list view",
-        "layer_usage": "Used for contract list display in presentation layer",
-        "source_file": "ctc-data-en/contract-list/data-architecture-en.md"
-    },
-    {
-        "id": "form:anken_card_form",
-        "type": "form",
-        "name": "Project Card Form",
-        "parent_module": "module:contract_list",
-        "form_id": "anken_cardForm",
-        "form_bean_class": "AnkenCardForm",
-        "scope": "request",
-        "submission_action": "/keiyakuListInit.do",
-        "description": "Form for project context data used in screen initialization",
-        "source_file": "ctc-data-en/contract-list/components/form-fields-en.md"
-    },
-    {
-        "id": "form_field:anken_no",
-        "type": "form_field",
-        "name": "Project Number Field",
-        "parent_module": "module:contract_list",
-        "field_name": "ankenNo",
-        "field_type": "String",
-        "required": true,
-        "form_id": "anken_cardForm",
-        "validation_rules": "ankenNo is required for screen initialization",
-        "description": "Project Number",
-        "source_file": "ctc-data-en/contract-list/components/form-fields-en.md"
-    },
-    {
-        "id": "form_field:jyutyu_no",
-        "type": "form_field",
-        "name": "Order Number Field",
-        "parent_module": "module:contract_list",
-        "field_name": "jyutyuNo",
-        "field_type": "String",
-        "required": false,
-        "form_id": "anken_cardForm",
-        "description": "Order Number",
-        "source_file": "ctc-data-en/contract-list/components/form-fields-en.md"
-    },
-    {
-        "id": "form_field:shijisyo_no",
-        "type": "form_field",
-        "name": "Instruction Sheet Number Field",
-        "parent_module": "module:contract_list",
-        "field_name": "shijisyoNo",
-        "field_type": "String",
-        "required": false,
-        "form_id": "anken_cardForm",
-        "description": "Instruction Sheet Number",
-        "source_file": "ctc-data-en/contract-list/components/form-fields-en.md"
-    },
-    {
-        "id": "form_field:zentai_kbn",
-        "type": "form_field",
-        "name": "Overall Classification Field",
-        "parent_module": "module:contract_list",
-        "field_name": "zentaiKbn",
-        "field_type": "String",
-        "required": false,
-        "form_id": "anken_cardForm",
-        "description": "Overall Classification",
-        "source_file": "ctc-data-en/contract-list/components/form-fields-en.md"
-    },
-    {
-        "id": "form:keiyaku_card_form",
-        "type": "form",
-        "name": "Contract Card Form",
-        "parent_module": "module:contract_list",
-        "form_id": "keiyaku_cardForm",
-        "form_bean_class": "KeiyakuCardForm",
-        "scope": "request",
-        "validation": false,
-        "submission_action": "/keiyakuListDispatch.do",
-        "description": "Main form for contract operations including create, update, delete actions",
-        "source_file": "ctc-data-en/contract-list/components/form-fields-en.md"
-    },
-    {
-        "id": "form_field:keiyaku_anken_no",
-        "type": "form_field",
-        "name": "Contract Project Number Field",
-        "parent_module": "module:contract_list",
-        "field_name": "ankenNo",
-        "field_type": "String",
-        "required": false,
-        "form_id": "keiyaku_cardForm",
-        "description": "Project Number",
-        "source_file": "ctc-data-en/contract-list/components/form-fields-en.md"
-    },
-    {
-        "id": "form_field:action_type",
-        "type": "form_field",
-        "name": "Action Type Field",
-        "parent_module": "module:contract_list",
-        "field_name": "actionType",
-        "field_type": "String",
-        "required": true,
-        "form_id": "keiyaku_cardForm",
-        "validation_rules": "Action type must be valid operation",
-        "description": "Action Type (init/new/update/delete, etc.)",
-        "source_file": "ctc-data-en/contract-list/components/form-fields-en.md"
-    },
-    {
-        "id": "form_field:keiyaku_key",
-        "type": "form_field",
-        "name": "Contract Key Field",
-        "parent_module": "module:contract_list",
-        "field_name": "keiyakuKey",
-        "field_type": "String",
-        "required": false,
-        "form_id": "keiyaku_cardForm",
-        "description": "Contract Key",
-        "source_file": "ctc-data-en/contract-list/components/form-fields-en.md"
-    },
-    {
-        "id": "form_field:sp_execute_kbn",
-        "type": "form_field",
-        "name": "Special Execution Classification Field",
-        "parent_module": "module:contract_list",
-        "field_name": "spExecuteKbn",
-        "field_type": "String",
-        "required": false,
-        "form_id": "keiyaku_cardForm",
-        "description": "Special Execution Classification",
-        "source_file": "ctc-data-en/contract-list/components/form-fields-en.md"
-    },
-    {
-        "id": "form_field:hanbai_bukken_no",
-        "type": "form_field",
-        "name": "Sales Property Number Field",
-        "parent_module": "module:contract_list",
-        "field_name": "hanbaiBukkenNo",
-        "field_type": "String",
-        "required": false,
-        "form_id": "keiyaku_cardForm",
-        "description": "Sales Property Number",
-        "source_file": "ctc-data-en/contract-list/components/form-fields-en.md"
-    },
-    {
-        "id": "form_field:keiyaku_card_syubetsu_cd",
-        "type": "form_field",
-        "name": "Contract Card Type Code Field",
-        "parent_module": "module:contract_list",
-        "field_name": "keiyakuCardSyubetsuCd",
-        "field_type": "String",
-        "required": false,
-        "form_id": "keiyaku_cardForm",
-        "description": "Contract Card Type Code",
-        "source_file": "ctc-data-en/contract-list/components/form-fields-en.md"
-    },
-    {
-        "id": "form_field:kouji_key",
-        "type": "form_field",
-        "name": "Construction Key Field",
-        "parent_module": "module:contract_list",
-        "field_name": "koujiKey",
-        "field_type": "String",
-        "required": false,
-        "form_id": "keiyaku_cardForm",
-        "description": "Construction Key",
-        "source_file": "ctc-data-en/contract-list/components/form-fields-en.md"
-    },
-    {
-        "id": "form_field:tab_cd",
-        "type": "form_field",
-        "name": "Tab Code Field",
-        "parent_module": "module:contract_list",
-        "field_name": "tabCd",
-        "field_type": "String",
-        "required": false,
-        "form_id": "keiyaku_cardForm",
-        "description": "Tab Code (UI Navigation)",
-        "source_file": "ctc-data-en/contract-list/components/form-fields-en.md"
-    },
-    {
-        "id": "form_field:keiyaku_jyutyu_no",
-        "type": "form_field",
-        "name": "Contract Order Number Field",
-        "parent_module": "module:contract_list",
-        "field_name": "jyutyuNo",
-        "field_type": "String",
-        "required": false,
-        "form_id": "keiyaku_cardForm",
-        "description": "Order Number",
-        "source_file": "ctc-data-en/contract-list/components/form-fields-en.md"
-    },
-    {
-        "id": "form_field:select",
-        "type": "form_field",
-        "name": "Selected Contract Field",
-        "parent_module": "module:contract_list",
-        "field_name": "select",
-        "field_type": "String[]",
-        "required": false,
-        "form_id": "keiyaku_cardForm",
-        "description": "Selected Contract",
-        "source_file": "ctc-data-en/contract-list/components/form-fields-en.md"
-    },
-    {
-        "id": "form:keiyaku_list_kensaku_form",
-        "type": "form",
-        "name": "Contract List Search Form",
-        "parent_module": "module:contract_list",
-        "form_id": "keiyakuListKensakuForm",
-        "form_bean_class": "KeiyakuListKensakuForm",
-        "scope": "request",
-        "submission_action": "/keiyakuListSearch.do",
-        "description": "Form for searching and filtering contract list with various criteria",
-        "source_file": "ctc-data-en/contract-list/components/form-fields-en.md"
-    },
-    {
-        "id": "form_field:search_action_type",
-        "type": "form_field",
-        "name": "Search Action Type Field",
-        "parent_module": "module:contract_list",
-        "field_name": "actionType",
-        "field_type": "String",
-        "required": false,
-        "form_id": "keiyakuListKensakuForm",
-        "description": "Action Type",
-        "source_file": "ctc-data-en/contract-list/components/form-fields-en.md"
-    },
-    {
-        "id": "form_field:jyutyu_jigyousyo_cd",
-        "type": "form_field",
-        "name": "Order Office Code Field",
-        "parent_module": "module:contract_list",
-        "field_name": "jyutyuJigyousyoCd",
-        "field_type": "String",
-        "required": false,
-        "form_id": "keiyakuListKensakuForm",
-        "description": "Order Office Code",
-        "source_file": "ctc-data-en/contract-list/components/form-fields-en.md"
-    },
-    {
-        "id": "form_field:keiyaku_no",
-        "type": "form_field",
-        "name": "Contract Number Field",
-        "parent_module": "module:contract_list",
-        "field_name": "keiyakuNo",
-        "field_type": "String",
-        "required": false,
-        "form_id": "keiyakuListKensakuForm",
-        "description": "Contract Number",
-        "source_file": "ctc-data-en/contract-list/components/form-fields-en.md"
-    },
-    {
-        "id": "form_field:kouji_name",
-        "type": "form_field",
-        "name": "Construction Name Field",
-        "parent_module": "module:contract_list",
-        "field_name": "koujiName",
-        "field_type": "String",
-        "required": false,
-        "form_id": "keiyakuListKensakuForm",
-        "description": "Construction Name",
-        "source_file": "ctc-data-en/contract-list/components/form-fields-en.md"
-    },
-    {
-        "id": "form_field:keiyaku_status_cd",
-        "type": "form_field",
-        "name": "Contract Status Code Field",
-        "parent_module": "module:contract_list",
-        "field_name": "keiyakuStatusCd",
-        "field_type": "String",
-        "required": false,
-        "form_id": "keiyakuListKensakuForm",
-        "description": "Contract Status Code",
-        "source_file": "ctc-data-en/contract-list/components/form-fields-en.md"
-    },
-    {
-        "id": "session:contract_keiyaku_vo",
-        "type": "session",
-        "name": "Contract Session Data",
-        "parent_module": "module:contract_list",
-        "session_key": "CONTRACT_KEIYAKU_VO",
-        "scope": "session",
-        "lifecycle": "cross-request",
-        "stored_data": "KeiyakuVO",
-        "description": "Stores current contract main data in session for cross-request access",
-        "source_file": "ctc-data-en/contract-list/overview-en.md"
-    },
-    {
-        "id": "session:contract_authority_vo",
-        "type": "session",
-        "name": "Authority Session Data",
-        "parent_module": "module:contract_list",
-        "session_key": "CONTRACT_AUTHORITY_VO",
-        "scope": "session",
-        "lifecycle": "cross-request",
-        "stored_data": "AuthorityVO",
-        "description": "Stores user authority information in session for permission checks",
-        "source_file": "ctc-data-en/contract-list/overview-en.md"
-    },
-    {
-        "id": "session:contract_option_keiyaku_ichiran_vo_list",
-        "type": "session",
-        "name": "Contract List Session Data",
-        "parent_module": "module:contract_list",
-        "session_key": "CONTRACT_OPTION_KEIYAKU_ICHIRAN_VO_LIST",
-        "scope": "session",
-        "lifecycle": "cross-request",
-        "stored_data": "List<KeiyakuIchiranVO>",
-        "description": "Stores contract list summary data in session for display",
-        "source_file": "ctc-data-en/contract-list/overview-en.md"
-    },
-    {
-        "id": "session:contract_anken_vo",
-        "type": "session",
-        "name": "Project Session Data",
-        "parent_module": "module:contract_list",
-        "session_key": "CONTRACT_ANKEN_VO",
-        "scope": "session",
-        "lifecycle": "cross-request",
-        "stored_data": "AnkenVO",
-        "description": "Stores project information in session for context",
-        "source_file": "ctc-data-en/contract-list/overview-en.md"
-    },
-    {
-        "id": "session:contract_action_type",
-        "type": "session",
-        "name": "Contract Action Type Session Data",
-        "parent_module": "module:contract_list",
-        "session_key": "CONTRACT_ACTION_TYPE",
-        "scope": "session",
-        "lifecycle": "cross-request",
-        "stored_data": "String",
-        "description": "Stores current action type for tracking user operations",
-        "source_file": "ctc-data-en/contract-list/overview-en.md"
-    },
-    {
-        "id": "session:business_flag_shinki_keiyaku_sakusei_kahi",
-        "type": "session",
-        "name": "New Contract Creation Permission Flag",
-        "parent_module": "module:contract_list",
-        "session_key": "shinkiKeiyakuSakuseiKahiFlg",
-        "scope": "session",
-        "lifecycle": "user-session",
-        "stored_data": "Boolean",
-        "description": "Flag indicating whether user has permission to create new contracts",
-        "source_file": "ctc-data-en/contract-list/overview-en.md"
-    },
-    {
-        "id": "session:business_flag_tsuika_keiyaku_sakusei_kahi",
-        "type": "session",
-        "name": "Additional Contract Creation Permission Flag",
-        "parent_module": "module:contract_list",
-        "session_key": "tsuikaKeiyakuSakuseiKahiFlg",
-        "scope": "session",
-        "lifecycle": "user-session",
-        "stored_data": "Boolean",
-        "description": "Flag indicating whether user has permission to create additional contracts",
-        "source_file": "ctc-data-en/contract-list/overview-en.md"
-    },
-    {
-        "id": "session:business_flag_keiyaku_data_henko_kahi",
-        "type": "session",
-        "name": "Contract Data Modification Permission Flag",
-        "parent_module": "module:contract_list",
-        "session_key": "keiyakuDataHenkoKahiFlg",
-        "scope": "session",
-        "lifecycle": "user-session",
-        "stored_data": "Boolean",
-        "description": "Flag indicating whether user has permission to modify contract data",
-        "source_file": "ctc-data-en/contract-list/overview-en.md"
-    },
-    {
-        "id": "session:business_flag_kani_keiyaku_sakusei_kahi",
-        "type": "session",
-        "name": "Simple Contract Creation Permission Flag",
-        "parent_module": "module:contract_list",
-        "session_key": "kaniKeiyakuSakuseiKahiFlg",
-        "scope": "session",
-        "lifecycle": "user-session",
-        "stored_data": "Boolean",
-        "description": "Flag indicating whether user has permission to create simple/after-sales contracts",
-        "source_file": "ctc-data-en/contract-list/overview-en.md"
-    },
-    {
-        "id": "session:business_flag_hukusu_jyutyu_sakusei_hyouji",
-        "type": "session",
-        "name": "Multiple Order Creation Display Flag",
-        "parent_module": "module:contract_list",
-        "session_key": "hukusuJyutyuSakuseiHyoujiFlg",
-        "scope": "session",
-        "lifecycle": "user-session",
-        "stored_data": "Boolean",
-        "description": "Flag indicating whether to display multiple order creation option",
-        "source_file": "ctc-data-en/contract-list/overview-en.md"
-    },
-    {
-        "id": "function:list_initialization",
-        "type": "function",
-        "name": "List Initialization Feature",
-        "parent_module": "module:contract_list",
-        "function_name": "List Initialization",
-        "url": "/dsmart/contract/keiyakuList/keiyakuListInit.do",
-        "parameters": "{\"ankenNo\":{\"name\":\"ankenNo\",\"type\":\"String\",\"description\":\"Project number from URL parameters or form\",\"required\":true}}",
-        "return_type": "Forward",
-        "output_success": "/keiyakuList.jsp",
-        "output_failure": "/keiyakuList.jsp with error message",
-        "description": "Initializes and displays contract list screen with all necessary data and permissions",
-        "business_logic": "Retrieves contract list from DB, validates project information, sets display flags based on user authority and contract status, loads master data for dropdowns",
-        "used_database_tables": "t_syounin_user;t_anken;t_keiyaku",
-        "main_components": "KeiyakuListInitAction;KeiyakuListFindDelegate;KeiyakuListFindFacadeBean;KeiyakuListFindProduct",
-        "source_file": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md"
-    },
-    {
-        "id": "function:contract_deletion",
-        "type": "function",
-        "name": "Contract Deletion Feature",
-        "parent_module": "module:contract_list",
-        "function_name": "Contract Deletion",
-        "url": "/dsmart/contract/keiyakuList/keiyakuListDispatch.do?actionType=delete_contract",
-        "parameters": "{\"actionType\":{\"name\":\"actionType\",\"type\":\"String\",\"value\":\"delete_contract\",\"required\":true},\"keiyakuKey\":{\"name\":\"keiyakuKey\",\"type\":\"Long\",\"description\":\"Selected contract key to delete\",\"required\":true}}",
-        "return_type": "Forward",
-        "output_success": "/keiyakuListInit.do",
-        "output_failure": "/keiyakuListInit.do and error message",
-        "description": "Performs logical deletion of selected contract and updates related data",
-        "business_logic": "Validates contract selection, executes logical deletion, updates contract status in DB, reloads list",
-        "validation_rules": "Contract must exist; Only non-main/non-linked contracts can be deleted",
-        "used_database_tables": "t_anken;t_keiyaku;t_kouji;t_keiyaku_shijisyo_kankei;t_chintaisyaku_keiyaku_kankei;t_gijyutsu_anken_kihon;t_kokyaku_kojin;t_keiyaku_koutei;t_jyutyu_koutei;t_ukagaisyo_teikeigai_koutei",
-        "main_components": "KeiyakuDeleteAction;KeiyakuDeleteDelegate;KeiyakuDeleteFacadeBean;KeiyakuDeleteProduct",
-        "source_file": "ctc-data-en/contract-list/functions/delete-contract/function-overview-en.md"
-    },
-    {
-        "id": "function:new_contract_creation",
-        "type": "function",
-        "name": "New Contract Creation Feature",
-        "parent_module": "module:contract_list",
-        "function_name": "New Contract Creation",
-        "url": "/dsmart/contract/keiyakuList/keiyakuListDispatch.do",
-        "parameters": "{\"actionType\":{\"name\":\"actionType\",\"type\":\"String\",\"value\":\"new_contract\",\"required\":true}}",
-        "return_type": "Forward",
-        "output_success": "keiyakuListAssign.do",
-        "output_failure": "keiyakuListAssign.do with error message",
-        "description": "Transitions to contract type selection screen for new contract creation",
-        "business_logic": "Validates project status, transitions to contract type selection screen, loads selectable contract types based on project classification",
-        "used_database_tables": "t_anken;t_keiyaku;contract type master",
-        "main_components": "KeiyakuListDispatchAction;KeiyakuListAssignAction",
-        "note": "This feature transitions to a different screen, out of scope for this module implementation",
-        "source_file": "ctc-data-en/contract-list/overview-en.md"
-    },
-    {
-        "id": "function:additional_contract_creation",
-        "type": "function",
-        "name": "Additional Contract Creation Feature",
-        "parent_module": "module:contract_list",
-        "function_name": "Additional Contract Creation",
-        "url": "/dsmart/contract/keiyakuList/keiyakuListDispatch.do",
-        "parameters": "{\"actionType\":{\"name\":\"actionType\",\"type\":\"String\",\"value\":\"add_contract\",\"required\":true},\"keiyakuKey\":{\"name\":\"keiyakuKey\",\"type\":\"Long\",\"description\":\"Selected contract key for additional contract\",\"required\":true}}",
-        "return_type": "Forward",
-        "output_success": "tsuikaKeiyakuDispatch.do",
-        "output_failure": "tsuikaKeiyakuDispatch.do with error message",
-        "description": "Transitions to additional contract creation screen",
-        "business_logic": "Validates selected contract, confirms additional contract creation authority, transitions to additional contract creation screen",
-        "used_database_tables": "t_keiyaku;t_anken;t_keiyaku_kokyaku_kankei",
-        "main_components": "KeiyakuListDispatchAction;TsuikaKeiyakuDispatchAction",
-        "note": "This feature transitions to a different screen, out of scope for this module implementation",
-        "source_file": "ctc-data-en/contract-list/overview-en.md"
-    },
-    {
-        "id": "function:contract_modification",
-        "type": "function",
-        "name": "Contract Modification Feature",
-        "parent_module": "module:contract_list",
-        "function_name": "Contract Modification",
-        "url": "/dsmart/contract/keiyakuList/keiyakuListDispatch.do",
-        "parameters": "{\"actionType\":{\"name\":\"actionType\",\"type\":\"String\",\"value\":\"update_contract\",\"required\":true},\"keiyakuKey\":{\"name\":\"keiyakuKey\",\"type\":\"Long\",\"description\":\"Selected contract key to modify\",\"required\":true}}",
-        "return_type": "Forward",
-        "output_success": "henkoKeiyakuDispatch.do",
-        "output_failure": "henkoKeiyakuDispatch.do with error message",
-        "description": "Transitions to contract modification screen",
-        "business_logic": "Validates selected contract, confirms modification authority, transitions to modification screen according to contract type",
-        "used_database_tables": "t_keiyaku;t_anken;t_keiyaku_kokyaku_kankei",
-        "main_components": "KeiyakuListDispatchAction;HenkoKeiyakuDispatchAction",
-        "note": "This feature transitions to a different screen, out of scope for this module implementation",
-        "source_file": "ctc-data-en/contract-list/overview-en.md"
-    },
-    {
-        "id": "function:contract_details_display",
-        "type": "function",
-        "name": "Contract Details Display Feature",
-        "parent_module": "module:contract_list",
-        "function_name": "Contract Details Display",
-        "url": "/dsmart/contract/keiyakuList/keiyakuListDispatch.do",
-        "parameters": "{\"actionType\":{\"name\":\"actionType\",\"type\":\"String\",\"value\":\"keiyaku_card_anchor\",\"required\":true},\"keiyakuKey\":{\"name\":\"keiyakuKey\",\"type\":\"Long\",\"description\":\"Contract key to display details\",\"required\":true}}",
-        "return_type": "Forward",
-        "output_success": "anchorKeiyakuDispatch.do",
-        "output_failure": "anchorKeiyakuDispatch.do with error message",
-        "description": "Transitions to contract details display screen",
-        "business_logic": "Validates contract key, determines contract type, transitions to appropriate contract details screen",
-        "used_database_tables": "t_keiyaku;t_anken;t_keiyaku_kokyaku_kankei",
-        "main_components": "KeiyakuListDispatchAction;AnchorKeiyakuDispatchAction",
-        "note": "This feature transitions to a different screen, out of scope for this module implementation",
-        "source_file": "ctc-data-en/contract-list/overview-en.md"
-    },
-    {
-        "id": "function:after_sales_contract_creation",
-        "type": "function",
-        "name": "After-Sales Contract Creation Feature",
-        "parent_module": "module:contract_list",
-        "function_name": "After-Sales Contract Creation",
-        "url": "/dsmart/contract/keiyakuList/keiyakuListDispatch.do",
-        "parameters": "{\"actionType\":{\"name\":\"actionType\",\"type\":\"String\",\"value\":\"new_yuusyou_contract\",\"required\":true}}",
-        "return_type": "Forward",
-        "output_success": "yuusyouKeiyakuListAssign.do",
-        "output_failure": "yuusyouKeiyakuListAssign.do with error message",
-        "description": "Transitions to after-sales contract creation screen",
-        "business_logic": "Validates after-sales contract creation authority, transitions to after-sales contract creation screen",
-        "used_database_tables": "t_keiyaku;t_anken;t_jyutyu",
-        "main_components": "KeiyakuListDispatchAction;YuusyouKeiyakuListAssignAction",
-        "note": "This feature transitions to a different screen, out of scope for this module implementation",
-        "source_file": "ctc-data-en/contract-list/overview-en.md"
-    },
-    {
-        "id": "function:multiple_order_creation",
-        "type": "function",
-        "name": "Multiple Order Creation Feature",
-        "parent_module": "module:contract_list",
-        "function_name": "Multiple Order Creation",
-        "url": "/dsmart/contract/keiyakuList/keiyakuListDispatch.do",
-        "parameters": "{\"actionType\":{\"name\":\"actionType\",\"type\":\"String\",\"value\":\"new_yuusyou_after_contract\",\"required\":true}}",
-        "return_type": "Forward",
-        "output_success": "moushideSelectInit.do",
-        "output_failure": "moushideSelectInit.do with error message",
-        "description": "Transitions to multiple order creation screen",
-        "business_logic": "Validates multiple order creation authority, transitions to multiple order creation screen",
-        "used_database_tables": "t_keiyaku;t_anken;t_jyutyu",
-        "main_components": "KeiyakuListDispatchAction;MoushideSelectInitAction",
-        "note": "This feature transitions to a different screen, out of scope for this module implementation",
-        "source_file": "ctc-data-en/contract-list/overview-en.md"
-    }
-]
+{
+    "entities": [
+        {
+            "id": "module:contract-list",
+            "type": "module",
+            "name": "Contract List Module",
+            "module_name": "contract-list",
+            "description": "Manages the contract list screen in the DSmart system, providing display, management, and navigation to various operation screens for contracts",
+            "dependencies": "Struts framework; Delegate pattern; Facade pattern; Product pattern; DAO pattern",
+            "child_modules": "housing;simple",
+            "main_screens": "Contract List;Contract Type Selection;After Contract Screen;Multiple Order Selection",
+            "source_file_0": "ctc-data-en/contract-list/overview-en.md"
+        },
+        {
+            "id": "screen:contract_list_main",
+            "type": "screen",
+            "name": "Contract List Main Screen",
+            "screen_id": "GCNT90001",
+            "title": "Contract List",
+            "url_pattern": "/dsmart/contract/keiyakuList/keiyakuListInit.do",
+            "access_level": "authenticated_user",
+            "layout_type": "data_table",
+            "has_search": true,
+            "has_filter": true,
+            "pagination": true,
+            "main_jsp": "keiyakuList.jsp",
+            "body_jsp": "body.jsp",
+            "action_class": "KeiyakuListInitAction",
+            "description": "Main screen displaying contract list with filters, search, and action buttons",
+            "source_file_0": "ctc-data-en/contract-list/screen-flow-en.md",
+            "source_file_1": "ctc-data-en/contract-list/overview-en.md"
+        },
+        {
+            "id": "screen:contract_type_selection",
+            "type": "screen",
+            "name": "Contract Type Selection Screen",
+            "screen_id": "GCNT90xxx",
+            "title": "Select Contract Type",
+            "url_pattern": "/dsmart/contract/keiyakuList/keiyakuListAssign.do",
+            "access_level": "authenticated_user",
+            "layout_type": "selection_form",
+            "main_jsp": "keiyakuListAssign.jsp",
+            "action_class": "KeiyakuListAssignAction",
+            "description": "Contract type selection screen for new contract creation",
+            "source_file_0": "ctc-data-en/contract-list/screen-flow-en.md"
+        },
+        {
+            "id": "screen:after_contract",
+            "type": "screen",
+            "name": "After Contract Screen",
+            "screen_id": "GCNT19001",
+            "title": "After Contract",
+            "url_pattern": "/dsmart/contract/keiyakuList/yuusyouKeiyakuListAssign.do",
+            "access_level": "authenticated_user",
+            "layout_type": "contract_form",
+            "main_jsp": "yuusyouKeiyakuListAssign.jsp",
+            "action_class": "YuusyouKeiyakuListAssignAction",
+            "description": "After contract creation screen",
+            "source_file_0": "ctc-data-en/contract-list/screen-flow-en.md"
+        },
+        {
+            "id": "screen:multiple_order_selection",
+            "type": "screen",
+            "name": "Multiple Order Selection Screen",
+            "screen_id": "GCNT90014",
+            "title": "Multiple Order Selection",
+            "url_pattern": "/dsmart/contract/keiyakuList/moushideSelectInit.do",
+            "access_level": "authenticated_user",
+            "layout_type": "selection_form",
+            "main_jsp": "moushideSelect.jsp",
+            "action_class": "MoushideSelectInitAction",
+            "description": "Multiple order selection screen",
+            "source_file_0": "ctc-data-en/contract-list/screen-flow-en.md"
+        },
+        {
+            "id": "screen:contract_modification",
+            "type": "screen",
+            "name": "Contract Modification Screen",
+            "screen_id": "GCNT11xxx-19xxx",
+            "title": "Contract Modification",
+            "url_pattern": "/dsmart/contract/keiyakuList/henkoKeiyakuDispatch.do",
+            "access_level": "authenticated_user",
+            "layout_type": "contract_form",
+            "action_class": "HenkoKeiyakuDispatchAction",
+            "description": "Contract modification screen group",
+            "source_file_0": "ctc-data-en/contract-list/screen-flow-en.md"
+        },
+        {
+            "id": "screen:additional_contract",
+            "type": "screen",
+            "name": "Additional Contract Screen",
+            "screen_id": "GCNT21xxx,27xxx,28xxx",
+            "title": "Additional Contract",
+            "url_pattern": "/dsmart/contract/keiyakuList/tsuikaKeiyakuDispatch.do",
+            "access_level": "authenticated_user",
+            "layout_type": "contract_form",
+            "action_class": "TsuikaKeiyakuDispatchAction",
+            "description": "Additional contract screen group",
+            "source_file_0": "ctc-data-en/contract-list/screen-flow-en.md"
+        },
+        {
+            "id": "screen:contract_details",
+            "type": "screen",
+            "name": "Contract Details Screen",
+            "screen_id": "GCNT11xxx-19xxx",
+            "title": "Contract Details",
+            "url_pattern": "/dsmart/contract/keiyakuList/anchorKeiyakuDispatch.do",
+            "access_level": "authenticated_user",
+            "layout_type": "contract_details",
+            "action_class": "AnchorKeiyakuDispatchAction",
+            "description": "Contract details screen group",
+            "source_file_0": "ctc-data-en/contract-list/screen-flow-en.md"
+        },
+        {
+            "id": "value_object:keiyaku_vo",
+            "type": "value_object",
+            "name": "Contract Value Object",
+            "object_name": "KeiyakuVO",
+            "fields": "keiyakuKey;keiyakuNo;keiyakuStatusCd;keiyakuCardSyubetsuCd;keiyakuUkagaiKbn;keiyakuTeiketsuDate;zeikomiKeiyakuKingaku",
+            "purpose": "Transfer contract data between layers",
+            "description": "Main value object for contract information",
+            "source_file_0": "ctc-data-en/contract-list/overview-en.md"
+        },
+        {
+            "id": "value_object:anken_vo",
+            "type": "value_object",
+            "name": "Project Value Object",
+            "object_name": "AnkenVO",
+            "fields": "ankenNo;ankenName;ankenBunruiCd",
+            "purpose": "Transfer project data between layers",
+            "description": "Value object for project/case information",
+            "source_file_0": "ctc-data-en/contract-list/overview-en.md"
+        },
+        {
+            "id": "value_object:authority_vo",
+            "type": "value_object",
+            "name": "Authority Value Object",
+            "object_name": "AuthorityVO",
+            "fields": "userId;authorityLevel;permissions",
+            "purpose": "Transfer user authority data between layers",
+            "description": "Value object for user permissions and authority levels",
+            "source_file_0": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md"
+        },
+        {
+            "id": "value_object:keiyaku_ichiran_vo",
+            "type": "value_object",
+            "name": "Contract List Value Object",
+            "object_name": "KeiyakuIchiranVO",
+            "fields": "keiyakuKey;summaryInfo;displayData",
+            "purpose": "Transfer contract list summary data",
+            "description": "Value object for contract list display items",
+            "source_file_0": "ctc-data-en/contract-list/data-architecture-en.md"
+        },
+        {
+            "id": "form:anken_cardForm",
+            "type": "form",
+            "name": "Project Card Form",
+            "form_id": "anken_cardForm",
+            "form_bean_class": "AnkenCardForm",
+            "scope": "request",
+            "submission_action": "/keiyakuListInit.do",
+            "description": "Form for project context data used in screen initialization",
+            "fields": "ankenNo;jyutyuNo;shijisyoNo;zentaiKbn",
+            "source_file_0": "ctc-data-en/contract-list/components/form-fields-en.md"
+        },
+        {
+            "id": "form:keiyaku_cardForm",
+            "type": "form",
+            "name": "Contract Card Form",
+            "form_id": "keiyaku_cardForm",
+            "form_bean_class": "KeiyakuCardForm",
+            "scope": "request",
+            "submission_action": "/keiyakuListDispatch.do",
+            "description": "Main form for contract operations and actions",
+            "fields": "ankenNo;actionType;keiyakuKey;spExecuteKbn;hanbaiBukkenNo;keiyakuCardSyubetsuCd;koujiKey;tabCd;jyutyuNo;select;shijisyoNo;afterJyutyuNo;ankenCheckKbn;honninKakuninChk;preScreenKbn",
+            "source_file_0": "ctc-data-en/contract-list/components/form-fields-en.md"
+        },
+        {
+            "id": "form:keiyakuListKensakuForm",
+            "type": "form",
+            "name": "Contract List Search Form",
+            "form_id": "keiyakuListKensakuForm",
+            "form_bean_class": "KeiyakuListKensakuForm",
+            "scope": "request",
+            "submission_action": "/keiyakuListInit.do",
+            "description": "Form for contract list search and filtering",
+            "fields": "actionType;jyutyuJigyousyoCd;jyutyuJigyousyoName;keiyakuNo;koujiName;keiyakuStatusCd;keiyakuCardSyubetsuCd;keiyakusyaName;eigyoTantousyaUserId;keiyakuTeiketsuDateFrom;keiyakuTeiketsuDateTo;keiyakuKeijyouDateFrom;keiyakuKeijyouDateTo;jyutyuEigyousyoCd;firstJyutyuEigyousyoCd;jyutyuEigyousyoName;eigyoTantousyaUserName;keiyakuIchiranListSize;keiyakuKey;ankenCheckKbn;syoukaiCardSyutokuKbn",
+            "source_file_0": "ctc-data-en/contract-list/components/form-fields-en.md"
+        },
+        {
+            "id": "session:contract_keiyaku_vo",
+            "type": "session",
+            "name": "Contract Session VO",
+            "session_key": "CONTRACT_KEIYAKU_VO",
+            "scope": "session",
+            "lifecycle": "user_session",
+            "stored_data": "Contract main VO data",
+            "description": "Stores contract information in session for cross-request access",
+            "source_file_0": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md"
+        },
+        {
+            "id": "session:contract_authority_vo",
+            "type": "session",
+            "name": "Authority Session VO",
+            "session_key": "CONTRACT_AUTHORITY_VO",
+            "scope": "session",
+            "lifecycle": "user_session",
+            "stored_data": "User authority VO data",
+            "description": "Stores user permissions and authority levels in session",
+            "source_file_0": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md"
+        },
+        {
+            "id": "session:contract_keiyaku_ichiran_vo_list",
+            "type": "session",
+            "name": "Contract List Session",
+            "session_key": "CONTRACT_OPTION_KEIYAKU_ICHIRAN_VO_LIST",
+            "scope": "session",
+            "lifecycle": "user_session",
+            "stored_data": "Contract summary VO list",
+            "description": "Stores list of contract summaries for display",
+            "source_file_0": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md"
+        },
+        {
+            "id": "session:contract_anken_vo",
+            "type": "session",
+            "name": "Project Session VO",
+            "session_key": "CONTRACT_ANKEN_VO",
+            "scope": "session",
+            "lifecycle": "user_session",
+            "stored_data": "Project VO data",
+            "description": "Stores project information in session",
+            "source_file_0": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md"
+        },
+        {
+            "id": "session:shinki_keiyaku_sakusei_kahi_flg",
+            "type": "session",
+            "name": "New Contract Creation Permission Flag",
+            "session_key": "CONTRACT_SHINKI_KEIYAKU_SAKUSEI_KAHI_FLG",
+            "scope": "session",
+            "lifecycle": "user_session",
+            "stored_data": "Boolean flag for new contract creation permission",
+            "description": "Controls display of new contract creation button",
+            "source_file_0": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md"
+        },
+        {
+            "id": "session:tsuika_keiyaku_sakusei_kahi_flg",
+            "type": "session",
+            "name": "Additional Contract Creation Permission Flag",
+            "session_key": "CONTRACT_TSUIKA_KEIYAKU_SAKUSEI_KAHI_FLG",
+            "scope": "session",
+            "lifecycle": "user_session",
+            "stored_data": "Boolean flag for additional contract creation permission",
+            "description": "Controls display of additional contract creation button",
+            "source_file_0": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md"
+        },
+        {
+            "id": "session:keiyaku_data_henko_kahi_flg",
+            "type": "session",
+            "name": "Contract Data Modification Permission Flag",
+            "session_key": "CONTRACT_KEIYAKU_DATA_HENKO_KAHI_FLG",
+            "scope": "session",
+            "lifecycle": "user_session",
+            "stored_data": "Boolean flag for contract modification permission",
+            "description": "Controls display of contract modification button",
+            "source_file_0": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md"
+        },
+        {
+            "id": "session:kani_keiyaku_sakusei_kahi_flg",
+            "type": "session",
+            "name": "After Contract Creation Permission Flag",
+            "session_key": "CONTRACT_KANI_KEIYAKU_SAKUSEI_KAHI_FLG",
+            "scope": "session",
+            "lifecycle": "user_session",
+            "stored_data": "Boolean flag for after contract creation permission",
+            "description": "Controls display of after contract creation button",
+            "source_file_0": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md"
+        },
+        {
+            "id": "session:hukusu_jyutyu_sakusei_hyouji_flg",
+            "type": "session",
+            "name": "Multiple Order Creation Display Flag",
+            "session_key": "CONTRACT_HUKUSU_JYUTYU_SAKUSEI_HYOUJI_FLG",
+            "scope": "session",
+            "lifecycle": "user_session",
+            "stored_data": "Boolean flag for multiple order creation display",
+            "description": "Controls display of multiple order creation button",
+            "source_file_0": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md"
+        },
+        {
+            "id": "function:init_screen",
+            "type": "function",
+            "name": "List Initialization Feature",
+            "function_name": "init-screen",
+            "url": "/dsmart/contract/keiyakuList/keiyakuListInit.do",
+            "parameters": "{\"ankenNo\":{\"name\":\"ankenNo\",\"type\":\"String\",\"description\":\"Project number\",\"required\":true}}",
+            "return_type": "Forward",
+            "output_success": "/keiyakuList.jsp",
+            "output_failure": "/contract/error.jsp",
+            "description": "Initializes and displays a list of contracts for a specific project. Retrieves project information, user permissions, and related contracts",
+            "validation_rules": "ankenNo is required; Project must exist; User must have view permission",
+            "business_logic": "Retrieves contract list from DB; Validates project information; Sets display flags based on user authority and contract status; Loads master data for dropdowns",
+            "source_file_0": "ctc-data-en/contract-list/functions/init-screen/function-overview-en.md"
+        },
+        {
+            "id": "function:contract_deletion",
+            "type": "function",
+            "name": "Contract Deletion Feature",
+            "function_name": "delete-contract",
+            "url": "/dsmart/contract/keiyakuList/keiyakuListDispatch.do?actionType=delete_contract",
+            "parameters": "{\"actionType\":{\"name\":\"actionType\",\"type\":\"String\",\"value\":\"delete_contract\",\"required\":true},\"keiyakuKey\":{\"name\":\"keiyakuKey\",\"type\":\"Long\",\"description\":\"Selected contract key to delete\",\"required\":true}}",
+            "return_type": "Forward",
+            "output_success": "/keiyakuListInit.do",
+            "output_failure": "/keiyakuListInit.do and error message",
+            "description": "Performs logical deletion of selected contract and updates related data",
+            "validation_rules": "Contract must exist; Only non-main/non-linked contracts can be deleted; User must have delete permission",
+            "business_logic": "Validates contract selection; Executes logical deletion; Updates contract status in DB; Updates related tables; Reloads contract list",
+            "source_file_0": "ctc-data-en/contract-list/functions/delete-contract/function-overview-en.md"
+        }
+    ],
+    "relationships": [
+        {
+            "source": "screen:contract_list_main",
+            "target": "module:contract-list",
+            "relationship_type": "BELONGS_TO"
+        },
+        {
+            "source": "screen:contract_type_selection",
+            "target": "module:contract-list",
+            "relationship_type": "BELONGS_TO"
+        },
+        {
+            "source": "screen:after_contract",
+            "target": "module:contract-list",
+            "relationship_type": "BELONGS_TO"
+        },
+        {
+            "source": "screen:multiple_order_selection",
+            "target": "module:contract-list",
+            "relationship_type": "BELONGS_TO"
+        },
+        {
+            "source": "screen:contract_modification",
+            "target": "module:contract-list",
+            "relationship_type": "BELONGS_TO"
+        },
+        {
+            "source": "screen:additional_contract",
+            "target": "module:contract-list",
+            "relationship_type": "BELONGS_TO"
+        },
+        {
+            "source": "screen:contract_details",
+            "target": "module:contract-list",
+            "relationship_type": "BELONGS_TO"
+        },
+        {
+            "source": "function:init_screen",
+            "target": "module:contract-list",
+            "relationship_type": "BELONGS_TO"
+        },
+        {
+            "source": "function:contract_deletion",
+            "target": "module:contract-list",
+            "relationship_type": "BELONGS_TO"
+        },
+        {
+            "source": "form:anken_cardForm",
+            "target": "module:contract-list",
+            "relationship_type": "BELONGS_TO"
+        },
+        {
+            "source": "form:keiyaku_cardForm",
+            "target": "module:contract-list",
+            "relationship_type": "BELONGS_TO"
+        },
+        {
+            "source": "form:keiyakuListKensakuForm",
+            "target": "module:contract-list",
+            "relationship_type": "BELONGS_TO"
+        },
+        {
+            "source": "session:contract_keiyaku_vo",
+            "target": "module:contract-list",
+            "relationship_type": "BELONGS_TO"
+        },
+        {
+            "source": "session:contract_authority_vo",
+            "target": "module:contract-list",
+            "relationship_type": "BELONGS_TO"
+        },
+        {
+            "source": "session:contract_keiyaku_ichiran_vo_list",
+            "target": "module:contract-list",
+            "relationship_type": "BELONGS_TO"
+        },
+        {
+            "source": "session:contract_anken_vo",
+            "target": "module:contract-list",
+            "relationship_type": "BELONGS_TO"
+        },
+        {
+            "source": "session:shinki_keiyaku_sakusei_kahi_flg",
+            "target": "module:contract-list",
+            "relationship_type": "BELONGS_TO"
+        },
+        {
+            "source": "session:tsuika_keiyaku_sakusei_kahi_flg",
+            "target": "module:contract-list",
+            "relationship_type": "BELONGS_TO"
+        },
+        {
+            "source": "session:keiyaku_data_henko_kahi_flg",
+            "target": "module:contract-list",
+            "relationship_type": "BELONGS_TO"
+        },
+        {
+            "source": "session:kani_keiyaku_sakusei_kahi_flg",
+            "target": "module:contract-list",
+            "relationship_type": "BELONGS_TO"
+        },
+        {
+            "source": "session:hukusu_jyutyu_sakusei_hyouji_flg",
+            "target": "module:contract-list",
+            "relationship_type": "BELONGS_TO"
+        },
+        {
+            "source": "value_object:keiyaku_vo",
+            "target": "module:contract-list",
+            "relationship_type": "BELONGS_TO"
+        },
+        {
+            "source": "value_object:anken_vo",
+            "target": "module:contract-list",
+            "relationship_type": "BELONGS_TO"
+        },
+        {
+            "source": "value_object:authority_vo",
+            "target": "module:contract-list",
+            "relationship_type": "BELONGS_TO"
+        },
+        {
+            "source": "value_object:keiyaku_ichiran_vo",
+            "target": "module:contract-list",
+            "relationship_type": "BELONGS_TO"
+        },
+        {
+            "source": "screen:contract_list_main",
+            "target": "function:init_screen",
+            "relationship_type": "PROVIDES",
+            "function_category": "screen_initialization"
+        },
+        {
+            "source": "screen:contract_list_main",
+            "target": "function:contract_deletion",
+            "relationship_type": "PROVIDES",
+            "function_category": "contract_management"
+        },
+        {
+            "source": "function:init_screen",
+            "target": "form:anken_cardForm",
+            "relationship_type": "USES_FORM",
+            "usage_context": "Project context data for screen initialization"
+        },
+        {
+            "source": "function:contract_deletion",
+            "target": "form:keiyaku_cardForm",
+            "relationship_type": "USES_FORM",
+            "usage_context": "Contract selection and deletion parameters"
+        },
+        {
+            "source": "screen:contract_list_main",
+            "target": "form:keiyakuListKensakuForm",
+            "relationship_type": "USES_FORM",
+            "usage_context": "Contract list search and filtering"
+        },
+        {
+            "source": "function:init_screen",
+            "target": "session:contract_keiyaku_vo",
+            "relationship_type": "STORES",
+            "storage_purpose": "Preserve contract data across requests"
+        },
+        {
+            "source": "function:init_screen",
+            "target": "session:contract_authority_vo",
+            "relationship_type": "STORES",
+            "storage_purpose": "Store user permissions for display control"
+        },
+        {
+            "source": "function:init_screen",
+            "target": "session:contract_keiyaku_ichiran_vo_list",
+            "relationship_type": "STORES",
+            "storage_purpose": "Store contract list for display"
+        },
+        {
+            "source": "function:init_screen",
+            "target": "session:contract_anken_vo",
+            "relationship_type": "STORES",
+            "storage_purpose": "Store project information"
+        },
+        {
+            "source": "function:init_screen",
+            "target": "session:shinki_keiyaku_sakusei_kahi_flg",
+            "relationship_type": "STORES",
+            "storage_purpose": "Control new contract button display"
+        },
+        {
+            "source": "function:init_screen",
+            "target": "session:tsuika_keiyaku_sakusei_kahi_flg",
+            "relationship_type": "STORES",
+            "storage_purpose": "Control additional contract button display"
+        },
+        {
+            "source": "function:init_screen",
+            "target": "session:keiyaku_data_henko_kahi_flg",
+            "relationship_type": "STORES",
+            "storage_purpose": "Control contract modification button display"
+        },
+        {
+            "source": "function:init_screen",
+            "target": "session:kani_keiyaku_sakusei_kahi_flg",
+            "relationship_type": "STORES",
+            "storage_purpose": "Control after contract button display"
+        },
+        {
+            "source": "function:init_screen",
+            "target": "session:hukusu_jyutyu_sakusei_hyouji_flg",
+            "relationship_type": "STORES",
+            "storage_purpose": "Control multiple order button display"
+        },
+        {
+            "source": "function:contract_deletion",
+            "target": "session:contract_keiyaku_vo",
+            "relationship_type": "STORES",
+            "storage_purpose": "Update contract data after deletion"
+        },
+        {
+            "source": "screen:contract_list_main",
+            "target": "screen:contract_type_selection",
+            "relationship_type": "NAVIGATES_TO",
+            "trigger": "Create New Contract button click",
+            "condition": "User has new contract creation permission"
+        },
+        {
+            "source": "screen:contract_list_main",
+            "target": "screen:contract_modification",
+            "relationship_type": "NAVIGATES_TO",
+            "trigger": "Modify Contract Data button click",
+            "condition": "User has contract modification permission and contract is selected"
+        },
+        {
+            "source": "screen:contract_list_main",
+            "target": "screen:additional_contract",
+            "relationship_type": "NAVIGATES_TO",
+            "trigger": "Create Additional Contract button click",
+            "condition": "User has additional contract creation permission and contract is selected"
+        },
+        {
+            "source": "screen:contract_list_main",
+            "target": "screen:after_contract",
+            "relationship_type": "NAVIGATES_TO",
+            "trigger": "Create Paid After Contract Card button click",
+            "condition": "User has after contract creation permission"
+        },
+        {
+            "source": "screen:contract_list_main",
+            "target": "screen:multiple_order_selection",
+            "relationship_type": "NAVIGATES_TO",
+            "trigger": "Create Multiple Orders button click",
+            "condition": "User has multiple order creation permission"
+        },
+        {
+            "source": "screen:contract_list_main",
+            "target": "screen:contract_details",
+            "relationship_type": "NAVIGATES_TO",
+            "trigger": "Contract number link click",
+            "condition": "Contract is clickable (not external/special contract and not iPad)"
+        },
+        {
+            "source": "function:contract_deletion",
+            "target": "screen:contract_list_main",
+            "relationship_type": "NAVIGATES_TO",
+            "trigger": "Successful deletion completion",
+            "condition": "Deletion completed without errors"
+        },
+        {
+            "source": "screen:contract_type_selection",
+            "target": "screen:contract_list_main",
+            "relationship_type": "NAVIGATES_TO",
+            "trigger": "Contract creation completion",
+            "condition": "New contract created successfully"
+        },
+        {
+            "source": "screen:contract_modification",
+            "target": "screen:contract_list_main",
+            "relationship_type": "NAVIGATES_TO",
+            "trigger": "Contract modification completion",
+            "condition": "Contract modification completed"
+        },
+        {
+            "source": "screen:additional_contract",
+            "target": "screen:contract_list_main",
+            "relationship_type": "NAVIGATES_TO",
+            "trigger": "Additional contract creation completion",
+            "condition": "Additional contract created successfully"
+        },
+        {
+            "source": "screen:after_contract",
+            "target": "screen:contract_list_main",
+            "relationship_type": "NAVIGATES_TO",
+            "trigger": "After contract creation completion",
+            "condition": "After contract created successfully"
+        },
+        {
+            "source": "screen:multiple_order_selection",
+            "target": "screen:contract_list_main",
+            "relationship_type": "NAVIGATES_TO",
+            "trigger": "Multiple order creation completion",
+            "condition": "Multiple orders created successfully"
+        },
+        {
+            "source": "screen:contract_details",
+            "target": "screen:contract_list_main",
+            "relationship_type": "NAVIGATES_TO",
+            "trigger": "Details display completion",
+            "condition": "User navigates back to list"
+        }
+    ]
+}

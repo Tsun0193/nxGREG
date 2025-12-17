@@ -1,0 +1,416 @@
+{
+  "module": "contract-list",
+  "tab_name": "contract-list",
+  "source_file": "contract-list/screen-specification/display-conditions-en.md",
+  "entities": [
+    {
+      "id": "display_conditions:contract-list:contract-list",
+      "type": "display_conditions",
+      "name": "Display Conditions",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/screen-specification/display-conditions-en.md",
+      "target_screen": "Contract List",
+      "main_jsp": "keiyakuList.jsp",
+      "body_jsp": "body.jsp",
+      "main_action": "KeiyakuListInitAction",
+      "form_bean": "anken_cardForm"
+    },
+    {
+      "id": "display_conditions_section:contract-list:contract-list:display_rules_overview",
+      "type": "display_conditions_section",
+      "name": "Display Rules Overview",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/screen-specification/display-conditions-en.md",
+      "heading_level": 2,
+      "heading_raw": "Display Rules Overview",
+      "content": ""
+    },
+    {
+      "id": "display_conditions_section:contract-list:contract-list:always_displayed_components",
+      "type": "display_conditions_section",
+      "name": "Always Displayed Components",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/screen-specification/display-conditions-en.md",
+      "heading_level": 3,
+      "heading_raw": "Always Displayed Components",
+      "content": "- Error display block\n- Project information header\n- Contract list table\n- Tab navigation\n- Screen title (\"Contract List\" or \"Expected Order List\")\n- Contract data columns (type, contract number, contract/property information, scheduled contract date, planned, completed)"
+    },
+    {
+      "id": "display_conditions_section:contract-list:contract-list:display_conditions_by_contract_type",
+      "type": "display_conditions_section",
+      "name": "Display Conditions by Contract Type",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/screen-specification/display-conditions-en.md",
+      "heading_level": 3,
+      "heading_raw": "Display Conditions by Contract Type",
+      "content": ""
+    },
+    {
+      "id": "display_conditions_section:contract-list:contract-list:radio_button_selection",
+      "type": "display_conditions_section",
+      "name": "Radio Button Selection (Selection)",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/screen-specification/display-conditions-en.md",
+      "heading_level": 4,
+      "heading_raw": "Radio Button Selection (Selection)",
+      "content": "| **Contract Type** | **Display Condition** | **Control Flag** | **Flag Value** | **Button Status** |\n|--------------|--------------|----------------|--------------|----------------|\n| **Normal Contract** | `keiyakuCardSyubetsuCd < 90` | `keiyakuUkagaiKbn` | `≠ 1` | Enabled |\n| **External Contract** | `keiyakuCardSyubetsuCd < 90` | `keiyakuUkagaiKbn` | `= 1` | Disabled |\n| **Special Contract** | `keiyakuCardSyubetsuCd >= 90` | None | None | Hidden |"
+    },
+    {
+      "id": "display_conditions_section:contract-list:contract-list:contract_number_link",
+      "type": "display_conditions_section",
+      "name": "Contract Number Link (Contract Number)",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/screen-specification/display-conditions-en.md",
+      "heading_level": 4,
+      "heading_raw": "Contract Number Link (Contract Number)",
+      "content": "| **Display Condition** | **Control Flag** | **Flag Value** | **Link Status** | **Device Impact** |\n|--------------|----------------|--------------|----------------|------------------|\n| **Clickable Link Display** | `keiyakuCardSyubetsuCd` AND `keiyakuUkagaiKbn` AND `User-Agent` | `< 90` AND `≠ 1` AND `≠ iPad` | Active Link | Desktop/PC |\n| **Text Only Display** | `keiyakuCardSyubetsuCd` OR `keiyakuUkagaiKbn` OR `User-Agent` | `>= 90` OR `= 1` OR `= iPad` | Text Display | iPad/External |\n| **Text Only (iPad)** | `User-Agent` | `= iPad` | Text Display | iPad only |\n| **Text Only (External)** | `keiyakuUkagaiKbn` | `= 1` | Text Display | External Contract |\n| **Text Only (Special)** | `keiyakuCardSyubetsuCd` | `>= 90` | Text Display | Special Contract |"
+    },
+    {
+      "id": "display_conditions_section:contract-list:contract-list:display_conditions_by_permission",
+      "type": "display_conditions_section",
+      "name": "Display Conditions by Permission",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/screen-specification/display-conditions-en.md",
+      "heading_level": 3,
+      "heading_raw": "Display Conditions by Permission",
+      "content": ""
+    },
+    {
+      "id": "display_conditions_section:contract-list:contract-list:function_button_display",
+      "type": "display_conditions_section",
+      "name": "Function Button Display",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/screen-specification/display-conditions-en.md",
+      "heading_level": 4,
+      "heading_raw": "Function Button Display",
+      "content": "| **Button** | **Display Condition** | **Control Flag** | **Flag Value** | **User Impact** | **Device Impact** |\n|------------|--------------|----------------|--------------|------------------|------------------|\n| **New Contract Creation** | New Contract Creation | `shinkiKeiyakuSakuseiKahiFlg` | `= \"true\"` | Same logic for Admin/User | Hidden on iPad |\n| **Additional Contract Creation** | Additional Contract Creation | `tsuikaKeiyakuSakuseiKahiFlg` | `= \"true\"` | Same logic for Admin/User | Hidden on iPad |\n| **Contract Data Update** | Contract Data Update | `keiyakuDataHenkoKahiFlg` | `= \"true\"` | Same logic for Admin/User | Hidden on iPad |\n| **Contract Data Delete** | Contract Data Delete | `ankenBunruiCd` | `≠ 30,40` | Disabled for project types 30,40 | Hidden on iPad |\n| **Paid After Contract Card Creation** | Paid After Contract Creation | `kaniKeiyakuSakuseiKahiFlg` | `= \"true\"` | Same logic for Admin/User | Hidden on iPad |\n| **Multiple Order Creation** | Multiple Order Creation | `hukusuJyutyuSakuseiHyoujiFlg` | `= \"true\"` | Same logic for Admin/User | Hidden on iPad |"
+    },
+    {
+      "id": "display_conditions_section:contract-list:contract-list:display_conditions_by_project_type",
+      "type": "display_conditions_section",
+      "name": "Display Conditions by Project Type",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/screen-specification/display-conditions-en.md",
+      "heading_level": 3,
+      "heading_raw": "Display Conditions by Project Type",
+      "content": ""
+    },
+    {
+      "id": "display_conditions_section:contract-list:contract-list:delete_button_constraints",
+      "type": "display_conditions_section",
+      "name": "Delete Button Constraints",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/screen-specification/display-conditions-en.md",
+      "heading_level": 4,
+      "heading_raw": "Delete Button Constraints",
+      "content": "| **Project Type** | **Control Flag** | **Flag Value** | **Button Status** |\n|--------------|----------------|--------------|----------------|\n| **Normal Project** | `ankenBunruiCd` | `≠ 30,40` | Enabled |\n| **Special Project** | `ankenBunruiCd` | `= 30,40` | Disabled |"
+    },
+    {
+      "id": "display_conditions_section:contract-list:contract-list:body_content_selection",
+      "type": "display_conditions_section",
+      "name": "Body Content Selection",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/screen-specification/display-conditions-en.md",
+      "heading_level": 4,
+      "heading_raw": "Body Content Selection",
+      "content": "| **Previous Screen Type** | **Control Flag** | **Flag Value** | **Body Content** |\n|------------------|----------------|--------------|----------------------|\n| **After Screen** | `pre_screan` | `CONTRACT_KEIYAKU_CARD_PRE_SCREAN_AFTER` | `keiyakuListAfter/body.jsp` |\n| **Other** | `pre_screan` | `≠ CONTRACT_KEIYAKU_CARD_PRE_SCREAN_AFTER` | `keiyakuList/body.jsp` |"
+    },
+    {
+      "id": "display_conditions_section:contract-list:contract-list:screen_title_display",
+      "type": "display_conditions_section",
+      "name": "Screen Title Display",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/screen-specification/display-conditions-en.md",
+      "heading_level": 4,
+      "heading_raw": "Screen Title Display",
+      "content": "| **Project Type** | **Control Flag** | **Flag Value** | **Title Display** |\n|--------------|----------------|--------------|-------------------|\n| **Expected Order** | `ankenBunruiCd` | `= 30` | \"Expected Order List\" |\n| **Expected Order (Type 40)** | `ankenBunruiCd` | `= 40` | \"Expected Order List\" |\n| **Other** | `ankenBunruiCd` | `≠ 30,40` | \"Contract List\" |\n\n---"
+    },
+    {
+      "id": "display_conditions_section:contract-list:contract-list:action_button_display_rules",
+      "type": "display_conditions_section",
+      "name": "Action Button Display Rules",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/screen-specification/display-conditions-en.md",
+      "heading_level": 2,
+      "heading_raw": "Action Button Display Rules",
+      "content": ""
+    },
+    {
+      "id": "display_conditions_section:contract-list:contract-list:button_display_matrix",
+      "type": "display_conditions_section",
+      "name": "Button Display Matrix",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/screen-specification/display-conditions-en.md",
+      "heading_level": 3,
+      "heading_raw": "Button Display Matrix",
+      "content": "| **Button** | **Display Condition** | **Control Flag** | **Flag Value** | **Impact on User Role** |\n|------------|--------------|----------------|--------------|--------------------------|\n| **New Contract Creation** | Contract Creation Allowed | `shinkiKeiyakuSakuseiKahiFlg` | `= \"true\"` | Same logic for Admin/User |\n| **Additional Contract Creation** | Additional Contract Allowed | `tsuikaKeiyakuSakuseiKahiFlg` | `= \"true\"` | Same logic for Admin/User |\n| **Contract Data Update** | Contract Update Allowed | `keiyakuDataHenkoKahiFlg` | `= \"true\"` | Same logic for Admin/User |\n| **Contract Data Delete** | Contract Delete Allowed | `ankenBunruiCd` | `≠ 30,40` | Disabled for special projects |\n| **Paid After Contract Card Creation** | After Contract Allowed | `kaniKeiyakuSakuseiKahiFlg` | `= \"true\"` | Same logic for Admin/User |\n| **Multiple Order Creation** | Multiple Order Allowed | `hukusuJyutyuSakuseiHyoujiFlg` | `= \"true\"` | Same logic for Admin/User |"
+    },
+    {
+      "id": "display_conditions_section:contract-list:contract-list:button_state_flowchart",
+      "type": "display_conditions_section",
+      "name": "Button State Flowchart",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/screen-specification/display-conditions-en.md",
+      "heading_level": 3,
+      "heading_raw": "Button State Flowchart",
+      "content": "```mermaid\nflowchart TD\n    A[Load Contract List] --> B{Device Type Check}\n    B -->|iPad| C[Hide All Function Buttons]\n    B -->|Desktop/PC| D{Project Type Check}\n    \n    D -->|ankenBunruiCd = 30,40| E[Disable Delete Button]\n    D -->|ankenBunruiCd ≠ 30,40| F[Enable Delete Button]\n    \n    D --> G{New Creation Flag Check}\n    G -->|shinkiKeiyakuSakuseiKahiFlg = true| H[Show New Contract Button]\n    G -->|shinkiKeiyakuSakuseiKahiFlg = false| I[Hide New Contract Button]\n    \n    D --> J{Additional Creation Flag Check}\n    J -->|tsuikaKeiyakuSakuseiKahiFlg = true| K[Show Additional Contract Button]\n    J -->|tsuikaKeiyakuSakuseiKahiFlg = false| L[Hide Additional Contract Button]\n    \n    D --> M{Update Flag Check}\n    M -->|keiyakuDataHenkoKahiFlg = true| N[Show Update Button]\n    M -->|keiyakuDataHenkoKahiFlg = false| O[Hide Update Button]\n    \n    D --> P{After Contract Flag Check}\n    P -->|kaniKeiyakuSakuseiKahiFlg = true| Q[Show After Contract Button]\n    P -->|kaniKeiyakuSakuseiKahiFlg = false| R[Hide After Contract Button]\n    \n    D --> S{Multiple Order Flag Check}\n    S -->|hukusuJyutyuSakuseiHyoujiFlg = true| T[Show Multiple Order Button]\n    S -->|hukusuJyutyuSakuseiHyoujiFlg = false| U[Hide Multiple Order Button]\n    \n    C --> V[Button Display Complete]\n    E --> V\n    F --> V\n    H --> V\n    I --> V\n    K --> V\n    L --> V\n    N --> V\n    O --> V\n    Q --> V\n    R --> V\n    T --> V\n    U --> V\n```\n\n---"
+    },
+    {
+      "id": "display_conditions_section:contract-list:contract-list:contract_list_display_rules",
+      "type": "display_conditions_section",
+      "name": "Contract List Display Rules",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/screen-specification/display-conditions-en.md",
+      "heading_level": 2,
+      "heading_raw": "Contract List Display Rules",
+      "content": ""
+    },
+    {
+      "id": "display_conditions_section:contract-list:contract-list:contract_row_display_conditions",
+      "type": "display_conditions_section",
+      "name": "Contract Row Display Conditions",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/screen-specification/display-conditions-en.md",
+      "heading_level": 3,
+      "heading_raw": "Contract Row Display Conditions",
+      "content": "| **Element** | **Display Condition** | **Control Flag** | **Flag Value** | **Display Status** |\n|----------|--------------|----------------|--------------|--------------|\n| **Radio Button** | Contract Selection | `keiyakuCardSyubetsuCd` AND `keiyakuUkagaiKbn` | `< 90` AND `≠ 1` | Enabled |\n| **Radio Button** | External Contract | `keiyakuCardSyubetsuCd` AND `keiyakuUkagaiKbn` | `< 90` AND `= 1` | Disabled |\n| **Radio Button** | Special Contract | `keiyakuCardSyubetsuCd` | `>= 90` | Hidden |\n| **Contract Link** | Clickable Link | `keiyakuCardSyubetsuCd` AND `keiyakuUkagaiKbn` AND `Device` | `< 90` AND `≠ 1` AND `≠ iPad` | Active Link |\n| **Contract Link** | Text Only | `keiyakuCardSyubetsuCd` OR `keiyakuUkagaiKbn` OR `Device` | `>= 90` OR `= 1` OR `= iPad` | Text Display |"
+    },
+    {
+      "id": "display_conditions_section:contract-list:contract-list:contract_data_display",
+      "type": "display_conditions_section",
+      "name": "Contract Data Display",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/screen-specification/display-conditions-en.md",
+      "heading_level": 3,
+      "heading_raw": "Contract Data Display",
+      "content": "| **Data Item** | **Display Condition** | **Control Flag** | **Flag Value** | **Display Format** |\n|----------------|--------------|----------------|--------------|--------------|\n| **Contract Number** | Always Displayed | None | Always | Text or Link |\n| **Contract Type** | Always Displayed | `tuikaKbn` | `0=Main, 1=Additional` | Text |\n| **Project Name** | Always Displayed | `koujiBukkenName` | Always | Text |\n| **Contractor Name** | Always Displayed | `keiyakusyaName` | Always | Text |\n| **Approval Status** | Always Displayed | `syouninZyoukyou` | Always | Text |\n| **Contract Amount** | Always Displayed | `zeikomiKeiyakuKingaku` | Always | Currency |\n\n---"
+    },
+    {
+      "id": "display_conditions_section:contract-list:contract-list:device_specific_display_rules",
+      "type": "display_conditions_section",
+      "name": "Device-specific Display Rules",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/screen-specification/display-conditions-en.md",
+      "heading_level": 2,
+      "heading_raw": "Device-specific Display Rules",
+      "content": ""
+    },
+    {
+      "id": "display_conditions_section:contract-list:contract-list:ipad_device_support",
+      "type": "display_conditions_section",
+      "name": "iPad Device Support",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/screen-specification/display-conditions-en.md",
+      "heading_level": 3,
+      "heading_raw": "iPad Device Support",
+      "content": "| **Element** | **iPad Behavior** | **Control Logic** | **Impact** |\n|----------|--------------|------------------|----------|\n| **All Function Buttons** | Hidden | `logic:notMatch header=\"User-Agent\" value=\"iPad\"` | No button operations on iPad |\n| **Contract Link** | Text Only | `logic:match header=\"User-Agent\" value=\"iPad\"` | No links on iPad |\n| **Form Item Titles** | Hidden | `logic:notMatch header=\"User-Agent\" value=\"iPad\"` | Simplified UI on iPad |\n| **Comments** | Hidden | `logic:notMatch header=\"User-Agent\" value=\"iPad\"` | No explanatory text on iPad |"
+    },
+    {
+      "id": "display_conditions_section:contract-list:contract-list:javascript_validation_rules",
+      "type": "display_conditions_section",
+      "name": "JavaScript Validation Rules",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/screen-specification/display-conditions-en.md",
+      "heading_level": 3,
+      "heading_raw": "JavaScript Validation Rules",
+      "content": "| **Validation Type** | **Trigger** | **Condition** | **Action** |\n|--------------|--------------|----------|----------|\n| **Contract Selection** | Button Click | Radio Not Selected | Alert: \"Please select a contract card.\" |\n| **Additional Contract Selection** | Additional Contract Button | Radio Not Selected | Alert: \"Please select the main and multiple subjects.\" |\n| **Delete Confirmation** | Delete Button | User Confirmation Required | `comDeleteConfirm()` Dialog |\n| **Form Submission** | All Actions | Form Validation OK | Execute `comSubmit()` |\n\n---"
+    },
+    {
+      "id": "display_conditions_section:contract-list:contract-list:hidden_form_fields",
+      "type": "display_conditions_section",
+      "name": "Hidden Form Fields",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/screen-specification/display-conditions-en.md",
+      "heading_level": 2,
+      "heading_raw": "Hidden Form Fields",
+      "content": "| **Field Name** | **Purpose** | **Default Value** | **Usage** |\n|------------|----------|------------|--------------|\n| `actionType` | Action Type Identifier | Empty | Set by JavaScript function |\n| `keiyakuKey` | Selected Contract Key | Empty | Set when contract is selected |\n| `spExecuteKbn` | Execution Type Code | Empty | Set by JavaScript function |\n| `ankenCheckKbn` | Project Check Flag | `\"0\"` | Reset when submitted |\n| `hanbaiBukkenNo` | Sales Property Number | Empty | Property identification |\n| `keiyakuCardSyubetsuCd` | Contract Card Type Code | Empty | Contract type identification |\n| `afterJyutyuNo` | Changed Order Number | From VO | After-contract reference |\n| `honninKakuninChk` | Identity Verification Check | `\"0\"` | Reset after confirmation |\n| `syunouDaikouErrMsg` | Collection Proxy Error Message | Empty | Error display |\n| `preScreenKbn` | Previous Screen Flag | Empty | Screen transition control |\n| `ankenNo` | Project Number | From VO | Project identification |\n\n---"
+    },
+    {
+      "id": "display_conditions_section:contract-list:contract-list:main_control_flag_list",
+      "type": "display_conditions_section",
+      "name": "Main Control Flag List",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/screen-specification/display-conditions-en.md",
+      "heading_level": 2,
+      "heading_raw": "Main Control Flag List",
+      "content": "| **Flag Name** | **Purpose** | **Values** | **Impact** |\n|--------------|----------|--------|----------|\n| `shinkiKeiyakuSakuseiKahiFlg` | New Contract Creation Permission | `\"true\"` / `\"false\"` | New Contract Button Display |\n| `tsuikaKeiyakuSakuseiKahiFlg` | Additional Contract Creation Permission | `\"true\"` / `\"false\"` | Additional Contract Button Display |\n| `keiyakuDataHenkoKahiFlg` | Contract Data Update Permission | `\"true\"` / `\"false\"` | Update Button Display |\n| `kaniKeiyakuSakuseiKahiFlg` | After Contract Creation Permission | `\"true\"` / `\"false\"` | After Contract Button Display |\n| `hukusuJyutyuSakuseiHyoujiFlg` | Multiple Order Creation Permission | `\"true\"` / `\"false\"` | Multiple Order Button Display |\n| `ankenBunruiCd` | Project Type Classification | Various codes | Delete Button Status, Screen Title |\n| `keiyakuCardSyubetsuCd` | Contract Sub-type Classification | `< 90` / `>= 90` | Radio/Link Visibility |\n| `keiyakuUkagaiKbn` | External Contract Flag | `1` / `≠ 1` | Radio/Link Status |\n| `tuikaKbn` | Contract Classification (Main/Additional) | `0` (Main) / `1` (Additional) | Contract Type Display |\n| `pre_screan` | Previous Screen Indicator | `CONTRACT_KEIYAKU_CARD_PRE_SCREAN_AFTER` / Other | Body Selection |\n\n---"
+    },
+    {
+      "id": "display_conditions_section:contract-list:contract-list:action_types_and_screen_transitions",
+      "type": "display_conditions_section",
+      "name": "Action Types and Screen Transitions",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/screen-specification/display-conditions-en.md",
+      "heading_level": 2,
+      "heading_raw": "Action Types and Screen Transitions",
+      "content": "| **Action Type** | **Description** | **spExecuteKbn** | **Requirements** | **Destination Screen** |\n|--------------------|----------|------------------|----------|----------------|\n| `new_contract` | Create New Contract | `1` | No Contract Selection Needed | `keiyakuListAssign.do` |\n| `update_contract` | Update Contract Data | `2` | Contract Selection Required | `henkoKeiyakuDispatch.do` |\n| `add_contract` | Create Additional Contract | `3` | Contract Selection Required | `tsuikaKeiyakuDispatch.do` |\n| `delete_contract` | Delete Contract | `-` | Contract Selection + Confirmation | `keiyakuDelete.do` |\n| `new_yuusyou_contract` | Create Paid After Contract Card | `5` | No Contract Selection Needed | `yuusyouKeiyakuListAssign.do` |\n| `new_yuusyou_after_contract` | Create After Contract from After Screen | `6` | No Contract Selection Needed | `moushideSelectInit.do` |\n| `keiyaku_card_anchor` | Click Contract Link | `-` | No Contract Selection Needed | `anchorKeiyakuDispatch.do` |\n\n---"
+    },
+    {
+      "id": "display_flow:contract-list:contract-list:button_state_flowchart:1",
+      "type": "display_flow_diagram",
+      "name": "Button State Flowchart",
+      "module": "contract-list",
+      "tab_name": "contract-list",
+      "source_file": "contract-list/screen-specification/display-conditions-en.md",
+      "mermaid_kind": "flowchart",
+      "mermaid": "flowchart TD\n    A[Load Contract List] --> B{Device Type Check}\n    B -->|iPad| C[Hide All Function Buttons]\n    B -->|Desktop/PC| D{Project Type Check}\n    \n    D -->|ankenBunruiCd = 30,40| E[Disable Delete Button]\n    D -->|ankenBunruiCd ≠ 30,40| F[Enable Delete Button]\n    \n    D --> G{New Creation Flag Check}\n    G -->|shinkiKeiyakuSakuseiKahiFlg = true| H[Show New Contract Button]\n    G -->|shinkiKeiyakuSakuseiKahiFlg = false| I[Hide New Contract Button]\n    \n    D --> J{Additional Creation Flag Check}\n    J -->|tsuikaKeiyakuSakuseiKahiFlg = true| K[Show Additional Contract Button]\n    J -->|tsuikaKeiyakuSakuseiKahiFlg = false| L[Hide Additional Contract Button]\n    \n    D --> M{Update Flag Check}\n    M -->|keiyakuDataHenkoKahiFlg = true| N[Show Update Button]\n    M -->|keiyakuDataHenkoKahiFlg = false| O[Hide Update Button]\n    \n    D --> P{After Contract Flag Check}\n    P -->|kaniKeiyakuSakuseiKahiFlg = true| Q[Show After Contract Button]\n    P -->|kaniKeiyakuSakuseiKahiFlg = false| R[Hide After Contract Button]\n    \n    D --> S{Multiple Order Flag Check}\n    S -->|hukusuJyutyuSakuseiHyoujiFlg = true| T[Show Multiple Order Button]\n    S -->|hukusuJyutyuSakuseiHyoujiFlg = false| U[Hide Multiple Order Button]\n    \n    C --> V[Button Display Complete]\n    E --> V\n    F --> V\n    H --> V\n    I --> V\n    K --> V\n    L --> V\n    N --> V\n    O --> V\n    Q --> V\n    R --> V\n    T --> V\n    U --> V"
+    }
+  ],
+  "relationships": [
+    {
+      "source": "display_conditions:contract-list:contract-list",
+      "target": "module:contract-list",
+      "relationship_type": "DESCRIBES",
+      "description": "Display conditions describe module:contract-list"
+    },
+    {
+      "source": "display_conditions:contract-list:contract-list",
+      "target": "display_conditions_section:contract-list:contract-list:display_rules_overview",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions_section:contract-list:contract-list:display_rules_overview",
+      "target": "display_conditions_section:contract-list:contract-list:always_displayed_components",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions_section:contract-list:contract-list:display_rules_overview",
+      "target": "display_conditions_section:contract-list:contract-list:display_conditions_by_contract_type",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions_section:contract-list:contract-list:display_conditions_by_contract_type",
+      "target": "display_conditions_section:contract-list:contract-list:radio_button_selection",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions_section:contract-list:contract-list:display_conditions_by_contract_type",
+      "target": "display_conditions_section:contract-list:contract-list:contract_number_link",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions_section:contract-list:contract-list:display_rules_overview",
+      "target": "display_conditions_section:contract-list:contract-list:display_conditions_by_permission",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions_section:contract-list:contract-list:display_conditions_by_permission",
+      "target": "display_conditions_section:contract-list:contract-list:function_button_display",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions_section:contract-list:contract-list:display_rules_overview",
+      "target": "display_conditions_section:contract-list:contract-list:display_conditions_by_project_type",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions_section:contract-list:contract-list:display_conditions_by_project_type",
+      "target": "display_conditions_section:contract-list:contract-list:delete_button_constraints",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions_section:contract-list:contract-list:display_conditions_by_project_type",
+      "target": "display_conditions_section:contract-list:contract-list:body_content_selection",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions_section:contract-list:contract-list:display_conditions_by_project_type",
+      "target": "display_conditions_section:contract-list:contract-list:screen_title_display",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions:contract-list:contract-list",
+      "target": "display_conditions_section:contract-list:contract-list:action_button_display_rules",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions_section:contract-list:contract-list:action_button_display_rules",
+      "target": "display_conditions_section:contract-list:contract-list:button_display_matrix",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions_section:contract-list:contract-list:action_button_display_rules",
+      "target": "display_conditions_section:contract-list:contract-list:button_state_flowchart",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions:contract-list:contract-list",
+      "target": "display_conditions_section:contract-list:contract-list:contract_list_display_rules",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions_section:contract-list:contract-list:contract_list_display_rules",
+      "target": "display_conditions_section:contract-list:contract-list:contract_row_display_conditions",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions_section:contract-list:contract-list:contract_list_display_rules",
+      "target": "display_conditions_section:contract-list:contract-list:contract_data_display",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions:contract-list:contract-list",
+      "target": "display_conditions_section:contract-list:contract-list:device_specific_display_rules",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions_section:contract-list:contract-list:device_specific_display_rules",
+      "target": "display_conditions_section:contract-list:contract-list:ipad_device_support",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions_section:contract-list:contract-list:device_specific_display_rules",
+      "target": "display_conditions_section:contract-list:contract-list:javascript_validation_rules",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions:contract-list:contract-list",
+      "target": "display_conditions_section:contract-list:contract-list:hidden_form_fields",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions:contract-list:contract-list",
+      "target": "display_conditions_section:contract-list:contract-list:main_control_flag_list",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions:contract-list:contract-list",
+      "target": "display_conditions_section:contract-list:contract-list:action_types_and_screen_transitions",
+      "relationship_type": "HAS_SECTION"
+    },
+    {
+      "source": "display_conditions:contract-list:contract-list",
+      "target": "display_flow:contract-list:contract-list:button_state_flowchart:1",
+      "relationship_type": "HAS_FLOW"
+    },
+    {
+      "source": "display_conditions_section:contract-list:contract-list:button_state_flowchart",
+      "target": "display_flow:contract-list:contract-list:button_state_flowchart:1",
+      "relationship_type": "HAS_DIAGRAM"
+    }
+  ]
+}
