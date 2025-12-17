@@ -134,6 +134,22 @@ class UIDescriptionProcessor:
             return match.group(1).strip()
         return None
 
+    def _current_tab_entity_id(self) -> Optional[str]:
+        """Return the graph entity id for the tab/module this UI description belongs to.
+
+        Maps based on module and tab folder:
+        - simple/yuusyou-kihon -> tab:basic_information
+        - housing/basic-info-housing-contract -> tab:basic_information_housing
+        - contract-list -> module:contract-list (no basic tab)
+        """
+        if self.module_name == "simple" and self.basic_tab_name == "yuusyou-kihon":
+            return "tab:basic_information"
+        if self.module_name == "housing" and self.basic_tab_name == "basic-info-housing-contract":
+            return "tab:basic_information_housing"
+        if self.module_name == "contract-list":
+            return "module:contract-list"
+        return None
+
     def process(self) -> Dict[str, Any]:
         """Process the module/tab UI description file."""
         if not self.file_path.exists():
@@ -167,6 +183,18 @@ class UIDescriptionProcessor:
         entities: List[Dict[str, Any]] = [base_props]
 
         relationships: List[Dict[str, Any]] = []
+
+        # Link to current tab/module if available
+        current_tab_id = self._current_tab_entity_id()
+        if current_tab_id:
+            relationships.append(
+                {
+                    "source": root_id,
+                    "target": current_tab_id,
+                    "relationship_type": "DESCRIBES",
+                    "description": f"UI description describes {current_tab_id}",
+                }
+            )
 
         # Build heading-based entities (all headings level 2+)
         stack: List[Tuple[int, str]] = []  # (heading_level, entity_id)

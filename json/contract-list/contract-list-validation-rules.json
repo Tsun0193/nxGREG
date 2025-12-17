@@ -103,6 +103,12 @@
   "relationships": [
     {
       "source": "validation_rules:contract-list:contract-list",
+      "target": "module:contract-list",
+      "relationship_type": "DESCRIBES",
+      "description": "Validation rules describe module:contract-list"
+    },
+    {
+      "source": "validation_rules:contract-list:contract-list",
       "target": "validation_rules_section:contract-list:contract-list:keiyakulistinit_list_initialization",
       "relationship_type": "HAS_SECTION"
     },

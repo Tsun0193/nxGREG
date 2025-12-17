@@ -114,6 +114,12 @@
   "relationships": [
     {
       "source": "ui_description:contract-list:contract-list",
+      "target": "module:contract-list",
+      "relationship_type": "DESCRIBES",
+      "description": "UI description describes module:contract-list"
+    },
+    {
+      "source": "ui_description:contract-list:contract-list",
       "target": "ui_description_section:contract-list:contract-list:keiyakulistinit_list_initialization",
       "relationship_type": "HAS_SECTION"
     },

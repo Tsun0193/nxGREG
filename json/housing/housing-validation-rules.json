@@ -378,6 +378,12 @@
   "relationships": [
     {
       "source": "validation_rules:housing:basic-info-housing-contract",
+      "target": "tab:basic_information_housing",
+      "relationship_type": "DESCRIBES",
+      "description": "Validation rules describe tab:basic_information_housing"
+    },
+    {
+      "source": "validation_rules:housing:basic-info-housing-contract",
       "target": "validation_rules_section:housing:basic-info-housing-contract:field_level_validation",
       "relationship_type": "HAS_SECTION"
     },

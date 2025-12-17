@@ -235,6 +235,12 @@
   "relationships": [
     {
       "source": "validation_rules:simple:yuusyou-kihon",
+      "target": "tab:basic_information",
+      "relationship_type": "DESCRIBES",
+      "description": "Validation rules describe tab:basic_information"
+    },
+    {
+      "source": "validation_rules:simple:yuusyou-kihon",
       "target": "validation_rules_section:simple:yuusyou-kihon:field_level_validation",
       "relationship_type": "HAS_SECTION"
     },

@@ -93,6 +93,12 @@
   "relationships": [
     {
       "source": "ui_description:housing:basic-info-housing-contract",
+      "target": "tab:basic_information_housing",
+      "relationship_type": "DESCRIBES",
+      "description": "UI description describes tab:basic_information_housing"
+    },
+    {
+      "source": "ui_description:housing:basic-info-housing-contract",
       "target": "ui_description_section:housing:basic-info-housing-contract:included_files_list",
       "relationship_type": "HAS_SECTION"
     },
