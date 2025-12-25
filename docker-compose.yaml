@@ -1,18 +1,29 @@
 version: "3.9"
 
 services:
-  db:
-    image: postgres:16
-    container_name: postgres_ctc
-    environment:
-      POSTGRES_USER: ctc
-      POSTGRES_PASSWORD: ctc
-      POSTGRES_DB: ctc_db
-    ports:
-      - "5434:5432"
-    volumes:
-      - pgdata:/var/lib/postgresql/data
+  # db:
+  #   image: postgres:16
+  #   container_name: postgres_ctc
+  #   environment:
+  #     POSTGRES_USER: ctc
+  #     POSTGRES_PASSWORD: ctc
+  #     POSTGRES_DB: ctc_db
+  #   ports:
+  #     - "5434:5432"
+  #   volumes:
+  #     - pgdata:/var/lib/postgresql/data
 
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: qdrant_ctc
+    ports:
+      - "6333:6333" # REST API
+      - "6334:6334" # gRPC API
+    volumes:
+      - qdrant_storage:/qdrant/storage
+    environment:
+      - QDRANT__SERVICE__GRPC_PORT=6334
 
 volumes:
   pgdata:
+  qdrant_storage:

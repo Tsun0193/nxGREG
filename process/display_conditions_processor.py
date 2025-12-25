@@ -286,7 +286,10 @@ class DisplayConditionsProcessor:
         source_file = str(self.file_path.relative_to(self.base_path)).replace("\\", "/")
 
         # Create root entity for display conditions
-        root_id = f"display_conditions:{self.module_name}:{self.tab_name}"
+        if self.module_name == "contract-list":
+            root_id = f"display_conditions:{self.module_name}"
+        else:
+            root_id = f"display_conditions:{self.module_name}:{self.tab_name}"
         root_name = doc_title or "Display Conditions"
 
         # Root entity should NOT have content, only metadata properties
@@ -327,7 +330,10 @@ class DisplayConditionsProcessor:
             slug_counts[base_slug] = slug_counts.get(base_slug, 0) + 1
             slug = base_slug if slug_counts[base_slug] == 1 else f"{base_slug}_{slug_counts[base_slug]}"
 
-            section_id = f"display_conditions_section:{self.module_name}:{self.tab_name}:{slug}"
+            if self.module_name == "contract-list":
+                section_id = f"display_conditions_section:{self.module_name}:{slug}"
+            else:
+                section_id = f"display_conditions_section:{self.module_name}:{self.tab_name}:{slug}"
             entities.append(
                 {
                     "id": section_id,
@@ -363,7 +369,10 @@ class DisplayConditionsProcessor:
             for idx, code in enumerate(mermaid_blocks, start=1):
                 kind = self._guess_mermaid_kind(code)
                 slug = self._slugify(clean_title)
-                diagram_id = f"display_flow:{self.module_name}:{self.tab_name}:{slug}:{idx}"
+                if self.module_name == "contract-list":
+                    diagram_id = f"display_flow:{self.module_name}:{slug}:{idx}"
+                else:
+                    diagram_id = f"display_flow:{self.module_name}:{self.tab_name}:{slug}:{idx}"
                 entities.append(
                     {
                         "id": diagram_id,

@@ -4,7 +4,7 @@
   "source_file": "contract-list/components/description-ui-en.md",
   "entities": [
     {
-      "id": "ui_description:contract-list:contract-list",
+      "id": "ui_description:contract-list",
       "type": "ui_description",
       "name": "Analysis UI",
       "module": "contract-list",
@@ -12,7 +12,7 @@
       "source_file": "contract-list/components/description-ui-en.md"
     },
     {
-      "id": "ui_description_section:contract-list:contract-list:keiyakulistinit_list_initialization",
+      "id": "ui_description_section:contract-list:keiyakulistinit_list_initialization",
       "type": "ui_description_section",
       "name": "keiyakuListInit (List Initialization)",
       "module": "contract-list",
@@ -23,7 +23,7 @@
       "content": ""
     },
     {
-      "id": "ui_description_section:contract-list:contract-list:ui_structure",
+      "id": "ui_description_section:contract-list:ui_structure",
       "type": "ui_description_section",
       "name": "UI Structure",
       "module": "contract-list",
@@ -34,7 +34,7 @@
       "content": "- Main JSP: `keiyakuList.jsp` includes `body.jsp` via Tiles\n- `body.jsp` contains the following:\n  - Error block: `<%@ include file=\"/common/error.txt\" %>`\n  - Contract list table: Renders `CONTRACT_OPTION_KEIYAKU_ICHIRAN_VO_LIST` from session using Struts `<logic:iterate>`\n  - Action buttons: New/Add/Update/Delete, etc. (enabled/disabled based on business logic and permissions)\n  - Hidden fields: Form state, context, backend integration"
     },
     {
-      "id": "ui_description_section:contract-list:contract-list:ui_block_mapping_table",
+      "id": "ui_description_section:contract-list:ui_block_mapping_table",
       "type": "ui_description_section",
       "name": "UI Block Mapping Table",
       "module": "contract-list",
@@ -45,7 +45,7 @@
       "content": "| UI Block | JSP/Tag | Related Form | Action Mapping |\n|------------|---------|---------|----------------------|\n| Error | `/common/error.txt` | - | - |\n| Contract list table | `<logic:iterate ...>` | keiyaku_cardForm | `/keiyakuListInit`, `/keiyakuListDispatch` |\n| Action buttons | `<html:button ...>` | keiyaku_cardForm | `/keiyakuListDispatch` (actionType) |\n| Hidden fields | `<input type=\"hidden\" ...>` | keiyaku_cardForm | All actions |"
     },
     {
-      "id": "ui_description_section:contract-list:contract-list:dynamic_behavior",
+      "id": "ui_description_section:contract-list:dynamic_behavior",
       "type": "ui_description_section",
       "name": "Dynamic Behavior",
       "module": "contract-list",
@@ -56,7 +56,7 @@
       "content": "- JavaScript (`keiyakuList_submit(type)`) sets hidden fields and submits form\n- Contract list is dynamically rendered from session data\n- Button enabled/disabled state is controlled by various flags (e.g., `shinkiKeiyakuSakuseiKahiFlg`)\n- Delete button sets `actionType = 'delete_contract'` after confirmation dialog"
     },
     {
-      "id": "ui_description_section:contract-list:contract-list:ui_flow_diagram_init",
+      "id": "ui_description_section:contract-list:ui_flow_diagram_init",
       "type": "ui_description_section",
       "name": "UI Flow Diagram (Init)",
       "module": "contract-list",
@@ -67,7 +67,7 @@
       "content": "```mermaid\nflowchart TD\n    A[User accesses keiyakuListInit]\n    B[Contract list table]\n    C[Contract selection - Radio]\n    D[Action buttons: New, Add, Update, Delete]\n    E[Set actionType and submit]\n    F[Struts action dispatch]\n    G[Forward to next screen or re-render]\n    A --> B\n    B --> C\n    B --> D\n    D -->|Click| E\n    E --> F\n    F --> G\n```\n---"
     },
     {
-      "id": "ui_description_section:contract-list:contract-list:delete_contract_contract_deletion",
+      "id": "ui_description_section:contract-list:delete_contract_contract_deletion",
       "type": "ui_description_section",
       "name": "delete_contract (Contract Deletion)",
       "module": "contract-list",
@@ -78,7 +78,7 @@
       "content": ""
     },
     {
-      "id": "ui_description_section:contract-list:contract-list:ui_flow",
+      "id": "ui_description_section:contract-list:ui_flow",
       "type": "ui_description_section",
       "name": "UI Flow",
       "module": "contract-list",
@@ -89,7 +89,7 @@
       "content": "- User selects a contract (radio button) from the list\n- Clicks delete button\n- JS (`keiyakuList_submit(4)`) checks selection, confirms deletion, then sets `actionType = 'delete_contract'` and `keiyakuKey` and submits\n- Struts forwards via `KeiyakuListDispatchAction` (`actionType=delete_contract`) to `KeiyakuDeleteAction`\n- After deletion, forwards to `keiyakuListInit.do` to redisplay the list"
     },
     {
-      "id": "ui_description_section:contract-list:contract-list:ui_block_mapping_table_deletion",
+      "id": "ui_description_section:contract-list:ui_block_mapping_table_deletion",
       "type": "ui_description_section",
       "name": "UI Block Mapping Table (Deletion)",
       "module": "contract-list",
@@ -100,7 +100,7 @@
       "content": "| UI Block | JSP/Tag | Related Form | Action Mapping |\n|------------|---------|---------|----------------------|\n| Contract selection | `<input type=\"radio\" name=\"radioButton\" ...>` | keiyaku_cardForm | `/keiyakuListDispatch` |\n| Delete button | `<html:button ... onclick=\"return keiyakuList_submit(4)\" />` | keiyaku_cardForm | `/keiyakuListDispatch` (actionType=delete_contract) |\n| Hidden fields | `<input type=\"hidden\" ...>` | keiyaku_cardForm | `/keiyakuDelete` |"
     },
     {
-      "id": "ui_description_section:contract-list:contract-list:ui_flow_diagram_deletion",
+      "id": "ui_description_section:contract-list:ui_flow_diagram_deletion",
       "type": "ui_description_section",
       "name": "UI Flow Diagram (Deletion)",
       "module": "contract-list",
@@ -113,54 +113,54 @@
   ],
   "relationships": [
     {
-      "source": "ui_description:contract-list:contract-list",
+      "source": "ui_description:contract-list",
       "target": "module:contract-list",
       "relationship_type": "DESCRIBES",
       "description": "UI description describes module:contract-list"
     },
     {
-      "source": "ui_description:contract-list:contract-list",
-      "target": "ui_description_section:contract-list:contract-list:keiyakulistinit_list_initialization",
+      "source": "ui_description:contract-list",
+      "target": "ui_description_section:contract-list:keiyakulistinit_list_initialization",
       "relationship_type": "HAS_SECTION"
     },
     {
-      "source": "ui_description_section:contract-list:contract-list:keiyakulistinit_list_initialization",
-      "target": "ui_description_section:contract-list:contract-list:ui_structure",
+      "source": "ui_description_section:contract-list:keiyakulistinit_list_initialization",
+      "target": "ui_description_section:contract-list:ui_structure",
       "relationship_type": "HAS_SECTION"
     },
     {
-      "source": "ui_description_section:contract-list:contract-list:keiyakulistinit_list_initialization",
-      "target": "ui_description_section:contract-list:contract-list:ui_block_mapping_table",
+      "source": "ui_description_section:contract-list:keiyakulistinit_list_initialization",
+      "target": "ui_description_section:contract-list:ui_block_mapping_table",
       "relationship_type": "HAS_SECTION"
     },
     {
-      "source": "ui_description_section:contract-list:contract-list:keiyakulistinit_list_initialization",
-      "target": "ui_description_section:contract-list:contract-list:dynamic_behavior",
+      "source": "ui_description_section:contract-list:keiyakulistinit_list_initialization",
+      "target": "ui_description_section:contract-list:dynamic_behavior",
       "relationship_type": "HAS_SECTION"
     },
     {
-      "source": "ui_description_section:contract-list:contract-list:keiyakulistinit_list_initialization",
-      "target": "ui_description_section:contract-list:contract-list:ui_flow_diagram_init",
+      "source": "ui_description_section:contract-list:keiyakulistinit_list_initialization",
+      "target": "ui_description_section:contract-list:ui_flow_diagram_init",
       "relationship_type": "HAS_SECTION"
     },
     {
-      "source": "ui_description:contract-list:contract-list",
-      "target": "ui_description_section:contract-list:contract-list:delete_contract_contract_deletion",
+      "source": "ui_description:contract-list",
+      "target": "ui_description_section:contract-list:delete_contract_contract_deletion",
       "relationship_type": "HAS_SECTION"
     },
     {
-      "source": "ui_description_section:contract-list:contract-list:delete_contract_contract_deletion",
-      "target": "ui_description_section:contract-list:contract-list:ui_flow",
+      "source": "ui_description_section:contract-list:delete_contract_contract_deletion",
+      "target": "ui_description_section:contract-list:ui_flow",
       "relationship_type": "HAS_SECTION"
     },
     {
-      "source": "ui_description_section:contract-list:contract-list:delete_contract_contract_deletion",
-      "target": "ui_description_section:contract-list:contract-list:ui_block_mapping_table_deletion",
+      "source": "ui_description_section:contract-list:delete_contract_contract_deletion",
+      "target": "ui_description_section:contract-list:ui_block_mapping_table_deletion",
       "relationship_type": "HAS_SECTION"
     },
     {
-      "source": "ui_description_section:contract-list:contract-list:delete_contract_contract_deletion",
-      "target": "ui_description_section:contract-list:contract-list:ui_flow_diagram_deletion",
+      "source": "ui_description_section:contract-list:delete_contract_contract_deletion",
+      "target": "ui_description_section:contract-list:ui_flow_diagram_deletion",
       "relationship_type": "HAS_SECTION"
     }
   ]

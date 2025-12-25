@@ -68,7 +68,7 @@ def main():
             pipeline._finalize_deduplication()
         
         # Then load to Neo4j
-        pipeline.load_to_neo4j(wipe=False)
+        pipeline.load_to_neo4j(wipe=True)
         
         print("\n✓ Pipeline completed successfully!")
         

@@ -164,7 +164,10 @@ class ValidationRulesProcessor:
         original_file_location = self._extract_original_file_location(markdown)
 
         # Create base entity ID and properties
-        root_id = f"validation_rules:{self.module_name}:{self.basic_tab_name}"
+        if self.module_name == "contract-list":
+            root_id = f"validation_rules:{self.module_name}"
+        else:
+            root_id = f"validation_rules:{self.module_name}:{self.basic_tab_name}"
         root_name = doc_title or f"{self.basic_tab_name} validation rules"
 
         base_props: Dict[str, Any] = {
@@ -210,7 +213,10 @@ class ValidationRulesProcessor:
             base_slug = self._slugify(clean_title)
             slug_counts[base_slug] = slug_counts.get(base_slug, 0) + 1
             slug = base_slug if slug_counts[base_slug] == 1 else f"{base_slug}_{slug_counts[base_slug]}"
-            section_id = f"validation_rules_section:{self.module_name}:{self.basic_tab_name}:{slug}"
+            if self.module_name == "contract-list":
+                section_id = f"validation_rules_section:{self.module_name}:{slug}"
+            else:
+                section_id = f"validation_rules_section:{self.module_name}:{self.basic_tab_name}:{slug}"
 
             entities.append(
                 {

@@ -247,7 +247,10 @@ class EventHandlingRulesProcessor:
 
         source_file = str(self.file_path.relative_to(self.base_path)).replace("\\", "/")
 
-        root_id = f"event_processing_rules:{self.module_name}:{self.basic_tab_name}"
+        if self.module_name == "contract-list":
+            root_id = f"event_processing_rules:{self.module_name}"
+        else:
+            root_id = f"event_processing_rules:{self.module_name}:{self.basic_tab_name}"
         root_name = doc_title or "Event Processing Rules"
 
         entities: List[Dict[str, Any]] = [
@@ -285,7 +288,10 @@ class EventHandlingRulesProcessor:
             slug_counts[base_slug] = slug_counts.get(base_slug, 0) + 1
             slug = base_slug if slug_counts[base_slug] == 1 else f"{base_slug}_{slug_counts[base_slug]}"
 
-            section_id = f"event_processing_rules_section:{self.module_name}:{self.basic_tab_name}:{slug}"
+            if self.module_name == "contract-list":
+                section_id = f"event_processing_rules_section:{self.module_name}:{slug}"
+            else:
+                section_id = f"event_processing_rules_section:{self.module_name}:{self.basic_tab_name}:{slug}"
             entities.append(
                 {
                     "id": section_id,
@@ -330,7 +336,10 @@ class EventHandlingRulesProcessor:
                 continue
 
             group_slug = self._slugify(event_type)
-            group_id = f"event_group:{self.module_name}:{self.basic_tab_name}:{group_slug}"
+            if self.module_name == "contract-list":
+                group_id = f"event_group:{self.module_name}:{group_slug}"
+            else:
+                group_id = f"event_group:{self.module_name}:{self.basic_tab_name}:{group_slug}"
             if self.include_table_level_entities:
                 if group_id not in event_groups.values():
                     event_groups[event_type] = group_id
@@ -374,10 +383,16 @@ class EventHandlingRulesProcessor:
                     # Prefer a stable id component
                     action_key = action_types[0] if action_types and action_types[0] else action_type
                     action_key = action_key.strip() or button or f"row_{no or 'x'}"
-                    event_id = (
-                        f"event:{self.module_name}:{self.basic_tab_name}:{group_slug}:"
-                        f"{self._slugify(action_key)}:{no or 'x'}"
-                    )
+                    if self.module_name == "contract-list":
+                        event_id = (
+                            f"event:{self.module_name}:{group_slug}:"
+                            f"{self._slugify(action_key)}:{no or 'x'}"
+                        )
+                    else:
+                        event_id = (
+                            f"event:{self.module_name}:{self.basic_tab_name}:{group_slug}:"
+                            f"{self._slugify(action_key)}:{no or 'x'}"
+                        )
 
                     entities.append(
                         {
@@ -415,7 +430,10 @@ class EventHandlingRulesProcessor:
             for idx, code in enumerate(mermaid_blocks, start=1):
                 kind = self._guess_mermaid_kind(code)
                 slug = self._slugify(clean_title)
-                flow_id = f"event_flow:{self.module_name}:{self.basic_tab_name}:{slug}:{idx}"
+                if self.module_name == "contract-list":
+                    flow_id = f"event_flow:{self.module_name}:{slug}:{idx}"
+                else:
+                    flow_id = f"event_flow:{self.module_name}:{self.basic_tab_name}:{slug}:{idx}"
                 entities.append(
                     {
                         "id": flow_id,
@@ -460,9 +478,12 @@ class EventHandlingRulesProcessor:
                 if not event_type:
                     continue
 
-                mapping_id = (
-                    f"event_flow_mapping:{self.module_name}:{self.basic_tab_name}:{self._slugify(event_type)}"
-                )
+                if self.module_name == "contract-list":
+                    mapping_id = f"event_flow_mapping:{self.module_name}:{self._slugify(event_type)}"
+                else:
+                    mapping_id = (
+                        f"event_flow_mapping:{self.module_name}:{self.basic_tab_name}:{self._slugify(event_type)}"
+                    )
                 mapping_by_type[event_type] = mapping_id
 
                 entities.append(
